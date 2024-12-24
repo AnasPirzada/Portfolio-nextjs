@@ -1,7 +1,7 @@
 .button {
   --primary: #000000;
-  --primary-dark: #9f55ff;
-  --shadow: #{rgba(#9f55ff, 0.3)};
+  --primary-dark: #efc041;
+  --shadow: #{rgba(#efc041, 0.3)};
   --text: #fff;
   --text-opacity: 1;
   --success: #eeecff;
@@ -46,7 +46,7 @@
   --right-body-second-y: 100;
   --right-body-third-x: 100;
   --right-body-third-y: 100;
-  display: inline-flex;  //block
+  display: inline-flex; //block
   cursor: none;
   position: relative;
   padding: 0.65rem 1.75rem;
@@ -54,14 +54,14 @@
   text-align: center;
   margin: 0;
   line-height: 24px;
-  font-family: theme("fontFamily.mono");
+  font-family: theme('fontFamily.mono');
   font-weight: 600;
   font-size: 1rem;
   outline: none;
   background-clip: padding-box;
   border-radius: 0.4rem;
   background-size: 220%;
-  outline: 2px solid theme("colors.indigo.dark");
+  outline: 2px solid theme('colors.GoldenGlow.dark');
   color: var(--text);
   transition: all 0.3s ease-in-out;
   -webkit-appearance: none;
@@ -71,7 +71,7 @@
   &:active {
     background-position: 98%;
     color: #fff;
-    box-shadow: 0 0 1rem theme("colors.indigo.dark");
+    box-shadow: 0 0 1rem theme('colors.GoldenGlow.dark');
   }
 
   .plane,
@@ -102,7 +102,7 @@
         translateZ(0);
       &:before,
       &:after {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         top: 0;

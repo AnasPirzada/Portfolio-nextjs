@@ -124,7 +124,7 @@ export const PROJECTS = [
     blurImage: "/projects/blur/airbnb-blur.webp",
     description:
       "Conversational Voice Controlled React News Application using Alan AI 🎙",
-    gradient: ["#000066", "#6699FF"],
+    gradient: ["#000066", "#eeba2c"],
     url: "https://shubh73-inshorts.netlify.app/",
     tech: ["react", "chakra-ui", "alan"],
   },
