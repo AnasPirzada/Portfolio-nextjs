@@ -1,20 +1,29 @@
-import React, { useState, useRef } from "react";
-import { useMotionValueEvent, useScroll, motion } from "framer-motion";
-import DotPattern from "../DotPattern/DotPattern";
-import { cn } from "utils/cn";
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { cn } from 'utils/cn';
+import DotPattern from '../DotPattern/DotPattern';
 
-const StickyScroll = ({ contentItems }) => {
+const StickyScroll = ({ contentItems = [] }) => {
   const [activeCard, setActiveCard] = useState(0);
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     container: containerRef,
-    offset: ["start start", "end start"],
+    offset: ['start start', 'end start'],
   });
 
   const cardLength = contentItems.length;
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  if (!Array.isArray(contentItems) || contentItems.length === 0) {
+    console.error("Error: 'contentItems' is either undefined or not an array.");
+    return (
+      <div className='text-center text-red-500 font-bold'>
+        Error: No content available.
+      </div>
+    );
+  }
+
+  useMotionValueEvent(scrollYProgress, 'change', latest => {
     const cardsBreakpoints = contentItems.map(
       (_, index) => index / cardLength - 0.1
     );
@@ -32,15 +41,16 @@ const StickyScroll = ({ contentItems }) => {
     setActiveCard(closestBreakpointIndex);
   });
 
-  const backgroundColors = ["#000000"];
+  const backgroundColors = ['#000000'];
   const linearGradients = [
-    "linear-gradient(to bottom right, #ef008f, #6ec3f4)",
-    "linear-gradient(to bottom right, #6ec3f4, #eeba2c)",
-    "linear-gradient(to bottom right, #eeba2c, #c9c9c9)",
+    'linear-gradient(to bottom right, #000000, #f9d71c)',
+    'linear-gradient(to bottom right, #f9c11c, #200028)',
+    'linear-gradient(to bottom right, #000000, #ff4d4d)',
+    'linear-gradient(to bottom right, #ffffff, #000000)',
   ];
 
   return (
-    <div className="relative">
+    <div className='relative'>
       <DotPattern
         width={20}
         height={20}
@@ -48,12 +58,12 @@ const StickyScroll = ({ contentItems }) => {
         cy={1}
         cr={1}
         className={cn(
-          "[mask-image:linear-gradient(to_bottom_left,white,transparent,transparent)] rounded-2xl py-3 px-2 md:px-0 z-20"
+          '[mask-image:linear-gradient(to_bottom_left,white,transparent,transparent)] rounded-2xl py-3 px-2 md:px-0 z-20'
         )}
       />
 
-      <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-black to-transparent z-10 rounded-2xl" />
-      <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-black to-transparent z-10 rounded-2xl" />
+      <div className='absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-black to-transparent z-10 rounded-2xl' />
+      <div className='absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-black to-transparent z-10 rounded-2xl' />
 
       <motion.div
         ref={containerRef}
@@ -61,12 +71,12 @@ const StickyScroll = ({ contentItems }) => {
           backgroundColor:
             backgroundColors[activeCard % backgroundColors.length],
         }}
-        className="h-[22rem] flex justify-center space-x-10 p-4 rounded-2xl outline outline-1 outline-gray-dark-1 overflow-y-auto no-scrollbar"
+        className='h-[22rem] flex justify-center space-x-10 p-4 rounded-2xl outline outline-1 outline-gray-dark-1 overflow-y-auto no-scrollbar'
       >
-        <div className="flex items-start px-4">
-          <div className="max-w-2xl">
+        <div className='flex items-start px-4'>
+          <div className='max-w-2xl'>
             {contentItems.map((item, index) => (
-              <div key={item.title + index} className="my-8">
+              <div key={item.title + index} className='my-8'>
                 <motion.h2
                   initial={{
                     opacity: 0,
@@ -74,7 +84,7 @@ const StickyScroll = ({ contentItems }) => {
                   animate={{
                     opacity: activeCard === index ? 1 : 0.3,
                   }}
-                  className="text-2xl font-bold text-slate-100"
+                  className='text-2xl font-bold text-slate-100'
                 >
                   {item.title}
                 </motion.h2>
@@ -85,13 +95,13 @@ const StickyScroll = ({ contentItems }) => {
                   animate={{
                     opacity: activeCard === index ? 1 : 0.3,
                   }}
-                  className="text-lg text-slate-300 max-w-sm mt-4"
+                  className='text-lg text-slate-300 max-w-sm mt-4'
                 >
                   {item.description}
                 </motion.p>
               </div>
             ))}
-            <div className="h-40" />
+            <div className='h-40' />
           </div>
         </div>
         <motion.div
@@ -99,9 +109,12 @@ const StickyScroll = ({ contentItems }) => {
             backgroundImage:
               linearGradients[activeCard % linearGradients.length],
           }}
-          className="hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden"
+          className='hidden text-xl uppercase font-bold lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden'
+          style={{
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+          }}
         >
-          {contentItems[activeCard].content ?? null}
+          {contentItems[activeCard]?.content ?? null}
         </motion.div>
       </motion.div>
     </div>

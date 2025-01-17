@@ -79,13 +79,13 @@ const Hero = () => {
         <h5
           className={`${styles.intro} font-mono font-medium text-GoldenGlow-light staggered-reveal`}
         >
-          Hi, my name is
+          Hi, My Name is
         </h5>
         <h1 className={`${styles.heroName} text-white text-6xl font-semibold`}>
           <span className={`relative ${styles.emphasize} staggered-reveal`}>
-            Shubh
+            Anas
           </span>
-          <span className='staggered-reveal'> Porwal</span>
+          <span className='staggered-reveal'> Pirzada</span>
         </h1>
         <p>
           <span

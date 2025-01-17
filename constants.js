@@ -1,148 +1,163 @@
 export const METADATA = {
-  author: "Shubh Porwal",
-  title: "Portfolio | Shubh Porwal",
+  author: 'Anas Pirzada',
+  title: 'Portfolio | Anas Pirzada',
   description:
-    "Shubh Porwal is a passionate Frontend Engineer, dedicated to crafting aesthetic and modern apps that captivate and engage users.",
-  siteUrl: "https://www.shubhporwal.me/",
-  twitterHandle: "@shubhporwal24",
+    'Anas Pirzada is an experienced Web Developer specializing in React.js, Next.js, and crafting elegant, user-focused digital solutions. With expertise in frontend and backend technologies, he transforms ideas into impactful web experiences.',
+  siteUrl: 'https://www.AnasPirzada.me/',
+  twitterHandle: '@Anas_Pirzada1',
   keywords: [
-    "Shubh Porwal",
-    "Frontend Engineer",
-    "React Native Developer",
-    "Software Engineer",
-    "Portfolio",
-    "Devfolio",
-    "Folio",
-  ].join(", "),
+    'Anas Pirzada',
+    'Frontend Engineer',
+    'React Native Developer',
+    'Software Engineer',
+    'Portfolio',
+    'Devfolio',
+    'React.js Developer',
+    'Next.js Specialist',
+    'Full-Stack Developer',
+    'Portfolio',
+    'Frontend Engineer',
+    'Modern Web Solutions',
+    'Software Engineer',
+    'Folio',
+  ].join(', '),
   image:
-    "https://res.cloudinary.com/dywdhyojt/image/upload/v1721378510/social-preview.png",
-  language: "English",
-  themeColor: "#000000",
+    'https://res.cloudinary.com/dywdhyojt/image/upload/v1721378510/social-preview.png',
+  language: 'English',
+  themeColor: '#000000',
 };
 
 export const MENULINKS = [
   {
-    name: "Home",
-    ref: "home",
+    name: 'Home',
+    ref: 'home',
   },
   {
-    name: "Skills",
-    ref: "skills",
+    name: 'Skills',
+    ref: 'skills',
   },
   {
-    name: "Projects",
-    ref: "projects",
+    name: 'Projects',
+    ref: 'projects',
   },
   {
-    name: "Work",
-    ref: "work",
+    name: 'Work',
+    ref: 'work',
   },
   {
-    name: "Contact",
-    ref: "contact",
+    name: 'Contact',
+    ref: 'contact',
   },
 ];
 
 export const TYPED_STRINGS = [
-  "A pragmatic Frontend Developer",
-  "I build things for the web",
-  "I create aesthetic and modern apps",
+  'A dedicated Next.js Developer',
+  'I craft modern and responsive web solutions',
+  'Turning ideas into impactful digital experiences',
+  'Mastering the art of seamless UI/UX design',
 ];
 
 export const SOCIAL_LINKS = [
   {
-    name: "mail",
-    url: "mailto: shubhporwal73@gmail.com",
+    name: 'mail',
+    url: 'mailto: anaspirzadaiub@gmail.com',
   },
   {
-    name: "linkedin",
-    url: "https://www.linkedin.com/in/shubhporwal/",
+    name: 'linkedin',
+    url: 'https://www.linkedin.com/in/anas-pirzada/',
   },
   {
-    name: "github",
-    url: "https://github.com/shubh73",
+    name: 'github',
+    url: 'https://github.com/AnasPirzada',
   },
   {
-    name: "instagram",
-    url: "https://www.instagram.com/shubhii73/",
+    name: 'instagram',
+    url: 'https://www.instagram.com/anas_pirzada1/',
   },
   {
-    name: "twitter",
-    url: "https://x.com/shubhporwal24",
+    name: 'twitter',
+    url: 'https://x.com/Anas_Pirzada1',
   },
 ];
 
 export const SKILLS = {
   languagesAndTools: [
-    "html",
-    "css",
-    "javascript",
-    "typescript",
-    "sass",
-    "nodejs",
-    "webpack",
-    "vite",
-    "firebase",
-    "figma",
-    "tanstack-query",
+    'html',
+    'css',
+    'javascript',
+    'typescript',
+    'sass',
+    'nodejs',
+    // 'webpack',
+    'vite',
+    'firebase',
+    'figma',
+    // 'tanstack-query',
   ],
   librariesAndFrameworks: [
-    "react",
-    "redux",
-    "nextjs",
-    "tailwindcss",
-    "styledcomponents",
-    "antdesign",
-    "chakra-ui",
+    'react',
+    'redux',
+    'nextjs',
+    'tailwindcss',
+    'styledcomponents',
+    'antdesign',
+    // 'chakra-ui',
+    'Laravel',
+    'django',
   ],
-  databases: ["mysql", "mongodb"],
-  other: ["git", "sanity-io"],
+  databases: ['mysql', 'mongodb'],
+  other: [
+    'git',
+    ,
+    //  'sanity-io'
+    'Postman',
+  ],
 };
 
 export const PROJECTS = [
   {
-    name: "Airbnb",
-    image: "/projects/airbnb.webp",
-    blurImage: "/projects/blur/airbnb-blur.webp",
-    description: "Airbnb UI clone using NextJS + Tailwind CSS 🛏️",
-    gradient: ["#F14658", "#DC2537"],
-    url: "https://shubh73-airbnb.vercel.app/",
-    tech: ["react", "nextjs", "tailwindcss", "mapbox"],
+    name: 'Airbnb',
+    image: '/projects/airbnb.webp',
+    blurImage: '/projects/blur/airbnb-blur.webp',
+    description: 'Airbnb UI clone using NextJS + Tailwind CSS 🛏️',
+    gradient: ['#F14658', '#DC2537'],
+    url: 'https://shubh73-airbnb.vercel.app/',
+    tech: ['react', 'nextjs', 'tailwindcss', 'mapbox'],
   },
   {
-    name: "Medium",
-    image: "/projects/medium.webp",
-    blurImage: "/projects/blur/medium-blur.webp",
-    description: "Medium UI clone using NextJS + Tailwind CSS ✍🏻",
-    gradient: ["#FFA62E", "#EA4D2C"],
-    url: "https://shubh73-medium.vercel.app/",
-    tech: ["typescript", "react", "nextjs", "tailwindcss", "sanity.io"],
+    name: 'Medium',
+    image: '/projects/medium.webp',
+    blurImage: '/projects/blur/medium-blur.webp',
+    description: 'Medium UI clone using NextJS + Tailwind CSS ✍🏻',
+    gradient: ['#FFA62E', '#EA4D2C'],
+    url: 'https://shubh73-medium.vercel.app/',
+    tech: ['typescript', 'react', 'nextjs', 'tailwindcss', 'sanity.io'],
   },
   {
-    name: "Inshorts",
-    image: "/projects/inshorts.webp",
-    blurImage: "/projects/blur/airbnb-blur.webp",
+    name: 'Inshorts',
+    image: '/projects/inshorts.webp',
+    blurImage: '/projects/blur/airbnb-blur.webp',
     description:
-      "Conversational Voice Controlled React News Application using Alan AI 🎙",
-    gradient: ["#000066", "#eeba2c"],
-    url: "https://shubh73-inshorts.netlify.app/",
-    tech: ["react", "chakra-ui", "alan"],
+      'Conversational Voice Controlled React News Application using Alan AI 🎙',
+    gradient: ['#000066', '#eeba2c'],
+    url: 'https://shubh73-inshorts.netlify.app/',
+    tech: ['react', 'chakra-ui', 'alan'],
   },
   {
-    name: "Tesla",
-    image: "/projects/tesla.webp",
-    blurImage: "/projects/blur/tesla-blur.webp",
-    description: "A Tesla React Native App 🏎️",
-    gradient: ["#142D46", "#2E4964"],
-    url: "https://github.com/shubh73/tesla",
-    tech: ["react"],
+    name: 'Tesla',
+    image: '/projects/tesla.webp',
+    blurImage: '/projects/blur/tesla-blur.webp',
+    description: 'A Tesla React Native App 🏎️',
+    gradient: ['#142D46', '#2E4964'],
+    url: 'https://github.com/shubh73/tesla',
+    tech: ['react'],
   },
 ];
 
 // export const WORK = [
 //   {
 //     id: 1,
-//     company: "Dukaan",
+//     company: "Createex",
 //     title: "Frontend Developer",
 //     location: "Bangalore, Karnataka",
 //     range: "December - Current",
@@ -151,12 +166,12 @@ export const PROJECTS = [
 //       "Enhanced UX with gamification and personalized push notifications ensuring an ever-improving shopping journey.",
 //       "The app boasts a DAU base of 32k and an extensive MAU count of 180k.",
 //     ],
-//     url: "https://mydukaan.io/",
-//     video: "/work/dukaan.mp4",
+//     url: "https://myCreateex.io/",
+//     video: "/work/Createex.mp4",
 //   },
 //   {
 //     id: 2,
-//     company: "Aviate",
+//     company: "TakhleeqSoft",
 //     title: "Frontend Developer Intern",
 //     location: "Goa",
 //     range: "May - October 2022",
@@ -165,12 +180,12 @@ export const PROJECTS = [
 //       "Developed pixel-perfect responsive web applications achieving daily traffic of 1000-2000 users.",
 //       "Successfully rolled out an error-logging and bug reporting system that cut user-reported bugs by 30%.",
 //     ],
-//     url: "https://www.aviate.jobs/",
-//     video: "/work/aviate.mp4",
+//     url: "https://www.TakhleeqSoft.jobs/",
+//     video: "/work/TakhleeqSoft.mp4",
 //   },
 //   {
 //     id: 3,
-//     company: "Spacenos",
+//     company: "Ride2Future",
 //     title: "Web Developer Intern",
 //     location: "Bangalore, Karnataka",
 //     range: "September - December 2021",
@@ -179,98 +194,118 @@ export const PROJECTS = [
 //       "Developed app integration with REST APIs, Google Maps, User Auth, Stripe and other libraries.",
 //       "Implemented CRUD features for all the services and providers.",
 //     ],
-//     url: "https://spacenos.com/",
-//     video: "/work/spacenos.mp4",
+//     url: "https://Ride2Future.com/",
+//     video: "/work/Ride2Future.mp4",
 //   },
 // ];
 
 export const WORK_CONTENTS = {
-  DUKAAN: [
+  Createex: [
     {
-      title: "Dukaan",
+      title: 'Createex',
       description:
-        "Dukaan is a platform that enables businesses to launch their online stores at ease.",
+        'A Journey of Growth - From Learning to Leading in Modern Web Development',
       content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Revolutionizing commerce, one click at a time
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Empowering Ideas, Shaping the Future of Digital Innovation
         </div>
       ),
     },
     {
-      title: "Transformation",
+      title: 'The First Step: Learning React.js',
       description:
-        "Since 2023, the Dukaan Seller Dashboard struggled with technical issues and a broken user experience due to accumulated technical debt. Leading a team of two junior developers, we migrated the dashboard from CSR to SSR, redesigned the UI, and overhauled the codebase in the process. This resolved the technical debt and vastly improved the user experience, making it Dukaan's largest and most impactful migration.",
+        'At Createex, my journey began with learning React.js, mastering the fundamentals of frontend development. I built engaging and interactive UIs, laying the foundation for a successful career in web development.',
       content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Senior Frontend Engineer
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Aspiring React Developer
         </div>
       ),
     },
     {
-      title: "Evolution",
+      title: 'Leveling Up: Junior React.js Developer',
       description:
-        "Recognizing the need for improved performance and user engagement, I spearheaded the migration of the Dukaan App from native to React-Native for iOS and Android platforms. This strategic move led to a X% enhancement in app performance and a Y% boost in user engagement, representing a significant milestone in the app's evolution.",
+        'Transitioning to a Junior React.js Developer role, I honed my skills in crafting modern web applications using Next.js, React.js, and Firebase. I contributed to diverse projects, integrating APIs and ensuring robust, scalable solutions.',
       content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Frontend Engineer
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Junior React.js Developer
         </div>
       ),
     },
     {
-      title: "Optimization",
+      title: 'Leading the Way: Team Lead',
       description:
-        "Leveraging user feedback and analytics, I improved the seller web dashboard design, reducing bounce rates. Simultaneously, I overhauled the build process, slashing bundle size and boosting overall performance.",
+        'As a Team Lead, I guided a team of talented developers, steering projects involving 3D web applications, Next.js, Laravel, and Firebase. My leadership ensured timely deliveries and high-quality outputs, setting a benchmark for excellence.',
       content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Frontend Engineer Intern
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Team Lead
+        </div>
+      ),
+    },
+    {
+      title: 'Pioneering Innovation in 3D Web',
+      description:
+        'I ventured into the realm of 3D web development, creating immersive digital experiences that captivated users. Leveraging modern libraries and frameworks, I pushed the boundaries of what web applications can achieve.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Innovator in 3D Web Development
+        </div>
+      ),
+    },
+    {
+      title: 'Mastering the Stack',
+      description:
+        'Over the years, I built a versatile portfolio of projects, utilizing technologies like React.js, Next.js, Laravel, and Firebase. From interactive dashboards to scalable backends, my work exemplifies innovation and technical expertise.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Full-Stack Innovator
         </div>
       ),
     },
   ],
-  AVIATE: [
+
+  TakhleeqSoft: [
     {
-      title: "Aviate",
+      title: 'Takhleeq Soft',
       description:
-        "Aviate is a preparation and mentorship platform for job-seekers that are seeking non-technical roles across top companies",
+        'TakhleeqSoft is a forward-thinking startup led by a visionary and highly talented team. As a Senior React.js and Laravel Developer, I had the privilege of working closely with them to deliver impactful and innovative projects, driving success through collaboration and expertise.',
       content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Finding the right job isn&apos;t fate, it&apos;s navigation
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Empowering Growth Through Collaboration and Innovation
+        </div>
+      ),
+    },
+
+    {
+      title: 'Starting Strong: Senior Developer Role',
+      description:
+        'I joined TakhleeqSoft as a Senior Developer, taking charge of data integration APIs for a major project. My role involved seamlessly connecting multiple data sources, ensuring data accuracy, and optimizing API performance to drive project success.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Senior Developer
         </div>
       ),
     },
     {
-      title: "Innovation",
+      title: 'Innovation: Building Q-Rate',
       description:
-        "I spearheaded the development of Q-Rate, their flagship product, a voice-based applicant screening platform. Moreover, I took initiatives to enhance user engagement and drive substantial increases in daily traffic. Additionally, I implemented an error-logging and bug reporting system, significantly diminishing user-reported bugs.",
+        'I spearheaded the development of Q-Rate, their flagship product, a voice-based applicant screening platform. This project combined advanced technical solutions with user-focused design, enhancing engagement and increasing daily traffic. Additionally, I introduced an error-logging and bug reporting system, significantly reducing user-reported bugs and improving the platform’s reliability.',
       content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Frontend Developer Intern
-        </div>
-      ),
-    },
-  ],
-  SPACENOS: [
-    {
-      title: "Spacenos",
-      description:
-        "A dynamic startup dedicated to creating innovative products that make the world a better place.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          We build apps that solve problems for the next billion people
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Innovator & Problem Solver
         </div>
       ),
     },
     {
-      title: "Trailblazing",
+      title: 'Driving Results with Data Integration',
       description:
-        "I led the comprehensive overhaul of the Admin Portal, implementing CRUD features for all services and providers. Additionally, I architected a feature enabling precise customer location tracking and delivering insightful usage statistics. Through optimized and compressed file serving, I catalyzed a remarkable Yx increase in page speed, resulting in a X% boost in customer retention.",
+        'Leveraging my expertise in API development and data management, I optimized data workflows, improved application performance, and contributed to achieving key project milestones. My efforts ensured the platform could handle scale and complexity, creating a seamless user experience.',
       content: (
-        <div className="h-full w-full flex items-center justify-center text-white px-4">
-          Web Developer Intern
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Data Integration Expert
         </div>
       ),
     },
   ],
 };
 
-export const GTAG = "G-5HCTL2TJ5W";
+export const GTAG = 'G-5HCTL2TJ5W';

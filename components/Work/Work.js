@@ -1,9 +1,9 @@
-import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import Tabs from "./Tabs/Tabs";
-import StickyScroll from "./StickyScroll/StickyScroll";
-import { MENULINKS, WORK_CONTENTS } from "../../constants";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useEffect, useMemo, useRef } from 'react';
+import { MENULINKS, WORK_CONTENTS } from '../../constants';
+import StickyScroll from './StickyScroll/StickyScroll';
+import Tabs from './Tabs/Tabs';
 
 const Work = ({ isDesktop }) => {
   const sectionRef = useRef(null);
@@ -11,32 +11,32 @@ const Work = ({ isDesktop }) => {
   const tabItems = useMemo(
     () => [
       {
-        title: "Dukaan",
-        value: "dukaan",
+        title: 'Createex',
+        value: 'Createex',
         content: (
           <StickyScroll
             isDesktop={isDesktop}
-            contentItems={WORK_CONTENTS.DUKAAN}
+            contentItems={WORK_CONTENTS.Createex}
           />
         ),
       },
       {
-        title: "Aviate",
-        value: "Aviate",
+        title: 'TakhleeqSoft',
+        value: 'TakhleeqSoft',
         content: (
           <StickyScroll
             isDesktop={isDesktop}
-            contentItems={WORK_CONTENTS.AVIATE}
+            contentItems={WORK_CONTENTS.TakhleeqSoft}
           />
         ),
       },
       {
-        title: "Spacenos",
-        value: "spacenos",
+        title: 'Ride2Future',
+        value: 'Ride2Future',
         content: (
           <StickyScroll
             isDesktop={isDesktop}
-            contentItems={WORK_CONTENTS.SPACENOS}
+            contentItems={WORK_CONTENTS.Ride2Future}
           />
         ),
       },
@@ -47,17 +47,17 @@ const Work = ({ isDesktop }) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap
-        .timeline({ defaults: { ease: "none" } })
+        .timeline({ defaults: { ease: 'none' } })
         .from(
-          sectionRef.current.querySelectorAll(".staggered-reveal"),
+          sectionRef.current.querySelectorAll('.staggered-reveal'),
           { opacity: 0, duration: 0.5, stagger: 0.5 },
-          "<"
+          '<'
         );
 
       ScrollTrigger.create({
-        trigger: sectionRef.current.querySelector(".work-wrapper"),
-        start: "100px bottom",
-        end: "center center",
+        trigger: sectionRef.current.querySelector('.work-wrapper'),
+        start: '100px bottom',
+        end: 'center center',
         scrub: 0,
         animation: tl,
       });
@@ -70,27 +70,27 @@ const Work = ({ isDesktop }) => {
     <section
       ref={sectionRef}
       id={MENULINKS[3].ref}
-      className="w-full relative select-none xs:mt-40 sm:mt-72 mb-96"
+      className='w-full relative select-none xs:mt-40 sm:mt-72 mb-96'
     >
       <img
-        src="/left-pattern.svg"
-        className="absolute hidden left-0 -top-1/4 w-1/12 max-w-xs md:block"
-        loading="lazy"
+        src='/left-pattern.svg'
+        className='absolute hidden left-0 -top-1/4 w-1/12 max-w-xs md:block'
+        loading='lazy'
         height={700}
         width={320}
-        alt=""
+        alt=''
       />
-      <div className="section-container py-16 flex flex-col justify-center">
-        <div className="flex flex-col work-wrapper">
-          <div className="flex flex-col">
-            <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal">
+      <div className='section-container py-16 flex flex-col justify-center'>
+        <div className='flex flex-col work-wrapper'>
+          <div className='flex flex-col'>
+            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal'>
               WORK
             </p>
-            <h1 className="text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal">
+            <h1 className='text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
               Experience
             </h1>
-            <h2 className="text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal">
-              A quick recap of where I&apos;ve worked.{" "}
+            <h2 className='text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
+              A quick recap of where I&apos;ve worked.{' '}
             </h2>
           </div>
           <Tabs tabItems={tabItems} />
