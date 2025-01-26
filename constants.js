@@ -22,7 +22,7 @@ export const METADATA = {
     'Folio',
   ].join(', '),
   image:
-    'https://res.cloudinary.com/dywdhyojt/image/upload/v1721378510/social-preview.png',
+    'https://res.cloudinary.com/di6tubsu9/image/upload/v1737926697/jb3dfhw9wxmozff6j56w.png',
   language: 'English',
   themeColor: '#000000',
 };
