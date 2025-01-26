@@ -30,16 +30,6 @@ const Work = ({ isDesktop }) => {
           />
         ),
       },
-      {
-        title: 'Ride2Future',
-        value: 'Ride2Future',
-        content: (
-          <StickyScroll
-            isDesktop={isDesktop}
-            contentItems={WORK_CONTENTS.Ride2Future}
-          />
-        ),
-      },
     ],
     [isDesktop]
   );

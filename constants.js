@@ -1,6 +1,6 @@
 export const METADATA = {
   author: 'Anas Pirzada',
-  title: 'Portfolio | Anas Pirzada',
+  title: 'Portfolio',
   description:
     'Anas Pirzada is an experienced Web Developer specializing in React.js, Next.js, and crafting elegant, user-focused digital solutions. With expertise in frontend and backend technologies, he transforms ideas into impactful web experiences.',
   siteUrl: 'https://www.AnasPirzada.me/',
@@ -92,6 +92,7 @@ export const SKILLS = {
     'vite',
     'firebase',
     'figma',
+    'emailjs',
     // 'tanstack-query',
   ],
   librariesAndFrameworks: [
@@ -116,41 +117,44 @@ export const SKILLS = {
 
 export const PROJECTS = [
   {
-    name: 'Airbnb',
-    image: '/projects/airbnb.webp',
-    blurImage: '/projects/blur/airbnb-blur.webp',
-    description: 'Airbnb UI clone using NextJS + Tailwind CSS 🛏️',
-    gradient: ['#F14658', '#DC2537'],
-    url: 'https://shubh73-airbnb.vercel.app/',
-    tech: ['react', 'nextjs', 'tailwindcss', 'mapbox'],
+    name: ' Investment Learning',
+    image: '/projects/investment-learning.webp',
+    blurImage: '/projects/blur/investment-learning-blur.webp',
+    description: 'Investment Learning using ReactJS + Tailwind CSS 🛏️',
+    gradient: ['#7030a0', '#FFFFFF'],
+    url: 'https://investlearningltd.com/',
+    tech: ['react', 'tailwindcss', 'emailjs', 'nodejs'],
   },
+
   {
-    name: 'Medium',
-    image: '/projects/medium.webp',
-    blurImage: '/projects/blur/medium-blur.webp',
-    description: 'Medium UI clone using NextJS + Tailwind CSS ✍🏻',
-    gradient: ['#FFA62E', '#EA4D2C'],
-    url: 'https://shubh73-medium.vercel.app/',
-    tech: ['typescript', 'react', 'nextjs', 'tailwindcss', 'sanity.io'],
-  },
-  {
-    name: 'Inshorts',
-    image: '/projects/inshorts.webp',
-    blurImage: '/projects/blur/airbnb-blur.webp',
+    name: 'Black Water Ventures',
+    image: '/projects/blackwatter.webp',
+    blurImage: '/projects/blur/blackwatter.webp',
     description:
-      'Conversational Voice Controlled React News Application using Alan AI 🎙',
-    gradient: ['#000066', '#eeba2c'],
-    url: 'https://shubh73-inshorts.netlify.app/',
-    tech: ['react', 'chakra-ui', 'alan'],
+      'Real Estate sector Specialist Housing for Vulnerable Communities',
+    gradient: ['#000000', '#696969'],
+    url: 'https://blackwatter.netlify.app/',
+    tech: ['react', 'nodejs', 'tailwindcss', 'emailjs'],
   },
   {
-    name: 'Tesla',
-    image: '/projects/tesla.webp',
-    blurImage: '/projects/blur/tesla-blur.webp',
-    description: 'A Tesla React Native App 🏎️',
-    gradient: ['#142D46', '#2E4964'],
-    url: 'https://github.com/shubh73/tesla',
-    tech: ['react'],
+    name: 'Support Healthier Community',
+    image: '/projects/supporthealthier.webp',
+    blurImage: '/projects/blur/supporthealthier.webp',
+    description:
+      'Empowers individuals to build a self-reliant, and united community.',
+    gradient: ['#2aaa33', '#FFFFFF'],
+    url: 'https://www.supporthealthier.org/',
+    tech: ['react', 'tailwindcss'],
+  },
+  {
+    name: 'Sleek Assured',
+    image: '/projects/sleek-assured.webp',
+    blurImage: '/projects/blur/sleek-assured.webp',
+    description:
+      'Affordable home removals, offering top-quality service and the best rates guaranteed',
+    gradient: ['#010066', '#FFFFFF'],
+    url: 'https://sleek-assured.netlify.app/',
+    tech: ['react', 'tailwindcss', 'nodejs', 'emailjs'],
   },
 ];
 
@@ -212,7 +216,7 @@ export const WORK_CONTENTS = {
       ),
     },
     {
-      title: 'The First Step: Learning React.js',
+      title: 'The First Step',
       description:
         'At Createex, my journey began with learning React.js, mastering the fundamentals of frontend development. I built engaging and interactive UIs, laying the foundation for a successful career in web development.',
       content: (
@@ -222,7 +226,7 @@ export const WORK_CONTENTS = {
       ),
     },
     {
-      title: 'Leveling Up: Junior React.js Developer',
+      title: 'Leveling Up',
       description:
         'Transitioning to a Junior React.js Developer role, I honed my skills in crafting modern web applications using Next.js, React.js, and Firebase. I contributed to diverse projects, integrating APIs and ensuring robust, scalable solutions.',
       content: (
@@ -232,7 +236,7 @@ export const WORK_CONTENTS = {
       ),
     },
     {
-      title: 'Leading the Way: Team Lead',
+      title: 'Leading the Way',
       description:
         'As a Team Lead, I guided a team of talented developers, steering projects involving 3D web applications, Next.js, Laravel, and Firebase. My leadership ensured timely deliveries and high-quality outputs, setting a benchmark for excellence.',
       content: (
@@ -265,7 +269,7 @@ export const WORK_CONTENTS = {
 
   TakhleeqSoft: [
     {
-      title: 'Takhleeq Soft',
+      title: 'TakhleeqSoft',
       description:
         'TakhleeqSoft is a forward-thinking startup led by a visionary and highly talented team. As a Senior React.js and Laravel Developer, I had the privilege of working closely with them to deliver impactful and innovative projects, driving success through collaboration and expertise.',
       content: (
@@ -276,7 +280,7 @@ export const WORK_CONTENTS = {
     },
 
     {
-      title: 'Starting Strong: Senior Developer Role',
+      title: 'Starting Strong',
       description:
         'I joined TakhleeqSoft as a Senior Developer, taking charge of data integration APIs for a major project. My role involved seamlessly connecting multiple data sources, ensuring data accuracy, and optimizing API performance to drive project success.',
       content: (
@@ -286,7 +290,7 @@ export const WORK_CONTENTS = {
       ),
     },
     {
-      title: 'Innovation: Building Q-Rate',
+      title: 'Innovation',
       description:
         'I spearheaded the development of Q-Rate, their flagship product, a voice-based applicant screening platform. This project combined advanced technical solutions with user-focused design, enhancing engagement and increasing daily traffic. Additionally, I introduced an error-logging and bug reporting system, significantly reducing user-reported bugs and improving the platform’s reliability.',
       content: (

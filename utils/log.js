@@ -1,17 +1,21 @@
 export const displayFancyLogs = () => {
   console.log(
-    "%c  ____  _           _     _       ____                          _\n / ___|| |__  _   _| |__ | |__   |  _ \\ ___  _ ____      ____ _| |\n \\___ \\| '_ \\| | | | '_ \\| '_ \\  | |_) / _ \\| '__\\ \\ /\\ / / _` | |\n  ___) | | | | |_| | |_) | | | | |  __/ (_) | |   \\ V  V / (_| | |\n |____/|_| |_|\\__,_|_.__/|_| |_| |_|   \\___/|_|    \\_/\\_/ \\__,_|_|\n",
-    'color: #000000;'
+    `%c    _                      ____  _                   _       
+     / \\   _ __   __ _ ___  |  _ \\(_)_ __ ______ _  __| | __ _ 
+    / _ \\ | '_ \\ / _\` / __| | |_) | | '__|_  / _\` |/ _\` |/ _\` |
+   / ___ \\| | | | (_| \\__ \\ |  __/| | |   / / (_| | (_| | (_| |
+  /_/   \\_\\_| |_|\\__,_|___/ |_|   |_|_|  /___\\__,_|\__,_|\\__,_|`,
+    'color: #FFFFFF; font-family: monospace; white-space: pre;'
   );
 
   console.log(
     '%c Hope you like what you see :)',
-    'color: #000000; padding: 6px;'
+    'color: #FFFFFF; padding: 6px;'
   );
 
   // Easter egg hint
   console.log(
     "%c 💡 Psst! There's a secret hiding in plain sight. Follow your heart, it might lead to something... interesting.",
-    'color: #000000; font-style: italic; padding: 6px;'
+    'color: #FFFFFF; font-style: italic; padding: 6px;'
   );
 };

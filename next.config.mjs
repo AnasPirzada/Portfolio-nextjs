@@ -1,9 +1,9 @@
 const nextConfig = {
-  webpack: (config) => {
+  webpack: config => {
     config.module.rules.push({
       test: /\.(mp3|wav)$/i,
       use: {
-        loader: "url-loader",
+        loader: 'url-loader',
       },
     });
 

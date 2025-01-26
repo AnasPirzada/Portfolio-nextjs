@@ -1,0 +1,4 @@
+# .eslintignore
+components/Projects/ProjectTile/ProjectTile.js
+components/Work/StickyScroll/StickyScroll.js
+components/Work/Work.js

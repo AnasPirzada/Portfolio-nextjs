@@ -36,7 +36,7 @@ const Meta = () => (
       sizes='180x180'
       href='/favicons/apple-touch-icon.png'
     />
-    <link
+    {/* <link
       rel='icon'
       type='image/png'
       sizes='32x32'
@@ -47,7 +47,7 @@ const Meta = () => (
       type='image/png'
       sizes='16x16'
       href='/favicons/favicon-16x16.png'
-    />
+    /> */}
     <meta name='msapplication-TileColor' content='#efc041' />
     <link rel='manifest' href='/manifest.json' />
   </Head>
