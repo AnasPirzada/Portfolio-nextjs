@@ -1,8 +1,8 @@
-import styles from "./Button.module.scss";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import styles from './Button.module.scss';
 
 const Button = ({ href, onClick, children, classes, type, ...otherProps }) => {
-  let additionalClasses = "";
+  let additionalClasses = '';
   if (classes) {
     additionalClasses = classes;
   }
@@ -13,7 +13,7 @@ const Button = ({ href, onClick, children, classes, type, ...otherProps }) => {
       onClick={onClick}
       className={`
         ${
-          type === "primary"
+          type === 'primary'
             ? !otherProps.disable
               ? styles.primary__button
               : styles.primary__disabledButton

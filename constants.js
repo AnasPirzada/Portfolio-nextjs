@@ -127,6 +127,15 @@ export const PROJECTS = [
   },
 
   {
+    name: 'IQ Demie',
+    image: '/projects/iqdemie.webp',
+    blurImage: '/projects/blur/iqdemie.webp',
+    description: 'iQdemie - Intelligence and Learning Assessment',
+    gradient: ['#1a9aff', '#0056b3'],
+    url: 'https://iqdemie.com/',
+    tech: ['react', 'nodejs', 'tailwindcss', 'emailjs'],
+  },
+  {
     name: 'Black Water Ventures',
     image: '/projects/blackwatter.webp',
     blurImage: '/projects/blur/blackwatter.webp',
@@ -142,7 +151,7 @@ export const PROJECTS = [
     blurImage: '/projects/blur/supporthealthier.webp',
     description:
       'Empowers individuals to build a self-reliant, and united community.',
-    gradient: ['#2aaa33', '#FFFFFF'],
+    gradient: ['#FFFFFF', '#2aaa33'],
     url: 'https://www.supporthealthier.org/',
     tech: ['react', 'tailwindcss'],
   },

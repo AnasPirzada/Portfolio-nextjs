@@ -1,4 +1,4 @@
-<svg width="320" height="700" viewBox="0 0 320 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- <svg width="320" height="700" viewBox="0 0 320 700" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0)">
 <path d="M348.473 701.543C348.473 701.543 298.276 596.14 174.1 614.848C34.8642 635.837 -24.8935 514.122 9.52697 430.964C44.0669 347.805 171.829 353.623 175.773 195.519C179.717 33.9935 340.585 5.96664e-05 340.585 5.96664e-05" stroke="#efc041" stroke-width="2" stroke-miterlimit="10"/>
 <path d="M385.882 579.714C385.882 579.714 279.752 534.085 174.22 550.397C68.6886 566.824 56.259 493.019 68.6886 463.703C94.2648 402.788 231.229 391.039 240.073 292.709C246.766 218.79 201.887 118.201 322 65.5001" stroke="#efc041" stroke-width="2" stroke-miterlimit="10"/>
@@ -10,4 +10,31 @@
 <rect width="320" height="700" fill="white" transform="translate(0.000244141)"/>
 </clipPath>
 </defs>
+</svg> -->
+
+
+<svg width="400" height="800" viewBox="0 0 400 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="400" y2="800" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#efc041"/>
+      <stop offset="100%" stop-color="#efc041"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#clip0)">
+    <!-- Extended and Stylish A+N Fusion -->
+    <path d="M30 750 C120 600, 180 350, 260 100" stroke="url(#gradient)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M60 700 L180 150 L300 700" stroke="url(#gradient)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M100 650 Q200 450, 300 650" stroke="url(#gradient)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M120 600 L200 250 L280 600" stroke="url(#gradient)" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Additional Stylized Details -->
+    <path d="M50 720 Q150 500, 350 720" stroke="url(#gradient)" stroke-width="2" stroke-dasharray="5,5"/>
+    <path d="M80 680 L160 300 L240 680" stroke="url(#gradient)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M160 580 C190 400, 250 400, 280 580" stroke="url(#gradient)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <defs>
+    <clipPath id="clip0">
+      <rect width="400" height="800" fill="white"/>
+    </clipPath>
+  </defs>
 </svg>
