@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useRef } from 'react';
 import { MENULINKS, PROJECTS } from '../../constants';
+import Button from '../Button/Button.js';
 import ProjectTile from './ProjectTile/ProjectTile';
 
 const Projects = ({ isDesktop, clientHeight }) => {
@@ -98,10 +99,14 @@ const Projects = ({ isDesktop, clientHeight }) => {
           <h1 className='text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
             My Projects
           </h1>
-          <h2 className='text-[1.65rem] font-medium md:max-w-lg max-w-sm mt-2 staggered-reveal'>
+          <h2 className='text-[1.65rem] font-medium md:max-w-lg max-w-sm mt-2  '>
             Some things I&apos;ve built with love, expertise and a pinch of
             magical ingredients.{' '}
           </h2>
+
+          <Button href='/newpage' classes='link w-[200px] mt-5' type='primary'>
+            View All Projects
+          </Button>
         </div>
         <div
           className={`${

@@ -102,15 +102,16 @@ export const SKILLS = {
     'tailwindcss',
     'styledcomponents',
     'antdesign',
+    'framer-motion',
     // 'chakra-ui',
+    'gsap',
     'Laravel',
     'django',
   ],
   databases: ['mysql', 'mongodb'],
   other: [
     'git',
-    ,
-    //  'sanity-io'
+    //  'sanity-io',
     'Postman',
   ],
 };
@@ -131,7 +132,7 @@ export const PROJECTS = [
     image: '/projects/iqdemie.webp',
     blurImage: '/projects/blur/iqdemie.webp',
     description: 'iQdemie - Intelligence and Learning Assessment',
-    gradient: ['#1a9aff', '#0056b3'],
+    gradient: ['#1a9aff', '#FFFFFF'],
     url: 'https://iqdemie.com/',
     tech: ['react', 'nodejs', 'tailwindcss', 'emailjs'],
   },
@@ -151,7 +152,7 @@ export const PROJECTS = [
     blurImage: '/projects/blur/supporthealthier.webp',
     description:
       'Empowers individuals to build a self-reliant, and united community.',
-    gradient: ['#FFFFFF', '#2aaa33'],
+    gradient: ['#2aaa33', '#FFFFFF'],
     url: 'https://www.supporthealthier.org/',
     tech: ['react', 'tailwindcss'],
   },
