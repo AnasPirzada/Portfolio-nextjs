@@ -105,14 +105,14 @@ export const SKILLS = {
     'framer-motion',
     // 'chakra-ui',
     'gsap',
-    'Laravel',
+    'laravel',
     'django',
   ],
   databases: ['mysql', 'mongodb'],
   other: [
     'git',
     //  'sanity-io',
-    'Postman',
+    'postman',
   ],
 };
 
