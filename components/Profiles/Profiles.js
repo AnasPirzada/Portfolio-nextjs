@@ -1,6 +1,6 @@
-import { SOCIAL_LINKS } from "../../constants";
-import { Icon } from "@/components/Icons";
-import styles from "./Profiles.module.scss";
+import { Icon } from '@/components/Icons';
+import { SOCIAL_LINKS } from '../../constants';
+import styles from './Profiles.module.scss';
 
 const Profiles = () => {
   return (
@@ -10,9 +10,9 @@ const Profiles = () => {
           <a
             href={url}
             key={name}
-            className="link"
-            rel="noreferrer"
-            target="_blank"
+            className='link'
+            rel='noreferrer'
+            target='_blank'
             aria-label={name}
           >
             <Icon name={name} />

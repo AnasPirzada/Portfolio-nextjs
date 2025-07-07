@@ -29,6 +29,12 @@ const Footer = () => {
         backgroundImage: `linear-gradient(to right, ${theme.colors.GoldenGlow.light}, ${theme.colors.GoldenGlow.dark})`,
       }}
     >
+      <style>{`
+        @keyframes beat {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.2); }
+        }
+      `}</style>
       <FooterBg />
       <Fade bottom distance={'4rem'}>
         <div className='w-full h-full pt-32'>
@@ -51,7 +57,15 @@ const Footer = () => {
             <p className='text-center text-white text-sm sm:text-base font-medium tracking-wide mt-8'>
               Developed with{' '}
               <button onClick={handleClick} className='link cursor-none'>
-                <span className='block animate-bounce'>❤️</span>
+                <span
+                  className='block text-black'
+                  style={{
+                    display: 'inline-block',
+                    animation: 'beat 1s ease-in-out infinite',
+                  }}
+                >
+                  🖤
+                </span>{' '}
               </button>{' '}
               by <span className='text-white'>Anas Pirzada</span>
             </p>

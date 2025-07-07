@@ -1,5 +1,5 @@
-import Meteors from "../Meteors/Meteors";
-import styles from "./FooterBg.module.scss";
+import Meteors from '../Meteors/Meteors';
+import styles from './FooterBg.module.scss';
 
 const FooterBg = () => {
   return (

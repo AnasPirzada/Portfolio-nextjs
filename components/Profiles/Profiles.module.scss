@@ -9,8 +9,9 @@
       filter: drop-shadow(0 0 1rem theme('colors.GoldenGlow.light'));
       filter: brightness(1.1);
       svg {
-        stroke: theme('colors.GoldenGlow.light');
+        stroke: black;
       }
     }
   }
 }
+
