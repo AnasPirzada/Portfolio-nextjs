@@ -68,7 +68,7 @@ const Collaboration = ({ clientHeight }) => {
             )
             .reduce((str, el) => str.concat(el), '')}{' '}
         </p>
-        
+
         <h1
           ref={quoteRef}
           className='mt-6 md:mt-8 font-medium text-4xl md:text-5xl text-center'

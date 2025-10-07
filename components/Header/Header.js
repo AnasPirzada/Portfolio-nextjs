@@ -1,7 +1,7 @@
 import { Howl } from 'howler';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef } from 'react';
-import SoundBar from './SoundBar/SoundBar';
+// import SoundBar from './SoundBar/SoundBar';
 
 const multiPop = new Howl({
   src: ['/sounds/multi-pop.mp3'],
@@ -40,7 +40,7 @@ const Header = ({ children }) => {
           />
         </a>
         <div className='outer-menu relative flex items-center gap-8 z-[1]'>
-          <SoundBar />
+          {/* <SoundBar /> */}
           <input
             ref={inputRef}
             aria-labelledby='menu'

@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import Fade from 'react-reveal/Fade';
+import { motion } from 'framer-motion';
 import { MENULINKS } from '../../constants';
 import styles from './Contact.module.scss';
 import mail from './mailer';
@@ -273,7 +273,12 @@ const Contact = () => {
         </div>
 
         <form className='pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem] staggered-reveal'>
-          <Fade bottom distance={'4rem'}>
+          <motion.div
+            initial={{ opacity: 0, y: 64 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5 }}
+          >
             <div className='relative'>
               <input
                 type='text'
@@ -323,7 +328,7 @@ const Contact = () => {
                 Message
               </label>
             </div>
-          </Fade>
+          </motion.div>
 
           {mailerResponse !== 'not initiated' &&
             (mailerResponse === 'success' ? (

@@ -1,8 +1,9 @@
-import { calibre, jetbrains_mono } from "public/fonts";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import Meta from "@/components/Meta/Meta";
-import "../styles/globals.scss";
-import { GTAG } from "constants";
+import Meta from '@/components/Meta/Meta';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { GTAG } from 'constants';
+import { calibre, jetbrains_mono } from 'public/fonts';
+import '../styles/globals.css';
+import '../styles/globals.scss';
 
 const App = ({ Component, pageProps }) => {
   return (

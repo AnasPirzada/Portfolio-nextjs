@@ -41,8 +41,16 @@ export const MENULINKS = [
     ref: 'projects',
   },
   {
+    name: 'Education',
+    ref: 'education',
+  },
+  {
     name: 'Work',
     ref: 'work',
+  },
+  {
+    name: 'Blogs',
+    ref: 'blogs',
   },
   {
     name: 'Contact',
@@ -103,7 +111,9 @@ export const SKILLS = {
     'styledcomponents',
     'antdesign',
     'framer-motion',
-    // 'chakra-ui',
+    'TypeScript',
+    'ShadcnUi',
+    'Turborepo',
     'gsap',
     'laravel',
     'django',
@@ -118,7 +128,19 @@ export const SKILLS = {
 
 export const PROJECTS = [
   {
+    name: 'TeklabSpace',
+    heroSection: '/projects/HeroSections/teklabspace.webp',
+    image: '/projects/teklabspace.webp',
+    blurImage: '/projects//teklabspace.webp',
+    description:
+      'Teklabspace is the ultimate bridge between cutting-edge companies and the global hacker community—our bug bounty and vulnerability disclosure platform empowers organizations to proactively identify and resolve vulnerabilities before attackers do.',
+    gradient: ['#B70AC1', '#292F43'],
+    url: 'https://teklabspace-git-main-anaspirzadas-projects.vercel.app/',
+    tech: ['nextjs', 'tailwindcss', 'emailjs', 'framer-motion', 'gsap'],
+  },
+  {
     name: ' Investment Learning',
+    heroSection: '/projects/HeroSections/InvestmentLearning.webp',
     image: '/projects/investment-learning.webp',
     blurImage: '/projects/blur/investment-learning-blur.webp',
     description: 'Investment Learning using ReactJS + Tailwind CSS 🛏️',
@@ -126,9 +148,21 @@ export const PROJECTS = [
     url: 'https://investlearningltd.com/',
     tech: ['react', 'tailwindcss', 'emailjs', 'nodejs'],
   },
+  {
+    name: 'Al-Quran Digital Institute',
+    heroSection: '/projects/HeroSections/AlQuran.webp',
+    image: '/projects/AlQuran.webp',
+    blurImage: '/projects/AlQuran.webp',
+    description:
+      'One-on-one Quran classes with personalized instruction in Quran reading, memorization, and tafseer.',
+    gradient: ['#1C8E5A', '#FFD050'],
 
+    url: 'https://alqurandigitalinstitute.com/',
+    tech: ['nextjs', 'tailwindcss', 'emailjs'],
+  },
   {
     name: 'IQ Demie',
+    heroSection: '/projects/HeroSections/IQDemie.webp',
     image: '/projects/iqdemie.webp',
     blurImage: '/projects/blur/iqdemie.webp',
     description: 'iQdemie - Intelligence and Learning Assessment',
@@ -138,6 +172,7 @@ export const PROJECTS = [
   },
   {
     name: 'Black Water Ventures',
+    heroSection: '/projects/HeroSections/Blackwater.webp',
     image: '/projects/blackwatter.webp',
     blurImage: '/projects/blur/blackwatter.webp',
     description:
@@ -148,6 +183,7 @@ export const PROJECTS = [
   },
   {
     name: 'Support Healthier Community',
+    heroSection: '/projects/HeroSections/SupportHealthier.webp',
     image: '/projects/supporthealthier.webp',
     blurImage: '/projects/blur/supporthealthier.webp',
     description:
@@ -158,6 +194,7 @@ export const PROJECTS = [
   },
   {
     name: 'Sleek Assured',
+    heroSection: '/projects/HeroSections/SleekAssured.webp',
     image: '/projects/sleek-assured.webp',
     blurImage: '/projects/blur/sleek-assured.webp',
     description:
@@ -167,51 +204,6 @@ export const PROJECTS = [
     tech: ['react', 'tailwindcss', 'nodejs', 'emailjs'],
   },
 ];
-
-// export const WORK = [
-//   {
-//     id: 1,
-//     company: "Createex",
-//     title: "Frontend Developer",
-//     location: "Bangalore, Karnataka",
-//     range: "December - Current",
-//     responsibilities: [
-//       "Led creation of a captivating cross-platform e-commerce solution.",
-//       "Enhanced UX with gamification and personalized push notifications ensuring an ever-improving shopping journey.",
-//       "The app boasts a DAU base of 32k and an extensive MAU count of 180k.",
-//     ],
-//     url: "https://myCreateex.io/",
-//     video: "/work/Createex.mp4",
-//   },
-//   {
-//     id: 2,
-//     company: "TakhleeqSoft",
-//     title: "Frontend Developer Intern",
-//     location: "Goa",
-//     range: "May - October 2022",
-//     responsibilities: [
-//       "Built their flagship product Q-Rate, a voice-based applicant screening platform.",
-//       "Developed pixel-perfect responsive web applications achieving daily traffic of 1000-2000 users.",
-//       "Successfully rolled out an error-logging and bug reporting system that cut user-reported bugs by 30%.",
-//     ],
-//     url: "https://www.TakhleeqSoft.jobs/",
-//     video: "/work/TakhleeqSoft.mp4",
-//   },
-//   {
-//     id: 3,
-//     company: "Ride2Future",
-//     title: "Web Developer Intern",
-//     location: "Bangalore, Karnataka",
-//     range: "September - December 2021",
-//     responsibilities: [
-//       "Led the Full Stack revamp on the Admin Portal.",
-//       "Developed app integration with REST APIs, Google Maps, User Auth, Stripe and other libraries.",
-//       "Implemented CRUD features for all the services and providers.",
-//     ],
-//     url: "https://Ride2Future.com/",
-//     video: "/work/Ride2Future.mp4",
-//   },
-// ];
 
 export const WORK_CONTENTS = {
   Createex: [
@@ -320,6 +312,162 @@ export const WORK_CONTENTS = {
       ),
     },
   ],
+
+  MahamAI: [
+    {
+      title: 'MahamAI',
+      description:
+        'MahamAI is a modern tech company focused on scalable web ecosystems and AI-integrated solutions. As a Lead Full-Stack Developer, I played a pivotal role in architecting the Maham Monorepo — a high-performance, multi-app system that unified the company’s digital infrastructure and accelerated product delivery across teams.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Building Scalable Systems for Intelligent Products
+        </div>
+      ),
+    },
+    {
+      title: 'Monorepo Architecture & Setup',
+      description:
+        'I designed and implemented the Maham Monorepo using Next.js 15, React 18, Turborepo, and npm Workspaces. This structure allowed multiple applications (HR, Dashboard, Main App, etc.) to share a unified codebase, improving scalability, performance, and developer workflow efficiency across the organization.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Architecting the Core Foundation
+        </div>
+      ),
+    },
+    {
+      title: 'Shared UI System Development',
+      description:
+        'I engineered the `@maham/ui-components` package — a reusable, shared UI system built with Tailwind CSS, shadcn-styled components, and class-variance-authority (CVA). This system standardized the design language across apps, simplified component reuse, and significantly reduced front-end development overhead.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Creating Reusable UI Architecture
+        </div>
+      ),
+    },
+    {
+      title: 'Developer Experience & Performance',
+      description:
+        'I optimized Turborepo pipelines for build caching, parallel development, and fast CI/CD performance. By streamlining local development (via stable ports, shared configs, and .env automation), I reduced build times and enabled developers to run multiple apps concurrently without conflicts.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Enhancing Speed and Efficiency
+        </div>
+      ),
+    },
+    {
+      title: 'Team Collaboration & Documentation',
+      description:
+        'To ensure smooth onboarding and long-term sustainability, I authored the Maham Monorepo Team Handbook — a detailed guide covering repository structure, tooling, conventions, and best practices. This documentation empowered every team member to contribute efficiently with minimal setup friction.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Empowering Teams Through Documentation
+        </div>
+      ),
+    },
+    {
+      title: 'Innovation & Future Automation',
+      description:
+        'I initiated automation scripts for scaffolding new apps and updating gateway rewrites, reducing repetitive setup tasks and improving consistency. These innovations laid the foundation for future expansion and scalability within the MahamAI ecosystem.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Innovating for Scalable Growth
+        </div>
+      ),
+    },
+  ],
 };
 
+export const EDUCATION_CONTENTS = [
+  {
+    title: 'Bachelor of Computer Science',
+    institute: 'University of Technology',
+    year: '2018 – 2022',
+    description:
+      'Completed a four-year degree focused on algorithms, data structures, and full‑stack development.',
+    content: (
+      <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        2018 - 2022
+      </div>
+    ),
+  },
+  {
+    title: 'Intermediate in Pre-Engineering',
+    institute: 'Government College',
+    year: '2016 – 2018',
+    description:
+      'Studied core subjects of mathematics and physics, laying the foundation for my technical journey.',
+    content: (
+      <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        2016 - 2018
+      </div>
+    ),
+  },
+];
+
+export const CERTIFICATION_CONTENTS = [
+  {
+    title: 'Frontend Development Certification',
+    institute: 'Coursera',
+    year: '2023',
+    description:
+      'Mastered advanced frontend concepts including React.js, Next.js, and Tailwind CSS.',
+    content: (
+      <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        2023
+      </div>
+    ),
+  },
+  {
+    title: 'React & Next.js Advanced Training',
+    institute: 'Udemy',
+    year: '2024',
+    description:
+      'Hands‑on training in React Hooks, Redux, and server‑side rendering with Next.js.',
+    content: (
+      <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        2024
+      </div>
+    ),
+  },
+];
+
 export const GTAG = 'G-5HCTL2TJ5W';
+
+export const BLOGS = [
+  {
+    slug: 'animating-react-uis-with-gsap-and-framer-motion',
+    title: 'Animating React UIs with GSAP and Framer Motion',
+    description:
+      'A practical guide to combining GSAP timelines with Framer Motion for delightful micro-interactions.',
+    date: '2025-01-12',
+    content: `\n<p><strong>Why combine GSAP and Framer Motion?</strong></p>\n<p>GSAP excels at complex timeline choreography and precise control; Framer Motion brings a declarative model that feels at home in React. Use GSAP for sequences and physics-like motion, use Framer Motion for layout-aware transitions and gestures.</p>\n<p>Example timeline:</p>\n<pre><code>const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });\ntl.from('.hero', { y: 40, opacity: 0, duration: 0.6 })\n  .from('.cta', { scale: 0.8, opacity: 0 }, '-=0.3');</code></pre>\n<p>Then wrap interactive bits with <code>motion.div</code>:</p>\n<pre><code>&lt;motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}&gt;Click&lt;/motion.button&gt;</code></pre>\n<p><img src='/projects/HeroSections/teklabspace.webp' alt='example' /></p>`,
+    tags: ['react', 'gsap', 'framer-motion'],
+  },
+  {
+    slug: 'nextjs-performance-checklist-2025',
+    title: 'Next.js Performance Checklist for 2025',
+    description:
+      'Actionable steps to keep your Next.js apps fast: images, code-splitting, RSC tips and more.',
+    date: '2025-02-05',
+    content: `\n<p><strong>Key tips</strong></p>\n<ul>\n<li>Optimize images with next/image or static WebP</li>\n<li>Code split and lazy load non-critical UI</li>\n<li>Cache aggressively at the edge</li>\n<li>Leverage RSC for heavy data UI</li>\n</ul>\n<p><img src='/projects/HeroSections/AlQuran.webp' alt='perf' /></p>`,
+    tags: ['nextjs', 'performance'],
+  },
+  {
+    slug: 'designing-a-consistent-design-system-with-tailwind',
+    title: 'Designing a Consistent Design System with Tailwind',
+    description:
+      'How to leverage tokens and utilities to ship consistent, themeable UI components.',
+    date: '2025-03-01',
+    content: `\n<p><strong>Tokens first</strong></p>\n<p>Define colors, radii, and spacing in Tailwind config and compose utilities into primitives. Keep variants minimal and consistent.</p>\n<p><img src='/projects/HeroSections/SleekAssured.webp' alt='design-system' /></p>`,
+    tags: ['tailwindcss', 'design-system'],
+  },
+  {
+    slug: 'writing-accessible-animations',
+    title: 'Writing Accessible Animations',
+    description:
+      'Reduce motion for users that need it and keep interactions inclusive without losing delight.',
+    date: '2025-03-20',
+    content: `\n<p><strong>Respect prefers-reduced-motion</strong></p>\n<p>Provide fallbacks and skip long parallax effects. Keep focus states visible and avoid motion that obscures context.</p>\n<p><img src='/projects/HeroSections/IQDemie.webp' alt='a11y' /></p>\n<pre><code>@media (prefers-reduced-motion: reduce) {\n  .parallax {\n    transform: none !important;\n    animation: none !important;\n  }\n}</code></pre>`,
+    tags: ['a11y', 'animation'],
+  },
+];

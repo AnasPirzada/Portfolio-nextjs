@@ -3,6 +3,8 @@ import About2 from '@/components/About/About2';
 import Collaboration from '@/components/Collaboration/Collaboration';
 import Contact from '@/components/Contact/Contact';
 import Cursor from '@/components/Cursor/Cursor';
+import EducationandCertification from '@/components/EducationandCertification/index';
+import TagLine from '@/components/EducationandCertification/Tag';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import Menu from '@/components/Header/Menu/Menu';
@@ -10,6 +12,7 @@ import Hero from '@/components/Hero/Hero';
 import Loader from '@/components/Loader/Loader';
 import ProgressIndicator from '@/components/ProgressIndicator/ProgressIndicator';
 import Projects from '@/components/Projects/Projects';
+import Blogs from '@/components/Blogs';
 import Skills from '@/components/Skills/Skills';
 import Work from '@/components/Work/Work';
 import gsap from 'gsap';
@@ -71,7 +74,11 @@ export default function Home() {
             <Skills />
             <About2 clientHeight={clientHeight} />
             <Projects isDesktop={isDesktop} clientHeight={clientHeight} />
+            <TagLine clientHeight={clientHeight} />
+            <EducationandCertification isDesktop={isDesktop} />
             <Work isDesktop={isDesktop} />
+            <Blogs />
+
             <Collaboration clientHeight={clientHeight} />
             <Contact />
           </main>

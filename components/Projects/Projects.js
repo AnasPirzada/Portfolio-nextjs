@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { MENULINKS, PROJECTS } from '../../constants';
 import Button from '../Button/Button.js';
@@ -104,16 +105,21 @@ const Projects = ({ isDesktop, clientHeight }) => {
             magical ingredients.{' '}
           </h2>
 
-          <Button href='/newpage' classes='link w-[200px] mt-5' type='primary'>
+          {/* <Button href='/newpage' classes='link w-[200px] mt-5' type='primary'>
             View All Projects
-          </Button>
+          </Button> */}
+          <Link href='/projects'>
+            <Button classes='link w-[200px] mt-5' type='primary'>
+              View All Projects
+            </Button>
+          </Link>
         </div>
         <div
           className={`${
             clientHeight > 650 ? 'mt-12' : 'mt-8'
           } flex project-wrapper no-scrollbar w-fit staggered-reveal`}
         >
-          {PROJECTS.map((project, index) => (
+          {PROJECTS.slice(0, 4).map((project, index) => (
             <ProjectTile
               classes={
                 index === PROJECTS.length - 1 ? '' : 'mr-10 xs:mr-12 sm:mr-16'

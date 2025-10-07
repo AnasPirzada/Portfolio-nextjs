@@ -30,6 +30,16 @@ const Work = ({ isDesktop }) => {
           />
         ),
       },
+      {
+        title: 'MahamAI',
+        value: 'MahamAI',
+        content: (
+          <StickyScroll
+            isDesktop={isDesktop}
+            contentItems={WORK_CONTENTS.MahamAI}
+          />
+        ),
+      },
     ],
     [isDesktop]
   );

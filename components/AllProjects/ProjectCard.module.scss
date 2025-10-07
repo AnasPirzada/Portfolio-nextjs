@@ -1,0 +1,11 @@
+.card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  }
+}
