@@ -1,4 +1,6 @@
 {
   "svg.preview.background": "editor",
-  "js/ts.implicitProjectConfig.checkJs": true
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "search.useGlobalIgnoreFiles": true,
+  "search.useParentIgnoreFiles": true
 }

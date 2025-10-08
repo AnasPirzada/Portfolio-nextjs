@@ -3,51 +3,34 @@
   transform-style: preserve-3d;
 }
 
-[transform\:translate3d\(0,
-0,
-20px\)] {
+[transform\:translate3d\(0\,0\,20px\)] {
   transform: translate3d(0, 0, 20px);
 }
 
-[transform\:translate3d\(0,
-0,
-25px\)] {
+[transform\:translate3d\(0\,0\,25px\)] {
   transform: translate3d(0, 0, 25px);
 }
 
-[transform\:translate3d\(0,
-0,
-26px\)] {
+[transform\:translate3d\(0\,0\,26px\)] {
   transform: translate3d(0, 0, 26px);
 }
 
-[transform\:translate3d\(0,
-0,
-40px\)] {
+[transform\:translate3d\(0\,0\,40px\)] {
   transform: translate3d(0, 0, 40px);
 }
 
-[transform\:translate3d\(0,
-0,
-60px\)] {
+[transform\:translate3d\(0\,0\,60px\)] {
   transform: translate3d(0, 0, 60px);
 }
 
-[transform\:translate3d\(0,
-0,
-80px\)] {
+[transform\:translate3d\(0\,0\,80px\)] {
   transform: translate3d(0, 0, 80px);
 }
 
-[transform\:translate3d\(0,
-0,
-100px\)] {
+[transform\:translate3d\(0\,0\,100px\)] {
   transform: translate3d(0, 0, 100px);
 }
 
-[transform\:rotate3d\(1,
-1,
-0,
-30deg\)] {
+[transform\:rotate3d\(1\,1\,0\,30deg\)] {
   transform: rotate3d(1, 1, 0, 30deg);
 }

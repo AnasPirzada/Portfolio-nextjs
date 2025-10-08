@@ -105,9 +105,7 @@ const Projects = ({ isDesktop, clientHeight }) => {
             magical ingredients.{' '}
           </h2>
 
-          {/* <Button href='/newpage' classes='link w-[200px] mt-5' type='primary'>
-            View All Projects
-          </Button> */}
+        
           <Link href='/projects'>
             <Button classes='link w-[200px] mt-5' type='primary'>
               View All Projects

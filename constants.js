@@ -111,9 +111,7 @@ export const SKILLS = {
     'styledcomponents',
     'antdesign',
     'framer-motion',
-    'TypeScript',
-    'ShadcnUi',
-    'Turborepo',
+    // 'chakra-ui',
     'gsap',
     'laravel',
     'django',
@@ -308,69 +306,6 @@ export const WORK_CONTENTS = {
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
           Data Integration Expert
-        </div>
-      ),
-    },
-  ],
-
-  MahamAI: [
-    {
-      title: 'MahamAI',
-      description:
-        'MahamAI is a modern tech company focused on scalable web ecosystems and AI-integrated solutions. As a Lead Full-Stack Developer, I played a pivotal role in architecting the Maham Monorepo — a high-performance, multi-app system that unified the company’s digital infrastructure and accelerated product delivery across teams.',
-      content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          Building Scalable Systems for Intelligent Products
-        </div>
-      ),
-    },
-    {
-      title: 'Monorepo Architecture & Setup',
-      description:
-        'I designed and implemented the Maham Monorepo using Next.js 15, React 18, Turborepo, and npm Workspaces. This structure allowed multiple applications (HR, Dashboard, Main App, etc.) to share a unified codebase, improving scalability, performance, and developer workflow efficiency across the organization.',
-      content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          Architecting the Core Foundation
-        </div>
-      ),
-    },
-    {
-      title: 'Shared UI System Development',
-      description:
-        'I engineered the `@maham/ui-components` package — a reusable, shared UI system built with Tailwind CSS, shadcn-styled components, and class-variance-authority (CVA). This system standardized the design language across apps, simplified component reuse, and significantly reduced front-end development overhead.',
-      content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          Creating Reusable UI Architecture
-        </div>
-      ),
-    },
-    {
-      title: 'Developer Experience & Performance',
-      description:
-        'I optimized Turborepo pipelines for build caching, parallel development, and fast CI/CD performance. By streamlining local development (via stable ports, shared configs, and .env automation), I reduced build times and enabled developers to run multiple apps concurrently without conflicts.',
-      content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          Enhancing Speed and Efficiency
-        </div>
-      ),
-    },
-    {
-      title: 'Team Collaboration & Documentation',
-      description:
-        'To ensure smooth onboarding and long-term sustainability, I authored the Maham Monorepo Team Handbook — a detailed guide covering repository structure, tooling, conventions, and best practices. This documentation empowered every team member to contribute efficiently with minimal setup friction.',
-      content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          Empowering Teams Through Documentation
-        </div>
-      ),
-    },
-    {
-      title: 'Innovation & Future Automation',
-      description:
-        'I initiated automation scripts for scaffolding new apps and updating gateway rewrites, reducing repetitive setup tasks and improving consistency. These innovations laid the foundation for future expansion and scalability within the MahamAI ecosystem.',
-      content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          Innovating for Scalable Growth
         </div>
       ),
     },
