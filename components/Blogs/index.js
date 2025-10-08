@@ -43,22 +43,9 @@ const BlogCard = ({ blog, index }) => {
   );
 };
 
-const Blogs = () => {
+const Blogs = ({ clientHeight }) => {
   return (
-    <section
-      id='blogs'
-      className={`w-full relative select-none${
-        clientHeight > 650 ? 'py-80' : 'py-72'
-      } section-container`}
-    >
-      <img
-        src='/right-pattern.svg'
-        className='absolute hidden right-0 -top-1/4 w-1/12 max-w-xs md:block -z-10'
-        loading='lazy'
-        height={700}
-        width={320}
-        alt=''
-      />
+    <section id='blogs' className='w-full relative mt-96 select-non'>
       <div className='section-container py-16 flex flex-col justify-center'>
         <div className='flex flex-col'>
           <div className='text-center mb-6'>
