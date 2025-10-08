@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import VanillaTilt from 'vanilla-tilt';
+import Link from 'next/link';
 import styles from './ProjectTile.module.scss';
 
 const ProjectTile = ({ project, classes, isDesktop }) => {
@@ -24,12 +25,10 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
   }, [projectCard]);
 
   return (
-    <a
-      href={url}
-      className={`overflow-hidden rounded-3xl ${additionalClasses}`}
+    <Link
+      href={`/project/${name.toLowerCase().replace(/\s+/g, '-')}`}
+      className={`overflow-hidden rounded-3xl ${additionalClasses} block`}
       ref={projectCard}
-      target='_blank'
-      rel='noreferrer'
       style={{
         maxWidth: isDesktop ? 'calc(100vw - 2rem)' : 'calc(100vw - 4rem)',
         flex: '1 0 auto',
@@ -99,7 +98,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           {description}
         </h2>
       </div>
-    </a>
+    </Link>
   );
 };
 

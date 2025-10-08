@@ -70,11 +70,11 @@ const Work = ({ isDesktop }) => {
     <section
       ref={sectionRef}
       id={MENULINKS[3].ref}
-      className='w-full relative select-none xs:mt-40 sm:mt-72 mb-96'
+      className='w-full relative select-none xs:mt-40 sm:mt-72 mb-20 z-10'
     >
       <img
         src='/left-pattern.svg'
-        className='absolute hidden left-0 -top-1/4 w-1/12 max-w-xs md:block'
+        className='absolute hidden left-0 -top-1/4 w-1/12 max-w-xs md:block -z-10'
         loading='lazy'
         height={700}
         width={320}

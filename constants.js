@@ -135,6 +135,10 @@ export const PROJECTS = [
     gradient: ['#B70AC1', '#292F43'],
     url: 'https://teklabspace-git-main-anaspirzadas-projects.vercel.app/',
     tech: ['nextjs', 'tailwindcss', 'emailjs', 'framer-motion', 'gsap'],
+    category: 'Web Application',
+    year: '2024',
+    client: 'TeklabSpace',
+    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
   },
   {
     name: ' Investment Learning',
@@ -145,6 +149,10 @@ export const PROJECTS = [
     gradient: ['#7030a0', '#FFFFFF'],
     url: 'https://investlearningltd.com/',
     tech: ['react', 'tailwindcss', 'emailjs', 'nodejs'],
+    category: 'Educational Platform',
+    year: '2024',
+    client: 'Investment Learning Ltd',
+    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
   },
   {
     name: 'Al-Quran Digital Institute',
@@ -154,9 +162,12 @@ export const PROJECTS = [
     description:
       'One-on-one Quran classes with personalized instruction in Quran reading, memorization, and tafseer.',
     gradient: ['#1C8E5A', '#FFD050'],
-
     url: 'https://alqurandigitalinstitute.com/',
     tech: ['nextjs', 'tailwindcss', 'emailjs'],
+    category: 'Educational Platform',
+    year: '2024',
+    client: 'Al-Quran Digital Institute',
+    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
   },
   {
     name: 'IQ Demie',
@@ -167,6 +178,10 @@ export const PROJECTS = [
     gradient: ['#1a9aff', '#FFFFFF'],
     url: 'https://iqdemie.com/',
     tech: ['react', 'nodejs', 'tailwindcss', 'emailjs'],
+    category: 'Assessment Platform',
+    year: '2024',
+    client: 'IQ Demie',
+    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
   },
   {
     name: 'Black Water Ventures',
@@ -178,6 +193,10 @@ export const PROJECTS = [
     gradient: ['#000000', '#696969'],
     url: 'https://blackwatter.netlify.app/',
     tech: ['react', 'nodejs', 'tailwindcss', 'emailjs'],
+    category: 'Real Estate Platform',
+    year: '2024',
+    client: 'Black Water Ventures',
+    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
   },
   {
     name: 'Support Healthier Community',
@@ -189,6 +208,10 @@ export const PROJECTS = [
     gradient: ['#2aaa33', '#FFFFFF'],
     url: 'https://www.supporthealthier.org/',
     tech: ['react', 'tailwindcss'],
+    category: 'Community Platform',
+    year: '2024',
+    client: 'Support Healthier Community',
+    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
   },
   {
     name: 'Sleek Assured',
@@ -200,6 +223,10 @@ export const PROJECTS = [
     gradient: ['#010066', '#FFFFFF'],
     url: 'https://sleek-assured.netlify.app/',
     tech: ['react', 'tailwindcss', 'nodejs', 'emailjs'],
+    category: 'Service Platform',
+    year: '2024',
+    client: 'Sleek Assured',
+    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
   },
 ];
 
@@ -292,7 +319,7 @@ export const WORK_CONTENTS = {
     {
       title: 'Innovation',
       description:
-        'I spearheaded the development of Q-Rate, their flagship product, a voice-based applicant screening platform. This project combined advanced technical solutions with user-focused design, enhancing engagement and increasing daily traffic. Additionally, I introduced an error-logging and bug reporting system, significantly reducing user-reported bugs and improving the platform’s reliability.',
+        'I spearheaded the development of Q-Rate, their flagship product, a voice-based applicant screening platform. This project combined advanced technical solutions with user-focused design, enhancing engagement and increasing daily traffic. Additionally, I introduced an error-logging and bug reporting system, significantly reducing user-reported bugs and improving the platform\'s reliability.',
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
           Innovator & Problem Solver
@@ -306,6 +333,69 @@ export const WORK_CONTENTS = {
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
           Data Integration Expert
+        </div>
+      ),
+    },
+  ],
+
+  MahamAI: [
+    {
+      title: 'MahamAI',
+      description:
+        'MahamAI represents the cutting edge of artificial intelligence and machine learning solutions. As a Full-Stack Developer specializing in AI integration, I played a pivotal role in developing intelligent systems that transform how businesses operate and make decisions.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Pioneering AI Solutions for the Future
+        </div>
+      ),
+    },
+    {
+      title: 'AI-Powered Development',
+      description:
+        'At MahamAI, I focused on integrating artificial intelligence capabilities into web applications, creating intelligent chatbots, recommendation systems, and automated decision-making tools. My work involved implementing machine learning models and ensuring seamless AI integration with modern web technologies.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          AI Integration Specialist
+        </div>
+      ),
+    },
+    {
+      title: 'Intelligent Web Solutions',
+      description:
+        'I developed sophisticated web applications that leverage AI to provide personalized user experiences, automated content generation, and intelligent data analysis. These solutions helped clients streamline their operations and make data-driven decisions with unprecedented accuracy.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Intelligent Web Developer
+        </div>
+      ),
+    },
+    {
+      title: 'Machine Learning Integration',
+      description:
+        'My role involved bridging the gap between complex AI algorithms and user-friendly web interfaces. I implemented machine learning models using Python and integrated them with React.js and Next.js applications, creating powerful AI-driven platforms that deliver real business value.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          ML Integration Expert
+        </div>
+      ),
+    },
+    {
+      title: 'Scalable AI Architecture',
+      description:
+        'I designed and implemented scalable architectures for AI-powered applications, ensuring they could handle large datasets and complex computations while maintaining optimal performance. This involved working with cloud platforms, optimizing API responses, and implementing efficient data processing pipelines.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          AI Architecture Designer
+        </div>
+      ),
+    },
+    {
+      title: 'Innovation in AI Development',
+      description:
+        'At MahamAI, I contributed to groundbreaking projects that pushed the boundaries of what\'s possible with AI in web development. From natural language processing to computer vision applications, my work demonstrated the transformative potential of AI in modern web solutions.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          AI Innovation Leader
         </div>
       ),
     },

@@ -66,7 +66,7 @@ export default function ProjectCard({ project }) {
     >
       {/* 🔹 Arrow is absolute on card, not inside image */}
       <div className='absolute top-4 right-4 z-20'>
-        <Link href={project.url} target='_blank' rel='noopener noreferrer'>
+        <Link href={`/project/${project.name.toLowerCase().replace(/\s+/g, '-')}`}>
           <motion.div
             whileHover={{ scale: 1.15, rotate: 12 }}
             whileTap={{ scale: 0.9 }}
