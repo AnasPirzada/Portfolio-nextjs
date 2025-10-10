@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
-import { PROJECTS } from '../../constants.js';
+import { PROJECTS, METADATA } from '../../constants.js';
 import Cursor from '@/components/Cursor/Cursor';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import Menu from '@/components/Header/Menu/Menu';
 import ProgressIndicator from '@/components/ProgressIndicator/ProgressIndicator';
+import Meta from '@/components/Meta/Meta';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { useEffect, useState } from 'react';
@@ -44,6 +45,10 @@ export default function ProjectDetailPage() {
   if (!project) {
     return (
       <>
+        <Meta 
+          title="Project Not Found"
+          description="The requested project could not be found. Explore other projects by Anas Pirzada, Full Stack Developer & AI Expert."
+        />
         <Header>
           <Menu />
         </Header>
@@ -65,8 +70,64 @@ export default function ProjectDetailPage() {
     );
   }
 
+  // SEO meta data for this project
+  const projectTitle = project.name;
+  const projectDescription = `${project.description} - A ${project.category} project by Anas Pirzada, Full Stack Developer & AI Expert. Built with ${project.tech?.join(', ')}.`;
+  const projectUrl = `${METADATA.siteUrl}/project/${slug}`;
+  const projectImage = project.heroSection || project.image;
+
+  // CreativeWork Schema for structured data
+  const creativeWorkSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": project.name,
+    "description": project.description,
+    "image": projectImage,
+    "url": project.url,
+    "author": {
+      "@type": "Person",
+      "name": "Anas Pirzada",
+      "url": METADATA.siteUrl,
+      "sameAs": [
+        "https://www.linkedin.com/in/anas-pirzada/",
+        "https://github.com/AnasPirzada",
+        "https://x.com/Anas_Pirzada1"
+      ]
+    },
+    "creator": {
+      "@type": "Person",
+      "name": "Anas Pirzada"
+    },
+    "dateCreated": project.year,
+    "genre": project.category,
+    "keywords": project.tech?.join(', ') || "web development, programming",
+    "about": {
+      "@type": "Thing",
+      "name": project.category
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": project.url,
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
   return (
     <>
+      <Meta 
+        title={projectTitle}
+        description={projectDescription}
+        image={projectImage}
+        url={projectUrl}
+        type="website"
+      />
+      
+      {/* CreativeWork Schema */}
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
+      />
+      
       <Header>
         <Menu />
       </Header>

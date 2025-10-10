@@ -1,25 +1,35 @@
 export const METADATA = {
   author: 'Anas Pirzada',
-  title: 'Portfolio',
+  title: 'Anas Pirzada - Full Stack Developer & AI Expert | Portfolio',
   description:
-    'Anas Pirzada is an experienced Web Developer specializing in React.js, Next.js, and crafting elegant, user-focused digital solutions. With expertise in frontend and backend technologies, he transforms ideas into impactful web experiences.',
-  siteUrl: 'https://www.AnasPirzada.me/',
+    'Anas Pirzada is a Full Stack Developer and AI Expert specializing in React.js, Next.js, and Machine Learning. With 2+ years of experience, he creates scalable web applications and AI-powered solutions. View his portfolio of modern web projects.',
+  siteUrl: 'https://anaspirzada.vercel.app/',
   twitterHandle: '@Anas_Pirzada1',
   keywords: [
     'Anas Pirzada',
+    'Full Stack Developer',
     'Frontend Engineer',
-    'React Native Developer',
-    'Software Engineer',
-    'Portfolio',
-    'Devfolio',
+    'AI Expert',
+    'Machine Learning Developer',
     'React.js Developer',
     'Next.js Specialist',
-    'Full-Stack Developer',
-    'Portfolio',
-    'Frontend Engineer',
-    'Modern Web Solutions',
     'Software Engineer',
-    'Folio',
+    'Web Developer',
+    'JavaScript Developer',
+    'TypeScript Developer',
+    'Node.js Developer',
+    'Python Developer',
+    'AI Integration',
+    'Portfolio',
+    'Web Development Services',
+    'Modern Web Solutions',
+    'Responsive Web Design',
+    'UI/UX Developer',
+    'Laravel Developer',
+    'Django Developer',
+    'Firebase Developer',
+    'MongoDB Developer',
+    'MySQL Developer',
   ].join(', '),
   image:
     'https://res.cloudinary.com/di6tubsu9/image/upload/v1737926697/jb3dfhw9wxmozff6j56w.png',
@@ -59,10 +69,12 @@ export const MENULINKS = [
 ];
 
 export const TYPED_STRINGS = [
-  'A dedicated Next.js Developer',
+  'Full Stack Developer & AI Expert',
   'I craft modern and responsive web solutions',
+  'Building AI-powered applications with React & Next.js',
   'Turning ideas into impactful digital experiences',
   'Mastering the art of seamless UI/UX design',
+  'Specializing in Machine Learning integration',
 ];
 
 export const SOCIAL_LINKS = [
@@ -138,7 +150,12 @@ export const PROJECTS = [
     category: 'Web Application',
     year: '2024',
     client: 'TeklabSpace',
-    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
+    services: [
+      'Web Development',
+      'UI/UX Design',
+      'Frontend Development',
+      'Responsive Design',
+    ],
   },
   {
     name: ' Investment Learning',
@@ -152,7 +169,12 @@ export const PROJECTS = [
     category: 'Educational Platform',
     year: '2024',
     client: 'Investment Learning Ltd',
-    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
+    services: [
+      'Web Development',
+      'UI/UX Design',
+      'Frontend Development',
+      'Responsive Design',
+    ],
   },
   {
     name: 'Al-Quran Digital Institute',
@@ -167,7 +189,12 @@ export const PROJECTS = [
     category: 'Educational Platform',
     year: '2024',
     client: 'Al-Quran Digital Institute',
-    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
+    services: [
+      'Web Development',
+      'UI/UX Design',
+      'Frontend Development',
+      'Responsive Design',
+    ],
   },
   {
     name: 'IQ Demie',
@@ -181,7 +208,12 @@ export const PROJECTS = [
     category: 'Assessment Platform',
     year: '2024',
     client: 'IQ Demie',
-    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
+    services: [
+      'Web Development',
+      'UI/UX Design',
+      'Frontend Development',
+      'Responsive Design',
+    ],
   },
   {
     name: 'Black Water Ventures',
@@ -196,7 +228,12 @@ export const PROJECTS = [
     category: 'Real Estate Platform',
     year: '2024',
     client: 'Black Water Ventures',
-    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
+    services: [
+      'Web Development',
+      'UI/UX Design',
+      'Frontend Development',
+      'Responsive Design',
+    ],
   },
   {
     name: 'Support Healthier Community',
@@ -211,7 +248,12 @@ export const PROJECTS = [
     category: 'Community Platform',
     year: '2024',
     client: 'Support Healthier Community',
-    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
+    services: [
+      'Web Development',
+      'UI/UX Design',
+      'Frontend Development',
+      'Responsive Design',
+    ],
   },
   {
     name: 'Sleek Assured',
@@ -226,7 +268,12 @@ export const PROJECTS = [
     category: 'Service Platform',
     year: '2024',
     client: 'Sleek Assured',
-    services: ['Web Development', 'UI/UX Design', 'Frontend Development', 'Responsive Design'],
+    services: [
+      'Web Development',
+      'UI/UX Design',
+      'Frontend Development',
+      'Responsive Design',
+    ],
   },
 ];
 
@@ -319,7 +366,7 @@ export const WORK_CONTENTS = {
     {
       title: 'Innovation',
       description:
-        'I spearheaded the development of Q-Rate, their flagship product, a voice-based applicant screening platform. This project combined advanced technical solutions with user-focused design, enhancing engagement and increasing daily traffic. Additionally, I introduced an error-logging and bug reporting system, significantly reducing user-reported bugs and improving the platform\'s reliability.',
+        "I spearheaded the development of Q-Rate, their flagship product, a voice-based applicant screening platform. This project combined advanced technical solutions with user-focused design, enhancing engagement and increasing daily traffic. Additionally, I introduced an error-logging and bug reporting system, significantly reducing user-reported bugs and improving the platform's reliability.",
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
           Innovator & Problem Solver
@@ -392,7 +439,7 @@ export const WORK_CONTENTS = {
     {
       title: 'Innovation in AI Development',
       description:
-        'At MahamAI, I contributed to groundbreaking projects that pushed the boundaries of what\'s possible with AI in web development. From natural language processing to computer vision applications, my work demonstrated the transformative potential of AI in modern web solutions.',
+        "At MahamAI, I contributed to groundbreaking projects that pushed the boundaries of what's possible with AI in web development. From natural language processing to computer vision applications, my work demonstrated the transformative potential of AI in modern web solutions.",
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
           AI Innovation Leader
@@ -405,25 +452,13 @@ export const WORK_CONTENTS = {
 export const EDUCATION_CONTENTS = [
   {
     title: 'Bachelor of Computer Science',
-    institute: 'University of Technology',
-    year: '2018 – 2022',
+    institute: 'The Islamia University of Bahawalpur',
+    year: '2019 – 2023',
     description:
-      'Completed a four-year degree focused on algorithms, data structures, and full‑stack development.',
+      'Graduated with a 3.02 GPA. Built a strong foundation in programming (Java, C++, Python), database management, and software engineering. Applied academic knowledge to real-world projects and participated actively in student societies to enhance leadership and teamwork skills.',
     content: (
       <div className='h-full w-full flex items-center justify-center text-white px-4'>
-        2018 - 2022
-      </div>
-    ),
-  },
-  {
-    title: 'Intermediate in Pre-Engineering',
-    institute: 'Government College',
-    year: '2016 – 2018',
-    description:
-      'Studied core subjects of mathematics and physics, laying the foundation for my technical journey.',
-    content: (
-      <div className='h-full w-full flex items-center justify-center text-white px-4'>
-        2016 - 2018
+        2019 - 2023
       </div>
     ),
   },
@@ -456,7 +491,7 @@ export const CERTIFICATION_CONTENTS = [
   },
 ];
 
-export const GTAG = 'G-5HCTL2TJ5W';
+export const GTAG = 'G-MLJ3G4JNXM';
 
 export const BLOGS = [
   {

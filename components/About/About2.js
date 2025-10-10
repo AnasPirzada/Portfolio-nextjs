@@ -41,7 +41,7 @@ const About2 = ({ clientHeight }) => {
           ref={quoteRef}
           className='font-medium text-[2.70rem] md:text-6xl lg:text-[4rem] text-center'
         >
-          I have a{' '}
+          As a Full Stack Developer and AI Expert, I have a{' '}
           <span
             className='about-3 font-bold'
             style={{
@@ -54,7 +54,7 @@ const About2 = ({ clientHeight }) => {
           >
             strong
           </span>{' '}
-          obsession for attention to detail.
+          obsession for attention to detail in every line of code and AI solution.
         </h1>
       </div>
     </section>
