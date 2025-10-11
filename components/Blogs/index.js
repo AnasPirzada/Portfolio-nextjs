@@ -4,6 +4,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { BLOGS } from '../../constants';
+import Button from '../Button/Button';
 
 const BlogCard = ({ blog, index }) => {
   return (
@@ -60,12 +61,13 @@ const Blogs = ({ clientHeight }) => {
             ))}
           </div>
           <div className='mt-6 text-center'>
-            <Link
-              href='/blogs'
-              className='primary__button_active inline-flex items-center gap-2 px-5 py-2 rounded-md outline outline-2 outline-[#eeba2c] hover:shadow-[0_0_1rem_rgba(238,186,44,0.6)] transition-all'
-            >
-              View All Blogs
-            </Link>
+            <div className='staggered-reveal pt-4'>
+              {/* <Link href='/blogs'> */}
+              <Button href='/blogs' classes='link' type='primary'>
+                View All Blogs
+              </Button>
+              {/* </Link> */}
+            </div>
           </div>
         </div>
       </div>

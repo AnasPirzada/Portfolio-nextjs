@@ -389,60 +389,57 @@ export const WORK_CONTENTS = {
     {
       title: 'MahamAI',
       description:
-        'MahamAI represents the cutting edge of artificial intelligence and machine learning solutions. As a Full-Stack Developer specializing in AI integration, I played a pivotal role in developing intelligent systems that transform how businesses operate and make decisions.',
+        'MahamAI is an emerging Saudi-based technology company specializing in AI-powered platforms and modern web solutions. The team focuses on building scalable, intelligent systems using the latest advancements in React, Next.js, and monorepo architecture to enhance business automation and performance.',
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          Pioneering AI Solutions for the Future
+          About the Company
         </div>
       ),
     },
     {
-      title: 'AI-Powered Development',
-      description:
-        'At MahamAI, I focused on integrating artificial intelligence capabilities into web applications, creating intelligent chatbots, recommendation systems, and automated decision-making tools. My work involved implementing machine learning models and ensuring seamless AI integration with modern web technologies.',
+      title: 'Role',
+      description: 'Full-Stack Developer (AI & Monorepo Architecture)',
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          AI Integration Specialist
+          Role
         </div>
       ),
     },
     {
-      title: 'Intelligent Web Solutions',
-      description:
-        'I developed sophisticated web applications that leverage AI to provide personalized user experiences, automated content generation, and intelligent data analysis. These solutions helped clients streamline their operations and make data-driven decisions with unprecedented accuracy.',
+      title: 'Duration',
+      description: 'September - Present',
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          Intelligent Web Developer
+          Duration
         </div>
       ),
     },
     {
-      title: 'Machine Learning Integration',
-      description:
-        'My role involved bridging the gap between complex AI algorithms and user-friendly web interfaces. I implemented machine learning models using Python and integrated them with React.js and Next.js applications, creating powerful AI-driven platforms that deliver real business value.',
+      title: 'Responsibilities & Achievements',
+      description: `Developed and maintained multi-app projects in a monorepo architecture using Turborepo and npm Workspaces, ensuring efficient builds and shared codebases.\n
+Built reusable UI components and themes via @maham/ui-components, using Shadcn/UI, Tailwind CSS, and CSS variable-based theming.\n
+Integrated Next.js 15 (App Router) and React 18 for server-client hybrid rendering, optimizing performance and SEO.\n
+Implemented advanced styling tools like class-variance-authority (CVA), clsx, and tailwind-merge for modular and consistent component design.\n
+Configured build environment using TypeScript (strict mode), PostCSS, and Autoprefixer for production-grade performance.\n
+Managed hybrid module setups (ESM / CJS) across configurations for better compatibility and cleaner builds.\n
+Collaborated in an agile environment, utilizing Node.js 20.x, .env.local, and Turbo CLI for environment management and parallel app execution.`,
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          ML Integration Expert
+          Responsibilities & Achievements
         </div>
       ),
     },
     {
-      title: 'Scalable AI Architecture',
-      description:
-        'I designed and implemented scalable architectures for AI-powered applications, ensuring they could handle large datasets and complex computations while maintaining optimal performance. This involved working with cloud platforms, optimizing API responses, and implementing efficient data processing pipelines.',
+      title: 'Tech Stack',
+      description: `Core Frameworks: Next.js 15 (App Router), React 18\n
+Architecture & Tooling: Turborepo, npm Workspaces\n
+Styling: Tailwind CSS, tailwindcss-animate, clsx, tailwind-merge, class-variance-authority (CVA)\n
+UI Library: @maham/ui-components (Shadcn/UI, CSS variable theming)\n
+Build Tools: TypeScript (strict), PostCSS, Autoprefixer\n
+Environment: Node.js ≥ 18.17, Turbo CLI, .env.local`,
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          AI Architecture Designer
-        </div>
-      ),
-    },
-    {
-      title: 'Innovation in AI Development',
-      description:
-        "At MahamAI, I contributed to groundbreaking projects that pushed the boundaries of what's possible with AI in web development. From natural language processing to computer vision applications, my work demonstrated the transformative potential of AI in modern web solutions.",
-      content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
-          AI Innovation Leader
+          Tech Stack
         </div>
       ),
     },
