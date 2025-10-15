@@ -25,7 +25,7 @@ const Document = () => {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Anas Pirzada" />
+        <meta name="apple-mobile-web-app-title" content="Portfolio" />
         
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#000000" />
@@ -34,7 +34,7 @@ const Document = () => {
         
         {/* Favicon */}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" type="image/x-icon" href="/favicons/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
       <body>
         <Main />

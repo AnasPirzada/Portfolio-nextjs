@@ -47,6 +47,24 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
     }
   };
 
+  // JSON-LD Structured Data for Website
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Portfolio",
+    "alternateName": "Anas Pirzada Portfolio",
+    "url": METADATA.siteUrl,
+    "description": METADATA.description,
+    "author": {
+      "@type": "Person",
+      "name": "Anas Pirzada"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Anas Pirzada"
+    }
+  };
+
   return (
     <Head>
       <title>{pageTitle}</title>
@@ -59,6 +77,11 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
       <meta name='theme-color' content={METADATA.themeColor} />
       <meta httpEquiv='content-language' content='en' />
       
+      {/* Additional site identification */}
+      <meta name='application-name' content='Portfolio' />
+      <meta name='apple-mobile-web-app-title' content='Portfolio' />
+      <meta name='msapplication-TileTitle' content='Portfolio' />
+      
       {/* Canonical URL */}
       <link rel='canonical' href={pageUrl} />
 
@@ -69,7 +92,7 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
       <meta property='og:description' content={pageDescription} />
       <meta property='og:image' content={pageImage} />
       <meta property='og:url' content={pageUrl} />
-      <meta property='og:site_name' content={`${METADATA.author} - Portfolio`} />
+      <meta property='og:site_name' content='Portfolio' />
       <meta property='og:image:width' content='1200' />
       <meta property='og:image:height' content='630' />
       <meta property='og:image:alt' content={`${METADATA.author} - Full Stack Developer & AI Expert`} />
@@ -86,11 +109,11 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
 
       {/* Favicons */}
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      <link rel="icon" type="image/x-icon" href="/favicons/favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       <link
         rel='apple-touch-icon'
         sizes='180x180'
-        href='/favicons/apple-touch-icon.png'
+        href='/favicon.svg'
       />
       <meta name='msapplication-TileColor' content='#efc041' />
       <link rel='manifest' href='/manifest.json' />
@@ -99,6 +122,10 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
     </Head>
   );
