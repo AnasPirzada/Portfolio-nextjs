@@ -6,10 +6,10 @@
   & > a {
     &:hover,
     &:focus {
-      filter: drop-shadow(0 0 1rem theme('colors.GoldenGlow.light'));
-      filter: brightness(1.1);
+      filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.8));
+      filter: brightness(0.8);
       svg {
-        stroke: #eeba2c;
+        stroke: #000000;
       }
     }
   }
