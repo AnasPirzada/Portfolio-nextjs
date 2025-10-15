@@ -12,44 +12,48 @@ const About1 = ({ clientHeight }) => {
     const ctx = gsap.context(() => {
       const tl = gsap
         .timeline({
-          defaults: { ease: 'none', duration: 0.1 },
+          defaults: { ease: 'power2.out', duration: 0.8 },
         })
         .fromTo(
           quoteRef.current.querySelector('.about-1'),
-          { opacity: 0.2 },
-          { opacity: 1 }
+          { opacity: 0.3, y: 20 },
+          { opacity: 1, y: 0 }
         )
         .to(quoteRef.current.querySelector('.about-1'), {
-          opacity: 0.2,
-          delay: 0.5,
+          opacity: 0.3,
+          y: -10,
+          duration: 0.6,
         })
         .fromTo(
           quoteRef.current.querySelector('.about-2'),
-          { opacity: 0.2 },
-          { opacity: 1 },
-          '<'
+          { opacity: 0.3, y: 20 },
+          { opacity: 1, y: 0 },
+          '<0.2'
         )
         .to(quoteRef.current.querySelector('.about-2'), {
-          opacity: 0.2,
-          delay: 0.5,
+          opacity: 0.3,
+          y: -10,
+          duration: 0.6,
         })
         .fromTo(
           quoteRef.current.querySelector('.about-3'),
-          { opacity: 0.2 },
-          { opacity: 1 },
-          '<'
+          { opacity: 0.3, y: 20 },
+          { opacity: 1, y: 0 },
+          '<0.2'
         )
         .to(quoteRef.current.querySelector('.about-3'), {
-          opacity: 0.2,
-          delay: 0.5,
+          opacity: 0.3,
+          y: -10,
+          duration: 0.6,
         });
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'center 80%',
-        end: 'center top',
-        scrub: 0,
+        start: 'top 70%',
+        end: 'bottom 30%',
+        scrub: 1,
         animation: tl,
+        pin: false,
       });
     });
 
@@ -60,12 +64,12 @@ const About1 = ({ clientHeight }) => {
     <section ref={sectionRef} className='w-full relative select-none'>
       <div
         className={`${
-          clientHeight > 650 ? 'pt-28 pb-16' : 'pt-80 pb-72'
+          clientHeight > 650 ? 'pt-20 pb-20' : 'pt-24 pb-24'
         } section-container`}
       >
         <h1
           ref={quoteRef}
-          className='font-medium text-[2.70rem] md:text-6xl lg:text-[4rem] text-center'
+          className='font-medium text-[2.70rem] md:text-6xl lg:text-[4rem] text-center leading-relaxed'
         >
           <span className='about-1 leading-tight'>
             I&apos;m a passionate Full Stack Developer and AI Expert who&apos;s focused on building

@@ -46,7 +46,7 @@ const BlogCard = ({ blog, index }) => {
 
 const Blogs = ({ clientHeight }) => {
   return (
-    <section id='blogs' className='w-full relative mt-96 select-non'>
+    <section id='blogs' className='w-full relative mt-96 select-none'>
       <div className='section-container py-16 flex flex-col justify-center'>
         <div className='flex flex-col'>
           <div className='text-center mb-6'>
