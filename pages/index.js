@@ -1,6 +1,5 @@
 import About1 from '@/components/About/About1';
 import About2 from '@/components/About/About2';
-import Blogs from '@/components/Blogs';
 import Collaboration from '@/components/Collaboration/Collaboration';
 import Contact from '@/components/Contact/Contact';
 import Cursor from '@/components/Cursor/Cursor';
@@ -77,7 +76,6 @@ export default function Home() {
             <TagLine clientHeight={clientHeight} />
             <EducationandCertification isDesktop={isDesktop} />
             <Work isDesktop={isDesktop} />
-            <Blogs clientHeight={clientHeight} />
 
             <Collaboration clientHeight={clientHeight} />
             <Contact />

@@ -85,6 +85,8 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
       <meta property='twitter:image:alt' content={`${METADATA.author} - Full Stack Developer & AI Expert`} />
 
       {/* Favicons */}
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <link rel="icon" type="image/x-icon" href="/favicons/favicon.ico" />
       <link
         rel='apple-touch-icon'
         sizes='180x180'

@@ -31,6 +31,10 @@ const Document = () => {
         <meta name="theme-color" content="#000000" />
         <meta name="msapplication-navbutton-color" content="#000000" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        
+        {/* Favicon */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/x-icon" href="/favicons/favicon.ico" />
       </Head>
       <body>
         <Main />

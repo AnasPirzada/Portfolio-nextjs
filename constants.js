@@ -1,6 +1,6 @@
 export const METADATA = {
   author: 'Anas Pirzada',
-  title: 'Anas Pirzada - Full Stack Developer & AI Expert | Portfolio',
+  title: 'Anas Pirzada - Full Stack Developer & AI Expert | React.js & Next.js Specialist',
   description:
     'Anas Pirzada is a Full Stack Developer and AI Expert specializing in React.js, Next.js, and Machine Learning. With 2+ years of experience, he creates scalable web applications and AI-powered solutions. View his portfolio of modern web projects.',
   siteUrl: 'https://anaspirzada.vercel.app/',
