@@ -4,12 +4,21 @@
   gap: 1.5rem;
 
   & > a {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    svg {
+      transition: all 0.3s ease;
+    }
+    
     &:hover,
     &:focus {
-      filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.8));
-      filter: brightness(0.8);
+      filter: drop-shadow(0 0 1rem rgba(239, 192, 65, 0.6));
+      transform: translateY(-3px) scale(1.1);
+      
       svg {
-        stroke: #000000;
+        stroke: #efc041;
+        filter: brightness(1.2);
       }
     }
   }

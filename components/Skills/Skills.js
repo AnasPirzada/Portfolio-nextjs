@@ -2,8 +2,62 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { MENULINKS, SKILLS } from '../../constants';
+
+const SkillIcon = ({ skill }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Format skill name for display (remove hyphens, capitalize)
+  const formatSkillName = (name) => {
+    return name
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
+  return (
+    <div 
+      className="relative group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="link relative transition-transform duration-300 hover:scale-110 hover:-translate-y-2">
+        <Image
+          src={`/skills/${skill}.svg`}
+          alt={skill}
+          width={50}
+          height={50}
+          className="transition-all duration-300"
+        />
+      </div>
+      
+      {/* Animated Badge/Tooltip */}
+      <div 
+        className={`absolute left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 rounded-lg whitespace-nowrap transition-all duration-300 pointer-events-none ${
+          isHovered 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-2'
+        }`}
+        style={{
+          background: 'linear-gradient(135deg, #efc041 0%, #eeba2c 100%)',
+          boxShadow: '0 4px 15px rgba(239, 192, 65, 0.4), 0 0 20px rgba(239, 192, 65, 0.2)',
+        }}
+      >
+        <span className="text-sm font-semibold text-gray-900">
+          {formatSkillName(skill)}
+        </span>
+        {/* Arrow pointing up */}
+        <div 
+          className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45"
+          style={{
+            background: 'linear-gradient(135deg, #efc041 0%, #eeba2c 100%)',
+          }}
+        />
+      </div>
+    </div>
+  );
+};
 
 const Skills = () => {
   const sectionRef = useRef(null);
@@ -64,13 +118,7 @@ const Skills = () => {
             </h3>
             <div className='flex items-center flex-wrap gap-6 staggered-reveal'>
               {SKILLS.languagesAndTools.map(skill => (
-                <Image
-                  key={skill}
-                  src={`/skills/${skill}.svg`}
-                  alt={skill}
-                  width={50}
-                  height={50}
-                />
+                <SkillIcon key={skill} skill={skill} />
               ))}
             </div>
           </div>
@@ -80,13 +128,7 @@ const Skills = () => {
             </h3>
             <div className='flex flex-wrap gap-6 transform-gpu staggered-reveal'>
               {SKILLS.librariesAndFrameworks.map(skill => (
-                <Image
-                  key={skill}
-                  src={`/skills/${skill}.svg`}
-                  alt={skill}
-                  width={50}
-                  height={50}
-                />
+                <SkillIcon key={skill} skill={skill} />
               ))}
             </div>
           </div>
@@ -97,13 +139,7 @@ const Skills = () => {
               </h3>
               <div className='flex flex-wrap gap-6 transform-gpu'>
                 {SKILLS.databases.map(skill => (
-                  <Image
-                    key={skill}
-                    src={`/skills/${skill}.svg`}
-                    alt={skill}
-                    width={50}
-                    height={50}
-                  />
+                  <SkillIcon key={skill} skill={skill} />
                 ))}
               </div>
             </div>
@@ -113,13 +149,7 @@ const Skills = () => {
               </h3>
               <div className='flex flex-wrap gap-6 transform-gpu'>
                 {SKILLS.other.map(skill => (
-                  <Image
-                    key={skill}
-                    src={`/skills/${skill}.svg`}
-                    alt={skill}
-                    width={50}
-                    height={50}
-                  />
+                  <SkillIcon key={skill} skill={skill} />
                 ))}
               </div>
             </div>

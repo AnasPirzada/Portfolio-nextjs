@@ -61,9 +61,9 @@ const Footer = () => {
             </div>
             <p className='text-center text-white text-sm sm:text-base font-medium tracking-wide mt-8'>
               Developed with{' '}
-              <button onClick={handleClick} className='link cursor-none'>
+              <button onClick={handleClick} className='link'>
                 <span
-                  className='block text-black'
+                  className='block'
                   style={{
                     display: 'inline-block',
                     animation: 'beat 1s ease-in-out infinite',
