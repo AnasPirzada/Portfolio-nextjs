@@ -142,7 +142,7 @@ const PDFViewer = ({ pdfUrl, onClose }) => {
                   <div className={styles.errorIcon}>📄</div>
                   <h4 className={styles.errorTitle}>PDF Preview</h4>
                   <p className={styles.errorMessage}>
-                    Your browser doesn't support embedded PDF viewing.
+                    Your browser doesn&apos;t support embedded PDF viewing.
                     <br />
                     Please use the buttons above to open or download the file.
                   </p>

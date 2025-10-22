@@ -93,8 +93,8 @@ const Reviews = () => {
                   </div>
 
                   {/* Decorative Quote Marks */}
-                  <div className='absolute top-8 left-8 text-8xl text-[#efc041]/20 font-serif leading-none'>"</div>
-                  <div className='absolute bottom-8 right-8 text-8xl text-[#efc041]/20 font-serif leading-none transform rotate-180'>"</div>
+                  <div className='absolute top-8 left-8 text-8xl text-[#efc041]/20 font-serif leading-none'>&quot;</div>
+                  <div className='absolute bottom-8 right-8 text-8xl text-[#efc041]/20 font-serif leading-none transform rotate-180'>&quot;</div>
 
                   {/* Content */}
                   <div className='relative z-10'>
@@ -105,7 +105,7 @@ const Reviews = () => {
                         animate={{ scale: 1, rotate: 0 }}
                         transition={{ delay: 0.2, duration: 0.5, ease: "backOut" }}
                       >
-                        "
+                        &quot;
                       </motion.span>
                     </div>
                     

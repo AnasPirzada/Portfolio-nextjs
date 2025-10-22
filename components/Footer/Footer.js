@@ -191,9 +191,9 @@ const Footer = () => {
         </div>
 
         {/* Main Footer Content */}
-        <motion.div
+      <motion.div
           initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className='section-container pt-32 pb-12'
@@ -265,7 +265,7 @@ const Footer = () => {
                 </button>
               </form>
             </div>
-          </div>
+            </div>
 
           {/* Divider */}
           <div className='h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent mb-8'></div>
@@ -298,19 +298,19 @@ const Footer = () => {
                 <span className='flex items-center gap-1'>
                   Crafted with
                   <button onClick={handleHeartClick} className='link inline-flex'>
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        animation: 'beat 1s ease-in-out infinite',
-                      }}
-                    >
+                <span
+                  style={{
+                    display: 'inline-block',
+                    animation: 'beat 1s ease-in-out infinite',
+                  }}
+                >
                       ❤️
                     </span>
                   </button>
                 </span>
-              </p>
-            </div>
+            </p>
           </div>
+        </div>
 
           {/* CTA Section */}
           <motion.div
@@ -322,10 +322,10 @@ const Footer = () => {
           >
             <div className='inline-block p-8 rounded-2xl bg-gradient-to-r from-[#efc041]/10 to-[#eeba2c]/10 border border-[#efc041]/20'>
               <h3 className='text-2xl md:text-3xl font-bold text-white mb-4'>
-                Let's Build Something Amazing Together
+                Let&apos;s Build Something Amazing Together
               </h3>
               <p className='text-gray-400 mb-6 max-w-2xl mx-auto'>
-                Have a project in mind? Let's discuss how we can bring your ideas to life.
+                Have a project in mind? Let&apos;s discuss how we can bring your ideas to life.
               </p>
               <a
                 href='#contact'
@@ -338,7 +338,7 @@ const Footer = () => {
               </a>
             </div>
           </motion.div>
-        </motion.div>
+      </motion.div>
       </div>
     </footer>
   );
