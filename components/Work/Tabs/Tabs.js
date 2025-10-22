@@ -2,12 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "utils/cn";
 
-const Tab = ({ index, tab, activeTab, handleOnClick, setIsHovering }) => {
+const Tab = ({ index, tab, activeTab, handleOnClick }) => {
   return (
     <button
       onMouseDown={() => handleOnClick(index)}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
       className="relative px-4 py-1 rounded-full cursor-none"
       style={{
         transformStyle: "preserve-3d",
@@ -33,29 +31,19 @@ const Tab = ({ index, tab, activeTab, handleOnClick, setIsHovering }) => {
   );
 };
 
-const TabsContent = ({ tabs, isHovering }) => {
+const TabsContent = ({ tabs, activeTab }) => {
   return (
     <div className="relative w-full h-full">
-      {tabs.map((tab, index) => {
-        return (
-          <motion.div
-            key={tab.value}
-            layoutId={tab.value}
-            style={{
-              scale: 1 - index * 0.1,
-              top: isHovering ? index * -50 : 0,
-              zIndex: -index,
-              opacity: index < 3 ? 1 - index * 0.1 : 0,
-            }}
-            animate={{
-              y: tab.value === tabs[0].value ? [0, 40, 0] : 0,
-            }}
-            className="w-full h-full absolute top-0 left-0 mt-36 md:mt-32"
-          >
-            {tab.content}
-          </motion.div>
-        );
-      })}
+      <motion.div
+        key={activeTab.value}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3 }}
+        className="w-full mt-36 md:mt-32"
+      >
+        {activeTab.content}
+      </motion.div>
     </div>
   );
 };
@@ -65,7 +53,6 @@ const mouseClickSound = new Howl({
 });
 
 const Tabs = ({ tabItems }) => {
-  const [isHovering, setIsHovering] = useState(false);
   const [tabs, setTabs] = useState(tabItems);
   const [activeTab, setActiveTab] = useState(tabItems[0]);
 
@@ -88,15 +75,12 @@ const Tabs = ({ tabItems }) => {
             tab={tab}
             activeTab={activeTab}
             handleOnClick={handleOnClick}
-            setIsHovering={setIsHovering}
           />
         ))}
       </div>
       <TabsContent
-        key={activeTab.value}
         tabs={tabs}
         activeTab={activeTab}
-        isHovering={isHovering}
       />
     </div>
   );

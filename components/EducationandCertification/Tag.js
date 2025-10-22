@@ -10,19 +10,19 @@ const Tag = ({ clientHeight }) => {
     const ctx = gsap.context(() => {
       const tl = gsap
         .timeline({
-          defaults: { ease: 'none', duration: 0.1 },
+          defaults: { ease: 'power2.out' },
         })
-        .from(quoteRef.current, { opacity: 0, duration: 2 })
+        .from(quoteRef.current, { opacity: 0, y: 30, duration: 0.8 })
         .to(quoteRef.current.querySelector('.about-3'), {
           backgroundPositionX: '100%',
-          duration: 1,
+          duration: 1.2,
+          ease: 'power1.inOut',
         });
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'center bottom',
-        end: 'center center',
-        scrub: 0,
+        start: 'top 80%',
+        toggleActions: 'play none none none',
         animation: tl,
       });
     });

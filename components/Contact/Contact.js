@@ -3,7 +3,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { motion } from 'framer-motion';
 import { MENULINKS } from '../../constants';
 import styles from './Contact.module.scss';
 import mail from './mailer';
@@ -229,29 +228,31 @@ const Contact = () => {
   }, [buttonElementRef]);
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'none' } });
+    const ctx = gsap.context(() => {
+      gsap.from(
+        sectionRef.current.querySelectorAll('.staggered-reveal'),
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current.querySelector('.contact-wrapper'),
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }, sectionRef);
 
-    tl.from(
-      sectionRef.current.querySelectorAll('.staggered-reveal'),
-      { opacity: 0, duration: 0.5, stagger: 0.5 },
-      '<'
-    );
-
-    ScrollTrigger.create({
-      trigger: sectionRef.current.querySelector('.contact-wrapper'),
-      start: '100px bottom',
-      end: 'center center',
-      scrub: 0,
-      animation: tl,
-    });
-
-    return () => tl.kill();
-  }, [sectionRef]);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       ref={sectionRef}
-      id={MENULINKS[4].ref}
+      id={MENULINKS[6].ref}
       className='mt-16 w-full relative select-none bg-black pt-20 sm:pt-10 md:pt-5 lg:pt-1 pb-20'
     >
       <div>
@@ -272,13 +273,8 @@ const Contact = () => {
           </h2>
         </div>
 
-        <form className='pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem] staggered-reveal'>
-          <motion.div
-            initial={{ opacity: 0, y: 64 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.5 }}
-          >
+        <form className='pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem]'>
+          <div className='staggered-reveal'>
             <div className='relative'>
               <input
                 type='text'
@@ -328,7 +324,7 @@ const Contact = () => {
                 Message
               </label>
             </div>
-          </motion.div>
+          </div>
 
           {mailerResponse !== 'not initiated' &&
             (mailerResponse === 'success' ? (
@@ -337,7 +333,7 @@ const Contact = () => {
               <div className='hidden'>{error()}</div>
             ))}
         </form>
-        <div className='mt-9 mx-auto link'>
+        <div className='mt-9 mx-auto link staggered-reveal'>
           <button
             ref={buttonElementRef}
             className={styles.button}

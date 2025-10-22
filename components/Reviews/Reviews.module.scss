@@ -1,0 +1,199 @@
+.carousel {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 400px;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.card {
+  background: linear-gradient(135deg, rgba(239, 192, 65, 0.1), rgba(238, 186, 44, 0.05));
+  border: 2px solid rgba(239, 192, 65, 0.3);
+  border-radius: 1.5rem;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #efc041, #eeba2c);
+  }
+}
+
+.quote {
+  font-size: 6rem;
+  color: rgba(239, 192, 65, 0.2);
+  line-height: 0.5;
+  margin-bottom: 1rem;
+  font-family: Georgia, serif;
+}
+
+.text {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  font-style: italic;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.avatarImage {
+  border-radius: 50%;
+  border: 2px solid #efc041;
+  position: relative;
+  z-index: 1;
+}
+
+.avatarGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(239, 192, 65, 0.3), transparent);
+  z-index: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.info {
+  flex: 1;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.role {
+  font-size: 0.95rem;
+  color: rgba(239, 192, 65, 0.9);
+  margin: 0.25rem 0 0;
+}
+
+.company {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0.25rem 0 0;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+  font-size: 1.5rem;
+}
+
+.starFilled {
+  color: #efc041;
+}
+
+.starEmpty {
+  color: rgba(239, 192, 65, 0.2);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+}
+
+.controlBtn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgba(239, 192, 65, 0.3);
+  background: rgba(239, 192, 65, 0.1);
+  color: #efc041;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(239, 192, 65, 0.2);
+    border-color: #efc041;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.dots {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(239, 192, 65, 0.3);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(239, 192, 65, 0.5);
+    transform: scale(1.2);
+  }
+
+  &.dotActive {
+    background: #efc041;
+    border-color: #efc041;
+    transform: scale(1.2);
+  }
+}
+
+

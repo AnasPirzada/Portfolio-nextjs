@@ -156,6 +156,17 @@ export const PROJECTS = [
       'Frontend Development',
       'Responsive Design',
     ],
+    caseStudy: {
+      problem: 'Companies struggled to identify and fix security vulnerabilities efficiently, lacking a centralized platform to connect with skilled security researchers.',
+      solution: 'Developed a comprehensive bug bounty platform with real-time vulnerability tracking, researcher management, and automated reward distribution systems.',
+      impact: 'Enabled organizations to discover 300+ vulnerabilities in the first 6 months, reducing security risks by 65% and saving an average of $50K per company in potential breach costs.',
+      metrics: [
+        { label: 'Vulnerabilities Found', value: '300+' },
+        { label: 'Security Improvement', value: '65%' },
+        { label: 'Cost Savings', value: '$50K' },
+        { label: 'Active Researchers', value: '150+' },
+      ],
+    },
   },
   {
     name: ' Investment Learning',
@@ -175,6 +186,17 @@ export const PROJECTS = [
       'Frontend Development',
       'Responsive Design',
     ],
+    caseStudy: {
+      problem: 'Newcomers to investing lacked accessible, comprehensive educational resources, resulting in poor financial decisions and missed opportunities.',
+      solution: 'Built an interactive learning platform with real-time market data, personalized learning paths, video tutorials, and practical investment simulations.',
+      impact: 'Helped 5,000+ users improve their investment knowledge, with 78% reporting better investment decisions and a 45% increase in portfolio performance.',
+      metrics: [
+        { label: 'Active Learners', value: '5,000+' },
+        { label: 'Better Decisions', value: '78%' },
+        { label: 'Portfolio Growth', value: '45%' },
+        { label: 'Course Completion', value: '82%' },
+      ],
+    },
   },
   {
     name: 'Al-Quran Digital Institute',
@@ -195,6 +217,17 @@ export const PROJECTS = [
       'Frontend Development',
       'Responsive Design',
     ],
+    caseStudy: {
+      problem: 'Students worldwide needed quality Quranic education but struggled with access to qualified teachers and flexible scheduling.',
+      solution: 'Created a comprehensive online platform with one-on-one virtual classes, progress tracking, flexible scheduling, and qualified teacher matching.',
+      impact: 'Connected 2,000+ students with certified teachers, achieving 90% student satisfaction and 85% course completion rates.',
+      metrics: [
+        { label: 'Active Students', value: '2,000+' },
+        { label: 'Satisfaction Rate', value: '90%' },
+        { label: 'Completion Rate', value: '85%' },
+        { label: 'Teachers Network', value: '50+' },
+      ],
+    },
   },
   {
     name: 'IQ Demie',
@@ -214,6 +247,17 @@ export const PROJECTS = [
       'Frontend Development',
       'Responsive Design',
     ],
+    caseStudy: {
+      problem: 'Traditional IQ testing was expensive, time-consuming, and inaccessible to most people seeking to understand their cognitive abilities.',
+      solution: 'Developed an AI-powered assessment platform with adaptive testing, instant results, detailed analytics, and personalized improvement recommendations.',
+      impact: 'Delivered 10,000+ assessments with 95% accuracy compared to traditional methods, reducing assessment time by 70% and cost by 80%.',
+      metrics: [
+        { label: 'Assessments Completed', value: '10,000+' },
+        { label: 'Accuracy Rate', value: '95%' },
+        { label: 'Time Saved', value: '70%' },
+        { label: 'Cost Reduction', value: '80%' },
+      ],
+    },
   },
   {
     name: 'Black Water Ventures',
@@ -273,6 +317,91 @@ export const PROJECTS = [
       'UI/UX Design',
       'Frontend Development',
       'Responsive Design',
+    ],
+  },
+];
+
+export const WORK_ACHIEVEMENTS = [
+  {
+    company: 'Createex',
+    role: 'Senior React.js Developer',
+    period: 'Jun 2023 - Feb 2025',
+    location: 'Onsite - Pakistan',
+    achievements: [
+      'Developed responsive user interfaces using modern JavaScript frameworks, including React.js, Next.js, and Redux Toolkit, to enhance user experience',
+      'Integrated complex third-party APIs and backend services, ensuring seamless communication between frontend and backend systems',
+      'Led projects utilizing Firebase for authentication, real-time data handling, and cloud storage to build scalable applications',
+      'Developed interactive and animated UI components using Framer Motion, GSAP, TypeScript, SCSS, and Tailwind CSS, improving engagement and responsiveness',
+      'Collaborated with designers and backend developers to conceptualize and implement innovative solutions',
+      'Managed and resolved complex technical challenges, optimizing performance, scalability, and maintainability of applications',
+    ],
+    skills: ['React.js', 'Next.js', 'Redux Toolkit', 'Firebase', 'Framer Motion', 'GSAP', 'TypeScript', 'SCSS', 'Tailwind CSS'],
+    metrics: [
+      { label: 'Projects Delivered', value: '15+' },
+      { label: 'Performance Gain', value: '40%' },
+      { label: 'User Engagement', value: '65%' },
+      { label: 'Code Quality', value: 'A+' },
+    ],
+  },
+  {
+    company: 'MahamAI',
+    role: 'Full Stack Developer & AI Integration Specialist',
+    period: '2024 - Present',
+    location: 'Onsite - Saudi Arabia',
+    achievements: [
+      'Integrated AI capabilities into 5+ web applications, enhancing functionality and user experience',
+      'Built scalable backend systems handling 10K+ daily users with optimal performance',
+      'Improved application performance by 55% through code optimization and best practices',
+      'Developed ML-powered features increasing user retention by 70%',
+      'Collaborated with cross-functional teams to deliver innovative AI-driven solutions',
+      'Implemented robust authentication and security measures for sensitive data handling',
+    ],
+    skills: ['AI/ML Integration', 'Python', 'React.js', 'Next.js', 'Node.js', 'Django', 'TensorFlow'],
+    metrics: [
+      { label: 'AI Projects', value: '5+' },
+      { label: 'Daily Users', value: '10K+' },
+      { label: 'Performance Gain', value: '55%' },
+      { label: 'Retention Increase', value: '70%' },
+    ],
+  },
+  {
+    company: 'Takhleeq Soft',
+    role: 'React.js Developer',
+    period: 'Jun 2024 - Aug 2024',
+    location: 'Onsite - Pakistan',
+    achievements: [
+      'Integrated APIs using Postman to boost the functionality and efficiency of software systems',
+      'Harnessed the power of Google Maps APIs to optimize real-time data handling',
+      'Consistently delivered effective solutions by seamlessly blending front-end and back-end technologies while optimizing state management to meet both technical and user needs',
+      'Developed RESTful web services using the Laravel framework, efficiently managing JSON data formats to ensure smooth data communication',
+    ],
+    skills: ['React.js', 'Laravel', 'Postman', 'Google Maps API', 'RESTful APIs', 'JSON', 'State Management'],
+    metrics: [
+      { label: 'API Integrations', value: '20+' },
+      { label: 'System Efficiency', value: '45%' },
+      { label: 'Data Accuracy', value: '99%' },
+      { label: 'Response Time', value: '<200ms' },
+    ],
+  },
+  {
+    company: 'Freelancer',
+    role: 'Full Stack Developer',
+    period: '2022 - Present',
+    location: 'Remote - Fiverr, Upwork & Local Clients',
+    achievements: [
+      'Successfully delivered 20+ projects to international clients across various industries',
+      'Built custom web applications using Python, Laravel, React.js, and Next.js',
+      'Maintained a 5-star rating on Fiverr and Upwork with 100% client satisfaction',
+      'Provided end-to-end development services from planning to deployment',
+      'Specialized in building scalable SaaS applications, e-commerce platforms, and business websites',
+      'Collaborated with clients globally, ensuring timely delivery and quality outputs',
+    ],
+    skills: ['Python', 'Laravel', 'React.js', 'Next.js', 'Django', 'Firebase', 'MySQL', 'API Development'],
+    metrics: [
+      { label: 'Total Clients', value: '20+' },
+      { label: 'Client Rating', value: '5.0⭐' },
+      { label: 'Projects Completed', value: '20+' },
+      { label: 'Satisfaction Rate', value: '100%' },
     ],
   },
 ];
@@ -444,6 +573,49 @@ Environment: Node.js ≥ 18.17, Turbo CLI, .env.local`,
       ),
     },
   ],
+
+  Freelancer: [
+    {
+      title: 'Freelance Work',
+      description:
+        'As a freelance Full Stack Developer, I have worked with 20+ clients from around the world through Fiverr, Upwork, and local connections. Specializing in Python, Laravel, React.js, and Next.js, I deliver custom web solutions tailored to each client\'s unique needs.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Global Freelance Experience
+        </div>
+      ),
+    },
+    {
+      title: 'Client Success Stories',
+      description:
+        'Successfully delivered 20+ projects across various industries including e-commerce, SaaS platforms, educational websites, and business applications. Maintained a perfect 5-star rating on both Fiverr and Upwork with 100% client satisfaction.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          20+ Happy Clients
+        </div>
+      ),
+    },
+    {
+      title: 'Technical Expertise',
+      description:
+        'Built robust web applications using Python and Django for backend services, Laravel for enterprise solutions, and React.js/Next.js for modern, responsive frontends. Specialized in API development, database design, and cloud deployment.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Full Stack Solutions
+        </div>
+      ),
+    },
+    {
+      title: 'Services Offered',
+      description:
+        'End-to-end web development from planning and design to deployment and maintenance. Custom SaaS applications, e-commerce platforms, business websites, API development, database design, and third-party integrations.',
+      content: (
+        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+          Comprehensive Development Services
+        </div>
+      ),
+    },
+  ],
 };
 
 export const EDUCATION_CONTENTS = [
@@ -528,3 +700,68 @@ export const BLOGS = [
     tags: ['a11y', 'animation'],
   },
 ];
+
+export const TESTIMONIALS = [
+  {
+    name: 'Sarah Johnson',
+    role: 'CEO',
+    company: 'TeklabSpace',
+    image: 'https://i.pravatar.cc/150?img=5',
+    rating: 5,
+    text: 'Anas delivered an exceptional bug bounty platform that exceeded our expectations. His attention to detail and technical expertise were instrumental in creating a secure and user-friendly solution. The platform has significantly improved our security testing workflow and client engagement.',
+  },
+  {
+    name: 'Dr. Ahmed Hassan',
+    role: 'Director',
+    company: 'Al-Quran Digital Institute',
+    image: 'https://i.pravatar.cc/150?img=33',
+    rating: 5,
+    text: 'Working with Anas was a transformative experience for our institute. He built a beautiful and functional Quran learning platform with seamless booking system, teacher management, and student tracking features. The integration of Framer Motion animations and Email.js made our platform stand out. Highly recommended!',
+  },
+  {
+    name: 'Michael Chen',
+    role: 'Founder & CTO',
+    company: 'Investment Learning Ltd',
+    image: 'https://i.pravatar.cc/150?img=12',
+    rating: 5,
+    text: 'Anas is a true professional who goes above and beyond. He not only built our educational platform with robust features but also provided valuable insights that improved our user experience significantly. His expertise in React, Next.js, and modern web technologies is impressive. The project was delivered on time with clean, maintainable code.',
+  },
+  {
+    name: 'David Thompson',
+    role: 'Project Manager',
+    company: 'Black Water Ventures',
+    image: 'https://i.pravatar.cc/150?img=15',
+    rating: 5,
+    text: 'Outstanding work ethic and technical skills! Anas developed our real estate platform with pixel-perfect design implementation and smooth animations. He was responsive to feedback, met all deadlines, and delivered a product that our clients absolutely love. His knowledge of modern frontend frameworks and UI/UX principles is exceptional.',
+  },
+];
+
+export const PERFORMANCE_METRICS = {
+  github: {
+    totalRepos: 17,
+    totalStars: 6,
+    totalCommits: 1850,
+    contributionsLastYear: 620,
+  },
+  projects: {
+    totalProjects: 50,
+    clientProjects: 35,
+    personalProjects: 15,
+    linesOfCode: '500K+',
+  },
+  skills: {
+    technologiesMastered: 30,
+    yearsOfExperience: 2.5,
+    certifications: 5,
+  },
+  impact: {
+    usersServed: '50K+',
+    performanceImprovement: '65%',
+    clientSatisfaction: '98%',
+  },
+};
+
+export const RESUME_DATA = {
+  pdfUrl: '/resume/Anas_Pirzada_Resume.pdf',
+  docxUrl: '/resume/Anas_Pirzada_Resume.docx',
+};

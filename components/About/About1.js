@@ -79,12 +79,12 @@ const About1 = ({ clientHeight }) => {
             I strive to deliver seamless user experiences by embracing modern
             frontend practices, AI integration, and thoughtful design principles. <br />
           </span>
-          <span className='about-3 leading-tight'>
-            With over 2 years of experience as a Full Stack Developer and AI Expert, I
-            specialize in building React.js applications, integrating APIs, implementing
-            Machine Learning solutions, and leveraging frameworks like Django, Laravel, 
-            and Next.js for scalable backend and frontend solutions.{' '}
-          </span>
+           <span className='about-3 leading-tight'>
+             With 4+ years of experience as a Full Stack Developer and AI Expert, I
+             specialize in building React.js applications, integrating APIs, implementing
+             Machine Learning solutions, and leveraging frameworks like Django, Laravel, 
+             and Next.js for scalable backend and frontend solutions.{' '}
+           </span>
         </h1>
       </div>
     </section>

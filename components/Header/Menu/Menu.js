@@ -6,9 +6,20 @@ const Menu = () => {
     const anchorNodes = document.querySelectorAll('a[href^="#"]');
 
     anchorNodes.forEach((el) => {
-      el.addEventListener("click", () => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        const href = el.getAttribute('href');
+        const targetId = href.replace('#', '');
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+        
         const checkbox = document.querySelector(".checkbox-toggle");
-        checkbox.checked = false;
+        if (checkbox) {
+          checkbox.checked = false;
+        }
       });
     });
   }, []);
@@ -37,7 +48,7 @@ const Menu = () => {
             <div className="absolute bottom-8 right-8">
               <a
                 href="#contact"
-                className="bg-white text-black px-6 py-3 rounded-lg font-bold text-lg hover:bg-gray-200 transition-colors duration-300"
+                className="link relative inline-block font-bold text-6xl duration-300 px-12 py-4 rounded-lg border-2 border-white text-white hover:bg-[#efc041] hover:text-black hover:border-[#efc041] transition-all"
                 style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' }}
               >
                 CONTACT US

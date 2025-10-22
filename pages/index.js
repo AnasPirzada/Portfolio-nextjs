@@ -1,5 +1,4 @@
 import About1 from '@/components/About/About1';
-import About2 from '@/components/About/About2';
 import Blogs from '@/components/Blogs/index';
 import Collaboration from '@/components/Collaboration/Collaboration';
 import Contact from '@/components/Contact/Contact';
@@ -11,8 +10,11 @@ import Header from '@/components/Header/Header';
 import Menu from '@/components/Header/Menu/Menu';
 import Hero from '@/components/Hero/Hero';
 import Loader from '@/components/Loader/Loader';
+import GitHubStats from '@/components/PerformanceMetrics/PerformanceMetrics';
 import ProgressIndicator from '@/components/ProgressIndicator/ProgressIndicator';
 import Projects from '@/components/Projects/Projects';
+import Resume from '@/components/Resume/Resume';
+import Reviews from '@/components/Reviews/Reviews';
 import Skills from '@/components/Skills/Skills';
 import Work from '@/components/Work/Work';
 import gsap from 'gsap';
@@ -72,12 +74,14 @@ export default function Home() {
             <Hero />
             <About1 clientHeight={clientHeight} />
             <Skills />
-            <About2 clientHeight={clientHeight} />
             <Projects isDesktop={isDesktop} clientHeight={clientHeight} />
             <TagLine clientHeight={clientHeight} />
             <EducationandCertification isDesktop={isDesktop} />
             <Work isDesktop={isDesktop} />
+            <GitHubStats />
+            <Reviews />
             <Blogs clientHeight={clientHeight} />
+            <Resume />
             <Collaboration clientHeight={clientHeight} />
             <Contact />
           </main>

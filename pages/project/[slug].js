@@ -215,6 +215,98 @@ export default function ProjectDetailPage() {
           </motion.div>
         </section>
 
+        {/* Case Study Section */}
+        {project.caseStudy && (
+          <section className='py-20 px-4 bg-gradient-to-b from-gray-900 to-black'>
+            <div className='max-w-6xl mx-auto'>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className='text-center mb-16'
+              >
+                <p className='uppercase tracking-widest text-gray-400 mb-4'>CASE STUDY</p>
+                <h2 className='text-4xl md:text-5xl font-bold text-white mb-4'>
+                  Problem → Solution → Impact
+                </h2>
+              </motion.div>
+
+              <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16'>
+                {/* Problem */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className='bg-gradient-to-br from-red-500/10 to-red-900/5 rounded-2xl p-8 border-2 border-red-500/20 hover:border-red-500/40 transition-all'
+                >
+                  <div className='text-4xl mb-4'>❗</div>
+                  <h3 className='text-2xl font-bold text-white mb-4'>Problem</h3>
+                  <p className='text-gray-300 leading-relaxed'>{project.caseStudy.problem}</p>
+                </motion.div>
+
+                {/* Solution */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className='bg-gradient-to-br from-blue-500/10 to-blue-900/5 rounded-2xl p-8 border-2 border-blue-500/20 hover:border-blue-500/40 transition-all'
+                >
+                  <div className='text-4xl mb-4'>💡</div>
+                  <h3 className='text-2xl font-bold text-white mb-4'>Solution</h3>
+                  <p className='text-gray-300 leading-relaxed'>{project.caseStudy.solution}</p>
+                </motion.div>
+
+                {/* Impact */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  className='bg-gradient-to-br from-green-500/10 to-green-900/5 rounded-2xl p-8 border-2 border-green-500/20 hover:border-green-500/40 transition-all'
+                >
+                  <div className='text-4xl mb-4'>🚀</div>
+                  <h3 className='text-2xl font-bold text-white mb-4'>Impact</h3>
+                  <p className='text-gray-300 leading-relaxed'>{project.caseStudy.impact}</p>
+                </motion.div>
+              </div>
+
+              {/* Metrics */}
+              {project.caseStudy.metrics && project.caseStudy.metrics.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className='text-3xl font-bold text-white text-center mb-8'>Key Metrics</h3>
+                  <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
+                    {project.caseStudy.metrics.map((metric, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className='bg-gradient-to-br from-[#efc041]/10 to-[#eeba2c]/5 rounded-xl p-6 border border-[#efc041]/20 hover:border-[#efc041]/40 transition-all text-center'
+                      >
+                        <div className='text-3xl md:text-4xl font-bold text-[#efc041] mb-2'>
+                          {metric.value}
+                        </div>
+                        <div className='text-sm text-gray-400 uppercase tracking-wide'>
+                          {metric.label}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </section>
+        )}
+
         {/* Project Details Section */}
         <section className='py-20 px-4 bg-black'>
           <div className='max-w-6xl mx-auto'>
