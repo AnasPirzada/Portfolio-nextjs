@@ -50,23 +50,25 @@ export default function ProjectCard({ project }) {
     };
   }, []);
 
+  const projectUrl = `/project/${project.name.toLowerCase().replace(/\s+/g, '-')}`;
+
   return (
-    <motion.div
-      ref={cardRef}
-      className='
-        relative z-10 flex flex-col p-6
-        h-[500px] rounded-2xl 
-        bg-black/40 backdrop-blur-lg 
-        border border-white/15 shadow-2xl
-        overflow-hidden transition-all duration-300 hover:border-[#eeba2c] hover:shadow-[0_20px_60px_rgba(238,186,44,0.18)]
-      '
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-    >
-      {/* 🔹 Arrow is absolute on card, not inside image */}
-      <div className='absolute top-4 right-4 z-20'>
-        <Link href={`/project/${project.name.toLowerCase().replace(/\s+/g, '-')}`}>
+    <Link href={projectUrl} className='block'>
+      <motion.div
+        ref={cardRef}
+        className='
+          relative z-10 flex flex-col p-6
+          h-[500px] rounded-2xl 
+          bg-black/40 backdrop-blur-lg 
+          border border-white/15 shadow-2xl
+          overflow-hidden transition-all duration-300 hover:border-[#eeba2c] hover:shadow-[0_20px_60px_rgba(238,186,44,0.18)]
+        '
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        {/* 🔹 Arrow is absolute on card, not inside image */}
+        <div className='absolute top-4 right-4 z-20'>
           <motion.div
             whileHover={{ scale: 1.15, rotate: 12 }}
             whileTap={{ scale: 0.9 }}
@@ -74,8 +76,7 @@ export default function ProjectCard({ project }) {
           >
             <Image src={allprojectarrow} alt='arrow' width={22} height={22} />
           </motion.div>
-        </Link>
-      </div>
+        </div>
 
       {/* Image with shape + floating effect */}
       <motion.div
@@ -163,5 +164,6 @@ export default function ProjectCard({ project }) {
         </div>
       </div>
     </motion.div>
+    </Link>
   );
 }

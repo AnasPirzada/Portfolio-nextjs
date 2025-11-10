@@ -98,6 +98,10 @@ export const SOCIAL_LINKS = [
     name: 'twitter',
     url: 'https://x.com/Anas_Pirzada1',
   },
+  {
+    name: 'fiverr',
+    url: 'https://www.fiverr.com/anas_peerzada/',
+  },
 ];
 
 export const SKILLS = {
