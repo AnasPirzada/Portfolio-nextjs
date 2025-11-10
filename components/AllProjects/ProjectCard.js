@@ -95,7 +95,7 @@ export default function ProjectCard({ project }) {
         >
           {/* 🔹 Animated Gradient Background */}
           <defs>
-            <linearGradient id='bgGradient' x1='0' y1='0' x2='1' y2='1'>
+            <linearGradient id={`bgGradient-${project.name.replace(/\s+/g, '-')}`} x1='0' y1='0' x2='1' y2='1'>
               <stop offset='0%' stopColor='rgba(239, 192, 65, 0.15)'>
                 <animate
                   attributeName='offset'
@@ -116,10 +116,10 @@ export default function ProjectCard({ project }) {
           </defs>
 
           {/* Background with animated gradient */}
-          <rect x='0' y='0' width='960' height='540' fill='url(#bgGradient)' />
+          <rect x='0' y='0' width='960' height='540' fill={`url(#bgGradient-${project.name.replace(/\s+/g, '-')})`} />
 
           {/* Define mask from black areas */}
-          <mask id={`heroMask`}>
+          <mask id={`heroMask-${project.name.replace(/\s+/g, '-')}`}>
             <rect x='0' y='0' width='960' height='540' fill='black' />
             <path
               d='M764 0L597 0L597 28L659 28L659 57L741 57L741 85L651 85L651 114L668 114L668 142L697 142L697 171L679 171L679 199L744 199L744 227L726 227L726 256L764 256L764 284L656 284L656 313L745 313L745 341L642 341L642 369L596 369L596 398L620 398L620 426L662 426L662 455L772 455L772 483L634 483L634 512L679 512L679 540L0 540L0 512L0 483L0 455L0 426L0 398L0 369L0 341L0 313L0 284L0 256L0 227L0 199L0 171L0 142L0 114L0 85L0 57L0 28L0 0L0 0Z'
@@ -135,7 +135,7 @@ export default function ProjectCard({ project }) {
             width='125%'
             height='540'
             preserveAspectRatio='xMidYMid slice'
-            mask='url(#heroMask)'
+            mask={`url(#heroMask-${project.name.replace(/\s+/g, '-')})`}
           />
         </motion.svg>
       </motion.div>
