@@ -1,6 +1,5 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { MENULINKS, PROJECTS } from '../../constants';
 import Button from '../Button/Button.js';
@@ -106,11 +105,9 @@ const Projects = ({ isDesktop, clientHeight }) => {
           </h2>
 
         
-          <Link href='/projects'>
-            <Button classes='link w-[200px] mt-5' type='primary'>
+          <Button href='/projects' classes='link w-[200px] mt-5' type='primary'>
               View All Projects
             </Button>
-          </Link>
         </div>
         <div
           className={`${
