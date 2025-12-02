@@ -9,8 +9,14 @@ import allprojectarrow from '../../public/allprojectarrow.svg';
 
 export default function ProjectCard({ project }) {
   const cardRef = useRef(null);
+  const imageRef = useRef(null);
+  const glowRef = useRef(null);
+  const shimmerRef = useRef(null);
+  const titleRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const techRef = useRef(null);
 
-  // GSAP Hover 3D Animation
+  // Enhanced GSAP Animations
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
@@ -21,32 +27,193 @@ export default function ProjectCard({ project }) {
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * 8;
-      const rotateY = ((x - centerX) / centerX) * 8;
+      const rotateX = ((y - centerY) / centerY) * 6;
+      const rotateY = ((centerX - x) / centerX) * 6;
+
+      // Parallax effect for image
+      const imageX = ((x - centerX) / centerX) * 20;
+      const imageY = ((y - centerY) / centerY) * 20;
 
       gsap.to(card, {
         rotateX: -rotateX,
         rotateY: rotateY,
-        duration: 0.4,
-        ease: 'power2.out',
+        transformPerspective: 1000,
+        duration: 0.3,
+        ease: 'power1.out',
       });
+
+      if (imageRef.current) {
+        gsap.to(imageRef.current, {
+          x: imageX,
+          y: imageY,
+          duration: 0.6,
+          ease: 'power2.out',
+        });
+      }
+
+      // Animated glow follows cursor
+      if (glowRef.current) {
+        gsap.to(glowRef.current, {
+          x: x - rect.width / 2,
+          y: y - rect.height / 2,
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+      }
     };
 
-    const reset = () => {
-      gsap.to(card, {
+    const handleMouseEnter = () => {
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+      tl.to(card, {
+        y: -10,
+        boxShadow: '0 20px 60px rgba(239, 192, 65, 0.25)',
+        duration: 0.5,
+      })
+        .to(
+          glowRef.current,
+          {
+            opacity: 1,
+            scale: 1.5,
+            duration: 0.6,
+          },
+          '<0.2'
+        )
+        .to(
+          imageRef.current,
+          {
+            scale: 1.12,
+            duration: 0.7,
+            ease: 'power2.out',
+          },
+          '<0.1'
+        )
+        .to(
+          titleRef.current,
+          {
+            color: '#efc041',
+            y: -2,
+            duration: 0.4,
+          },
+          '<0.3'
+        )
+        .to(
+          descriptionRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+          },
+          '<0.2'
+        )
+        .to(
+          techRef.current?.children || [],
+          {
+            scale: 1.1,
+            y: -2,
+            duration: 0.4,
+            stagger: 0.04,
+            ease: 'back.out(1.4)',
+          },
+          '<0.1'
+        )
+        .to(
+          shimmerRef.current,
+          {
+            x: '100%',
+            duration: 0.8,
+            ease: 'power2.inOut',
+          },
+          '<0.3'
+        );
+    };
+
+    const handleMouseLeave = () => {
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+      tl.to(card, {
+        y: 0,
         rotateX: 0,
         rotateY: 0,
-        duration: 0.6,
-        ease: 'power3.out',
-      });
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+        duration: 0.5,
+      })
+        .to(
+          glowRef.current,
+          {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.4,
+          },
+          '<'
+        )
+        .to(
+          imageRef.current,
+          {
+            scale: 1,
+            x: 0,
+            y: 0,
+            duration: 0.6,
+          },
+          '<'
+        )
+        .to(
+          titleRef.current,
+          {
+            color: '#ffffff',
+            y: 0,
+            duration: 0.4,
+          },
+          '<'
+        )
+        .to(
+          descriptionRef.current,
+          {
+            opacity: 0.8,
+            y: 4,
+            duration: 0.3,
+          },
+          '<'
+        )
+        .to(
+          techRef.current?.children || [],
+          {
+            scale: 1,
+            y: 0,
+            duration: 0.3,
+            stagger: 0.02,
+          },
+          '<'
+        )
+        .to(
+          shimmerRef.current,
+          {
+            x: '-100%',
+            duration: 0,
+          },
+          '<'
+        );
     };
 
+    // Initial setup
+    if (glowRef.current) {
+      gsap.set(glowRef.current, { opacity: 0, scale: 0.8 });
+    }
+    if (shimmerRef.current) {
+      gsap.set(shimmerRef.current, { x: '-100%' });
+    }
+    if (descriptionRef.current) {
+      gsap.set(descriptionRef.current, { opacity: 0.8, y: 4 });
+    }
+
     card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', reset);
+    card.addEventListener('mouseenter', handleMouseEnter);
+    card.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseleave', reset);
+      card.removeEventListener('mouseenter', handleMouseEnter);
+      card.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
@@ -57,113 +224,116 @@ export default function ProjectCard({ project }) {
       <motion.div
         ref={cardRef}
         className='
-          relative z-10 flex flex-col p-6
-          h-[500px] rounded-2xl 
-          bg-black/40 backdrop-blur-lg 
-          border border-white/15 shadow-2xl
-          overflow-hidden transition-all duration-300 hover:border-[#eeba2c] hover:shadow-[0_20px_60px_rgba(238,186,44,0.18)]
+          group relative z-10 flex flex-col
+          bg-[#0a0a0a] border border-[#1a1a1a]
+          overflow-hidden transition-all duration-300
+          hover:border-[#efc041]/20
         '
-        initial={{ opacity: 0, y: 40 }}
+        style={{
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+          transformStyle: 'preserve-3d',
+        }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
       >
-        {/* 🔹 Arrow is absolute on card, not inside image */}
-        <div className='absolute top-4 right-4 z-20'>
-          <motion.div
-            whileHover={{ scale: 1.15, rotate: 12 }}
-            whileTap={{ scale: 0.9 }}
-            className='w-12 h-12 flex items-center justify-center rounded-full bg-[#efc041] text-white cursor-pointer'
-          >
-            <Image src={allprojectarrow} alt='arrow' width={22} height={22} />
-          </motion.div>
-        </div>
+        {/* Animated Glow Effect */}
+        <div
+          ref={glowRef}
+          className='absolute w-64 h-64 rounded-full opacity-0 pointer-events-none blur-3xl -z-10'
+          style={{
+            background: `radial-gradient(circle, rgba(239, 192, 65, 0.4), rgba(239, 192, 65, 0.2), transparent 70%)`,
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}
+        />
 
-      {/* Image with shape + floating effect */}
-      <motion.div
-        className='relative w-full h-72 overflow-hidden rounded-2xl'
-        initial={{ y: 0 }}
-        animate={{ y: [0, -8, 0] }}
-        transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }}
-      >
-        <motion.svg
-          viewBox='0 0 960 540'
-          xmlns='http://www.w3.org/2000/svg'
-          className='absolute inset-0 w-full h-full'
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          {/* 🔹 Animated Gradient Background */}
-          <defs>
-            <linearGradient id={`bgGradient-${project.name.replace(/\s+/g, '-')}`} x1='0' y1='0' x2='1' y2='1'>
-              <stop offset='0%' stopColor='rgba(239, 192, 65, 0.15)'>
-                <animate
-                  attributeName='offset'
-                  values='0;1;0'
-                  dur='6s'
-                  repeatCount='indefinite'
-                />
-              </stop>
-              <stop offset='100%' stopColor='rgba(239, 192, 65, 0.05)'>
-                <animate
-                  attributeName='offset'
-                  values='1;0;1'
-                  dur='6s'
-                  repeatCount='indefinite'
-                />
-              </stop>
-            </linearGradient>
-          </defs>
+        {/* Shimmer Effect */}
+        <div
+          ref={shimmerRef}
+          className='absolute inset-0 opacity-30 pointer-events-none'
+          style={{
+            background: 'linear-gradient(110deg, transparent 40%, rgba(239, 192, 65, 0.3) 50%, transparent 60%)',
+            transform: 'translateX(-100%)',
+          }}
+        />
 
-          {/* Background with animated gradient */}
-          <rect x='0' y='0' width='960' height='540' fill={`url(#bgGradient-${project.name.replace(/\s+/g, '-')})`} />
-
-          {/* Define mask from black areas */}
-          <mask id={`heroMask-${project.name.replace(/\s+/g, '-')}`}>
-            <rect x='0' y='0' width='960' height='540' fill='black' />
-            <path
-              d='M764 0L597 0L597 28L659 28L659 57L741 57L741 85L651 85L651 114L668 114L668 142L697 142L697 171L679 171L679 199L744 199L744 227L726 227L726 256L764 256L764 284L656 284L656 313L745 313L745 341L642 341L642 369L596 369L596 398L620 398L620 426L662 426L662 455L772 455L772 483L634 483L634 512L679 512L679 540L0 540L0 512L0 483L0 455L0 426L0 398L0 369L0 341L0 313L0 284L0 256L0 227L0 199L0 171L0 142L0 114L0 85L0 57L0 28L0 0L0 0Z'
-              fill='white'
-            />
-          </mask>
-
-          {/* Project image applied inside the mask */}
-          <image
-            href={project.heroSection}
-            x='0'
-            y='0'
-            width='125%'
-            height='540'
-            preserveAspectRatio='xMidYMid slice'
-            mask={`url(#heroMask-${project.name.replace(/\s+/g, '-')})`}
+        {/* Image Container - Clean, full width */}
+        <div className='relative w-full h-64 overflow-hidden bg-[#000]'>
+          <div
+            ref={imageRef}
+            className='absolute inset-0 bg-cover bg-center'
+            style={{
+              backgroundImage: `url(${project.heroSection})`,
+            }}
           />
-        </motion.svg>
-      </motion.div>
+          {/* Subtle gradient overlay */}
+          <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent' />
+          
+          {/* Dynamic hover overlay effect */}
+          <div className='absolute inset-0 bg-gradient-to-br from-[#efc041]/0 to-[#efc041]/0 group-hover:from-[#efc041]/15 group-hover:to-transparent transition-all duration-700' />
 
-      {/* Details */}
-      <div className='mt-6 flex-1'>
-        <h3 className='text-2xl font-bold text-white drop-shadow-md'>
-          {project.name}
-        </h3>
-        <p className='mt-2 text-sm text-gray-200/90 line-clamp-3'>
-          {project.description}
-        </p>
-
-        {/* Tech Stack */}
-        <div className='flex gap-3 mt-4 items-center flex-wrap'>
-          {project?.tech?.map(el => (
-            <motion.div key={el} whileHover={{ scale: 1.1 }} className='p-2 rounded-lg bg-white/5 border border-white/10'>
-              <Image
-                src={`/projects/tech/${el}.svg`}
-                alt={el}
-                width={32}
-                height={32}
-              />
+          {/* Arrow indicator - bottom right */}
+          <div className='absolute bottom-4 right-4 z-10'>
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 12 }}
+              className='flex items-center justify-center w-12 h-12 rounded-full bg-[#efc041] opacity-0 shadow-lg shadow-[#efc041]/30'
+            >
+              <Image src={allprojectarrow} alt='arrow' width={18} height={18} />
             </motion.div>
-          ))}
+          </div>
         </div>
-      </div>
-    </motion.div>
+
+        {/* Content Section */}
+        <div className='p-6 bg-[#0a0a0a] flex-1 flex flex-col'>
+          <h3 
+            ref={titleRef}
+            className='text-2xl font-semibold text-white mb-3 leading-tight transition-colors duration-300'
+          >
+            {project.name}
+          </h3>
+          <p 
+            ref={descriptionRef}
+            className='text-sm text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-1'
+          >
+            {project.description}
+          </p>
+
+          {/* Tech Stack */}
+          <div 
+            ref={techRef}
+            className='flex gap-2 items-center flex-wrap pt-3 border-t border-[#1a1a1a]'
+          >
+            {project?.tech?.slice(0, 6).map(el => (
+              <motion.div
+                key={el}
+                whileHover={{ scale: 1.15, rotate: 5 }}
+                className='flex items-center justify-center w-9 h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] group-hover:border-[#efc041]/30 transition-all duration-300'
+              >
+                <Image
+                  src={`/projects/tech/${el}.svg`}
+                  alt={el}
+                  width={16}
+                  height={16}
+                  className='opacity-80 group-hover:opacity-100 transition-opacity duration-300'
+                />
+              </motion.div>
+            ))}
+            {project?.tech?.length > 6 && (
+              <div className='flex items-center justify-center px-3 h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] text-gray-500 text-xs font-medium'>
+                +{project.tech.length - 6}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Animated border glow on hover */}
+        <div className='absolute inset-0 border border-[#1a1a1a] group-hover:border-[#efc041]/30 transition-colors duration-500 pointer-events-none' />
+        
+        {/* Pulsing border animation */}
+        <div className='absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/10 transition-all duration-700 pointer-events-none animate-pulse' />
+      </motion.div>
     </Link>
   );
 }

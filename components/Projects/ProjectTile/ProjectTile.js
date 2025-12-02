@@ -13,6 +13,9 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
   const titleRef = useRef(null);
   const techRef = useRef(null);
   const arrowRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const glowRef = useRef(null);
+  const shimmerRef = useRef(null);
 
   let additionalClasses = '';
   if (classes) {
@@ -23,108 +26,205 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
     const card = cardRef.current;
     if (!card) return;
 
-    // GSAP Hover Animation
+    // 3D Tilt Effect on Mouse Move
+    const handleMouseMove = e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * 6;
+      const rotateY = ((centerX - x) / centerX) * 6;
+
+      // Parallax effect for image
+      const imageX = ((x - centerX) / centerX) * 20;
+      const imageY = ((y - centerY) / centerY) * 20;
+
+      gsap.to(card, {
+        rotateX: -rotateX,
+        rotateY: rotateY,
+        transformPerspective: 1000,
+        duration: 0.3,
+        ease: 'power1.out',
+      });
+
+      gsap.to(imageRef.current, {
+        x: imageX,
+        y: imageY,
+        duration: 0.6,
+        ease: 'power2.out',
+      });
+
+      // Animated glow follows cursor
+      if (glowRef.current) {
+        gsap.to(glowRef.current, {
+          x: x - rect.width / 2,
+          y: y - rect.height / 2,
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+      }
+    };
+
+    // GSAP Hover Animation - Enhanced with more effects
     const handleMouseEnter = () => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
       tl.to(card, {
-        y: -16,
-        scale: 1.03,
+        y: -12,
         duration: 0.5,
       })
         .to(
           card,
           {
-            boxShadow: '0 25px 50px -12px rgba(239, 192, 65, 0.25)',
+            boxShadow: '0 20px 60px rgba(239, 192, 65, 0.25)',
             duration: 0.5,
           },
           '<'
         )
         .to(
-          imageRef.current,
+          glowRef.current,
           {
-            scale: 1.15,
-            duration: 0.8,
-            ease: 'power2.out',
+            opacity: 1,
+            scale: 1.5,
+            duration: 0.6,
           },
           '<0.2'
         )
         .to(
+          imageRef.current,
+          {
+            scale: 1.12,
+            duration: 0.7,
+            ease: 'power2.out',
+          },
+          '<0.1'
+        )
+        .to(
           titleRef.current,
           {
-            y: -6,
             color: '#efc041',
-            duration: 0.5,
-            ease: 'power2.out',
+            y: -2,
+            duration: 0.4,
           },
           '<0.3'
         )
         .to(
-          techRef.current?.children || [],
+          descriptionRef.current,
           {
-            y: -3,
-            scale: 1.05,
             opacity: 1,
+            y: 0,
             duration: 0.4,
-            stagger: 0.04,
-            ease: 'back.out(1.2)',
           },
           '<0.2'
         )
         .to(
-          arrowRef.current,
+          arrowRef.current?.parentElement,
           {
-            x: 6,
+            opacity: 1,
+            y: 0,
+            scale: 1,
             rotation: 0,
+            duration: 0.5,
+            ease: 'back.out(1.7)',
+          },
+          '<0.2'
+        )
+        .to(
+          techRef.current?.children || [],
+          {
+            scale: 1.1,
+            y: -2,
+            opacity: 1,
             duration: 0.4,
-            ease: 'back.out(1.5)',
+            stagger: 0.04,
+            ease: 'back.out(1.4)',
           },
           '<0.1'
+        )
+        .to(
+          shimmerRef.current,
+          {
+            x: '100%',
+            duration: 0.8,
+            ease: 'power2.inOut',
+          },
+          '<0.3'
         );
     };
 
     const handleMouseLeave = () => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
       tl.to(card, {
         y: 0,
-        scale: 1,
-        boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+        rotateX: 0,
+        rotateY: 0,
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
         duration: 0.5,
       })
+        .to(
+          glowRef.current,
+          {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.4,
+          },
+          '<'
+        )
         .to(
           imageRef.current,
           {
             scale: 1,
-            duration: 0.7,
+            x: 0,
+            y: 0,
+            duration: 0.6,
           },
           '<'
         )
         .to(
           titleRef.current,
           {
-            y: 0,
             color: '#ffffff',
-            duration: 0.5,
+            y: 0,
+            duration: 0.4,
+          },
+          '<'
+        )
+        .to(
+          descriptionRef.current,
+          {
+            opacity: 0.8,
+            y: 4,
+            duration: 0.3,
+          },
+          '<'
+        )
+        .to(
+          arrowRef.current?.parentElement,
+          {
+            opacity: 0,
+            y: 8,
+            scale: 0.8,
+            duration: 0.3,
           },
           '<'
         )
         .to(
           techRef.current?.children || [],
           {
-            y: 0,
             scale: 1,
-            duration: 0.4,
+            y: 0,
+            duration: 0.3,
             stagger: 0.02,
           },
           '<'
         )
         .to(
-          arrowRef.current,
+          shimmerRef.current,
           {
-            x: 0,
-            rotation: 0,
-            duration: 0.4,
+            x: '-100%',
+            duration: 0,
           },
           '<'
         );
@@ -132,9 +232,17 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
 
     // Initial animation on mount with stagger
     const techIcons = techRef.current?.children || [];
-    gsap.set([card, titleRef.current, ...techIcons], { opacity: 0, y: 20 });
+    gsap.set([card, titleRef.current, descriptionRef.current, ...techIcons], {
+      opacity: 0,
+      y: 20,
+    });
+    gsap.set(glowRef.current, { opacity: 0, scale: 0.8 });
+    gsap.set(shimmerRef.current, { x: '-100%' });
+    if (descriptionRef.current) {
+      gsap.set(descriptionRef.current, { opacity: 0.8, y: 4 });
+    }
 
-    const initTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const initTl = gsap.timeline({ defaults: { ease: 'power2.out' } });
     initTl
       .to(card, {
         opacity: 1,
@@ -151,22 +259,34 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         '<0.2'
       )
       .to(
-        techIcons,
+        descriptionRef.current,
         {
-          opacity: 0.7,
+          opacity: 0.8,
           y: 0,
           duration: 0.4,
-          stagger: 0.05,
         },
-        '<0.3'
+        '<0.2'
+      )
+      .to(
+        techIcons,
+        {
+          opacity: 0.9,
+          y: 0,
+          duration: 0.35,
+          stagger: 0.05,
+          ease: 'back.out(1.2)',
+        },
+        '<0.2'
       );
 
     card.addEventListener('mouseenter', handleMouseEnter);
     card.addEventListener('mouseleave', handleMouseLeave);
+    card.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       card.removeEventListener('mouseenter', handleMouseEnter);
       card.removeEventListener('mouseleave', handleMouseLeave);
+      card.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -181,21 +301,37 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
     >
       <div
         ref={cardRef}
-        className={`${styles.ProjectTile} group relative w-[560px] max-w-full rounded-3xl overflow-hidden bg-gradient-to-br from-gray-900/50 to-black/80 backdrop-blur-2xl border border-white/[0.08] cursor-pointer`}
+        className={`${styles.ProjectTile} group relative w-[560px] max-w-full bg-[#0a0a0a] border border-[#1a1a1a] cursor-pointer overflow-hidden`}
         style={{
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+          transformStyle: 'preserve-3d',
         }}
       >
-        {/* Animated Gradient Glow on Hover */}
+        {/* Animated Glow Effect */}
         <div
-          className='absolute -inset-0.5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 blur-xl'
+          ref={glowRef}
+          className='absolute w-64 h-64 rounded-full opacity-0 pointer-events-none blur-3xl -z-10'
           style={{
-            background: `linear-gradient(135deg, ${gradient[0]}40, ${gradient[1]}40)`,
+            background: `radial-gradient(circle, ${gradient[0]}40, ${gradient[1]}20, transparent 70%)`,
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
           }}
         />
 
-        {/* Image Container */}
-        <div className='relative h-48 overflow-hidden rounded-t-3xl'>
+        {/* Shimmer Effect */}
+        <div
+          ref={shimmerRef}
+          className='absolute inset-0 opacity-30 pointer-events-none'
+          style={{
+            background:
+              'linear-gradient(110deg, transparent 40%, rgba(239, 192, 65, 0.3) 50%, transparent 60%)',
+            transform: 'translateX(-100%)',
+          }}
+        />
+
+        {/* Image Container - Full width, better aspect ratio */}
+        <div className='relative w-full h-64 overflow-hidden bg-[#000]'>
           <div
             ref={imageRef}
             className='absolute inset-0 bg-cover bg-center'
@@ -203,62 +339,78 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
               backgroundImage: `url(${heroSection})`,
             }}
           />
-          <div className='absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/70' />
+          {/* Animated gradient overlay */}
+          <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent' />
 
-          {/* Floating Badge */}
-          <div className='absolute top-6 right-6 z-10'>
-            <div className='flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/20 group-hover:border-[#efc041]/60 group-hover:bg-[#efc041]/10 transition-all duration-500 shadow-lg'>
-              <span className='text-white group-hover:text-black text-xs font-semibold tracking-wide transition-colors duration-500'>
-                View Project
-              </span>
+          {/* Dynamic hover overlay effect */}
+          <div className='absolute inset-0 bg-gradient-to-br from-[#efc041]/0 to-[#efc041]/0 group-hover:from-[#efc041]/15 group-hover:to-transparent transition-all duration-700' />
+
+          {/* Arrow indicator - bottom right with animation */}
+          <div className='absolute bottom-4 right-4 z-10'>
+            <div className='flex items-center justify-center w-12 h-12 rounded-full bg-[#efc041] opacity-0 shadow-lg shadow-[#efc041]/30'>
               <FaArrowRight
                 ref={arrowRef}
-                className='w-3.5 h-3.5 text-[#efc041]'
+                className='w-4 h-4 text-black'
+                style={{ transform: 'rotate(-45deg)' }}
               />
             </div>
           </div>
         </div>
 
-        {/* Content */}
-        <div ref={contentRef} className='p-5'>
+        {/* Content Section */}
+        <div ref={contentRef} className='p-6 bg-[#0a0a0a]'>
           {/* Title */}
           <h3
             ref={titleRef}
-            className='text-xl font-bold text-white mb-4 leading-tight'
+            className='text-2xl font-semibold text-white mb-3 leading-tight transition-colors duration-300'
           >
             {name}
           </h3>
 
+          {/* Description if available */}
+          {description && (
+            <p
+              ref={descriptionRef}
+              className='text-sm text-gray-400 mb-4 line-clamp-2 leading-relaxed'
+            >
+              {description}
+            </p>
+          )}
+
           {/* Tech Stack */}
-          <div ref={techRef} className='flex flex-wrap gap-2.5 items-center'>
+          <div
+            ref={techRef}
+            className='flex flex-wrap gap-2 items-center pt-2 border-t border-[#1a1a1a]'
+          >
             {tech.slice(0, 6).map((techName, index) => (
               <div
                 key={techName}
-                className='flex items-center justify-center w-11 h-11 rounded-xl bg-white/[0.06] border border-white/[0.12] backdrop-blur-sm group-hover:border-[#efc041]/40 group-hover:bg-[#efc041]/10 group-hover:shadow-[0_0_15px_rgba(239,192,65,0.2)] transition-all duration-500'
+                className='flex items-center justify-center w-9 h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] group-hover:border-[#efc041]/30 transition-all duration-300'
                 style={{
-                  opacity: 0.8,
+                  opacity: 0.9,
                 }}
                 title={techName}
               >
                 <img
                   src={`/projects/tech/${techName}.svg`}
                   alt={techName}
-                  className='w-5 h-5'
+                  className='w-4 h-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300'
                 />
               </div>
             ))}
             {tech.length > 6 && (
-              <div className='flex items-center justify-center px-4 h-11 rounded-xl bg-white/[0.06] border border-white/[0.12] text-gray-400 text-xs font-semibold'>
+              <div className='flex items-center justify-center px-3 h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] text-gray-500 text-xs font-medium'>
                 +{tech.length - 6}
               </div>
             )}
           </div>
         </div>
 
-        {/* Shine Effect */}
-        <div className='absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none overflow-hidden rounded-2xl'>
-          <div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out' />
-        </div>
+        {/* Animated border glow on hover */}
+        <div className='absolute inset-0 border border-[#1a1a1a] group-hover:border-[#efc041]/30 transition-colors duration-500 pointer-events-none' />
+
+        {/* Pulsing border animation */}
+        <div className='absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/10 transition-all duration-700 pointer-events-none animate-pulse' />
       </div>
     </Link>
   );
