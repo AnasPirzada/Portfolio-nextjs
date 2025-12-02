@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { FaBullseye, FaChartBar, FaCheckCircle } from 'react-icons/fa';
 import { MENULINKS, WORK_ACHIEVEMENTS } from '../../constants';
 import Tabs from './Tabs/Tabs';
 
@@ -51,7 +52,7 @@ const Work = ({ isDesktop }) => {
                 {/* Achievements */}
                 <div>
                   <h4 className='text-lg font-semibold text-white mb-4 flex items-center gap-2'>
-                    <span className='text-xl'>🎯</span> Key Achievements
+                    <FaBullseye className='text-[#efc041] text-xl' /> Key Achievements
                   </h4>
                   <ul className='space-y-3'>
                     {job.achievements.map((achievement, i) => (
@@ -62,7 +63,7 @@ const Work = ({ isDesktop }) => {
                         transition={{ delay: i * 0.1 }}
                         className='flex items-start gap-3 text-gray-300'
                       >
-                        <span className='text-[#efc041] mt-1 flex-shrink-0'>✓</span>
+                        <FaCheckCircle className='text-[#efc041] mt-1 flex-shrink-0' size={16} />
                         <span>{achievement}</span>
                       </motion.li>
                     ))}
@@ -72,7 +73,7 @@ const Work = ({ isDesktop }) => {
                 {/* Metrics and Skills */}
                 <div>
                   <h4 className='text-lg font-semibold text-white mb-4 flex items-center gap-2'>
-                    <span className='text-xl'>📊</span> Impact Metrics
+                    <FaChartBar className='text-[#efc041] text-xl' /> Impact Metrics
                   </h4>
                   <div className='grid grid-cols-2 gap-3 mb-6'>
                     {job.metrics.map((metric, i) => (

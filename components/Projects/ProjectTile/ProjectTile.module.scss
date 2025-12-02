@@ -1,8 +1,5 @@
-.projectTile {
-  transform-style: preserve-3d;
-  transform: perspective(1000px);
-}
-
-.techIcons {
+.ProjectTile {
   will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }

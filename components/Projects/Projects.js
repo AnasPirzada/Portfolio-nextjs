@@ -85,10 +85,10 @@ const Projects = ({ isDesktop, clientHeight }) => {
       ref={sectionRef}
       id={MENULINKS[2].ref}
       className={`${
-        isDesktop && 'min-h-screen'
-      } w-full relative select-none section-container transform-gpu`}
+        isDesktop ? 'min-h-screen' : 'min-h-[120vh]'
+      } w-full relative select-none section-container `}
     >
-      <div className='flex flex-col py- justify-center h-full'>
+      <div className='flex flex-col py- justify-center h-full pb-32'>
         <div
           className='flex flex-col inner-container transform-gpu'
           ref={sectionTitleRef}
@@ -104,15 +104,14 @@ const Projects = ({ isDesktop, clientHeight }) => {
             magical ingredients.{' '}
           </h2>
 
-        
           <Button href='/projects' classes='link w-[200px] mt-5' type='primary'>
-              View All Projects
-            </Button>
+            View All Projects
+          </Button>
         </div>
         <div
           className={`${
             clientHeight > 650 ? 'mt-12' : 'mt-8'
-          } flex project-wrapper no-scrollbar w-fit staggered-reveal`}
+          } flex project-wrapper no-scrollbar w-fit staggered-reveal mb-16 pb-16`}
         >
           {PROJECTS.slice(0, 4).map((project, index) => (
             <ProjectTile

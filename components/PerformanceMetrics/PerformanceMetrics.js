@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaBox, FaStar, FaCodeCommit, FaChartLine } from 'react-icons/fa';
 import { PERFORMANCE_METRICS, WORK_ACHIEVEMENTS } from '../../constants';
 import styles from './PerformanceMetrics.module.scss';
 
@@ -54,10 +55,10 @@ const GitHubStats = () => {
   const { github } = PERFORMANCE_METRICS;
 
   const stats = [
-    { label: 'Repositories', value: github.totalRepos, color: '#a855f7', icon: '📦' },
-    { label: 'Stars', value: github.totalStars, color: '#efc041', icon: '⭐' },
-    { label: 'Commits', value: github.totalCommits, color: '#22c55e', icon: '💾' },
-    { label: 'Contributions', value: github.contributionsLastYear, color: '#3b82f6', icon: '📈' },
+    { label: 'Repositories', value: github.totalRepos, color: '#a855f7', icon: FaBox },
+    { label: 'Stars', value: github.totalStars, color: '#efc041', icon: FaStar },
+    { label: 'Commits', value: github.totalCommits, color: '#22c55e', icon: FaCodeCommit },
+    { label: 'Contributions', value: github.contributionsLastYear, color: '#3b82f6', icon: FaChartLine },
   ];
 
   // Calculate max value for scaling
@@ -226,7 +227,10 @@ const GitHubStats = () => {
                 <span className='text-4xl font-bold text-white'>
                   <CountUp end={stat.value} />
                 </span>
-                <span className='text-2xl'>{stat.icon}</span>
+                {(() => {
+                  const IconComponent = stat.icon;
+                  return IconComponent ? <IconComponent className='text-2xl' style={{ color: stat.color }} /> : null;
+                })()}
               </div>
             </motion.div>
           ))}
