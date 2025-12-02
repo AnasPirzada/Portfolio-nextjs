@@ -33,7 +33,7 @@ const Tag = ({ clientHeight }) => {
     <section ref={sectionRef} className='w-full relative select-none'>
       <div
         className={`${
-          clientHeight > 650 ? 'py-80' : 'py-72'
+          clientHeight > 650 ? 'py-20' : 'py-16'
         } section-container`}
       >
         <h1

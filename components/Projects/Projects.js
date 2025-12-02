@@ -12,6 +12,7 @@ const Projects = ({ isDesktop, clientHeight }) => {
   useEffect(() => {
     let projectsScrollTrigger;
     let projectsTimeline;
+    let ctx;
 
     if (isDesktop) {
       [projectsTimeline, projectsScrollTrigger] = getProjectsSt();
@@ -22,34 +23,35 @@ const Projects = ({ isDesktop, clientHeight }) => {
       projectWrapper.style.overflowX = 'scroll';
     }
 
-    const [revealTimeline, revealScrollTrigger] = getRevealSt();
+    // Setup reveal animation
+    ctx = gsap.context(() => {
+      gsap.from(
+        sectionRef.current.querySelectorAll('.staggered-reveal'),
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current.querySelector('.inner-container'),
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    });
 
     return () => {
       projectsScrollTrigger && projectsScrollTrigger.kill();
       projectsTimeline && projectsTimeline.kill();
-      revealScrollTrigger && revealScrollTrigger.kill();
-      revealTimeline && revealTimeline.progress(1);
+      ctx && ctx.revert();
     };
   }, [sectionRef, sectionTitleRef, isDesktop]);
 
   const getRevealSt = () => {
-    const revealTl = gsap.timeline({ defaults: { ease: 'none' } });
-
-    revealTl.from(
-      sectionRef.current.querySelectorAll('.staggered-reveal'),
-      { opacity: 0, duration: 0.5, stagger: 0.5 },
-      '<'
-    );
-
-    const scrollTrigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: 'top bottom',
-      end: 'bottom bottom',
-      scrub: 0,
-      animation: revealTl,
-    });
-
-    return [revealTl, scrollTrigger];
+    // This function is no longer needed but kept for compatibility
+    return [null, null];
   };
 
   const getProjectsSt = () => {
@@ -88,7 +90,7 @@ const Projects = ({ isDesktop, clientHeight }) => {
         isDesktop ? 'min-h-screen' : 'min-h-[120vh]'
       } w-full relative select-none section-container `}
     >
-      <div className='flex flex-col py- justify-center h-full pb-32'>
+      <div className='flex flex-col py- justify-center h-full pb-16'>
         <div
           className='flex flex-col inner-container transform-gpu'
           ref={sectionTitleRef}
@@ -99,7 +101,7 @@ const Projects = ({ isDesktop, clientHeight }) => {
           <h1 className='text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
             My Projects
           </h1>
-          <h2 className='text-[1.65rem] font-medium md:max-w-lg max-w-sm mt-2  '>
+          <h2 className='text-[1.65rem] font-medium md:max-w-lg max-w-sm mt-2 staggered-reveal'>
             Some things I&apos;ve built with love, expertise and a pinch of
             magical ingredients.{' '}
           </h2>

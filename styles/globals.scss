@@ -8,7 +8,25 @@
   padding: 0;
   margin: 0;
   -webkit-tap-highlight-color: #000000;
+}
+
+/* Custom cursor - fallback to default if JS fails */
+body:not(.cursor-loaded) * {
+  cursor: default !important;
+}
+
+body.cursor-loaded * {
   cursor: none;
+}
+
+/* Always show pointer cursor on interactive elements, even if custom cursor fails */
+body:not(.cursor-loaded) button,
+body:not(.cursor-loaded) a,
+body:not(.cursor-loaded) .link,
+body:not(.cursor-loaded) [role='button'],
+body:not(.cursor-loaded) input[type='submit'],
+body:not(.cursor-loaded) input[type='button'] {
+  cursor: pointer !important;
 }
 
 html {
@@ -84,9 +102,15 @@ body {
   @apply 2xl:container xl:px-20 md:px-12 px-4 mx-auto;
 }
 
-a,
 input[type='checkbox'] {
   cursor: none !important;
+}
+
+button,
+a,
+.link,
+[role='button'] {
+  cursor: pointer !important;
 }
  
 .outer-menu {

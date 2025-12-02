@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { motion } from 'framer-motion';
+import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { FaBox, FaStar, FaCodeCommit, FaChartLine } from 'react-icons/fa';
 import { PERFORMANCE_METRICS, WORK_ACHIEVEMENTS } from '../../constants';
 import styles from './PerformanceMetrics.module.scss';
@@ -53,6 +55,7 @@ const CountUp = ({ end, duration = 2 }) => {
 
 const GitHubStats = () => {
   const { github } = PERFORMANCE_METRICS;
+  const sectionRef = useRef(null);
 
   const stats = [
     { label: 'Repositories', value: github.totalRepos, color: '#a855f7', icon: FaBox },
@@ -60,6 +63,28 @@ const GitHubStats = () => {
     { label: 'Commits', value: github.totalCommits, color: '#22c55e', icon: FaCodeCommit },
     { label: 'Contributions', value: github.contributionsLastYear, color: '#3b82f6', icon: FaChartLine },
   ];
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(
+        sectionRef.current?.querySelectorAll('.staggered-reveal') || [],
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   // Calculate max value for scaling
   const maxValue = Math.max(...stats.map(s => s.value));
@@ -85,23 +110,17 @@ const GitHubStats = () => {
   };
 
   return (
-    <section className='w-full relative select-none py-20 bg-gradient-to-b from-black to-gray-900'>
+    <section ref={sectionRef} className='w-full relative select-none py-20 bg-gradient-to-b from-black to-gray-900'>
       <div className='section-container'>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-          className='flex flex-col text-center mb-16'
-        >
-          <p className='uppercase tracking-widest text-gray-light-1'>STATISTICS</p>
-          <h1 className='text-6xl mt-2 font-medium text-gradient w-fit mx-auto'>
+        <div className='flex flex-col text-center mb-16'>
+          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal'>STATISTICS</p>
+          <h1 className='text-6xl mt-2 font-medium text-gradient w-fit mx-auto staggered-reveal'>
             GitHub Stats
           </h1>
-          <h2 className='text-[1.65rem] font-medium md:max-w-2xl w-full mt-2 mx-auto'>
+          <h2 className='text-[1.65rem] font-medium md:max-w-2xl w-full mt-2 mx-auto staggered-reveal'>
             My contribution journey on GitHub over time.
           </h2>
-        </motion.div>
+        </div>
 
         {/* Graph Visualization */}
         <motion.div

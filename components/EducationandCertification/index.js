@@ -20,6 +20,24 @@ const EducationSection = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      // Heading reveal animation
+      gsap.from(
+        sectionRef.current.querySelectorAll('.staggered-reveal'),
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+
+      // Timeline items animation
       gsap.from('.timeline-item', {
         opacity: 0,
         y: 50,
@@ -53,10 +71,10 @@ const EducationSection = () => {
 
         {/* Header + Tabs */}
         <div className='flex flex-col items-center mb-10'>
-          <p className='uppercase tracking-widest text-gray-light-1'>
+          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal'>
             EDUCATION & CERTIFICATIONS
           </p>
-          <h2 className='text-5xl mt-2 font-medium text-gradient w-fit mx-auto'>
+          <h2 className='text-5xl mt-2 font-medium text-gradient w-fit mx-auto staggered-reveal'>
             Learning Journey
           </h2>
           {/* Responsive segmented tabs */}

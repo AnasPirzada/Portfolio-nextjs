@@ -208,7 +208,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           {/* Floating Badge */}
           <div className='absolute top-6 right-6 z-10'>
             <div className='flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/20 group-hover:border-[#efc041]/60 group-hover:bg-[#efc041]/10 transition-all duration-500 shadow-lg'>
-              <span className='text-white text-xs font-semibold tracking-wide'>
+              <span className='text-white group-hover:text-black text-xs font-semibold tracking-wide transition-colors duration-500'>
                 View Project
               </span>
               <FaArrowRight
