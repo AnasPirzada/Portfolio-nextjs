@@ -64,7 +64,7 @@ const About1 = ({ clientHeight }) => {
     <section ref={sectionRef} className='w-full relative select-none'>
       <div
         className={`${
-          clientHeight > 650 ? 'pt-20 pb-20' : 'pt-24 pb-24'
+          clientHeight > 650 ? 'pt-8 md:pt-20 pb-20' : 'pt-8 md:pt-24 pb-24'
         } section-container`}
       >
         <h1
