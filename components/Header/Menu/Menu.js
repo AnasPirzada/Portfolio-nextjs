@@ -25,12 +25,20 @@ const Menu = () => {
   }, []);
 
   return (
-    <div className='menu fixed top-0 left-0 w-full h-full overflow-hidden invisible pointer-events-none flex items-center justify-start bg-black'>
+    <div
+      id='navigation-menu'
+      className='menu fixed top-0 left-0 w-full h-full overflow-hidden invisible pointer-events-none flex items-center justify-start bg-black'
+      role='navigation'
+      aria-label='Main navigation'
+    >
       <div className='flex-none overflow-hidden flex items-center justify-start w-full h-full'>
         <div className='text-left opacity-0 overflow-hidden flex flex-none justify-start items-center w-full h-full bg-gradient-to-br from-black via-gray-900 to-black'>
           <div className='absolute inset-0 bg-black opacity-90'></div>
-          <div className='relative z-10 w-full h-full flex flex-col items-center md:items-start justify-center p-4 sm:p-6 md:p-8 overflow-hidden'>
-            <ul className='list-none py-1 px-0 m-0 block w-full text-center md:text-left overflow-hidden'>
+          <div className='relative z-10 w-full h-full flex flex-col items-center md:items-start justify-center p-4 sm:p-6 md:p-8'>
+            <ul
+              className='list-none py-1 px-0 m-0 block w-full text-center md:text-left'
+              role='menubar'
+            >
               {MENULINKS.filter(el => el.name !== 'Contact').map(el => {
                 const isBlogs = el.name === 'Blogs';
 
@@ -39,6 +47,7 @@ const Menu = () => {
                     <li
                       key={el.name}
                       className='p-0 m-3 sm:m-3 md:m-4 text-3xl sm:text-3xl md:text-4xl flex items-center justify-center md:justify-between w-full flex-wrap gap-4'
+                      role='none'
                     >
                       <a
                         className='link relative inline font-bold text-6xl sm:text-5xl md:text-4xl lg:text-6xl xl:text-7xl 2xl:text-8xl duration-300 hover:no-underline text-white hover:text-gray-300 transition-colors'
@@ -47,6 +56,8 @@ const Menu = () => {
                             'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
                         }}
                         href={`#${el.ref}`}
+                        role='menuitem'
+                        aria-label={`Navigate to ${el.name} section`}
                       >
                         {el.name.toUpperCase()}
                       </a>
@@ -58,6 +69,8 @@ const Menu = () => {
                           fontFamily:
                             'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
                         }}
+                        role='menuitem'
+                        aria-label='Navigate to Contact section'
                       >
                         CONTACT US
                       </a>
@@ -69,6 +82,7 @@ const Menu = () => {
                   <li
                     key={el.name}
                     className='p-0 m-3 sm:m-3 md:m-4 text-3xl sm:text-3xl md:text-4xl block'
+                    role='none'
                   >
                     <a
                       className='link relative inline font-bold text-6xl sm:text-5xl md:text-4xl lg:text-6xl xl:text-7xl 2xl:text-8xl duration-300 hover:no-underline text-white hover:text-gray-300 transition-colors'
@@ -77,6 +91,8 @@ const Menu = () => {
                           'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
                       }}
                       href={`#${el.ref}`}
+                      role='menuitem'
+                      aria-label={`Navigate to ${el.name} section`}
                     >
                       {el.name.toUpperCase()}
                     </a>

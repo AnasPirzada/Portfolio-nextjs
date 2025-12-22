@@ -17,7 +17,7 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
     "url": METADATA.siteUrl,
     "image": METADATA.image,
     "sameAs": [
-      "https://www.linkedin.com/in/anas-pirzada/",
+      "https://www.linkedin.com/in/anas-pirzada-31b53339b/",
       "https://github.com/AnasPirzada",
       "https://www.instagram.com/anas_pirzada1/",
       "https://x.com/Anas_Pirzada1"
@@ -65,6 +65,31 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
     }
   };
 
+  // JSON-LD Structured Data for Organization
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Anas Pirzada - Full Stack Developer & AI Expert",
+    "url": METADATA.siteUrl,
+    "logo": METADATA.image,
+    "description": METADATA.description,
+    "founder": {
+      "@type": "Person",
+      "name": "Anas Pirzada"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/anas-pirzada-31b53339b/",
+      "https://github.com/AnasPirzada",
+      "https://www.instagram.com/anas_pirzada1/",
+      "https://x.com/Anas_Pirzada1"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "anaspirzadaiub@gmail.com",
+      "contactType": "Professional Services"
+    }
+  };
+
   return (
     <Head>
       <title>{pageTitle}</title>
@@ -91,11 +116,19 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
       <meta property='og:title' content={pageTitle} />
       <meta property='og:description' content={pageDescription} />
       <meta property='og:image' content={pageImage} />
+      <meta property='og:image:secure_url' content={pageImage} />
       <meta property='og:url' content={pageUrl} />
       <meta property='og:site_name' content='Portfolio' />
       <meta property='og:image:width' content='1200' />
       <meta property='og:image:height' content='630' />
-      <meta property='og:image:alt' content={`${METADATA.author} - Full Stack Developer & AI Expert`} />
+      <meta property='og:image:type' content='image/png' />
+      <meta property='og:image:alt' content={pageTitle} />
+      {type === 'article' && (
+        <>
+          <meta property='article:author' content={METADATA.author} />
+          <meta property='article:published_time' content={new Date().toISOString()} />
+        </>
+      )}
 
       {/* Twitter */}
       <meta property='twitter:card' content='summary_large_image' />
@@ -126,6 +159,10 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
     </Head>
   );

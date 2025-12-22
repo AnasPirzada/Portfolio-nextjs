@@ -16,11 +16,6 @@ const Projects = ({ isDesktop, clientHeight }) => {
 
     if (isDesktop) {
       [projectsTimeline, projectsScrollTrigger] = getProjectsSt();
-    } else {
-      const projectWrapper =
-        sectionRef.current.querySelector('.project-wrapper');
-      projectWrapper.style.width = 'calc(100vw - 1rem)';
-      projectWrapper.style.overflowX = 'scroll';
     }
 
     // Setup reveal animation
@@ -88,20 +83,22 @@ const Projects = ({ isDesktop, clientHeight }) => {
       id={MENULINKS[2].ref}
       className={`${
         isDesktop ? 'min-h-screen' : 'min-h-[120vh]'
-      } w-full relative select-none section-container `}
+      } w-full relative select-none`}
     >
-      <div className='flex flex-col py- justify-center h-full pb-16'>
+      <div className='section-container'>
+      <div className='flex flex-col py-10 md:py-20 md:justify-center h-full' style={{ textAlign: 'left' }}>
         <div
-          className='flex flex-col inner-container transform-gpu'
+          className='flex flex-col inner-container transform-gpu items-start text-left'
           ref={sectionTitleRef}
+          style={{ textAlign: 'left', alignItems: 'flex-start' }}
         >
-          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal'>
+          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-base sm:text-lg'>
             PROJECTS
           </p>
-          <h1 className='text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+          <h1 className='text-6xl sm:text-7xl md:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
             My Projects
           </h1>
-          <h2 className='text-[1.65rem] font-medium md:max-w-lg max-w-sm mt-2 staggered-reveal'>
+          <h2 className='text-xl sm:text-2xl md:text-[1.65rem] font-medium md:max-w-lg w-full max-w-sm sm:max-w-md mt-2 staggered-reveal text-left'>
             Some things I&apos;ve built with love, expertise and a pinch of
             magical ingredients.{' '}
           </h2>
@@ -113,18 +110,33 @@ const Projects = ({ isDesktop, clientHeight }) => {
         <div
           className={`${
             clientHeight > 650 ? 'mt-12' : 'mt-8'
-          } flex project-wrapper no-scrollbar w-fit staggered-reveal mb-16 pb-16`}
+          } ${
+            isDesktop 
+              ? 'flex project-wrapper no-scrollbar w-fit' 
+              : 'flex flex-row gap-4 sm:gap-6 w-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-4 -mx-4 px-4 mobile-projects-scroll'
+          } staggered-reveal mb-0 md:mb-16`}
+          style={!isDesktop ? { 
+            marginLeft: 0, 
+            marginRight: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          } : {}}
         >
           {PROJECTS.slice(0, 4).map((project, index) => (
             <ProjectTile
               classes={
-                index === PROJECTS.length - 1 ? '' : 'mr-10 xs:mr-12 sm:mr-16'
+                isDesktop 
+                  ? (index === PROJECTS.length - 1 ? '' : 'mr-10 xs:mr-12 sm:mr-16')
+                  : ''
               }
               project={project}
               key={project.name}
+              isDesktop={isDesktop}
             />
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

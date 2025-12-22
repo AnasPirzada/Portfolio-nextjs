@@ -6,6 +6,9 @@
   font-family: theme('fontFamily.mono');
   font-size: 0.8rem;
   font-weight: 800;
+  z-index: 10;
+  pointer-events: auto;
+  cursor: pointer;
 
   padding: 0.65rem 1.75rem;
   background-clip: padding-box;
@@ -57,6 +60,9 @@
   font-family: theme('fontFamily.mono');
   font-size: 0.8rem;
   font-weight: 800;
+  z-index: 10;
+  pointer-events: auto;
+  cursor: pointer;
 
   padding: 0.65rem 1.75rem;
   background-clip: padding-box;

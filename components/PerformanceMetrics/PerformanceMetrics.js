@@ -153,11 +153,11 @@ const GitHubStats = () => {
 
       <div className='section-container relative z-10'>
         <div className='flex flex-col text-center mb-20'>
-          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-sm mb-2'>STATISTICS</p>
-          <h1 className='text-5xl md:text-6xl mt-2 font-semibold text-gradient w-fit mx-auto staggered-reveal'>
+          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-base sm:text-lg mb-2'>STATISTICS</p>
+          <h1 className='text-6xl sm:text-7xl md:text-6xl mt-2 font-semibold text-gradient w-fit mx-auto staggered-reveal'>
             GitHub Stats
           </h1>
-          <h2 className='text-lg md:text-xl font-light md:max-w-2xl w-full mt-4 mx-auto staggered-reveal text-gray-400'>
+          <h2 className='text-xl sm:text-2xl md:text-xl font-light md:max-w-2xl w-full mt-4 mx-auto staggered-reveal text-gray-400'>
             My contribution journey on GitHub over time.
           </h2>
         </div>

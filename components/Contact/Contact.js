@@ -35,10 +35,12 @@ const success = () =>
   });
 
 const Contact = () => {
-  const initialState = { name: '', email: '', message: '' };
+  const initialState = { name: '', email: '', message: '', website: '' }; // Honeypot field
   const [formData, setFormData] = useState(initialState);
   const [mailerResponse, setMailerResponse] = useState('not initiated');
   const [isSending, setIsSending] = useState(false);
+  const [submitCount, setSubmitCount] = useState(0);
+  const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const buttonElementRef = useRef(null);
   const sectionRef = useRef(null);
 
@@ -64,6 +66,28 @@ const Contact = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
+    // Honeypot check - if filled, it's a bot
+    if (formData.website && formData.website.trim() !== '') {
+      // Silently fail - don't show error to bots
+      return;
+    }
+
+    // Rate limiting - max 3 submissions per minute
+    const now = Date.now();
+    const timeSinceLastSubmit = now - lastSubmitTime;
+    
+    if (timeSinceLastSubmit < 60000 && submitCount >= 3) {
+      toast.error('Please wait before submitting again', {
+        id: 'rate-limit',
+      });
+      return;
+    }
+
+    // Reset counter if more than a minute has passed
+    if (timeSinceLastSubmit >= 60000) {
+      setSubmitCount(0);
+    }
+
     const { name, email, message } = {
       name: formData.name,
       email: formData.email,
@@ -75,18 +99,33 @@ const Contact = () => {
       return setMailerResponse('empty');
     }
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error('Please enter a valid email address', {
+        id: 'email-error',
+      });
+      return;
+    }
+
     setIsSending(true);
+    setSubmitCount(prev => prev + 1);
+    setLastSubmitTime(now);
+
     mail({ name, email, message })
       .then(res => {
         if (res.status === 200) {
           setMailerResponse('success');
           emptyForm();
+          setSubmitCount(0);
         } else {
           setMailerResponse('error');
         }
+        setIsSending(false);
       })
       .catch(err => {
         setMailerResponse('error');
+        setIsSending(false);
         console.error(err);
       });
   };
@@ -253,7 +292,7 @@ const Contact = () => {
     <section
       ref={sectionRef}
       id={MENULINKS[6].ref}
-      className='mt-16 w-full relative select-none bg-black pt-20 sm:pt-10 md:pt-5 lg:pt-1 pb-20'
+      className='w-full relative select-none bg-black py-10 md:py-20'
     >
       <div>
         <Toaster toastOptions={toastOptions} />
@@ -261,14 +300,14 @@ const Contact = () => {
       <div className='section-container flex flex-col justify-center'>
         <div className='flex flex-col contact-wrapper'>
           <div className='flex flex-col'>
-            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal'>
+            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-base sm:text-lg'>
               CONTACT
             </p>
-            <h1 className='text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+            <h1 className='text-6xl sm:text-7xl md:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
               Contact
             </h1>
           </div>
-          <h2 className='text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
+          <h2 className='text-xl sm:text-2xl md:text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
             Get In Touch.{' '}
           </h2>
         </div>
@@ -283,6 +322,8 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
+                aria-label='Name'
+                aria-required='true'
               />
               <label
                 htmlFor='name'
@@ -294,12 +335,15 @@ const Contact = () => {
 
             <div className='relative mt-14'>
               <input
-                type='text'
+                type='email'
                 id='email'
                 className='block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-yellow bg-transparent rounded-[0.6rem] transition-all duration-200'
                 value={formData.email}
                 onChange={handleChange}
                 required
+                aria-label='Email address'
+                aria-required='true'
+                autoComplete='email'
               />
               <label
                 htmlFor='email'
@@ -316,6 +360,8 @@ const Contact = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
+                aria-label='Message'
+                aria-required='true'
               />
               <label
                 htmlFor='message'
@@ -323,6 +369,20 @@ const Contact = () => {
               >
                 Message
               </label>
+            </div>
+
+            {/* Honeypot field - hidden from users but visible to bots */}
+            <div style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }} aria-hidden='true'>
+              <label htmlFor='website'>Website (leave blank)</label>
+              <input
+                type='text'
+                id='website'
+                name='website'
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete='off'
+              />
             </div>
           </div>
 
@@ -340,11 +400,14 @@ const Contact = () => {
             disabled={
               formData.name === '' ||
               formData.email === '' ||
-              formData.message === ''
+              formData.message === '' ||
+              isSending
                 ? true
                 : false
             }
             onClick={handleSubmit}
+            aria-label='Send message'
+            aria-busy={isSending}
           >
             <span>Send -&gt;</span>
             <span className={styles.success}>

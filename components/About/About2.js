@@ -34,12 +34,12 @@ const About2 = ({ clientHeight }) => {
     <section ref={sectionRef} className='w-full relative select-none'>
       <div
         className={`${
-          clientHeight > 650 ? 'pt-20 pb-20' : 'pt-24 pb-24'
+          clientHeight > 650 ? 'py-10 md:py-20' : 'py-10 md:py-20'
         } section-container`}
       >
         <h1
           ref={quoteRef}
-          className='font-medium text-[2.70rem] md:text-6xl lg:text-[4rem] text-center'
+          className='font-medium text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-center px-4 sm:px-6'
         >
           As a Full Stack Developer and AI Expert, I have a{' '}
           <span

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styles from './Button.module.scss';
 
-const Button = ({ href, onClick, children, classes, type, ...otherProps }) => {
+const Button = ({ href, onClick, children, classes, type, style, ...otherProps }) => {
   let additionalClasses = '';
   if (classes) {
     additionalClasses = classes;
@@ -11,6 +11,7 @@ const Button = ({ href, onClick, children, classes, type, ...otherProps }) => {
     <a
       href={href}
       onClick={onClick}
+      style={style}
       className={`
         ${
           type === 'primary'

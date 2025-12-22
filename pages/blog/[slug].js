@@ -49,7 +49,7 @@ export default function BlogDetail({ blog }) {
       "name": "Anas Pirzada",
       "url": METADATA.siteUrl,
       "sameAs": [
-        "https://www.linkedin.com/in/anas-pirzada/",
+        "https://www.linkedin.com/in/anas-pirzada-31b53339b/",
         "https://github.com/AnasPirzada",
         "https://x.com/Anas_Pirzada1"
       ]
@@ -170,7 +170,7 @@ export default function BlogDetail({ blog }) {
               </p>
               <div className='mt-4 flex gap-4'>
                 <Link 
-                  href='https://www.linkedin.com/in/anas-pirzada/' 
+                  href='https://www.linkedin.com/in/anas-pirzada-31b53339b/' 
                   target='_blank' 
                   rel='noopener noreferrer'
                   className='text-[#eeba2c] hover:text-[#efc041] transition-colors'

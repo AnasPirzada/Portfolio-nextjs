@@ -63,13 +63,11 @@ const About1 = ({ clientHeight }) => {
   return (
     <section ref={sectionRef} className='w-full relative select-none'>
       <div
-        className={`${
-          clientHeight > 650 ? 'pt-8 md:pt-20 pb-20' : 'pt-8 md:pt-24 pb-24'
-        } section-container`}
+        className='py-10 md:py-20 section-container'
       >
         <h1
           ref={quoteRef}
-          className='font-medium text-[2.70rem] md:text-6xl lg:text-[4rem] text-center leading-relaxed'
+          className='font-medium text-5xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl text-center leading-relaxed px-4 sm:px-6 md:px-0'
         >
           <span className='about-1 leading-tight'>
             I&apos;m a passionate Full Stack Developer and AI Expert who&apos;s focused on building
@@ -80,7 +78,7 @@ const About1 = ({ clientHeight }) => {
             frontend practices, AI integration, and thoughtful design principles. <br />
           </span>
            <span className='about-3 leading-tight'>
-             With 4+ years of experience as a Full Stack Developer and AI Expert, I
+             With 5+ years of experience as a Full Stack Developer and AI Expert, I
              specialize in building React.js applications, integrating APIs, implementing
              Machine Learning solutions, and leveraging frameworks like Django, Laravel, 
              and Next.js for scalable backend and frontend solutions.{' '}

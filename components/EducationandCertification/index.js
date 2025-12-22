@@ -58,9 +58,9 @@ const EducationSection = () => {
     <section
       ref={sectionRef}
       id={'education'}
-      className='w-full relative select-none mt-10'
+      className='w-full relative select-none'
     >
-      <div className='section-container relative'>
+      <div className='section-container py-10 md:py-20 relative'>
         {/* Floating themed SVG on the right */}
         <img
           src='/right-book.svg'
@@ -70,53 +70,75 @@ const EducationSection = () => {
         />
 
         {/* Header + Tabs */}
-        <div className='flex flex-col items-center mb-10'>
+        <div className='flex flex-col items-start text-left mb-10'>
           <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal'>
             EDUCATION & CERTIFICATIONS
           </p>
-          <h2 className='text-5xl mt-2 font-medium text-gradient w-fit mx-auto staggered-reveal'>
+          <h2 className='text-5xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
             Learning Journey
           </h2>
           {/* Responsive segmented tabs */}
-          <div className='mt-6 w-full max-w-xl px-2'>
-            <div className='relative bg-gray-dark-2/40 border border-gray-dark-3/60 rounded-xl overflow-hidden p-1 flex'>
-              {/* Animated indicator */}
+          <div className='mt-8 w-full flex justify-center'>
+            <div className='relative bg-gray-900 rounded-2xl overflow-hidden p-1.5 flex max-w-md w-full'>
+              {/* Animated gradient indicator */}
               <motion.div
-                className='absolute top-1 bottom-1 rounded-lg bg-[#eeba2c]'
+                className='absolute top-1.5 bottom-1.5 rounded-xl bg-gradient-to-r from-[#efc041] to-[#eeba2c] shadow-lg shadow-[#efc041]/30'
                 initial={false}
                 animate={{
                   left:
                     activeTab === 'education'
-                      ? '0.25rem'
-                      : 'calc(50% + 0.25rem)',
-                  width: 'calc(50% - 0.5rem)',
+                      ? '0.375rem'
+                      : 'calc(50% + 0.375rem)',
+                  width: 'calc(50% - 0.75rem)',
                 }}
-                transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+              />
+              
+              {/* Glow effect for active tab */}
+              <motion.div
+                className='absolute top-1.5 bottom-1.5 rounded-xl bg-[#efc041]/20 blur-xl'
+                initial={false}
+                animate={{
+                  left:
+                    activeTab === 'education'
+                      ? '0.375rem'
+                      : 'calc(50% + 0.375rem)',
+                  width: 'calc(50% - 0.75rem)',
+                }}
+                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
               />
 
-              <button
+              <motion.button
                 onClick={() => {
                   tabClickSound.play();
                   setActiveTab('education');
                 }}
-                className={`relative z-[1] flex-1 px-4 py-2 text-center text-sm sm:text-base font-semibold transition-colors ${
-                  activeTab === 'education' ? 'text-black' : 'text-white'
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`relative z-[1] flex-1 px-6 py-3.5 text-center text-sm sm:text-base font-bold transition-all duration-300 rounded-xl ${
+                  activeTab === 'education'
+                    ? 'text-black shadow-lg'
+                    : 'text-gray-300 hover:text-white'
                 }`}
               >
-                Education
-              </button>
+                <span className='relative z-10'>Education</span>
+              </motion.button>
 
-              <button
+              <motion.button
                 onClick={() => {
                   tabClickSound.play();
                   setActiveTab('certifications');
                 }}
-                className={`relative z-[1] flex-1 px-4 py-2 text-center text-sm sm:text-base font-semibold transition-colors ${
-                  activeTab === 'certifications' ? 'text-black' : 'text-white'
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`relative z-[1] flex-1 px-6 py-3.5 text-center text-sm sm:text-base font-bold transition-all duration-300 rounded-xl ${
+                  activeTab === 'certifications'
+                    ? 'text-black shadow-lg'
+                    : 'text-gray-300 hover:text-white'
                 }`}
               >
-                Certifications
-              </button>
+                <span className='relative z-10'>Certifications</span>
+              </motion.button>
             </div>
           </div>
         </div>

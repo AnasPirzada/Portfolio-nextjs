@@ -26,7 +26,64 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
     const card = cardRef.current;
     if (!card) return;
 
-    // 3D Tilt Effect on Mouse Move
+    // Check if device supports hover (desktop) or is touch device (mobile)
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Skip hover effects on mobile/touch devices or if user prefers reduced motion
+    if (isTouchDevice || prefersReducedMotion) {
+      // Still run initial animation
+      const techIcons = techRef.current?.children || [];
+      gsap.set([card, titleRef.current, descriptionRef.current, ...techIcons], {
+        opacity: 0,
+        y: 20,
+      });
+      gsap.set(glowRef.current, { opacity: 0, scale: 0.8 });
+      gsap.set(shimmerRef.current, { x: '-100%' });
+      if (descriptionRef.current) {
+        gsap.set(descriptionRef.current, { opacity: 0.8, y: 4 });
+      }
+
+      const initTl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      initTl
+        .to(card, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+        })
+        .to(
+          titleRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+          },
+          '<0.2'
+        )
+        .to(
+          descriptionRef.current,
+          {
+            opacity: 0.8,
+            y: 0,
+            duration: 0.4,
+          },
+          '<0.2'
+        )
+        .to(
+          techIcons,
+          {
+            opacity: 0.9,
+            y: 0,
+            duration: 0.35,
+            stagger: 0.05,
+            ease: 'back.out(1.2)',
+          },
+          '<0.2'
+        );
+      return;
+    }
+
+    // 3D Tilt Effect on Mouse Move (Desktop only)
     const handleMouseMove = e => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -66,7 +123,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
       }
     };
 
-    // GSAP Hover Animation - Enhanced with more effects
+    // GSAP Hover Animation - Enhanced with more effects (Desktop only)
     const handleMouseEnter = () => {
       const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
@@ -279,29 +336,34 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         '<0.2'
       );
 
-    card.addEventListener('mouseenter', handleMouseEnter);
-    card.addEventListener('mouseleave', handleMouseLeave);
-    card.addEventListener('mousemove', handleMouseMove);
+    // Only add mouse events on desktop
+    if (!isTouchDevice && !prefersReducedMotion) {
+      card.addEventListener('mouseenter', handleMouseEnter);
+      card.addEventListener('mouseleave', handleMouseLeave);
+      card.addEventListener('mousemove', handleMouseMove);
+    }
 
     return () => {
-      card.removeEventListener('mouseenter', handleMouseEnter);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-      card.removeEventListener('mousemove', handleMouseMove);
+      if (!isTouchDevice && !prefersReducedMotion) {
+        card.removeEventListener('mouseenter', handleMouseEnter);
+        card.removeEventListener('mouseleave', handleMouseLeave);
+        card.removeEventListener('mousemove', handleMouseMove);
+      }
     };
   }, []);
 
   return (
     <Link
       href={`/project/${name.toLowerCase().replace(/\s+/g, '-')}`}
-      className={`${additionalClasses} block`}
+      className={`${additionalClasses} block ${!isDesktop ? 'w-[85vw] sm:w-[70vw] flex-shrink-0 snap-center' : 'sm:w-auto'}`}
       style={{
-        maxWidth: isDesktop ? 'calc(100vw - 2rem)' : 'calc(100vw - 4rem)',
-        flex: '1 0 auto',
+        maxWidth: isDesktop ? 'calc(100vw - 2rem)' : '85vw',
+        flex: isDesktop ? '1 0 auto' : '0 0 auto',
       }}
     >
       <div
         ref={cardRef}
-        className={`${styles.ProjectTile} group relative w-[560px] max-w-full bg-[#0a0a0a] border border-[#1a1a1a] cursor-pointer overflow-hidden`}
+        className={`${styles.ProjectTile} group relative ${!isDesktop ? 'w-full' : 'w-full sm:w-[480px] md:w-[560px]'} max-w-full bg-[#0a0a0a] border border-[#1a1a1a] cursor-pointer overflow-hidden`}
         style={{
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
           transformStyle: 'preserve-3d',
@@ -331,7 +393,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         />
 
         {/* Image Container - Full width, better aspect ratio */}
-        <div className='relative w-full h-64 overflow-hidden bg-[#000]'>
+        <div className='relative w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-[#000]'>
           <div
             ref={imageRef}
             className='absolute inset-0 bg-cover bg-center'
@@ -358,11 +420,11 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         </div>
 
         {/* Content Section */}
-        <div ref={contentRef} className='p-6 bg-[#0a0a0a]'>
+        <div ref={contentRef} className='p-4 sm:p-5 md:p-6 bg-[#0a0a0a] text-left'>
           {/* Title */}
           <h3
             ref={titleRef}
-            className='text-2xl font-semibold text-white mb-3 leading-tight transition-colors duration-300'
+            className='text-2xl sm:text-3xl md:text-2xl font-semibold text-white mb-2 sm:mb-3 leading-tight transition-colors duration-300 text-left'
           >
             {name}
           </h3>
@@ -371,7 +433,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           {description && (
             <p
               ref={descriptionRef}
-              className='text-sm text-gray-400 mb-4 line-clamp-2 leading-relaxed'
+              className='text-sm sm:text-base md:text-sm text-gray-400 mb-3 sm:mb-4 line-clamp-2 leading-relaxed text-left'
             >
               {description}
             </p>
@@ -380,12 +442,12 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           {/* Tech Stack */}
           <div
             ref={techRef}
-            className='flex flex-wrap gap-2 items-center pt-2 border-t border-[#1a1a1a]'
+            className='flex flex-wrap gap-1.5 sm:gap-2 items-center pt-2 border-t border-[#1a1a1a]'
           >
             {tech.slice(0, 6).map((techName, index) => (
               <div
                 key={techName}
-                className='flex items-center justify-center w-9 h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] group-hover:border-[#efc041]/30 transition-all duration-300'
+                className='flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] group-hover:border-[#efc041]/30 transition-all duration-300'
                 style={{
                   opacity: 0.9,
                 }}
@@ -394,12 +456,12 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
                 <img
                   src={`/projects/tech/${techName}.svg`}
                   alt={techName}
-                  className='w-4 h-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300'
+                  className='w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300'
                 />
               </div>
             ))}
             {tech.length > 6 && (
-              <div className='flex items-center justify-center px-3 h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] text-gray-500 text-xs font-medium'>
+              <div className='flex items-center justify-center px-2 sm:px-3 h-8 sm:h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] text-gray-500 text-[10px] sm:text-xs font-medium'>
                 +{tech.length - 6}
               </div>
             )}

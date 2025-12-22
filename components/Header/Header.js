@@ -31,7 +31,11 @@ const Header = ({ children }) => {
   return (
     <nav className='w-full fixed top-0 py-4 md:py-8 z-50 select-none bg-gradient-to-b from-black shadow-black transition-all duration-300'>
       <div className='flex justify-between section-container'>
-        <a href='#home' className='link'>
+        <a 
+          href='#home' 
+          className='link'
+          aria-label='Go to home page'
+        >
           <Image
             src='/logo.svg'
             alt='Logo - Anas Pirzada'
@@ -44,14 +48,19 @@ const Header = ({ children }) => {
           {/* <SoundBar /> */}
           <input
             ref={inputRef}
-            aria-labelledby='menu'
-            aria-label='menu'
+            id='menu-toggle'
+            aria-label='Toggle navigation menu'
+            aria-expanded='false'
+            aria-controls='navigation-menu'
             className='checkbox-toggle link absolute top-0 right-0 w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 opacity-0 cursor-pointer'
             type='checkbox'
-            onClick={handleClick}
+            onClick={(e) => {
+              handleClick(e);
+              e.target.setAttribute('aria-expanded', e.target.checked);
+            }}
           />
-          <div className='hamburger w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 flex items-center justify-center'>
-            <div className='relative flex-none w-full bg-white duration-300 flex items-center justify-center' />
+          <div className='hamburger w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 flex items-center justify-center cursor-pointer'>
+            <div className='relative w-5 md:w-6 lg:w-7 xl:w-8' />
           </div>
           {children}
         </div>

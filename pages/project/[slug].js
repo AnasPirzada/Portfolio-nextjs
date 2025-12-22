@@ -8,7 +8,7 @@ import ProgressIndicator from '@/components/ProgressIndicator/ProgressIndicator'
 import Meta from '@/components/Meta/Meta';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -22,6 +22,20 @@ export default function ProjectDetailPage() {
   const [isDesktop, setIsDesktop] = useState(true);
   const [clientHeight, setClientHeight] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
+  
+  // Refs for GSAP animations
+  const heroTitleRef = useRef(null);
+  const heroDescRef = useRef(null);
+  const heroButtonRef = useRef(null);
+  const caseStudyTitleRef = useRef(null);
+  const caseStudyCardsRef = useRef(null);
+  const metricsRef = useRef(null);
+  const projectDetailsRef = useRef(null);
+  const projectInfoRef = useRef(null);
+  const projectInfoGridRef = useRef(null);
+  const workExpRef = useRef(null);
+  const servicesRef = useRef(null);
+  const navigationRef = useRef(null);
 
   // Find the project by slug
   const project = PROJECTS.find(p => 
@@ -40,6 +54,254 @@ export default function ProjectDetailPage() {
     setClientHeight(innerHeight);
     setClientWidth(innerWidth);
   }, [isDesktop]);
+
+  // GSAP Reveal Animations
+  useEffect(() => {
+    if (!project) return;
+
+    // Hero Section Animations - Play immediately on mount
+    const heroTitle = heroTitleRef.current;
+    const heroDesc = heroDescRef.current;
+    const heroButton = heroButtonRef.current;
+
+    if (heroTitle) {
+      gsap.fromTo(
+        heroTitle,
+        { opacity: 0, y: 80, scale: 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: 'power3.out',
+        }
+      );
+    }
+
+    if (heroDesc) {
+      gsap.fromTo(
+        heroDesc,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.3,
+          ease: 'power2.out',
+        }
+      );
+    }
+
+    if (heroButton) {
+      gsap.fromTo(
+        heroButton,
+        { opacity: 0, y: 30, scale: 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          delay: 0.6,
+          ease: 'back.out(1.7)',
+        }
+      );
+    }
+
+    // Case Study Section
+    if (caseStudyTitleRef.current) {
+      gsap.fromTo(
+        caseStudyTitleRef.current,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: caseStudyTitleRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Case Study Cards
+    if (caseStudyCardsRef.current) {
+      const cards = caseStudyCardsRef.current.children;
+      gsap.fromTo(
+        cards,
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: caseStudyCardsRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Metrics
+    if (metricsRef.current) {
+      const metricItems = metricsRef.current.querySelectorAll('.metric-item');
+      gsap.fromTo(
+        metricItems,
+        {
+          opacity: 0,
+          scale: 0.8,
+          y: 40,
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'back.out(1.4)',
+          scrollTrigger: {
+            trigger: metricsRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Project Details Section
+    if (projectDetailsRef.current) {
+      const children = projectDetailsRef.current.children;
+      gsap.fromTo(
+        children,
+        {
+          opacity: 0,
+          x: (index) => (index === 0 ? -80 : 80),
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: projectDetailsRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Project Info Grid
+    if (projectInfoGridRef.current) {
+      const gridItems = projectInfoGridRef.current.children;
+      gsap.fromTo(
+        gridItems,
+        {
+          opacity: 0,
+          y: 50,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: projectInfoGridRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Work Experience Section
+    if (workExpRef.current) {
+      const children = workExpRef.current.children;
+      gsap.fromTo(
+        children,
+        {
+          opacity: 0,
+          y: 60,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: workExpRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Services Section
+    if (servicesRef.current) {
+      const serviceItems = servicesRef.current.children;
+      gsap.fromTo(
+        serviceItems,
+        {
+          opacity: 0,
+          y: 40,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: servicesRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Navigation Section
+    if (navigationRef.current) {
+      gsap.fromTo(
+        navigationRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: navigationRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, [project]);
 
   // If project not found, show 404
   if (!project) {
@@ -76,40 +338,33 @@ export default function ProjectDetailPage() {
   const projectUrl = `${METADATA.siteUrl}/project/${slug}`;
   const projectImage = project.heroSection || project.image;
 
-  // CreativeWork Schema for structured data
-  const creativeWorkSchema = {
+  // Project Schema for structured data (more specific than CreativeWork)
+  const projectSchema = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
+    "@type": "Project",
     "name": project.name,
     "description": project.description,
     "image": projectImage,
     "url": project.url,
-    "author": {
+    "creator": {
       "@type": "Person",
       "name": "Anas Pirzada",
       "url": METADATA.siteUrl,
       "sameAs": [
-        "https://www.linkedin.com/in/anas-pirzada/",
+        "https://www.linkedin.com/in/anas-pirzada-31b53339b/",
         "https://github.com/AnasPirzada",
         "https://x.com/Anas_Pirzada1"
       ]
     },
-    "creator": {
-      "@type": "Person",
-      "name": "Anas Pirzada"
-    },
     "dateCreated": project.year,
-    "genre": project.category,
     "keywords": project.tech?.join(', ') || "web development, programming",
     "about": {
       "@type": "Thing",
       "name": project.category
     },
-    "offers": {
-      "@type": "Offer",
-      "url": project.url,
-      "availability": "https://schema.org/InStock"
-    }
+    "programmingLanguage": project.tech || [],
+    "applicationCategory": project.category,
+    "operatingSystem": "Web Browser"
   };
 
   return (
@@ -122,10 +377,10 @@ export default function ProjectDetailPage() {
         type="website"
       />
       
-      {/* CreativeWork Schema */}
+      {/* Project Schema */}
       <script
         type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
       />
       
       <Header>
@@ -135,7 +390,7 @@ export default function ProjectDetailPage() {
       <Cursor isDesktop={isDesktop} />
       <main className='flex flex-col min-h-screen'>
         {/* Breadcrumb Navigation */}
-        <section className='py-6 px-4 bg-gray-900'>
+        <section className='pt-20 md:pt-24 pb-6 px-4 bg-gray-900'>
           <div className='max-w-6xl mx-auto'>
             <nav className='flex items-center space-x-2 text-sm'>
               <Link href='/' className='text-gray-400 hover:text-[#eeba2c] transition-colors'>
@@ -172,35 +427,38 @@ export default function ProjectDetailPage() {
 
           {/* Content */}
           <div className='relative z-10 text-center px-4 max-w-4xl mx-auto'>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className='text-6xl md:text-8xl font-bold text-white mb-6 drop-shadow-2xl'>
+            <div>
+              <h1 
+                ref={heroTitleRef}
+                className='text-6xl md:text-8xl font-bold text-white mb-6 drop-shadow-2xl'
+              >
                 {project.name}
               </h1>
-              <p className='text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed'>
+              <p 
+                ref={heroDescRef}
+                className='text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed'
+              >
                 {project.description}
               </p>
               
               {/* Live Website Button */}
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <div ref={heroButtonRef}>
                 <Link 
                   href={project.url} 
                   target='_blank' 
                   rel='noopener noreferrer'
                   className='inline-block'
                 >
-                  <button className='px-8 py-4 bg-[#eeba2c] text-black font-bold text-lg rounded-lg hover:bg-[#efc041] transition-all duration-300 shadow-2xl hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)]'>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className='px-8 py-4 bg-[#eeba2c] text-black font-bold text-lg rounded-lg hover:bg-[#efc041] transition-all duration-300 shadow-2xl hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)]'
+                  >
                     Live Website
-                  </button>
+                  </motion.button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
 
           {/* Scroll indicator */}
@@ -219,78 +477,45 @@ export default function ProjectDetailPage() {
         {project.caseStudy && (
           <section className='py-20 px-4 bg-gradient-to-b from-gray-900 to-black'>
             <div className='max-w-6xl mx-auto'>
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
+              <div
+                ref={caseStudyTitleRef}
                 className='text-center mb-16'
               >
                 <p className='uppercase tracking-widest text-gray-400 mb-4'>CASE STUDY</p>
                 <h2 className='text-4xl md:text-5xl font-bold text-white mb-4'>
                   Problem → Solution → Impact
                 </h2>
-              </motion.div>
+              </div>
 
-              <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16'>
+              <div ref={caseStudyCardsRef} className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16'>
                 {/* Problem */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  viewport={{ once: true }}
-                  className='bg-gradient-to-br from-red-500/10 to-red-900/5 rounded-2xl p-8 border-2 border-red-500/20 hover:border-red-500/40 transition-all'
-                >
-                  <div className='text-4xl mb-4'>❗</div>
+                <div className='bg-gradient-to-br from-red-500/10 to-red-900/5 rounded-2xl p-8 border-2 border-red-500/20 hover:border-red-500/40 transition-all'>
                   <h3 className='text-2xl font-bold text-white mb-4'>Problem</h3>
                   <p className='text-gray-300 leading-relaxed'>{project.caseStudy.problem}</p>
-                </motion.div>
+                </div>
 
                 {/* Solution */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  viewport={{ once: true }}
-                  className='bg-gradient-to-br from-blue-500/10 to-blue-900/5 rounded-2xl p-8 border-2 border-blue-500/20 hover:border-blue-500/40 transition-all'
-                >
-                  <div className='text-4xl mb-4'>💡</div>
+                <div className='bg-gradient-to-br from-blue-500/10 to-blue-900/5 rounded-2xl p-8 border-2 border-blue-500/20 hover:border-blue-500/40 transition-all'>
                   <h3 className='text-2xl font-bold text-white mb-4'>Solution</h3>
                   <p className='text-gray-300 leading-relaxed'>{project.caseStudy.solution}</p>
-                </motion.div>
+                </div>
 
                 {/* Impact */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  viewport={{ once: true }}
-                  className='bg-gradient-to-br from-green-500/10 to-green-900/5 rounded-2xl p-8 border-2 border-green-500/20 hover:border-green-500/40 transition-all'
-                >
-                  <div className='text-4xl mb-4'>🚀</div>
+                <div className='bg-gradient-to-br from-green-500/10 to-green-900/5 rounded-2xl p-8 border-2 border-green-500/20 hover:border-green-500/40 transition-all'>
                   <h3 className='text-2xl font-bold text-white mb-4'>Impact</h3>
                   <p className='text-gray-300 leading-relaxed'>{project.caseStudy.impact}</p>
-                </motion.div>
+                </div>
               </div>
 
               {/* Metrics */}
               {project.caseStudy.metrics && project.caseStudy.metrics.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                >
+                <div ref={metricsRef}>
                   <h3 className='text-3xl font-bold text-white text-center mb-8'>Key Metrics</h3>
                   <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
                     {project.caseStudy.metrics.map((metric, index) => (
-                      <motion.div
+                      <div
                         key={index}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        viewport={{ once: true }}
-                        className='bg-gradient-to-br from-[#efc041]/10 to-[#eeba2c]/5 rounded-xl p-6 border border-[#efc041]/20 hover:border-[#efc041]/40 transition-all text-center'
+                        className='metric-item bg-gradient-to-br from-[#efc041]/10 to-[#eeba2c]/5 rounded-xl p-6 border border-[#efc041]/20 hover:border-[#efc041]/40 transition-all text-center'
                       >
                         <div className='text-3xl md:text-4xl font-bold text-[#efc041] mb-2'>
                           {metric.value}
@@ -298,10 +523,10 @@ export default function ProjectDetailPage() {
                         <div className='text-sm text-gray-400 uppercase tracking-wide'>
                           {metric.label}
                         </div>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
           </section>
@@ -310,15 +535,9 @@ export default function ProjectDetailPage() {
         {/* Project Details Section */}
         <section className='py-20 px-4 bg-black'>
           <div className='max-w-6xl mx-auto'>
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+            <div ref={projectDetailsRef} className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
               {/* Project Image */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className='relative'
-              >
+              <div className='relative'>
                 <div className='relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl'>
                   <Image
                     src={project.image}
@@ -327,16 +546,10 @@ export default function ProjectDetailPage() {
                     className='object-cover'
                   />
                 </div>
-              </motion.div>
+              </div>
 
               {/* Project Info */}
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className='space-y-8'
-              >
+              <div className='space-y-8'>
                 <div>
                   <h2 className='text-4xl font-bold text-white mb-4'>Project Overview</h2>
                   <p className='text-lg text-gray-300 leading-relaxed'>
@@ -372,22 +585,23 @@ export default function ProjectDetailPage() {
                 </div>
 
                 {/* Live Website Button */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <div>
                   <Link 
                     href={project.url} 
                     target='_blank' 
                     rel='noopener noreferrer'
                     className='inline-block'
                   >
-                    <button className='w-full px-8 py-4 bg-gradient-to-r from-[#eeba2c] to-[#efc041] text-black font-bold text-lg rounded-lg hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)] transition-all duration-300'>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className='w-full px-8 py-4 bg-gradient-to-r from-[#eeba2c] to-[#efc041] text-black font-bold text-lg rounded-lg hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)] transition-all duration-300'
+                    >
                       Visit Live Website
-                    </button>
+                    </motion.button>
                   </Link>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -395,40 +609,22 @@ export default function ProjectDetailPage() {
         {/* Project Information Grid */}
         <section className='py-20 px-4 bg-gray-900'>
           <div className='max-w-6xl mx-auto'>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className='text-center mb-16'
-            >
+            <div className='text-center mb-16'>
               <h2 className='text-4xl font-bold text-white mb-4'>Project Information</h2>
               <p className='text-lg text-gray-300 max-w-2xl mx-auto'>
                 Detailed information about the project, technologies used, and development process.
               </p>
-            </motion.div>
+            </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+            <div ref={projectInfoGridRef} className='grid grid-cols-1 md:grid-cols-3 gap-8'>
               {/* Client */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                viewport={{ once: true }}
-                className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'
-              >
+              <div className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'>
                 <h3 className='text-xl font-semibold text-white mb-4'>Client</h3>
                 <p className='text-gray-300'>{project.client || project.name}</p>
-              </motion.div>
+              </div>
 
               {/* Services */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'
-              >
+              <div className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'>
                 <h3 className='text-xl font-semibold text-white mb-4'>Services</h3>
                 <ul className='text-gray-300 space-y-2'>
                   {project.services?.map((service, index) => (
@@ -442,16 +638,10 @@ export default function ProjectDetailPage() {
                     </>
                   )}
                 </ul>
-              </motion.div>
+              </div>
 
               {/* Live Website */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
-                className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'
-              >
+              <div className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'>
                 <h3 className='text-xl font-semibold text-white mb-4'>Live Website</h3>
                 <Link 
                   href={project.url} 
@@ -461,7 +651,7 @@ export default function ProjectDetailPage() {
                 >
                   Visit Website →
                 </Link>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -469,27 +659,15 @@ export default function ProjectDetailPage() {
         {/* Work Experience Section */}
         <section className='py-20 px-4 bg-black'>
           <div className='max-w-6xl mx-auto'>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className='text-center mb-16'
-            >
+            <div className='text-center mb-16'>
               <h2 className='text-4xl font-bold text-white mb-4'>Work Experience</h2>
               <p className='text-lg text-gray-300 max-w-3xl mx-auto'>
                 This project showcases my expertise in modern web development, combining cutting-edge technologies with user-centered design principles.
               </p>
-            </motion.div>
+            </div>
 
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className='space-y-6'
-              >
+            <div ref={workExpRef} className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+              <div className='space-y-6'>
                 <div>
                   <h3 className='text-2xl font-semibold text-white mb-4'>Development Process</h3>
                   <p className='text-gray-300 leading-relaxed mb-4'>
@@ -512,15 +690,9 @@ export default function ProjectDetailPage() {
                     <li>• SEO Optimized</li>
                   </ul>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className='relative'
-              >
+              <div className='relative'>
                 <div className='relative w-full h-80 rounded-2xl overflow-hidden shadow-2xl'>
                   <Image
                     src={project.heroSection}
@@ -529,7 +701,7 @@ export default function ProjectDetailPage() {
                     className='object-cover'
                   />
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -537,36 +709,26 @@ export default function ProjectDetailPage() {
         {/* Services Section */}
         <section className='py-20 px-4 bg-gray-900'>
           <div className='max-w-6xl mx-auto'>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className='text-center mb-16'
-            >
+            <div className='text-center mb-16'>
               <h2 className='text-4xl font-bold text-white mb-4'>Services</h2>
               <p className='text-lg text-gray-300 max-w-2xl mx-auto'>
                 Comprehensive web development services delivered with expertise and attention to detail.
               </p>
-            </motion.div>
+            </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+            <div ref={servicesRef} className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
               {(project.services || [
                 'Web Development',
                 'UI/UX Design', 
                 'Frontend Development',
                 'Responsive Design'
               ]).map((service, index) => (
-                <motion.div
+                <div
                   key={service}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                   className='bg-white/5 rounded-xl p-6 border border-white/10 hover:border-[#eeba2c] transition-colors text-center'
                 >
                   <h3 className='text-lg font-semibold text-white'>{service}</h3>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -574,7 +736,7 @@ export default function ProjectDetailPage() {
 
         {/* Navigation Section */}
         <section className='py-20 px-4 bg-black'>
-          <div className='max-w-6xl mx-auto text-center'>
+          <div ref={navigationRef} className='max-w-6xl mx-auto text-center'>
             <h2 className='text-3xl font-bold text-white mb-8'>Explore More Projects</h2>
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
               <Link href='/projects'>

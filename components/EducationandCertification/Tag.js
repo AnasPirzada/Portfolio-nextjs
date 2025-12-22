@@ -30,15 +30,13 @@ const Tag = ({ clientHeight }) => {
     return () => ctx.revert();
   }, []);
   return (
-    <section ref={sectionRef} className='w-full relative select-none'>
+    <section ref={sectionRef} className='w-full relative select-none -mt-6 md:mt-0'>
       <div
-        className={`${
-          clientHeight > 650 ? 'py-20' : 'py-16'
-        } section-container`}
+        className='pt-0 pb-10 md:py-20 section-container'
       >
         <h1
           ref={quoteRef}
-          className='font-medium text-[2.70rem] md:text-6xl lg:text-[4rem] text-center'
+          className='font-medium text-4xl sm:text-5xl md:text-4xl lg:text-6xl xl:text-[4rem] text-center px-4 sm:px-6 leading-relaxed'
         >
           I turn
           <span

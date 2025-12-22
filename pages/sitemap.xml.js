@@ -10,26 +10,38 @@ function generateSiteMap() {
     '/blogs',
   ];
 
-  // Dynamic project pages
-  const projectPages = PROJECTS.map(project => 
-    `/project/${project.name.toLowerCase().replace(/\s+/g, '-')}`
-  );
+  // Dynamic project pages with lastmod dates
+  const projectPages = PROJECTS.map(project => ({
+    url: `/project/${project.name.toLowerCase().replace(/\s+/g, '-')}`,
+    lastmod: project.year ? new Date(`${project.year}-12-31`).toISOString() : new Date().toISOString()
+  }));
 
-  // Dynamic blog pages
-  const blogPages = BLOGS.map(blog => `/blog/${blog.slug}`);
+  // Dynamic blog pages with lastmod dates
+  const blogPages = BLOGS.map(blog => ({
+    url: `/blog/${blog.slug}`,
+    lastmod: blog.date ? new Date(blog.date).toISOString() : new Date().toISOString()
+  }));
 
-  const allPages = [...staticPages, ...projectPages, ...blogPages];
+  // Format static pages
+  const formattedStaticPages = staticPages.map(page => ({
+    url: page,
+    lastmod: new Date().toISOString()
+  }));
+
+  const allPages = [...formattedStaticPages, ...projectPages, ...blogPages];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      ${allPages
        .map(page => {
+         const pageUrl = typeof page === 'string' ? page : page.url;
+         const lastmod = typeof page === 'string' ? new Date().toISOString() : page.lastmod;
          return `
        <url>
-           <loc>${baseUrl}${page}</loc>
-           <lastmod>${new Date().toISOString()}</lastmod>
+           <loc>${baseUrl}${pageUrl}</loc>
+           <lastmod>${lastmod}</lastmod>
            <changefreq>weekly</changefreq>
-           <priority>${page === '' ? '1.0' : '0.8'}</priority>
+           <priority>${pageUrl === '' ? '1.0' : '0.8'}</priority>
        </url>
      `;
        })

@@ -20,7 +20,7 @@ const BlogCard = ({ blog, index }) => {
   return (
     <Link
       href={`/blog/${blog.slug}`}
-      className='block rounded-2xl border border-white/15 bg-gray-dark-2/40 backdrop-blur-md p-6 hover:border-[#eeba2c] hover:shadow-lg hover:shadow-[#eeba2c]/20 transition-all group'
+      className='block rounded-2xl border-2 border-[#efc041]/20 bg-gray-dark-2/40 backdrop-blur-md p-6 hover:border-[#efc041]/40 hover:shadow-lg hover:shadow-[#efc041]/20 transition-all group'
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -82,12 +82,12 @@ const BlogCard = ({ blog, index }) => {
 
 const Blogs = ({ clientHeight }) => {
   return (
-    <section id='blogs' className='w-full relative mt-96 select-none'>
-      <div className='section-container py-16 flex flex-col justify-center'>
+    <section id='blogs' className='w-full relative select-none'>
+      <div className='section-container py-10 md:py-20 flex flex-col justify-center'>
         <div className='flex flex-col'>
-          <div className='text-center mb-6'>
-            <p className='uppercase tracking-widest text-gray-light-1'>BLOGS</p>
-            <h2 className='text-5xl mt-2 font-medium text-gradient w-fit mx-auto'>
+          <div className='text-left mb-6'>
+            <p className='uppercase tracking-widest text-gray-light-1 text-base sm:text-lg'>BLOGS</p>
+            <h2 className='text-6xl sm:text-7xl md:text-5xl mt-2 font-medium text-gradient w-fit'>
               Latest Writing
             </h2>
           </div>

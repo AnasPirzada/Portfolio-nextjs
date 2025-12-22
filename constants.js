@@ -1,8 +1,9 @@
 export const METADATA = {
   author: 'Anas Pirzada',
-  title: 'Anas Pirzada - Full Stack Developer & AI Expert | React.js & Next.js Specialist',
+  title:
+    'Anas Pirzada - Full Stack Developer & AI Expert | React.js & Next.js Specialist',
   description:
-    'Anas Pirzada is a Full Stack Developer and AI Expert specializing in React.js, Next.js, and Machine Learning. With 2+ years of experience, he creates scalable web applications and AI-powered solutions. View his portfolio of modern web projects.',
+    'Anas Pirzada is a Full Stack Developer and AI Expert specializing in React.js, Next.js, and Machine Learning. With 5+ years of experience, he creates scalable web applications and AI-powered solutions. View his portfolio of modern web projects.',
   siteUrl: 'https://anaspirzada.vercel.app/',
   twitterHandle: '@Anas_Pirzada1',
   keywords: [
@@ -84,7 +85,7 @@ export const SOCIAL_LINKS = [
   },
   {
     name: 'linkedin',
-    url: 'https://www.linkedin.com/in/anas-pirzada/',
+    url: 'https://www.linkedin.com/in/anas-pirzada-31b53339b/',
   },
   {
     name: 'github',
@@ -103,6 +104,8 @@ export const SOCIAL_LINKS = [
     url: 'https://www.fiverr.com/anas_peerzada/',
   },
 ];
+
+export const CALENDLY_URL = 'https://calendly.com/anaspirzada/30min';
 
 export const SKILLS = {
   languagesAndTools: [
@@ -161,9 +164,12 @@ export const PROJECTS = [
       'Responsive Design',
     ],
     caseStudy: {
-      problem: 'Companies struggled to identify and fix security vulnerabilities efficiently, lacking a centralized platform to connect with skilled security researchers.',
-      solution: 'Developed a comprehensive bug bounty platform with real-time vulnerability tracking, researcher management, and automated reward distribution systems.',
-      impact: 'Enabled organizations to discover 300+ vulnerabilities in the first 6 months, reducing security risks by 65% and saving an average of $50K per company in potential breach costs.',
+      problem:
+        'Companies struggled to identify and fix security vulnerabilities efficiently, lacking a centralized platform to connect with skilled security researchers.',
+      solution:
+        'Developed a comprehensive bug bounty platform with real-time vulnerability tracking, researcher management, and automated reward distribution systems.',
+      impact:
+        'Enabled organizations to discover 300+ vulnerabilities in the first 6 months, reducing security risks by 65% and saving an average of $50K per company in potential breach costs.',
       metrics: [
         { label: 'Vulnerabilities Found', value: '300+' },
         { label: 'Security Improvement', value: '65%' },
@@ -191,9 +197,12 @@ export const PROJECTS = [
       'Responsive Design',
     ],
     caseStudy: {
-      problem: 'Newcomers to investing lacked accessible, comprehensive educational resources, resulting in poor financial decisions and missed opportunities.',
-      solution: 'Built an interactive learning platform with real-time market data, personalized learning paths, video tutorials, and practical investment simulations.',
-      impact: 'Helped 5,000+ users improve their investment knowledge, with 78% reporting better investment decisions and a 45% increase in portfolio performance.',
+      problem:
+        'Newcomers to investing lacked accessible, comprehensive educational resources, resulting in poor financial decisions and missed opportunities.',
+      solution:
+        'Built an interactive learning platform with real-time market data, personalized learning paths, video tutorials, and practical investment simulations.',
+      impact:
+        'Helped 5,000+ users improve their investment knowledge, with 78% reporting better investment decisions and a 45% increase in portfolio performance.',
       metrics: [
         { label: 'Active Learners', value: '5,000+' },
         { label: 'Better Decisions', value: '78%' },
@@ -222,9 +231,12 @@ export const PROJECTS = [
       'Responsive Design',
     ],
     caseStudy: {
-      problem: 'Students worldwide needed quality Quranic education but struggled with access to qualified teachers and flexible scheduling.',
-      solution: 'Created a comprehensive online platform with one-on-one virtual classes, progress tracking, flexible scheduling, and qualified teacher matching.',
-      impact: 'Connected 2,000+ students with certified teachers, achieving 90% student satisfaction and 85% course completion rates.',
+      problem:
+        'Students worldwide needed quality Quranic education but struggled with access to qualified teachers and flexible scheduling.',
+      solution:
+        'Created a comprehensive online platform with one-on-one virtual classes, progress tracking, flexible scheduling, and qualified teacher matching.',
+      impact:
+        'Connected 2,000+ students with certified teachers, achieving 90% student satisfaction and 85% course completion rates.',
       metrics: [
         { label: 'Active Students', value: '2,000+' },
         { label: 'Satisfaction Rate', value: '90%' },
@@ -252,9 +264,12 @@ export const PROJECTS = [
       'Responsive Design',
     ],
     caseStudy: {
-      problem: 'Traditional IQ testing was expensive, time-consuming, and inaccessible to most people seeking to understand their cognitive abilities.',
-      solution: 'Developed an AI-powered assessment platform with adaptive testing, instant results, detailed analytics, and personalized improvement recommendations.',
-      impact: 'Delivered 10,000+ assessments with 95% accuracy compared to traditional methods, reducing assessment time by 70% and cost by 80%.',
+      problem:
+        'Traditional IQ testing was expensive, time-consuming, and inaccessible to most people seeking to understand their cognitive abilities.',
+      solution:
+        'Developed an AI-powered assessment platform with adaptive testing, instant results, detailed analytics, and personalized improvement recommendations.',
+      impact:
+        'Delivered 10,000+ assessments with 95% accuracy compared to traditional methods, reducing assessment time by 70% and cost by 80%.',
       metrics: [
         { label: 'Assessments Completed', value: '10,000+' },
         { label: 'Accuracy Rate', value: '95%' },
@@ -339,7 +354,17 @@ export const WORK_ACHIEVEMENTS = [
       'Collaborated with designers and backend developers to conceptualize and implement innovative solutions',
       'Managed and resolved complex technical challenges, optimizing performance, scalability, and maintainability of applications',
     ],
-    skills: ['React.js', 'Next.js', 'Redux Toolkit', 'Firebase', 'Framer Motion', 'GSAP', 'TypeScript', 'SCSS', 'Tailwind CSS'],
+    skills: [
+      'React.js',
+      'Next.js',
+      'Redux Toolkit',
+      'Firebase',
+      'Framer Motion',
+      'GSAP',
+      'TypeScript',
+      'SCSS',
+      'Tailwind CSS',
+    ],
     metrics: [
       { label: 'Projects Delivered', value: '15+' },
       { label: 'Performance Gain', value: '40%' },
@@ -360,7 +385,15 @@ export const WORK_ACHIEVEMENTS = [
       'Collaborated with cross-functional teams to deliver innovative AI-driven solutions',
       'Implemented robust authentication and security measures for sensitive data handling',
     ],
-    skills: ['AI/ML Integration', 'Python', 'React.js', 'Next.js', 'Node.js', 'Django', 'TensorFlow'],
+    skills: [
+      'AI/ML Integration',
+      'Python',
+      'React.js',
+      'Next.js',
+      'Node.js',
+      'Django',
+      'TensorFlow',
+    ],
     metrics: [
       { label: 'AI Projects', value: '5+' },
       { label: 'Daily Users', value: '10K+' },
@@ -379,7 +412,15 @@ export const WORK_ACHIEVEMENTS = [
       'Consistently delivered effective solutions by seamlessly blending front-end and back-end technologies while optimizing state management to meet both technical and user needs',
       'Developed RESTful web services using the Laravel framework, efficiently managing JSON data formats to ensure smooth data communication',
     ],
-    skills: ['React.js', 'Laravel', 'Postman', 'Google Maps API', 'RESTful APIs', 'JSON', 'State Management'],
+    skills: [
+      'React.js',
+      'Laravel',
+      'Postman',
+      'Google Maps API',
+      'RESTful APIs',
+      'JSON',
+      'State Management',
+    ],
     metrics: [
       { label: 'API Integrations', value: '20+' },
       { label: 'System Efficiency', value: '45%' },
@@ -400,7 +441,16 @@ export const WORK_ACHIEVEMENTS = [
       'Specialized in building scalable SaaS applications, e-commerce platforms, and business websites',
       'Collaborated with clients globally, ensuring timely delivery and quality outputs',
     ],
-    skills: ['Python', 'Laravel', 'React.js', 'Next.js', 'Django', 'Firebase', 'MySQL', 'API Development'],
+    skills: [
+      'Python',
+      'Laravel',
+      'React.js',
+      'Next.js',
+      'Django',
+      'Firebase',
+      'MySQL',
+      'API Development',
+    ],
     metrics: [
       { label: 'Total Clients', value: '20+' },
       { label: 'Client Rating', value: '5.0⭐' },
@@ -582,7 +632,7 @@ Environment: Node.js ≥ 18.17, Turbo CLI, .env.local`,
     {
       title: 'Freelance Work',
       description:
-        'As a freelance Full Stack Developer, I have worked with 20+ clients from around the world through Fiverr, Upwork, and local connections. Specializing in Python, Laravel, React.js, and Next.js, I deliver custom web solutions tailored to each client\'s unique needs.',
+        "As a freelance Full Stack Developer, I have worked with 20+ clients from around the world through Fiverr, Upwork, and local connections. Specializing in Python, Laravel, React.js, and Next.js, I deliver custom web solutions tailored to each client's unique needs.",
       content: (
         <div className='h-full w-full flex items-center justify-center text-white px-4'>
           Global Freelance Experience
@@ -755,7 +805,7 @@ export const PERFORMANCE_METRICS = {
   },
   skills: {
     technologiesMastered: 30,
-    yearsOfExperience: 2.5,
+    yearsOfExperience: 5,
     certifications: 5,
   },
   impact: {

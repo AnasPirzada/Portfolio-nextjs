@@ -27,7 +27,7 @@ const Work = ({ isDesktop }) => {
               <div className='mb-6'>
                 <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-4'>
                   <div>
-                    <h3 className='text-2xl font-bold text-white'>{job.role}</h3>
+                    <h3 className='text-2xl sm:text-3xl md:text-2xl font-bold text-white'>{job.role}</h3>
                     <div className='flex items-center gap-4 text-gray-400 text-sm mt-2'>
                       <span className='flex items-center gap-1'>
                         <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -51,7 +51,7 @@ const Work = ({ isDesktop }) => {
               <div className='grid md:grid-cols-2 gap-8'>
                 {/* Achievements */}
                 <div>
-                  <h4 className='text-lg font-semibold text-white mb-4 flex items-center gap-2'>
+                  <h4 className='text-xl sm:text-2xl md:text-lg font-semibold text-white mb-4 flex items-center gap-2'>
                     <FaBullseye className='text-[#efc041] text-xl' /> Key Achievements
                   </h4>
                   <ul className='space-y-3'>
@@ -61,7 +61,7 @@ const Work = ({ isDesktop }) => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.1 }}
-                        className='flex items-start gap-3 text-gray-300'
+                        className='flex items-start gap-3 text-gray-300 text-base sm:text-lg md:text-base'
                       >
                         <FaCheckCircle className='text-[#efc041] mt-1 flex-shrink-0' size={16} />
                         <span>{achievement}</span>
@@ -72,7 +72,7 @@ const Work = ({ isDesktop }) => {
 
                 {/* Metrics and Skills */}
                 <div>
-                  <h4 className='text-lg font-semibold text-white mb-4 flex items-center gap-2'>
+                  <h4 className='text-xl sm:text-2xl md:text-lg font-semibold text-white mb-4 flex items-center gap-2'>
                     <FaChartBar className='text-[#efc041] text-xl' /> Impact Metrics
                   </h4>
                   <div className='grid grid-cols-2 gap-3 mb-6'>
@@ -147,7 +147,7 @@ const Work = ({ isDesktop }) => {
     <section
       ref={sectionRef}
       id={MENULINKS[3].ref}
-      className='w-full relative select-none xs:mt-40 sm:mt-72 mb-20 pb-16 z-10'
+      className='w-full relative select-none z-10'
     >
       <img
         src='/left-pattern.svg'
@@ -157,16 +157,16 @@ const Work = ({ isDesktop }) => {
         width={320}
         alt=''
       />
-      <div className='section-container py-16 flex flex-col justify-center'>
+      <div className='section-container py-10 md:py-20 flex flex-col justify-center'>
         <div className='flex flex-col work-wrapper'>
           <div className='flex flex-col'>
-            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal'>
+            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-base sm:text-lg'>
               WORK
             </p>
-            <h1 className='text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+            <h1 className='text-6xl sm:text-7xl md:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
               Experience
             </h1>
-            <h2 className='text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
+            <h2 className='text-xl sm:text-2xl md:text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
               A detailed look at my professional journey.{' '}
             </h2>
           </div>
