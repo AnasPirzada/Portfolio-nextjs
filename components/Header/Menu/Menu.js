@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { MENULINKS } from '../../../constants';
+import ScramblingText from './ScramblingText';
 
 const Menu = () => {
   useEffect(() => {
@@ -39,7 +40,7 @@ const Menu = () => {
               className='list-none py-1 px-0 m-0 block w-full text-center md:text-left'
               role='menubar'
             >
-              {MENULINKS.filter(el => el.name !== 'Contact').map(el => {
+              {MENULINKS.filter(el => el.name !== 'Contact').map((el, index) => {
                 const isBlogs = el.name === 'Blogs';
 
                 if (isBlogs) {
@@ -59,7 +60,10 @@ const Menu = () => {
                         role='menuitem'
                         aria-label={`Navigate to ${el.name} section`}
                       >
-                        {el.name.toUpperCase()}
+                        <ScramblingText 
+                          text={el.name.toUpperCase()} 
+                          delay={0}
+                        />
                       </a>
                       {/* Contact Us Button - Same row as Blogs, on the right */}
                       <a
@@ -94,7 +98,10 @@ const Menu = () => {
                       role='menuitem'
                       aria-label={`Navigate to ${el.name} section`}
                     >
-                      {el.name.toUpperCase()}
+                      <ScramblingText 
+                        text={el.name.toUpperCase()} 
+                        delay={0}
+                      />
                     </a>
                   </li>
                 );

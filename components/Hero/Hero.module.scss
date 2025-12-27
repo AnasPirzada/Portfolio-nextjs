@@ -48,3 +48,94 @@
     width: 98%;
   }
 }
+
+// Ensure text content is visible and not overlapped by image
+.heroTextContainer {
+  position: relative;
+  z-index: 10;
+  
+  @media (min-width: 768px) {
+    max-width: 50%;
+  }
+  
+  @media (min-width: 1024px) {
+    max-width: 45%;
+  }
+}
+
+// Wrapper for the image
+.imageWrapper {
+  position: relative;
+  background: transparent;
+  overflow: visible;
+}
+
+// Hero image styling
+.heroImage {
+  background: transparent;
+  width: 100%;
+  height: auto;
+}
+
+// Animated SVG container
+.animatedSvg {
+  position: relative;
+  
+  :global(svg) {
+    width: 100%;
+    height: auto;
+    display: block;
+    
+    // Ensure paths are ready for animation
+    path {
+      transition: opacity 0.3s ease;
+    }
+    
+    // Animate stroke paths
+    path[stroke] {
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
+  
+  // Respect reduced motion preference
+  @media (prefers-reduced-motion: reduce) {
+    :global(svg) path {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      stroke-dashoffset: 0 !important;
+    }
+  }
+}
+
+// SVG path animations for code and output screens
+.animatedSvg {
+  :global(svg) {
+    // Code screen paths (right side) - typing effect
+    path[stroke] {
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    
+    // Ensure smooth animations
+    path {
+      transition: opacity 0.3s ease;
+    }
+    
+    // Add glow effect to animated paths
+    path[stroke] {
+      filter: drop-shadow(0 0 1px rgba(239, 192, 65, 0.3));
+    }
+  }
+  
+  // Respect reduced motion preference
+  @media (prefers-reduced-motion: reduce) {
+    :global(svg) path {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      stroke-dashoffset: 0 !important;
+    }
+  }
+}
