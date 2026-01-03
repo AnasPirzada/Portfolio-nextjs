@@ -7,7 +7,7 @@ import { BLOGS } from '../../constants';
 import Button from '../Button/Button';
 
 // Calculate reading time based on content length
-const calculateReadingTime = (content) => {
+const calculateReadingTime = content => {
   const wordsPerMinute = 200;
   const words = content.split(/\s+/).length;
   const minutes = Math.ceil(words / wordsPerMinute);
@@ -16,7 +16,7 @@ const calculateReadingTime = (content) => {
 
 const BlogCard = ({ blog, index }) => {
   const readingTime = calculateReadingTime(blog.content || blog.description);
-  
+
   return (
     <Link
       href={`/blog/${blog.slug}`}
@@ -32,19 +32,39 @@ const BlogCard = ({ blog, index }) => {
           <div className='flex-1'>
             <div className='flex items-center gap-3 text-xs text-gray-400 mb-2'>
               <span className='flex items-center gap-1'>
-                <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' />
+                <svg
+                  className='w-4 h-4'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
+                  />
                 </svg>
-                {new Date(blog.date).toLocaleDateString('en-US', { 
-                  month: 'short', 
-                  day: 'numeric', 
-                  year: 'numeric' 
+                {new Date(blog.date).toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric',
                 })}
               </span>
               <span>•</span>
               <span className='flex items-center gap-1'>
-                <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' />
+                <svg
+                  className='w-4 h-4'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+                  />
                 </svg>
                 {readingTime} min read
               </span>
@@ -71,8 +91,18 @@ const BlogCard = ({ blog, index }) => {
         ) : null}
         <div className='mt-4 flex items-center gap-2 text-[#eeba2c] text-sm font-medium group-hover:gap-3 transition-all'>
           <span>Read more</span>
-          <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7' />
+          <svg
+            className='w-4 h-4'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M9 5l7 7-7 7'
+            />
           </svg>
         </div>
       </motion.div>
@@ -86,8 +116,10 @@ const Blogs = ({ clientHeight }) => {
       <div className='section-container py-10 md:py-20 flex flex-col justify-center'>
         <div className='flex flex-col'>
           <div className='text-left mb-6'>
-            <p className='uppercase tracking-widest text-gray-light-1 text-base sm:text-lg'>BLOGS</p>
-            <h2 className='text-6xl sm:text-7xl md:text-5xl mt-2 font-medium text-gradient w-fit'>
+            <p className='uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base'>
+              BLOGS
+            </p>
+            <h2 className='text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit'>
               Latest Writing
             </h2>
           </div>

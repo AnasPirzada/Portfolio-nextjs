@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useRef } from 'react';
+import { CALENDLY_URL } from '../../constants';
 
 const Collaboration = ({ clientHeight }) => {
   const sectionRef = useRef(null);
@@ -56,9 +57,7 @@ const Collaboration = ({ clientHeight }) => {
 
   return (
     <section ref={sectionRef} className='w-full relative select-none'>
-      <div
-        className='py-10 md:py-20 section-container flex flex-col'
-      >
+      <div className='py-10 md:py-20 section-container flex flex-col'>
         <p className='opacity-40 text-6xl sm:text-7xl font-semibold whitespace-nowrap ui-left transform-gpu'>
           {Array(5)
             .fill(
@@ -69,7 +68,7 @@ const Collaboration = ({ clientHeight }) => {
 
         <h1
           ref={quoteRef}
-          className='mt-6 md:mt-8 font-medium text-5xl sm:text-6xl md:text-5xl text-center'
+          className='mt-6 md:mt-8 font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center'
         >
           Interested in{' '}
           <span
@@ -89,11 +88,20 @@ const Collaboration = ({ clientHeight }) => {
 
         <p className='mt-6 md:mt-8 opacity-40 text-6xl sm:text-7xl font-semibold whitespace-nowrap ui-right transform-gpu'>
           {Array(5)
-            .fill(
-              ' AI Integration Laravel Django MongoDB Firebase '
-            )
+            .fill(' AI Integration Laravel Django MongoDB Firebase ')
             .reduce((str, el) => str.concat(el), '')}{' '}
         </p>
+
+        <div className='mt-12 md:mt-16 flex justify-center'>
+          <button
+            onClick={() =>
+              window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer')
+            }
+            className='inline-block px-8 py-4 md:px-10 md:py-5 text-lg md:text-xl font-bold text-black bg-[#efc041] rounded-lg hover:bg-[#eeba2c] transition-colors duration-300 shadow-lg shadow-[#efc041]/30 hover:shadow-[#eeba2c]/40 cursor-pointer border-none'
+          >
+            Let&apos;s Collaborate
+          </button>
+        </div>
       </div>
     </section>
   );

@@ -62,27 +62,27 @@ const About1 = ({ clientHeight }) => {
 
   return (
     <section ref={sectionRef} className='w-full relative select-none'>
-      <div
-        className='py-10 md:py-20 section-container'
-      >
+      <div className='py-10 md:py-20 section-container'>
         <h1
           ref={quoteRef}
-          className='font-medium text-5xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl text-center leading-relaxed px-4 sm:px-6 md:px-0'
+          className='font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center leading-relaxed px-4 sm:px-6 md:px-0'
         >
           <span className='about-1 leading-tight'>
-            I&apos;m a passionate Full Stack Developer and AI Expert who&apos;s focused on building
-            scalable and performant applications. <br />
+            I&apos;m a passionate Full Stack Developer and AI Expert who&apos;s
+            focused on building scalable and performant applications. <br />
           </span>
           <span className='about-2 leading-tight'>
             I strive to deliver seamless user experiences by embracing modern
-            frontend practices, AI integration, and thoughtful design principles. <br />
+            frontend practices, AI integration, and thoughtful design
+            principles. <br />
           </span>
-           <span className='about-3 leading-tight'>
-             With 5+ years of experience as a Full Stack Developer and AI Expert, I
-             specialize in building React.js applications, integrating APIs, implementing
-             Machine Learning solutions, and leveraging frameworks like Django, Laravel, 
-             and Next.js for scalable backend and frontend solutions.{' '}
-           </span>
+          <span className='about-3 leading-tight'>
+            With 5+ years of experience as a Full Stack Developer and AI Expert,
+            I specialize in building React.js applications, integrating APIs,
+            implementing Machine Learning solutions, and leveraging frameworks
+            like Django, Laravel, and Next.js for scalable backend and frontend
+            solutions.{' '}
+          </span>
         </h1>
       </div>
     </section>

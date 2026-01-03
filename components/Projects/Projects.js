@@ -1,5 +1,4 @@
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useRef } from 'react';
 import { MENULINKS, PROJECTS } from '../../constants';
 import Button from '../Button/Button.js';
@@ -14,27 +13,20 @@ const Projects = ({ isDesktop, clientHeight }) => {
     let projectsTimeline;
     let ctx;
 
-    if (isDesktop) {
-      [projectsTimeline, projectsScrollTrigger] = getProjectsSt();
-    }
-
     // Setup reveal animation
     ctx = gsap.context(() => {
-      gsap.from(
-        sectionRef.current.querySelectorAll('.staggered-reveal'),
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current.querySelector('.inner-container'),
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
+      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      });
     });
 
     return () => {
@@ -50,31 +42,8 @@ const Projects = ({ isDesktop, clientHeight }) => {
   };
 
   const getProjectsSt = () => {
-    const timeline = gsap.timeline({ defaults: { ease: 'none' } });
-    const sidePadding =
-      document.body.clientWidth -
-      sectionRef.current.querySelector('.inner-container').clientWidth;
-    const elementWidth =
-      sidePadding +
-      sectionRef.current.querySelector('.project-wrapper').clientWidth;
-    sectionRef.current.style.width = `${elementWidth}px`;
-    const width = window.innerWidth - elementWidth;
-    const duration = `${(elementWidth / window.innerHeight) * 100}%`;
-    timeline
-      .to(sectionRef.current, { x: width })
-      .to(sectionTitleRef.current, { x: -width }, '<');
-
-    const scrollTrigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: 'top top',
-      end: duration,
-      scrub: 0,
-      pin: true,
-      animation: timeline,
-      pinSpacing: 'margin',
-    });
-
-    return [timeline, scrollTrigger];
+    // Horizontal scroll animation disabled - using responsive grid instead
+    return [null, null];
   };
 
   return (
@@ -85,49 +54,55 @@ const Projects = ({ isDesktop, clientHeight }) => {
         isDesktop ? 'min-h-screen' : 'min-h-[120vh]'
       } w-full relative select-none`}
     >
-      <div className='section-container'>
-      <div className='flex flex-col py-10 md:py-20 md:justify-center h-full' style={{ textAlign: 'left' }}>
+      <div className='py-10 md:py-20 section-container'>
         <div
-          className='flex flex-col inner-container transform-gpu items-start text-left'
+          className='flex flex-col items-start text-left'
           ref={sectionTitleRef}
-          style={{ textAlign: 'left', alignItems: 'flex-start' }}
         >
-          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-base sm:text-lg'>
+          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base lg:text-base'>
             PROJECTS
           </p>
-          <h1 className='text-6xl sm:text-7xl md:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+          <h1 className='text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
             My Projects
           </h1>
-          <h2 className='text-xl sm:text-2xl md:text-[1.65rem] font-medium md:max-w-lg w-full max-w-sm sm:max-w-md mt-2 staggered-reveal text-left'>
+          <h2 className='text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full max-w-sm sm:max-w-md mt-2 staggered-reveal text-left'>
             Some things I&apos;ve built with love, expertise and a pinch of
             magical ingredients.{' '}
           </h2>
 
-          <Button href='/projects' classes='link w-[200px] mt-5' type='primary'>
+          <Button
+            href='/projects'
+            classes='link w-[200px] mt-5 text-nowrap'
+            type='primary'
+          >
             View All Projects
           </Button>
         </div>
         <div
-          className={`${
-            clientHeight > 650 ? 'mt-12' : 'mt-8'
-          } ${
-            isDesktop 
-              ? 'flex project-wrapper no-scrollbar w-fit' 
+          className={`${clientHeight > 650 ? 'mt-12' : 'mt-8'} ${
+            isDesktop
+              ? 'flex project-wrapper no-scrollbar w-fit'
               : 'flex flex-row gap-4 sm:gap-6 w-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-4 -mx-4 px-4 mobile-projects-scroll'
           } staggered-reveal mb-0 md:mb-16`}
-          style={!isDesktop ? { 
-            marginLeft: 0, 
-            marginRight: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
-          } : {}}
+          style={
+            !isDesktop
+              ? {
+                  marginLeft: 0,
+                  marginRight: 'auto',
+                  WebkitOverflowScrolling: 'touch',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                }
+              : {}
+          }
         >
           {PROJECTS.slice(0, 4).map((project, index) => (
             <ProjectTile
               classes={
-                isDesktop 
-                  ? (index === PROJECTS.length - 1 ? '' : 'mr-10 xs:mr-12 sm:mr-16')
+                isDesktop
+                  ? index === PROJECTS.length - 1
+                    ? ''
+                    : 'mr-10 xs:mr-12 sm:mr-16'
                   : ''
               }
               project={project}
@@ -136,7 +111,6 @@ const Projects = ({ isDesktop, clientHeight }) => {
             />
           ))}
         </div>
-      </div>
       </div>
     </section>
   );

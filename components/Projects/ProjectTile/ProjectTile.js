@@ -27,8 +27,11 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
     if (!card) return;
 
     // Check if device supports hover (desktop) or is touch device (mobile)
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchDevice =
+      'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
     // Skip hover effects on mobile/touch devices or if user prefers reduced motion
     if (isTouchDevice || prefersReducedMotion) {
@@ -355,7 +358,11 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
   return (
     <Link
       href={`/project/${name.toLowerCase().replace(/\s+/g, '-')}`}
-      className={`${additionalClasses} block ${!isDesktop ? 'w-[85vw] sm:w-[70vw] flex-shrink-0 snap-center' : 'sm:w-auto'}`}
+      className={`${additionalClasses} block ${
+        !isDesktop
+          ? 'w-[85vw] sm:w-[70vw] flex-shrink-0 snap-center'
+          : 'sm:w-auto'
+      }`}
       style={{
         maxWidth: isDesktop ? 'calc(100vw - 2rem)' : '85vw',
         flex: isDesktop ? '1 0 auto' : '0 0 auto',
@@ -363,7 +370,9 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
     >
       <div
         ref={cardRef}
-        className={`${styles.ProjectTile} group relative ${!isDesktop ? 'w-full' : 'w-full sm:w-[480px] md:w-[560px]'} max-w-full bg-[#0a0a0a] border border-[#1a1a1a] cursor-pointer overflow-hidden`}
+        className={`${styles.ProjectTile} group relative ${
+          !isDesktop ? 'w-full' : 'w-full sm:w-[480px] md:w-[560px]'
+        } max-w-full bg-[#0a0a0a] border border-[#1a1a1a] cursor-pointer overflow-hidden`}
         style={{
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
           transformStyle: 'preserve-3d',
@@ -420,11 +429,14 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         </div>
 
         {/* Content Section */}
-        <div ref={contentRef} className='p-4 sm:p-5 md:p-6 bg-[#0a0a0a] text-left'>
+        <div
+          ref={contentRef}
+          className='p-4 sm:p-5 md:p-6 bg-[#0a0a0a] text-left'
+        >
           {/* Title */}
           <h3
             ref={titleRef}
-            className='text-2xl sm:text-3xl md:text-2xl font-semibold text-white mb-2 sm:mb-3 leading-tight transition-colors duration-300 text-left'
+            className='text-xl sm:text-2xl md:text-2xl font-semibold text-white mb-2 sm:mb-3 leading-tight transition-colors duration-300 text-left'
           >
             {name}
           </h3>
@@ -433,7 +445,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           {description && (
             <p
               ref={descriptionRef}
-              className='text-sm sm:text-base md:text-sm text-gray-400 mb-3 sm:mb-4 line-clamp-2 leading-relaxed text-left'
+              className='text-xs sm:text-sm md:text-sm text-gray-400 mb-3 sm:mb-4 line-clamp-2 leading-relaxed text-left'
             >
               {description}
             </p>

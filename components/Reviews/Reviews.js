@@ -145,7 +145,7 @@ const Reviews = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.p
-            className='uppercase tracking-[0.3em] text-[#ffffff] text-sm md:text-base mb-4 font-mono'
+            className='uppercase tracking-[0.3em] text-[#ffffff] text-xs sm:text-sm md:text-base mb-4 font-mono'
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: false }}
@@ -154,7 +154,7 @@ const Reviews = () => {
             TESTIMONIALS
           </motion.p>
           <motion.h1
-            className='text-6xl sm:text-7xl md:text-6xl mt-2 font-medium text-gradient w-fit'
+            className='text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit'
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: false }}
@@ -163,7 +163,7 @@ const Reviews = () => {
             Client Reviews
           </motion.h1>
           <motion.p
-            className='text-xl sm:text-2xl md:text-[1.65rem] font-medium md:max-w-lg w-full max-w-sm sm:max-w-md mt-2'
+            className='text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full max-w-sm sm:max-w-md mt-2'
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: false }}

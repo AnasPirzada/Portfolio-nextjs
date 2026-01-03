@@ -1,17 +1,17 @@
-import { useRouter } from 'next/router';
-import { PROJECTS, METADATA } from '../../constants.js';
 import Cursor from '@/components/Cursor/Cursor';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import Menu from '@/components/Header/Menu/Menu';
-import ProgressIndicator from '@/components/ProgressIndicator/ProgressIndicator';
 import Meta from '@/components/Meta/Meta';
+import ProgressIndicator from '@/components/ProgressIndicator/ProgressIndicator';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import { METADATA, PROJECTS } from '../../constants.js';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.config({ nullTargetWarn: false });
@@ -22,7 +22,7 @@ export default function ProjectDetailPage() {
   const [isDesktop, setIsDesktop] = useState(true);
   const [clientHeight, setClientHeight] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
-  
+
   // Refs for GSAP animations
   const heroTitleRef = useRef(null);
   const heroDescRef = useRef(null);
@@ -38,8 +38,8 @@ export default function ProjectDetailPage() {
   const navigationRef = useRef(null);
 
   // Find the project by slug
-  const project = PROJECTS.find(p => 
-    p.name.toLowerCase().replace(/\s+/g, '-') === slug
+  const project = PROJECTS.find(
+    p => p.name.toLowerCase().replace(/\s+/g, '-') === slug
   );
 
   useEffect(() => {
@@ -185,7 +185,7 @@ export default function ProjectDetailPage() {
         children,
         {
           opacity: 0,
-          x: (index) => (index === 0 ? -80 : 80),
+          x: index => (index === 0 ? -80 : 80),
         },
         {
           opacity: 1,
@@ -307,9 +307,9 @@ export default function ProjectDetailPage() {
   if (!project) {
     return (
       <>
-        <Meta 
-          title="Project Not Found"
-          description="The requested project could not be found. Explore other projects by Anas Pirzada, Full Stack Developer & AI Expert."
+        <Meta
+          title='Project Not Found'
+          description='The requested project could not be found. Explore other projects by Anas Pirzada, Full Stack Developer & AI Expert.'
         />
         <Header>
           <Menu />
@@ -334,55 +334,59 @@ export default function ProjectDetailPage() {
 
   // SEO meta data for this project
   const projectTitle = project.name;
-  const projectDescription = `${project.description} - A ${project.category} project by Anas Pirzada, Full Stack Developer & AI Expert. Built with ${project.tech?.join(', ')}.`;
+  const projectDescription = `${project.description} - A ${
+    project.category
+  } project by Anas Pirzada, Full Stack Developer & AI Expert. Built with ${project.tech?.join(
+    ', '
+  )}.`;
   const projectUrl = `${METADATA.siteUrl}/project/${slug}`;
   const projectImage = project.heroSection || project.image;
 
   // Project Schema for structured data (more specific than CreativeWork)
   const projectSchema = {
-    "@context": "https://schema.org",
-    "@type": "Project",
-    "name": project.name,
-    "description": project.description,
-    "image": projectImage,
-    "url": project.url,
-    "creator": {
-      "@type": "Person",
-      "name": "Anas Pirzada",
-      "url": METADATA.siteUrl,
-      "sameAs": [
-        "https://www.linkedin.com/in/anas-pirzada-31b53339b/",
-        "https://github.com/AnasPirzada",
-        "https://x.com/Anas_Pirzada1"
-      ]
+    '@context': 'https://schema.org',
+    '@type': 'Project',
+    name: project.name,
+    description: project.description,
+    image: projectImage,
+    url: project.url,
+    creator: {
+      '@type': 'Person',
+      name: 'Anas Pirzada',
+      url: METADATA.siteUrl,
+      sameAs: [
+        'https://www.linkedin.com/in/muhammadanaspirzada/',
+        'https://github.com/AnasPirzada',
+        'https://x.com/Anas_Pirzada1',
+      ],
     },
-    "dateCreated": project.year,
-    "keywords": project.tech?.join(', ') || "web development, programming",
-    "about": {
-      "@type": "Thing",
-      "name": project.category
+    dateCreated: project.year,
+    keywords: project.tech?.join(', ') || 'web development, programming',
+    about: {
+      '@type': 'Thing',
+      name: project.category,
     },
-    "programmingLanguage": project.tech || [],
-    "applicationCategory": project.category,
-    "operatingSystem": "Web Browser"
+    programmingLanguage: project.tech || [],
+    applicationCategory: project.category,
+    operatingSystem: 'Web Browser',
   };
 
   return (
     <>
-      <Meta 
+      <Meta
         title={projectTitle}
         description={projectDescription}
         image={projectImage}
         url={projectUrl}
-        type="website"
+        type='website'
       />
-      
+
       {/* Project Schema */}
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
       />
-      
+
       <Header>
         <Menu />
       </Header>
@@ -393,11 +397,17 @@ export default function ProjectDetailPage() {
         <section className='pt-20 md:pt-24 pb-6 px-4 bg-gray-900'>
           <div className='max-w-6xl mx-auto'>
             <nav className='flex items-center space-x-2 text-sm'>
-              <Link href='/' className='text-gray-400 hover:text-[#eeba2c] transition-colors'>
+              <Link
+                href='/'
+                className='text-gray-400 hover:text-[#eeba2c] transition-colors'
+              >
                 Home
               </Link>
               <span className='text-gray-500'>›</span>
-              <Link href='/projects' className='text-gray-400 hover:text-[#eeba2c] transition-colors'>
+              <Link
+                href='/projects'
+                className='text-gray-400 hover:text-[#eeba2c] transition-colors'
+              >
                 Portfolio
               </Link>
               <span className='text-gray-500'>›</span>
@@ -417,10 +427,10 @@ export default function ProjectDetailPage() {
               className='object-cover'
               priority
             />
-            <div 
+            <div
               className='absolute inset-0'
               style={{
-                background: `linear-gradient(135deg, ${project.gradient[0]}80, ${project.gradient[1]}80)`
+                background: `linear-gradient(135deg, ${project.gradient[0]}80, ${project.gradient[1]}80)`,
               }}
             />
           </div>
@@ -428,24 +438,24 @@ export default function ProjectDetailPage() {
           {/* Content */}
           <div className='relative z-10 text-center px-4 max-w-4xl mx-auto'>
             <div>
-              <h1 
+              <h1
                 ref={heroTitleRef}
                 className='text-6xl md:text-8xl font-bold text-white mb-6 drop-shadow-2xl'
               >
                 {project.name}
               </h1>
-              <p 
+              <p
                 ref={heroDescRef}
                 className='text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed'
               >
                 {project.description}
               </p>
-              
+
               {/* Live Website Button */}
               <div ref={heroButtonRef}>
-                <Link 
-                  href={project.url} 
-                  target='_blank' 
+                <Link
+                  href={project.url}
+                  target='_blank'
                   rel='noopener noreferrer'
                   className='inline-block'
                 >
@@ -477,57 +487,72 @@ export default function ProjectDetailPage() {
         {project.caseStudy && (
           <section className='py-20 px-4 bg-gradient-to-b from-gray-900 to-black'>
             <div className='max-w-6xl mx-auto'>
-              <div
-                ref={caseStudyTitleRef}
-                className='text-center mb-16'
-              >
-                <p className='uppercase tracking-widest text-gray-400 mb-4'>CASE STUDY</p>
+              <div ref={caseStudyTitleRef} className='text-center mb-16'>
+                <p className='uppercase tracking-widest text-gray-400 mb-4'>
+                  CASE STUDY
+                </p>
                 <h2 className='text-4xl md:text-5xl font-bold text-white mb-4'>
                   Problem → Solution → Impact
                 </h2>
               </div>
 
-              <div ref={caseStudyCardsRef} className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16'>
+              <div
+                ref={caseStudyCardsRef}
+                className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16'
+              >
                 {/* Problem */}
                 <div className='bg-gradient-to-br from-red-500/10 to-red-900/5 rounded-2xl p-8 border-2 border-red-500/20 hover:border-red-500/40 transition-all'>
-                  <h3 className='text-2xl font-bold text-white mb-4'>Problem</h3>
-                  <p className='text-gray-300 leading-relaxed'>{project.caseStudy.problem}</p>
+                  <h3 className='text-2xl font-bold text-white mb-4'>
+                    Problem
+                  </h3>
+                  <p className='text-gray-300 leading-relaxed'>
+                    {project.caseStudy.problem}
+                  </p>
                 </div>
 
                 {/* Solution */}
                 <div className='bg-gradient-to-br from-blue-500/10 to-blue-900/5 rounded-2xl p-8 border-2 border-blue-500/20 hover:border-blue-500/40 transition-all'>
-                  <h3 className='text-2xl font-bold text-white mb-4'>Solution</h3>
-                  <p className='text-gray-300 leading-relaxed'>{project.caseStudy.solution}</p>
+                  <h3 className='text-2xl font-bold text-white mb-4'>
+                    Solution
+                  </h3>
+                  <p className='text-gray-300 leading-relaxed'>
+                    {project.caseStudy.solution}
+                  </p>
                 </div>
 
                 {/* Impact */}
                 <div className='bg-gradient-to-br from-green-500/10 to-green-900/5 rounded-2xl p-8 border-2 border-green-500/20 hover:border-green-500/40 transition-all'>
                   <h3 className='text-2xl font-bold text-white mb-4'>Impact</h3>
-                  <p className='text-gray-300 leading-relaxed'>{project.caseStudy.impact}</p>
+                  <p className='text-gray-300 leading-relaxed'>
+                    {project.caseStudy.impact}
+                  </p>
                 </div>
               </div>
 
               {/* Metrics */}
-              {project.caseStudy.metrics && project.caseStudy.metrics.length > 0 && (
-                <div ref={metricsRef}>
-                  <h3 className='text-3xl font-bold text-white text-center mb-8'>Key Metrics</h3>
-                  <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
-                    {project.caseStudy.metrics.map((metric, index) => (
-                      <div
-                        key={index}
-                        className='metric-item bg-gradient-to-br from-[#efc041]/10 to-[#eeba2c]/5 rounded-xl p-6 border border-[#efc041]/20 hover:border-[#efc041]/40 transition-all text-center'
-                      >
-                        <div className='text-3xl md:text-4xl font-bold text-[#efc041] mb-2'>
-                          {metric.value}
+              {project.caseStudy.metrics &&
+                project.caseStudy.metrics.length > 0 && (
+                  <div ref={metricsRef}>
+                    <h3 className='text-3xl font-bold text-white text-center mb-8'>
+                      Key Metrics
+                    </h3>
+                    <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
+                      {project.caseStudy.metrics.map((metric, index) => (
+                        <div
+                          key={index}
+                          className='metric-item bg-gradient-to-br from-[#efc041]/10 to-[#eeba2c]/5 rounded-xl p-6 border border-[#efc041]/20 hover:border-[#efc041]/40 transition-all text-center'
+                        >
+                          <div className='text-3xl md:text-4xl font-bold text-[#efc041] mb-2'>
+                            {metric.value}
+                          </div>
+                          <div className='text-sm text-gray-400 uppercase tracking-wide'>
+                            {metric.label}
+                          </div>
                         </div>
-                        <div className='text-sm text-gray-400 uppercase tracking-wide'>
-                          {metric.label}
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
             </div>
           </section>
         )}
@@ -535,7 +560,10 @@ export default function ProjectDetailPage() {
         {/* Project Details Section */}
         <section className='py-20 px-4 bg-black'>
           <div className='max-w-6xl mx-auto'>
-            <div ref={projectDetailsRef} className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+            <div
+              ref={projectDetailsRef}
+              className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'
+            >
               {/* Project Image */}
               <div className='relative'>
                 <div className='relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl'>
@@ -551,7 +579,9 @@ export default function ProjectDetailPage() {
               {/* Project Info */}
               <div className='space-y-8'>
                 <div>
-                  <h2 className='text-4xl font-bold text-white mb-4'>Project Overview</h2>
+                  <h2 className='text-4xl font-bold text-white mb-4'>
+                    Project Overview
+                  </h2>
                   <p className='text-lg text-gray-300 leading-relaxed'>
                     {project.description}
                   </p>
@@ -559,7 +589,9 @@ export default function ProjectDetailPage() {
 
                 {/* Tech Stack */}
                 <div>
-                  <h3 className='text-2xl font-semibold text-white mb-4'>Technologies Used</h3>
+                  <h3 className='text-2xl font-semibold text-white mb-4'>
+                    Technologies Used
+                  </h3>
                   <div className='flex flex-wrap gap-4'>
                     {project.tech?.map((tech, index) => (
                       <motion.div
@@ -586,9 +618,9 @@ export default function ProjectDetailPage() {
 
                 {/* Live Website Button */}
                 <div>
-                  <Link 
-                    href={project.url} 
-                    target='_blank' 
+                  <Link
+                    href={project.url}
+                    target='_blank'
                     rel='noopener noreferrer'
                     className='inline-block'
                   >
@@ -610,22 +642,34 @@ export default function ProjectDetailPage() {
         <section className='py-20 px-4 bg-gray-900'>
           <div className='max-w-6xl mx-auto'>
             <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-white mb-4'>Project Information</h2>
+              <h2 className='text-4xl font-bold text-white mb-4'>
+                Project Information
+              </h2>
               <p className='text-lg text-gray-300 max-w-2xl mx-auto'>
-                Detailed information about the project, technologies used, and development process.
+                Detailed information about the project, technologies used, and
+                development process.
               </p>
             </div>
 
-            <div ref={projectInfoGridRef} className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+            <div
+              ref={projectInfoGridRef}
+              className='grid grid-cols-1 md:grid-cols-3 gap-8'
+            >
               {/* Client */}
               <div className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'>
-                <h3 className='text-xl font-semibold text-white mb-4'>Client</h3>
-                <p className='text-gray-300'>{project.client || project.name}</p>
+                <h3 className='text-xl font-semibold text-white mb-4'>
+                  Client
+                </h3>
+                <p className='text-gray-300'>
+                  {project.client || project.name}
+                </p>
               </div>
 
               {/* Services */}
               <div className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'>
-                <h3 className='text-xl font-semibold text-white mb-4'>Services</h3>
+                <h3 className='text-xl font-semibold text-white mb-4'>
+                  Services
+                </h3>
                 <ul className='text-gray-300 space-y-2'>
                   {project.services?.map((service, index) => (
                     <li key={index}>• {service}</li>
@@ -642,10 +686,12 @@ export default function ProjectDetailPage() {
 
               {/* Live Website */}
               <div className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'>
-                <h3 className='text-xl font-semibold text-white mb-4'>Live Website</h3>
-                <Link 
-                  href={project.url} 
-                  target='_blank' 
+                <h3 className='text-xl font-semibold text-white mb-4'>
+                  Live Website
+                </h3>
+                <Link
+                  href={project.url}
+                  target='_blank'
                   rel='noopener noreferrer'
                   className='text-[#eeba2c] hover:text-[#efc041] transition-colors font-medium'
                 >
@@ -660,28 +706,42 @@ export default function ProjectDetailPage() {
         <section className='py-20 px-4 bg-black'>
           <div className='max-w-6xl mx-auto'>
             <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-white mb-4'>Work Experience</h2>
+              <h2 className='text-4xl font-bold text-white mb-4'>
+                Work Experience
+              </h2>
               <p className='text-lg text-gray-300 max-w-3xl mx-auto'>
-                This project showcases my expertise in modern web development, combining cutting-edge technologies with user-centered design principles.
+                This project showcases my expertise in modern web development,
+                combining cutting-edge technologies with user-centered design
+                principles.
               </p>
             </div>
 
-            <div ref={workExpRef} className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+            <div
+              ref={workExpRef}
+              className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'
+            >
               <div className='space-y-6'>
                 <div>
-                  <h3 className='text-2xl font-semibold text-white mb-4'>Development Process</h3>
+                  <h3 className='text-2xl font-semibold text-white mb-4'>
+                    Development Process
+                  </h3>
                   <p className='text-gray-300 leading-relaxed mb-4'>
-                    The development of {project.name} involved a comprehensive approach to modern web development. 
-                    Starting with careful planning and design, I implemented a robust architecture using the latest technologies.
+                    The development of {project.name} involved a comprehensive
+                    approach to modern web development. Starting with careful
+                    planning and design, I implemented a robust architecture
+                    using the latest technologies.
                   </p>
                   <p className='text-gray-300 leading-relaxed'>
-                    The project demonstrates my ability to create scalable, maintainable, and user-friendly web applications 
-                    that meet modern standards and provide exceptional user experiences.
+                    The project demonstrates my ability to create scalable,
+                    maintainable, and user-friendly web applications that meet
+                    modern standards and provide exceptional user experiences.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className='text-2xl font-semibold text-white mb-4'>Key Features</h3>
+                  <h3 className='text-2xl font-semibold text-white mb-4'>
+                    Key Features
+                  </h3>
                   <ul className='text-gray-300 space-y-2'>
                     <li>• Responsive Design for all devices</li>
                     <li>• Modern UI/UX Implementation</li>
@@ -712,22 +772,30 @@ export default function ProjectDetailPage() {
             <div className='text-center mb-16'>
               <h2 className='text-4xl font-bold text-white mb-4'>Services</h2>
               <p className='text-lg text-gray-300 max-w-2xl mx-auto'>
-                Comprehensive web development services delivered with expertise and attention to detail.
+                Comprehensive web development services delivered with expertise
+                and attention to detail.
               </p>
             </div>
 
-            <div ref={servicesRef} className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-              {(project.services || [
-                'Web Development',
-                'UI/UX Design', 
-                'Frontend Development',
-                'Responsive Design'
-              ]).map((service, index) => (
+            <div
+              ref={servicesRef}
+              className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'
+            >
+              {(
+                project.services || [
+                  'Web Development',
+                  'UI/UX Design',
+                  'Frontend Development',
+                  'Responsive Design',
+                ]
+              ).map((service, index) => (
                 <div
                   key={service}
                   className='bg-white/5 rounded-xl p-6 border border-white/10 hover:border-[#eeba2c] transition-colors text-center'
                 >
-                  <h3 className='text-lg font-semibold text-white'>{service}</h3>
+                  <h3 className='text-lg font-semibold text-white'>
+                    {service}
+                  </h3>
                 </div>
               ))}
             </div>
@@ -737,7 +805,9 @@ export default function ProjectDetailPage() {
         {/* Navigation Section */}
         <section className='py-20 px-4 bg-black'>
           <div ref={navigationRef} className='max-w-6xl mx-auto text-center'>
-            <h2 className='text-3xl font-bold text-white mb-8'>Explore More Projects</h2>
+            <h2 className='text-3xl font-bold text-white mb-8'>
+              Explore More Projects
+            </h2>
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
               <Link href='/projects'>
                 <motion.button

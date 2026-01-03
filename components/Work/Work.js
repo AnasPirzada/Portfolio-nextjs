@@ -1,7 +1,6 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { useEffect, useMemo, useRef } from 'react';
 import { FaBullseye, FaChartBar, FaCheckCircle } from 'react-icons/fa';
 import { MENULINKS, WORK_ACHIEVEMENTS } from '../../constants';
 import Tabs from './Tabs/Tabs';
@@ -10,7 +9,7 @@ const Work = ({ isDesktop }) => {
   const sectionRef = useRef(null);
 
   const enhancedTabItems = useMemo(() => {
-    return WORK_ACHIEVEMENTS.map((job) => {
+    return WORK_ACHIEVEMENTS.map(job => {
       const company = job.company;
       return {
         title: company,
@@ -27,19 +26,46 @@ const Work = ({ isDesktop }) => {
               <div className='mb-6'>
                 <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-4'>
                   <div>
-                    <h3 className='text-2xl sm:text-3xl md:text-2xl font-bold text-white'>{job.role}</h3>
+                    <h3 className='text-xl sm:text-2xl md:text-xl lg:text-2xl font-bold text-white'>
+                      {job.role}
+                    </h3>
                     <div className='flex items-center gap-4 text-gray-400 text-sm mt-2'>
                       <span className='flex items-center gap-1'>
-                        <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' />
+                        <svg
+                          className='w-4 h-4'
+                          fill='none'
+                          stroke='currentColor'
+                          viewBox='0 0 24 24'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth={2}
+                            d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
+                          />
                         </svg>
                         {job.period}
                       </span>
                       <span>•</span>
                       <span className='flex items-center gap-1'>
-                        <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z' />
-                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 11a3 3 0 11-6 0 3 3 0 016 0z' />
+                        <svg
+                          className='w-4 h-4'
+                          fill='none'
+                          stroke='currentColor'
+                          viewBox='0 0 24 24'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth={2}
+                            d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
+                          />
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth={2}
+                            d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
+                          />
                         </svg>
                         {job.location}
                       </span>
@@ -51,8 +77,9 @@ const Work = ({ isDesktop }) => {
               <div className='grid md:grid-cols-2 gap-8'>
                 {/* Achievements */}
                 <div>
-                  <h4 className='text-xl sm:text-2xl md:text-lg font-semibold text-white mb-4 flex items-center gap-2'>
-                    <FaBullseye className='text-[#efc041] text-xl' /> Key Achievements
+                  <h4 className='text-lg sm:text-xl md:text-lg font-semibold text-white mb-4 flex items-center gap-2'>
+                    <FaBullseye className='text-[#efc041] text-lg sm:text-xl' />{' '}
+                    Key Achievements
                   </h4>
                   <ul className='space-y-3'>
                     {job.achievements.map((achievement, i) => (
@@ -63,7 +90,10 @@ const Work = ({ isDesktop }) => {
                         transition={{ delay: i * 0.1 }}
                         className='flex items-start gap-3 text-gray-300 text-base sm:text-lg md:text-base'
                       >
-                        <FaCheckCircle className='text-[#efc041] mt-1 flex-shrink-0' size={16} />
+                        <FaCheckCircle
+                          className='text-[#efc041] mt-1 flex-shrink-0'
+                          size={16}
+                        />
                         <span>{achievement}</span>
                       </motion.li>
                     ))}
@@ -72,8 +102,9 @@ const Work = ({ isDesktop }) => {
 
                 {/* Metrics and Skills */}
                 <div>
-                  <h4 className='text-xl sm:text-2xl md:text-lg font-semibold text-white mb-4 flex items-center gap-2'>
-                    <FaChartBar className='text-[#efc041] text-xl' /> Impact Metrics
+                  <h4 className='text-lg sm:text-xl md:text-lg font-semibold text-white mb-4 flex items-center gap-2'>
+                    <FaChartBar className='text-[#efc041] text-lg sm:text-xl' />{' '}
+                    Impact Metrics
                   </h4>
                   <div className='grid grid-cols-2 gap-3 mb-6'>
                     {job.metrics.map((metric, i) => (
@@ -123,21 +154,18 @@ const Work = ({ isDesktop }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(
-        sectionRef.current.querySelectorAll('.staggered-reveal'),
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current.querySelector('.work-wrapper'),
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
+      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current.querySelector('.work-wrapper'),
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      });
     });
 
     return () => ctx.revert();

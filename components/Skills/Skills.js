@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
 import { useLayoutEffect, useRef, useState } from 'react';
 import { MENULINKS, SKILLS } from '../../constants';
@@ -45,7 +44,7 @@ const SkillIcon = ({ skill, width = 50, height = 50 }) => {
   const colors = SKILL_COLORS[skill] || SKILL_COLORS.default;
 
   return (
-    <div 
+    <div
       className='relative group'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -59,13 +58,11 @@ const SkillIcon = ({ skill, width = 50, height = 50 }) => {
           className='filter group-hover:drop-shadow-lg'
         />
       </div>
-      
+
       {/* Animated Badge/Tooltip */}
-      <div 
+      <div
         className={`absolute left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 rounded-lg font-medium text-xs whitespace-nowrap transition-all duration-300 pointer-events-none ${
-          isHovered 
-            ? 'opacity-100 translate-y-0' 
-            : 'opacity-0 -translate-y-2'
+          isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
         }`}
         style={{
           backgroundColor: colors.bg,
@@ -74,12 +71,13 @@ const SkillIcon = ({ skill, width = 50, height = 50 }) => {
           top: '100%',
         }}
       >
-        {skill.split('-').map(word => 
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' ')}
-        
+        {skill
+          .split('-')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')}
+
         {/* Arrow pointing up */}
-        <div 
+        <div
           className='absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45'
           style={{ backgroundColor: colors.bg }}
         />
@@ -93,21 +91,18 @@ const Skills = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(
-        sectionRef.current.querySelectorAll('.staggered-reveal'),
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current.querySelector('.skills-wrapper'),
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
+      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current.querySelector('.skills-wrapper'),
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      });
     });
 
     return () => ctx.revert();
@@ -119,7 +114,7 @@ const Skills = () => {
       id={MENULINKS[1].ref}
       className='w-full relative select-none'
     >
-      <div className='section-container py-10 md:py-20 flex flex-col justify-center'>
+      <div className='py-10 md:py-20 section-container'>
         <img
           src='/right-pattern.svg'
           alt=''
@@ -128,19 +123,19 @@ const Skills = () => {
           height={700}
           width={320}
         />
+        <div className='flex flex-col items-start text-left'>
+          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base'>
+            SKILLS
+          </p>
+          <h1 className='text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+            My Skills
+          </h1>
+          <h2 className='text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
+            I like to take responsibility to craft aesthetic user experience
+            using modern frontend architecture.{' '}
+          </h2>
+        </div>
         <div className='flex flex-col skills-wrapper'>
-          <div className='flex flex-col'>
-            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-base sm:text-lg'>
-              SKILLS
-            </p>
-            <h1 className='text-6xl sm:text-7xl md:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
-              My Skills
-            </h1>
-            <h2 className='text-xl sm:text-2xl md:text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
-              I like to take responsibility to craft aesthetic user experience
-              using modern frontend architecture.{' '}
-            </h2>
-          </div>
           <div className='mt-8 sm:mt-10'>
             <h3 className='uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4 staggered-reveal'>
               LANGUAGES AND TOOLS

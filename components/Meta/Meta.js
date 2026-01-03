@@ -17,7 +17,7 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
     "url": METADATA.siteUrl,
     "image": METADATA.image,
     "sameAs": [
-      "https://www.linkedin.com/in/anas-pirzada-31b53339b/",
+      "https://www.linkedin.com/in/muhammadanaspirzada/",
       "https://github.com/AnasPirzada",
       "https://www.instagram.com/anas_pirzada1/",
       "https://x.com/Anas_Pirzada1"
@@ -78,7 +78,7 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
       "name": "Anas Pirzada"
     },
     "sameAs": [
-      "https://www.linkedin.com/in/anas-pirzada-31b53339b/",
+      "https://www.linkedin.com/in/muhammadanaspirzada/",
       "https://github.com/AnasPirzada",
       "https://www.instagram.com/anas_pirzada1/",
       "https://x.com/Anas_Pirzada1"

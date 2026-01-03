@@ -1,6 +1,5 @@
 import Filter from 'bad-words';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { MENULINKS } from '../../constants';
@@ -75,7 +74,7 @@ const Contact = () => {
     // Rate limiting - max 3 submissions per minute
     const now = Date.now();
     const timeSinceLastSubmit = now - lastSubmitTime;
-    
+
     if (timeSinceLastSubmit < 60000 && submitCount >= 3) {
       toast.error('Please wait before submitting again', {
         id: 'rate-limit',
@@ -268,21 +267,18 @@ const Contact = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(
-        sectionRef.current.querySelectorAll('.staggered-reveal'),
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current.querySelector('.contact-wrapper'),
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
+      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current.querySelector('.contact-wrapper'),
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -300,14 +296,14 @@ const Contact = () => {
       <div className='section-container flex flex-col justify-center'>
         <div className='flex flex-col contact-wrapper'>
           <div className='flex flex-col'>
-            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-base sm:text-lg'>
+            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base'>
               CONTACT
             </p>
-            <h1 className='text-6xl sm:text-7xl md:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+            <h1 className='text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
               Contact
             </h1>
           </div>
-          <h2 className='text-xl sm:text-2xl md:text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
+          <h2 className='text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
             Get In Touch.{' '}
           </h2>
         </div>
@@ -372,7 +368,15 @@ const Contact = () => {
             </div>
 
             {/* Honeypot field - hidden from users but visible to bots */}
-            <div style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }} aria-hidden='true'>
+            <div
+              style={{
+                position: 'absolute',
+                left: '-9999px',
+                opacity: 0,
+                pointerEvents: 'none',
+              }}
+              aria-hidden='true'
+            >
               <label htmlFor='website'>Website (leave blank)</label>
               <input
                 type='text'

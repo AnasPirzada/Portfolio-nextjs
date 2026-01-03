@@ -112,30 +112,26 @@
 // SVG path animations for code and output screens
 .animatedSvg {
   :global(svg) {
-    // Code screen paths (right side) - typing effect
-    path[stroke] {
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    // Animation overlay groups
+    #animation-overlays {
+      pointer-events: none;
     }
     
-    // Ensure smooth animations
-    path {
-      transition: opacity 0.3s ease;
+    #code-animation {
+      filter: drop-shadow(0 0 2px rgba(239, 192, 65, 0.5));
     }
     
-    // Add glow effect to animated paths
-    path[stroke] {
-      filter: drop-shadow(0 0 1px rgba(239, 192, 65, 0.3));
+    #output-animation {
+      filter: drop-shadow(0 0 2px rgba(239, 192, 65, 0.5));
     }
   }
   
   // Respect reduced motion preference
   @media (prefers-reduced-motion: reduce) {
-    :global(svg) path {
-      animation: none !important;
-      transition: none !important;
-      opacity: 1 !important;
-      stroke-dashoffset: 0 !important;
+    :global(svg) {
+      #animation-overlays {
+        display: none !important;
+      }
     }
   }
 }

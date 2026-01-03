@@ -85,7 +85,7 @@ export const SOCIAL_LINKS = [
   },
   {
     name: 'linkedin',
-    url: 'https://www.linkedin.com/in/anas-pirzada-31b53339b/',
+    url: 'https://www.linkedin.com/in/muhammadanaspirzada/',
   },
   {
     name: 'github',

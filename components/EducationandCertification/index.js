@@ -21,21 +21,18 @@ const EducationSection = () => {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       // Heading reveal animation
-      gsap.from(
-        sectionRef.current.querySelectorAll('.staggered-reveal'),
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
+      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      });
 
       // Timeline items animation
       gsap.from('.timeline-item', {
@@ -64,28 +61,28 @@ const EducationSection = () => {
         {/* Floating themed SVG on the right */}
         <div
           className='hidden md:block absolute right-0 top-[-3rem] pointer-events-none'
-          style={{ 
+          style={{
             width: '220px',
             opacity: 0.5,
             transform: 'rotate(12deg)',
           }}
         >
           <svg
-            fill="rgba(238, 186, 44, 0.3)"
-            stroke="#eeba2c"
-            strokeWidth="1.5"
-            version="1.1"
-            id="Capa_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            width="220px"
-            height="220px"
-            viewBox="0 0 194.315 194.315"
-            xmlSpace="preserve"
+            fill='rgba(238, 186, 44, 0.3)'
+            stroke='#eeba2c'
+            strokeWidth='1.5'
+            version='1.1'
+            id='Capa_1'
+            xmlns='http://www.w3.org/2000/svg'
+            xmlnsXlink='http://www.w3.org/1999/xlink'
+            width='220px'
+            height='220px'
+            viewBox='0 0 194.315 194.315'
+            xmlSpace='preserve'
           >
             <g>
               <path
-                d="M192.396,100.661c-4.841-11.266-12.321-21.448-17.95-32.376c-2.775-5.386-10.177-20.047-18.026-15.472
+                d='M192.396,100.661c-4.841-11.266-12.321-21.448-17.95-32.376c-2.775-5.386-10.177-20.047-18.026-15.472
                 c-3.848-4.696-8.917-7.23-16.276-5.441c-0.359-0.391-0.694-0.804-1.068-1.18c-0.17-0.171-0.371-0.309-0.589-0.417
                 c0.173-1.202-0.7-2.449-2.188-2.625c-3.701-0.437-8.128,1.575-11.626,2.666c-4.995,1.559-9.849,3.587-14.422,6.131
                 c-5.553,3.089-11.236,8.494-12.099,14.892c-6.104-8.394-12.26-15.365-21.301-20.629c-3.653-2.126-13.653-7.557-17.628-3.771
@@ -110,7 +107,7 @@ const EducationSection = () => {
                 c8.572-12.254,12.84-26.872,20.164-39.821c0.827-1.462,4.857-8.893,7.249-8.438c4.064,0.771,7.892,2.28,11.498,4.272
                 c8.718,4.814,13.954,11.706,20.046,19.32c0.572,0.714,1.369,0.851,2.109,0.646c0.089,0.266,0.218,0.526,0.439,0.768
                 c-1.521-1.654-0.627,0.237-0.479,1.931c0.214,2.442,0.192,4.911,0.195,7.359c0.009,7.263-0.269,14.537-0.569,21.793
-                c-0.462,11.188-0.425,22.707-1.628,33.866c-0.526,1.335-0.929,2.746-1.084,4.062C78.476,122.424,61.532,94.093,35.487,94.392z"
+                c-0.462,11.188-0.425,22.707-1.628,33.866c-0.526,1.335-0.929,2.746-1.084,4.062C78.476,122.424,61.532,94.093,35.487,94.392z'
               />
             </g>
           </svg>
@@ -118,10 +115,10 @@ const EducationSection = () => {
 
         {/* Header + Tabs */}
         <div className='flex flex-col items-start text-left mb-10'>
-          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal'>
+          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base'>
             EDUCATION & CERTIFICATIONS
           </p>
-          <h2 className='text-5xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+          <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
             Learning Journey
           </h2>
           {/* Responsive segmented tabs */}
@@ -140,7 +137,7 @@ const EducationSection = () => {
                 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 30 }}
               />
-              
+
               {/* Glow effect for active tab */}
               <motion.div
                 className='absolute top-1.5 bottom-1.5 rounded-xl bg-[#efc041]/20 blur-xl'

@@ -217,7 +217,9 @@ export default function ProjectCard({ project }) {
     };
   }, []);
 
-  const projectUrl = `/project/${project.name.toLowerCase().replace(/\s+/g, '-')}`;
+  const projectUrl = `/project/${project.name
+    .toLowerCase()
+    .replace(/\s+/g, '-')}`;
 
   return (
     <Link href={projectUrl} className='block'>
@@ -254,13 +256,14 @@ export default function ProjectCard({ project }) {
           ref={shimmerRef}
           className='absolute inset-0 opacity-30 pointer-events-none'
           style={{
-            background: 'linear-gradient(110deg, transparent 40%, rgba(239, 192, 65, 0.3) 50%, transparent 60%)',
+            background:
+              'linear-gradient(110deg, transparent 40%, rgba(239, 192, 65, 0.3) 50%, transparent 60%)',
             transform: 'translateX(-100%)',
           }}
         />
 
         {/* Image Container - Clean, full width */}
-        <div className='relative w-full h-64 overflow-hidden bg-[#000]'>
+        <div className='relative w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-[#000]'>
           <div
             ref={imageRef}
             className='absolute inset-0 bg-cover bg-center'
@@ -270,7 +273,7 @@ export default function ProjectCard({ project }) {
           />
           {/* Subtle gradient overlay */}
           <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent' />
-          
+
           {/* Dynamic hover overlay effect */}
           <div className='absolute inset-0 bg-gradient-to-br from-[#efc041]/0 to-[#efc041]/0 group-hover:from-[#efc041]/15 group-hover:to-transparent transition-all duration-700' />
 
@@ -286,22 +289,22 @@ export default function ProjectCard({ project }) {
         </div>
 
         {/* Content Section */}
-        <div className='p-6 bg-[#0a0a0a] flex-1 flex flex-col'>
-          <h3 
+        <div className='p-4 sm:p-6 bg-[#0a0a0a] flex-1 flex flex-col'>
+          <h3
             ref={titleRef}
-            className='text-2xl font-semibold text-white mb-3 leading-tight transition-colors duration-300'
+            className='text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 leading-tight transition-colors duration-300'
           >
             {project.name}
           </h3>
-          <p 
+          <p
             ref={descriptionRef}
-            className='text-sm text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-1'
+            className='text-xs sm:text-sm md:text-sm text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-1'
           >
             {project.description}
           </p>
 
           {/* Tech Stack */}
-          <div 
+          <div
             ref={techRef}
             className='flex gap-2 items-center flex-wrap pt-3 border-t border-[#1a1a1a]'
           >
@@ -330,7 +333,7 @@ export default function ProjectCard({ project }) {
 
         {/* Animated border glow on hover */}
         <div className='absolute inset-0 border border-[#1a1a1a] group-hover:border-[#efc041]/30 transition-colors duration-500 pointer-events-none' />
-        
+
         {/* Pulsing border animation */}
         <div className='absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/10 transition-all duration-700 pointer-events-none animate-pulse' />
       </motion.div>
