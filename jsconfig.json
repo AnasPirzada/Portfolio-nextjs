@@ -2,7 +2,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"]
+      "@/components/*": ["components/*"],
+      "@/hooks": ["hooks/index.js"],
+      "@/hooks/*": ["hooks/*"],
+      "@/contexts": ["contexts/index.js"],
+      "@/contexts/*": ["contexts/*"],
+      "@/utils": ["utils/index.js"],
+      "@/utils/*": ["utils/*"],
+      "@/config/*": ["config/*"],
+      "@/constants": ["constants/index.js"],
+      "@/constants/*": ["constants/*"]
     }
   },
   "exclude": ["node_modules"]

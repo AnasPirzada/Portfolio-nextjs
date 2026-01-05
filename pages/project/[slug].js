@@ -371,6 +371,32 @@ export default function ProjectDetailPage() {
     operatingSystem: 'Web Browser',
   };
 
+  // Breadcrumb Schema for better search appearance
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: METADATA.siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Projects',
+        item: `${METADATA.siteUrl}/projects`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: project.name,
+        item: projectUrl,
+      },
+    ],
+  };
+
   return (
     <>
       <Meta
@@ -385,6 +411,12 @@ export default function ProjectDetailPage() {
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+      />
+
+      {/* Breadcrumb Schema */}
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <Header>

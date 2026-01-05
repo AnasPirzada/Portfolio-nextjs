@@ -21,21 +21,11 @@ const Document = () => {
         <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
         <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://assets.calendly.com https://calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com https://calendly.com; font-src 'self' https://fonts.gstatic.com https://assets.calendly.com; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://api.emailjs.com https://calendly.com https://*.calendly.com https://api.calendly.com; frame-src 'self' https://www.google.com https://calendly.com https://*.calendly.com; object-src 'none'; base-uri 'self';" />
         
-        {/* Additional SEO meta tags */}
+        {/* Mobile web app meta tags */}
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Portfolio" />
-        
-        {/* Theme color for mobile browsers */}
-        <meta name="theme-color" content="#000000" />
-        <meta name="msapplication-navbutton-color" content="#000000" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        
-        {/* Favicon */}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
       <body>
         <Main />

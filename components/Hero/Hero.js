@@ -45,7 +45,7 @@ const Hero = () => {
     <section
       ref={sectionRef}
       id={MENULINKS[0].ref}
-      className='w-full flex items-center md:items-center py-8 sm:py-12 md:py-8 2xl:container mx-auto xl:px-20 md:px-12 px-4 sm:px-6 min-h-screen relative mb-4 md:mb-24'
+      className='w-full flex items-center md:items-center py-6 sm:py-10 md:py-8 2xl:container mx-auto xl:px-20 md:px-12 px-4 sm:px-6 min-h-screen relative mb-2 sm:mb-4 md:mb-24'
       style={{ opacity: 0 }}
     >
       <style global jsx>
@@ -74,25 +74,25 @@ const Hero = () => {
         style={{ pointerEvents: 'auto' }}
       >
         <h5
-          className={`${styles.intro} font-mono font-medium text-GoldenGlow-light staggered-reveal text-sm sm:text-base md:text-base lg:text-lg mb-6 sm:mb-7`}
+          className={`${styles.intro} font-mono font-medium text-GoldenGlow-light staggered-reveal text-sm sm:text-base md:text-base lg:text-lg mb-3 sm:mb-4 md:mb-6 lg:mb-7`}
         >
           Hi, My Name is
         </h5>
         <h1
-          className={`${styles.heroName} text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-semibold mb-6 sm:mb-7 leading-tight`}
+          className={`${styles.heroName} text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-semibold mb-2 sm:mb-3 md:mb-4 lg:mb-5 leading-tight`}
         >
           <span className={`relative ${styles.emphasize} staggered-reveal`}>
             Anas
           </span>
           <span className='staggered-reveal'> Pirzada</span>
         </h1>
-        <p className='mb-6 sm:mb-7 inline-block w-full md:max-w-full'>
+        <p className='mb-3 sm:mb-4 md:mb-5 lg:mb-6 inline-block w-full break-words'>
           <span
             ref={typedElementRef}
-            className='staggered-reveal text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-light-3 font-mono leading-relaxed inline-block min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] break-words'
+            className='staggered-reveal text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-light-3 font-mono leading-relaxed inline-block min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] max-w-full break-words'
           />
         </p>
-        <div className='staggered-reveal mb-6'>
+        <div className='staggered-reveal mb-3 sm:mb-4 md:mb-5 lg:mb-6'>
           <Profiles />
         </div>
         <div

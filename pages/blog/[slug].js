@@ -76,6 +76,32 @@ export default function BlogDetail({ blog }) {
       blog.tags?.join(', ') || 'web development, programming, technology',
   };
 
+  // Breadcrumb Schema for better search appearance
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: METADATA.siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blogs',
+        item: `${METADATA.siteUrl}/#blogs`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: blogTitle,
+        item: blogUrl,
+      },
+    ],
+  };
+
   return (
     <>
       <Meta
@@ -90,6 +116,12 @@ export default function BlogDetail({ blog }) {
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      
+      {/* Breadcrumb Schema */}
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <Header>

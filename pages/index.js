@@ -14,37 +14,25 @@ import Projects from '@/components/Projects/Projects';
 import Resume from '@/components/Resume/Resume';
 import Reviews from '@/components/Reviews/Reviews';
 import Skills from '@/components/Skills/Skills';
-import Work from '@/components/Work/Work';
 import SkipToContent from '@/components/SkipToContent/SkipToContent';
+import Work from '@/components/Work/Work';
+import { useDevice } from '@/contexts/DeviceContext';
+import { displayFancyLogs } from '@/utils/log';
+import { logger } from '@/utils/logger';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import { useEffect, useState } from 'react';
-import { displayFancyLogs } from 'utils/log';
+import { useEffect } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.config({ nullTargetWarn: false });
 
-export default function Home() {
-  const [isDesktop, setIsDesktop] = useState(true);
-  const [clientHeight, setClientHeight] = useState(0);
-  const [clientWidth, setClientWidth] = useState(0);
+function Home() {
+  const device = useDevice();
 
   useEffect(() => {
     displayFancyLogs();
+    logger.info('Home page loaded successfully');
   }, []);
-
-  useEffect(() => {
-    const { innerWidth, innerHeight, orientation, history } = window;
-
-    const result =
-      typeof orientation === 'undefined' &&
-      navigator.userAgent.indexOf('IEMobile') === -1;
-    history.scrollRestoration = 'manual';
-
-    setIsDesktop(result);
-    setClientHeight(innerHeight);
-    setClientWidth(innerWidth);
-  }, [isDesktop]);
 
   return (
     <>
@@ -53,8 +41,8 @@ export default function Home() {
         <Menu />
       </Header>
       <ProgressIndicator />
-      <Cursor isDesktop={isDesktop} />
-      <main className='flex flex-col' id="home" tabIndex={-1}>
+      <Cursor isDesktop={device.isDesktop} />
+      <main className='flex flex-col' id='home' tabIndex={-1}>
         <div
           role='img'
           className='text-gray-light-1 opacity-10 sm:text-9xl xs:text-8xl inline-block z-0 absolute rotate-90 right-0 md:top-52 xs:top-96'
@@ -64,19 +52,24 @@ export default function Home() {
         </div>
         <div className='fixed top-0 left-0 h-screen w-screen -z-1' />
         <Hero />
-        <About1 clientHeight={clientHeight} />
+        <About1 clientHeight={device.clientHeight} />
         <Skills />
-        <Projects isDesktop={isDesktop} clientHeight={clientHeight} />
-        <TagLine clientHeight={clientHeight} />
-        <EducationandCertification isDesktop={isDesktop} />
-        <Work isDesktop={isDesktop} />
+        <Projects
+          isDesktop={device.isDesktop}
+          clientHeight={device.clientHeight}
+        />
+        <TagLine clientHeight={device.clientHeight} />
+        <EducationandCertification isDesktop={device.isDesktop} />
+        <Work isDesktop={device.isDesktop} />
         <Reviews />
-        <Blogs clientHeight={clientHeight} />
+        <Blogs clientHeight={device.clientHeight} />
         <Resume />
-        <Collaboration clientHeight={clientHeight} />
+        <Collaboration clientHeight={device.clientHeight} />
         <Contact />
       </main>
       <Footer />
     </>
   );
 }
+
+export default Home;

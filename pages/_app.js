@@ -1,25 +1,42 @@
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import Meta from '@/components/Meta/Meta';
+import { GTAG } from '@/constants';
+import { DeviceProvider } from '@/contexts/DeviceContext';
+import { usePerformanceMonitoring } from '@/hooks/usePerformanceMonitoring';
+import { logger } from '@/utils/logger';
+import { validateEnv } from '@/utils/validateEnv';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from 'next/script';
-import { GTAG } from 'constants';
 import { calibre, jetbrains_mono } from 'public/fonts';
+import { useEffect } from 'react';
 import '../styles/globals.css';
 import '../styles/globals.scss';
 
 const App = ({ Component, pageProps }) => {
+  usePerformanceMonitoring();
+
+  useEffect(() => {
+    validateEnv();
+    logger.info('Application initialized');
+  }, []);
+
   return (
     <>
       <Meta />
-      <main
-        className={`${calibre.variable} font-sans ${jetbrains_mono.variable} font-mono`}
-      >
-        <Component {...pageProps} />
-        <GoogleAnalytics gaId={GTAG} />
-      </main>
+      <ErrorBoundary>
+        <DeviceProvider>
+          <main
+            className={`${calibre.variable} font-sans ${jetbrains_mono.variable} font-mono`}
+          >
+            <Component {...pageProps} />
+            <GoogleAnalytics gaId={GTAG} />
+          </main>
+        </DeviceProvider>
+      </ErrorBoundary>
       {/* Calendly script */}
       <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="afterInteractive"
+        src='https://assets.calendly.com/assets/external/widget.js'
+        strategy='afterInteractive'
         onLoad={() => {
           // Mark Calendly as loaded
           if (typeof window !== 'undefined') {
@@ -35,7 +52,7 @@ const App = ({ Component, pageProps }) => {
             }, 500);
           }
         }}
-        onError={(e) => {
+        onError={e => {
           console.error('Failed to load Calendly script:', e);
         }}
       />

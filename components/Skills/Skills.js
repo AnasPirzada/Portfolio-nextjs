@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import gsap from 'gsap';
+import { MENULINKS, SKILLS } from '@/constants';
+import { useScrollReveal } from '@/hooks';
 import Image from 'next/image';
-import { useLayoutEffect, useRef, useState } from 'react';
-import { MENULINKS, SKILLS } from '../../constants';
+import { memo, useState } from 'react';
 
 // Skill icon colors mapping
 const SKILL_COLORS = {
@@ -39,7 +39,7 @@ const SKILL_COLORS = {
   default: { bg: '#efc041', text: '#000000' },
 };
 
-const SkillIcon = ({ skill, width = 50, height = 50 }) => {
+const SkillIcon = memo(({ skill, width = 50, height = 50 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const colors = SKILL_COLORS[skill] || SKILL_COLORS.default;
 
@@ -84,29 +84,12 @@ const SkillIcon = ({ skill, width = 50, height = 50 }) => {
       </div>
     </div>
   );
-};
+});
 
-const Skills = () => {
-  const sectionRef = useRef(null);
+SkillIcon.displayName = 'SkillIcon';
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current.querySelector('.skills-wrapper'),
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
+const Skills = memo(() => {
+  const sectionRef = useScrollReveal();
 
   return (
     <section
@@ -182,6 +165,7 @@ const Skills = () => {
       </div>
     </section>
   );
-};
+});
 
+Skills.displayName = 'Skills';
 export default Skills;

@@ -5,6 +5,13 @@
 .heroName {
   line-height: 1.5em;
   animation: fadeAppear 1.3s 0.3s;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+
+  @media (max-width: 640px) {
+    line-height: 1.3em;
+  }
 
   .emphasize {
     &::after {
@@ -22,6 +29,11 @@
       );
       box-shadow: 0 0 1rem theme('colors.GoldenGlow.dark');
       animation: growHorizontal 1.3s cubic-bezier(0.9, 0, 0.5, 0.9) 0.8s;
+
+      @media (max-width: 640px) {
+        bottom: 0.5rem;
+        height: 0.3rem;
+      }
     }
   }
 }
@@ -53,11 +65,11 @@
 .heroTextContainer {
   position: relative;
   z-index: 10;
-  
+
   @media (min-width: 768px) {
     max-width: 50%;
   }
-  
+
   @media (min-width: 1024px) {
     max-width: 45%;
   }
@@ -80,24 +92,24 @@
 // Animated SVG container
 .animatedSvg {
   position: relative;
-  
+
   :global(svg) {
     width: 100%;
     height: auto;
     display: block;
-    
+
     // Ensure paths are ready for animation
     path {
       transition: opacity 0.3s ease;
     }
-    
+
     // Animate stroke paths
     path[stroke] {
       stroke-linecap: round;
       stroke-linejoin: round;
     }
   }
-  
+
   // Respect reduced motion preference
   @media (prefers-reduced-motion: reduce) {
     :global(svg) path {
@@ -116,16 +128,16 @@
     #animation-overlays {
       pointer-events: none;
     }
-    
+
     #code-animation {
       filter: drop-shadow(0 0 2px rgba(239, 192, 65, 0.5));
     }
-    
+
     #output-animation {
       filter: drop-shadow(0 0 2px rgba(239, 192, 65, 0.5));
     }
   }
-  
+
   // Respect reduced motion preference
   @media (prefers-reduced-motion: reduce) {
     :global(svg) {
