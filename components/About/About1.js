@@ -16,33 +16,33 @@ const About1 = ({ clientHeight }) => {
         })
         .fromTo(
           quoteRef.current.querySelector('.about-1'),
-          { opacity: 0.3, y: 20 },
+          { opacity: 0.2, y: 20 },
           { opacity: 1, y: 0 }
         )
         .to(quoteRef.current.querySelector('.about-1'), {
-          opacity: 0.3,
+          opacity: 0.2,
           y: -10,
           duration: 0.6,
         })
         .fromTo(
           quoteRef.current.querySelector('.about-2'),
-          { opacity: 0.3, y: 20 },
+          { opacity: 0.2, y: 20 },
           { opacity: 1, y: 0 },
           '<0.2'
         )
         .to(quoteRef.current.querySelector('.about-2'), {
-          opacity: 0.3,
+          opacity: 0.2,
           y: -10,
           duration: 0.6,
         })
         .fromTo(
           quoteRef.current.querySelector('.about-3'),
-          { opacity: 0.3, y: 20 },
+          { opacity: 0.2, y: 20 },
           { opacity: 1, y: 0 },
           '<0.2'
         )
         .to(quoteRef.current.querySelector('.about-3'), {
-          opacity: 0.3,
+          opacity: 0.2,
           y: -10,
           duration: 0.6,
         });
@@ -67,21 +67,25 @@ const About1 = ({ clientHeight }) => {
           ref={quoteRef}
           className='font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center leading-relaxed px-4 sm:px-6 md:px-0'
         >
-          <span className='about-1 leading-tight'>
-            I&apos;m a passionate Full Stack Developer and AI Expert who&apos;s
-            focused on building scalable and performant applications. <br />
+          <span className='about-1 leading-tight block mb-4'>
+            I&apos;m a passionate{' '}
+            <span className='text-[#efc041]'>Full Stack Developer</span> and{' '}
+            <span className='text-[#efc041]'>AI Expert</span> who&apos;s focused
+            on building scalable and performant applications.
           </span>
-          <span className='about-2 leading-tight'>
+          <span className='about-2 leading-tight block mb-4'>
             I strive to deliver seamless user experiences by embracing modern
-            frontend practices, AI integration, and thoughtful design
-            principles. <br />
+            frontend practices,{' '}
+            <span className='text-[#efc041]'>AI integration</span>, and
+            thoughtful design principles.
           </span>
-          <span className='about-3 leading-tight'>
-            With 5+ years of experience as a Full Stack Developer and AI Expert,
-            I specialize in building React.js applications, integrating APIs,
-            implementing Machine Learning solutions, and leveraging frameworks
-            like Django, Laravel, and Next.js for scalable backend and frontend
-            solutions.{' '}
+          <span className='about-3 leading-tight block'>
+            With <span className='text-[#efc041]'>5+ years</span> of experience,
+            I specialize in building{' '}
+            <span className='text-[#efc041]'>React.js</span> applications,
+            integrating APIs, implementing{' '}
+            <span className='text-[#efc041]'>Machine Learning</span> solutions,
+            and leveraging frameworks like Django, Laravel, and Next.js.
           </span>
         </h1>
       </div>

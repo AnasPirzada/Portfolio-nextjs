@@ -19,6 +19,7 @@ const options = {
 const Hero = () => {
   const sectionRef = useRef(null);
   const typedElementRef = useRef(null);
+  const floatingRef = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -30,6 +31,21 @@ const Hero = () => {
           { opacity: 0, duration: 0.5, stagger: 0.5 },
           '<'
         );
+
+      // Floating particles animation
+      const particles = sectionRef.current.querySelectorAll('.floating-particle');
+      particles.forEach((particle, i) => {
+        gsap.to(particle, {
+          y: 'random(-20, 20)',
+          x: 'random(-10, 10)',
+          rotation: 'random(-15, 15)',
+          duration: 'random(3, 5)',
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: i * 0.2,
+        });
+      });
     });
 
     return () => ctx.revert();
@@ -41,6 +57,30 @@ const Hero = () => {
     return () => typed.destroy();
   }, [typedElementRef]);
 
+  // Magnetic button effect
+  const handleMouseMove = (e) => {
+    const btn = e.currentTarget;
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    gsap.to(btn, {
+      x: x * 0.3,
+      y: y * 0.3,
+      duration: 0.3,
+      ease: 'power2.out',
+    });
+  };
+
+  const handleMouseLeave = (e) => {
+    gsap.to(e.currentTarget, {
+      x: 0,
+      y: 0,
+      duration: 0.5,
+      ease: 'elastic.out(1, 0.3)',
+    });
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -48,6 +88,15 @@ const Hero = () => {
       className='w-full flex items-center md:items-center py-6 sm:py-10 md:py-8 2xl:container mx-auto xl:px-20 md:px-12 px-4 sm:px-6 min-h-screen relative mb-2 sm:mb-4 md:mb-24'
       style={{ opacity: 0 }}
     >
+      {/* Floating Particles */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none'>
+        <div className='floating-particle absolute top-20 left-10 w-3 h-3 bg-[#efc041] rounded-full opacity-40' />
+        <div className='floating-particle absolute top-40 right-20 w-2 h-2 bg-[#eeba2c] rounded-full opacity-30' />
+        <div className='floating-particle absolute bottom-32 left-1/4 w-4 h-4 border-2 border-[#efc041] rounded-full opacity-30' />
+        <div className='floating-particle absolute top-1/3 left-1/3 w-2 h-2 bg-[#efc041] opacity-20' style={{ transform: 'rotate(45deg)' }} />
+        <div className='floating-particle absolute bottom-1/4 right-1/3 w-3 h-3 border border-[#eeba2c] opacity-25' style={{ transform: 'rotate(45deg)' }} />
+      </div>
+
       <style global jsx>
         {`
           .typed-cursor {
@@ -98,6 +147,8 @@ const Hero = () => {
         <div
           className='staggered-reveal pt-2'
           style={{ position: 'relative', zIndex: 10, pointerEvents: 'auto' }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
         >
           <Button
             href='#'

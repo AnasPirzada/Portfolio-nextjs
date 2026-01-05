@@ -1,11 +1,13 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CALENDLY_URL } from '../../constants';
 
 const Collaboration = ({ clientHeight }) => {
   const sectionRef = useRef(null);
   const quoteRef = useRef(null);
+  const statsRef = useRef(null);
+  const [counters, setCounters] = useState({ projects: 0, clients: 0, experience: 0 });
 
   useEffect(() => {
     const smallScreen = document.body.clientWidth < 767;
@@ -49,9 +51,45 @@ const Collaboration = ({ clientHeight }) => {
       animation: slidingTl,
     });
 
+    // Counter animation
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate counters
+            const duration = 2;
+            const targets = { projects: 0, clients: 0, experience: 0 };
+            
+            gsap.to(targets, {
+              projects: 20,
+              clients: 15,
+              experience: 5,
+              duration,
+              ease: 'power2.out',
+              onUpdate: () => {
+                setCounters({
+                  projects: Math.round(targets.projects),
+                  clients: Math.round(targets.clients),
+                  experience: Math.round(targets.experience),
+                });
+              },
+            });
+            
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (statsRef.current) {
+      counterObserver.observe(statsRef.current);
+    }
+
     return () => {
       timeline.kill();
       slidingTl.kill();
+      counterObserver.disconnect();
     };
   }, [quoteRef, sectionRef]);
 
@@ -85,6 +123,31 @@ const Collaboration = ({ clientHeight }) => {
           </span>
           ?
         </h1>
+
+        {/* Animated Stats */}
+        <div 
+          ref={statsRef}
+          className='mt-8 md:mt-12 flex justify-center gap-8 md:gap-16'
+        >
+          <div className='text-center'>
+            <div className='text-4xl md:text-5xl font-bold text-[#efc041]'>
+              {counters.projects}+
+            </div>
+            <div className='text-sm md:text-base text-gray-400 mt-1'>Projects</div>
+          </div>
+          <div className='text-center'>
+            <div className='text-4xl md:text-5xl font-bold text-[#efc041]'>
+              {counters.clients}+
+            </div>
+            <div className='text-sm md:text-base text-gray-400 mt-1'>Clients</div>
+          </div>
+          <div className='text-center'>
+            <div className='text-4xl md:text-5xl font-bold text-[#efc041]'>
+              {counters.experience}+
+            </div>
+            <div className='text-sm md:text-base text-gray-400 mt-1'>Years Exp</div>
+          </div>
+        </div>
 
         <p className='mt-6 md:mt-8 opacity-40 text-6xl sm:text-7xl font-semibold whitespace-nowrap ui-right transform-gpu'>
           {Array(5)

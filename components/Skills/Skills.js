@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { MENULINKS, SKILLS } from '@/constants';
 import { useScrollReveal } from '@/hooks';
+import gsap from 'gsap';
 import Image from 'next/image';
-import { memo, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 
 // Skill icon colors mapping
 const SKILL_COLORS = {
@@ -39,15 +40,50 @@ const SKILL_COLORS = {
   default: { bg: '#efc041', text: '#000000' },
 };
 
-const SkillIcon = memo(({ skill, width = 50, height = 50 }) => {
+const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const iconRef = useRef(null);
   const colors = SKILL_COLORS[skill] || SKILL_COLORS.default;
+
+  // Wave animation on scroll
+  useEffect(() => {
+    const icon = iconRef.current;
+    if (!icon) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            gsap.fromTo(
+              icon,
+              { y: 30, opacity: 0, scale: 0.8 },
+              {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                delay: index * 0.08,
+                ease: 'back.out(1.7)',
+              }
+            );
+            observer.unobserve(icon);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(icon);
+    return () => observer.disconnect();
+  }, [index]);
 
   return (
     <div
+      ref={iconRef}
       className='relative group'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{ opacity: 0 }}
     >
       <div className='transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-2'>
         <Image
@@ -124,8 +160,8 @@ const Skills = memo(() => {
               LANGUAGES AND TOOLS
             </h3>
             <div className='flex items-center flex-wrap gap-4 sm:gap-6 staggered-reveal'>
-              {SKILLS.languagesAndTools.map(skill => (
-                <SkillIcon key={skill} skill={skill} width={40} height={40} />
+              {SKILLS.languagesAndTools.map((skill, index) => (
+                <SkillIcon key={skill} skill={skill} width={40} height={40} index={index} />
               ))}
             </div>
           </div>
@@ -134,8 +170,8 @@ const Skills = memo(() => {
               LIBRARIES AND FRAMEWORKS
             </h3>
             <div className='flex flex-wrap gap-4 sm:gap-6 transform-gpu staggered-reveal'>
-              {SKILLS.librariesAndFrameworks.map(skill => (
-                <SkillIcon key={skill} skill={skill} width={40} height={40} />
+              {SKILLS.librariesAndFrameworks.map((skill, index) => (
+                <SkillIcon key={skill} skill={skill} width={40} height={40} index={index} />
               ))}
             </div>
           </div>
@@ -145,8 +181,8 @@ const Skills = memo(() => {
                 DATABASES
               </h3>
               <div className='flex flex-wrap gap-4 sm:gap-6 transform-gpu'>
-                {SKILLS.databases.map(skill => (
-                  <SkillIcon key={skill} skill={skill} width={40} height={40} />
+                {SKILLS.databases.map((skill, index) => (
+                  <SkillIcon key={skill} skill={skill} width={40} height={40} index={index} />
                 ))}
               </div>
             </div>
@@ -155,8 +191,8 @@ const Skills = memo(() => {
                 Other
               </h3>
               <div className='flex flex-wrap gap-4 sm:gap-6 transform-gpu'>
-                {SKILLS.other.map(skill => (
-                  <SkillIcon key={skill} skill={skill} width={40} height={40} />
+                {SKILLS.other.map((skill, index) => (
+                  <SkillIcon key={skill} skill={skill} width={40} height={40} index={index} />
                 ))}
               </div>
             </div>
