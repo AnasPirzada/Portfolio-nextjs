@@ -10,6 +10,21 @@ const About1 = ({ clientHeight }) => {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
+      // Initial reveal animation
+      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      });
+
+      // Text highlight animation on scroll
       const tl = gsap
         .timeline({
           defaults: { ease: 'power2.out', duration: 0.8 },
@@ -61,11 +76,14 @@ const About1 = ({ clientHeight }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className='w-full relative select-none'>
-      <div className='py-10 md:py-20 section-container'>
+    <section ref={sectionRef} className='w-full relative select-none -mt-16 md:mt-0'>
+      <div className='py-6 md:py-20 section-container'>
+        <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base text-center mb-4'>
+          ABOUT ME
+        </p>
         <h1
           ref={quoteRef}
-          className='font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center leading-relaxed px-4 sm:px-6 md:px-0'
+          className='font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center leading-relaxed px-4 sm:px-6 md:px-0 staggered-reveal'
         >
           <span className='about-1 leading-tight block mb-4'>
             I&apos;m a passionate{' '}

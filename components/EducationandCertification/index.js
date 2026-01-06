@@ -34,7 +34,7 @@ const EducationSection = () => {
         },
       });
 
-      // Timeline items animation
+      // Timeline items animation - changed to play reverse on scroll back
       gsap.from('.timeline-item', {
         opacity: 0,
         y: 50,
@@ -43,7 +43,7 @@ const EducationSection = () => {
           trigger: sectionRef.current,
           start: 'top 80%',
           end: 'bottom bottom',
-          toggleActions: 'play none none reverse',
+          toggleActions: 'play none none reset',
         },
       });
     }, sectionRef);

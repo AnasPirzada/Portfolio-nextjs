@@ -86,7 +86,7 @@ const Hero = () => {
     <section
       ref={sectionRef}
       id={MENULINKS[0].ref}
-      className='w-full flex items-center md:items-center py-6 sm:py-10 md:py-8 2xl:container mx-auto xl:px-20 md:px-12 px-4 sm:px-6 min-h-screen relative mb-2 sm:mb-4 md:mb-24'
+      className='w-full flex items-center md:items-center py-6 sm:py-10 md:py-8 2xl:container mx-auto xl:px-20 md:px-12 px-4 sm:px-6 min-h-[70vh] md:min-h-screen relative mb-0 md:mb-24'
       style={{ opacity: 0 }}
     >
       {/* Floating Particles */}

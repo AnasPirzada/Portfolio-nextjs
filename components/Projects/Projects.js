@@ -87,10 +87,10 @@ const Projects = memo(
         ref={sectionRef}
         id={MENULINKS[2].ref}
         className={`${
-          isDesktop ? 'min-h-screen' : 'min-h-[120vh]'
+          isDesktop ? 'min-h-screen' : ''
         } w-full relative select-none section-container`}
       >
-        <div className='flex flex-col py-10 md:py-20 justify-center h-full'>
+        <div className='flex flex-col py-8 md:py-20 justify-center h-full'>
           <div
             className='flex flex-col inner-container transform-gpu items-start text-left'
             ref={sectionTitleRef}
@@ -118,8 +118,8 @@ const Projects = memo(
             className={`${clientHeight > 650 ? 'mt-12' : 'mt-8'} ${
               isDesktop
                 ? 'flex project-wrapper no-scrollbar w-fit'
-                : 'flex flex-row gap-4 sm:gap-6 w-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-4 -mx-4 px-4 mobile-projects-scroll'
-            } staggered-reveal mb-0 md:mb-16`}
+                : 'flex flex-row gap-4 sm:gap-6 w-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-4 -mx-4 px-4 mobile-projects-scroll touch-pan-x'
+            } staggered-reveal mb-4 md:mb-16`}
             style={
               !isDesktop
                 ? {
@@ -128,6 +128,7 @@ const Projects = memo(
                     WebkitOverflowScrolling: 'touch',
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none',
+                    overscrollBehaviorX: 'contain',
                   }
                 : {}
             }
