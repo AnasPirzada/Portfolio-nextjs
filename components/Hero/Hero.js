@@ -4,6 +4,7 @@ import Typed from 'typed.js';
 import { CALENDLY_URL, MENULINKS, TYPED_STRINGS } from '../../constants';
 import { openCalendlyPopup } from '../../utils/calendly';
 import Button from '../Button/Button';
+import FiverrBadge from '../FiverrBadge/FiverrBadge';
 import Profiles from '../Profiles/Profiles';
 import styles from './Hero.module.scss';
 
@@ -216,6 +217,13 @@ const Hero = () => {
           backgroundColor: 'transparent',
         }}
       >
+        {/* Fiverr Badge - Top Right */}
+        <div 
+          className='staggered-reveal absolute top-2 -right-15 z-20'
+          style={{ pointerEvents: 'auto' }}
+        >
+          <FiverrBadge />
+        </div>
         <div className={styles.imageWrapper}>
           <img
             src='/lottie/anas.svg'

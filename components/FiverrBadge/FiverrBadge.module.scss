@@ -1,0 +1,107 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #1dbf73 0%, #19a463 100%);
+  border-radius: 2rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(29, 191, 115, 0.3);
+  animation: floatBadge 3s ease-in-out infinite;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(29, 191, 115, 0.5);
+    animation-play-state: paused;
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.4rem 0.8rem;
+    gap: 0.4rem;
+  }
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: white;
+    fill: none;
+
+    circle {
+      fill: white;
+      stroke: none;
+    }
+
+    @media (max-width: 640px) {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.level {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  @media (max-width: 640px) {
+    font-size: 0.65rem;
+  }
+}
+
+.seller {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+
+  @media (max-width: 640px) {
+    font-size: 0.55rem;
+  }
+}
+
+.star {
+  color: #ffd700;
+  font-size: 1rem;
+  animation: pulseStar 1.5s ease-in-out infinite;
+
+  @media (max-width: 640px) {
+    font-size: 0.85rem;
+  }
+}
+
+@keyframes floatBadge {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseStar {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2) rotate(15deg);
+  }
+}
