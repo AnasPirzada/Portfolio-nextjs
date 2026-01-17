@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "git lfs pull || true",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
