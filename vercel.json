@@ -1,4 +1,4 @@
 {
-  "buildCommand": "git lfs install && git lfs pull && yarn build",
+  "buildCommand": "(git lfs install || true) && (git lfs pull || echo 'Git LFS pull failed, continuing build...') && yarn build",
   "installCommand": "yarn install"
 }
