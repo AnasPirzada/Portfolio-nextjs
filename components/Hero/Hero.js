@@ -126,7 +126,7 @@ const Hero = () => {
         <h5
           className={`${styles.intro} font-mono font-medium text-GoldenGlow-light staggered-reveal text-sm sm:text-base md:text-base lg:text-lg mb-3 sm:mb-4 md:mb-6 lg:mb-7`}
         >
-          Hi, I'm
+          Hi, I&apos;m
         </h5>
         <h1
           className={`${styles.heroName} text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-semibold mb-2 sm:mb-3 md:mb-4 lg:mb-5 leading-tight`}

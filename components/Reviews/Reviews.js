@@ -276,7 +276,7 @@ const Reviews = () => {
                   </svg>
 
                   <p className='text-lg leading-relaxed mb-auto text-light-text-primary dark:text-white font-light'>
-                    "{TESTIMONIALS[activeIndex].text}"
+                    &ldquo;{TESTIMONIALS[activeIndex].text}&rdquo;
                   </p>
 
                   <div className='flex items-center gap-4 mt-6 pt-6 border-t border-gray-light-2 dark:border-white/10'>
@@ -437,7 +437,7 @@ const Reviews = () => {
                   </svg>
 
                   <p className='text-xl lg:text-2xl leading-relaxed mb-auto text-light-text-primary dark:text-white font-light'>
-                    "{TESTIMONIALS[activeIndex].text}"
+                    &ldquo;{TESTIMONIALS[activeIndex].text}&rdquo;
                   </p>
 
                   <div className='flex items-center gap-4 mt-6 pt-6 border-t border-gray-light-2 dark:border-white/10'>
