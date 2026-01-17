@@ -33,6 +33,3 @@ yarn-error.log*
 # vercel
 .vercel
 /.env.local
-
-# large audio files
-public/sounds/song.mp3
