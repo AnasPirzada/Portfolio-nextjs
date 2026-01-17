@@ -15,21 +15,22 @@ const Work = ({ isDesktop }) => {
         title: company,
         value: company,
         content: (
-          <div className='w-full relative'>
+          <div className='w-full relative' style={{ opacity: 1 }}>
             {/* Company Details */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className='bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 rounded-2xl p-8 border border-[#efc041]/20 mb-20'
+              style={{ willChange: 'auto', opacity: 1 }}
             >
               <div className='mb-6'>
                 <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-4'>
                   <div>
-                    <h3 className='text-xl sm:text-2xl md:text-xl lg:text-2xl font-bold text-white'>
+                    <h3 className='text-xl sm:text-2xl md:text-2xl lg:text-2xl font-bold text-gray-dark-1 dark:text-white'>
                       {job.role}
                     </h3>
-                    <div className='flex items-center gap-4 text-gray-400 text-sm mt-2'>
+                    <div className='flex items-center gap-4 text-gray-light-4 dark:text-gray-light-2 text-sm mt-2'>
                       <span className='flex items-center gap-1'>
                         <svg
                           className='w-4 h-4'
@@ -77,7 +78,7 @@ const Work = ({ isDesktop }) => {
               <div className='grid md:grid-cols-2 gap-8'>
                 {/* Achievements */}
                 <div>
-                  <h4 className='text-lg sm:text-xl md:text-lg font-semibold text-white mb-4 flex items-center gap-2'>
+                  <h4 className='text-lg sm:text-xl font-semibold text-gray-dark-1 dark:text-white mb-4 flex items-center gap-2'>
                     <FaBullseye className='text-[#efc041] text-lg sm:text-xl' />{' '}
                     Key Achievements
                   </h4>
@@ -85,10 +86,10 @@ const Work = ({ isDesktop }) => {
                     {job.achievements.map((achievement, i) => (
                       <motion.li
                         key={i}
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 1, x: 0 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.1 }}
-                        className='flex items-start gap-3 text-gray-300 text-base sm:text-lg md:text-base'
+                        className='flex items-start gap-3 text-gray-light-4 dark:text-gray-light-2 text-base sm:text-lg md:text-base'
                       >
                         <FaCheckCircle
                           className='text-[#efc041] mt-1 flex-shrink-0'
@@ -102,7 +103,7 @@ const Work = ({ isDesktop }) => {
 
                 {/* Metrics and Skills */}
                 <div>
-                  <h4 className='text-lg sm:text-xl md:text-lg font-semibold text-white mb-4 flex items-center gap-2'>
+                  <h4 className='text-lg sm:text-xl font-semibold text-gray-dark-1 dark:text-white mb-4 flex items-center gap-2'>
                     <FaChartBar className='text-[#efc041] text-lg sm:text-xl' />{' '}
                     Impact Metrics
                   </h4>
@@ -110,15 +111,15 @@ const Work = ({ isDesktop }) => {
                     {job.metrics.map((metric, i) => (
                       <motion.div
                         key={i}
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 1, scale: 1 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: i * 0.1 }}
-                        className='bg-gradient-to-br from-black/40 to-black/20 rounded-lg p-4 text-center border border-[#efc041]/10'
+                        className='bg-gradient-to-br from-gray-light-1 to-white dark:from-black/40 dark:to-black/20 rounded-lg p-4 text-center border border-[#efc041]/20 dark:border-[#efc041]/10'
                       >
                         <div className='text-xl font-bold text-[#efc041] mb-1'>
                           {metric.value}
                         </div>
-                        <div className='text-xs text-gray-400 uppercase tracking-wide'>
+                        <div className='text-xs text-gray-light-4 dark:text-gray-light-2 uppercase tracking-wide'>
                           {metric.label}
                         </div>
                       </motion.div>
@@ -126,17 +127,17 @@ const Work = ({ isDesktop }) => {
                   </div>
 
                   <div>
-                    <h5 className='text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wide'>
+                    <h5 className='text-sm font-semibold text-gray-light-4 dark:text-gray-light-2 mb-3 uppercase tracking-wide'>
                       Technologies Used
                     </h5>
                     <div className='flex flex-wrap gap-2'>
                       {job.skills.map((skill, i) => (
                         <motion.span
                           key={i}
-                          initial={{ opacity: 0, scale: 0.8 }}
+                          initial={{ opacity: 1, scale: 1 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: i * 0.05 }}
-                          className='px-3 py-1 text-xs rounded-full bg-[#efc041]/10 border border-[#efc041]/30 text-[#efc041] font-medium'
+                          className='px-3 py-1 text-xs rounded-full bg-[#efc041]/10 border border-[#efc041]/30 text-gray-dark-1 dark:text-[#efc041] font-medium'
                         >
                           {skill}
                         </motion.span>
@@ -153,20 +154,57 @@ const Work = ({ isDesktop }) => {
   }, []);
 
   useEffect(() => {
+    if (!sectionRef.current) return;
+    
     const ctx = gsap.context(() => {
-      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current.querySelector('.work-wrapper'),
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
-      });
-    });
+      const workWrapper = sectionRef.current.querySelector('.work-wrapper');
+      if (!workWrapper) return;
+      
+      const staggeredElements = sectionRef.current.querySelectorAll('.staggered-reveal');
+      
+      if (staggeredElements.length === 0) return;
+      
+      // Set initial state for animation
+      gsap.set(staggeredElements, { opacity: 0, y: 30 });
+      
+      // Check if element is already in viewport on mount
+      const rect = workWrapper.getBoundingClientRect();
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      // If already in viewport, animate immediately, otherwise wait for scroll
+      if (isInViewport) {
+        gsap.to(staggeredElements, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+        });
+      } else {
+        // Animate on scroll - works both forward and backward
+        gsap.to(staggeredElements, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: workWrapper,
+            start: 'top 85%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse',
+            onEnter: () => {
+              // Ensure visibility when entering viewport
+              gsap.set(staggeredElements, { opacity: 1, y: 0 });
+            },
+            onLeaveBack: () => {
+              // Reset when scrolling back up
+              gsap.set(staggeredElements, { opacity: 0, y: 30 });
+            },
+          },
+        });
+      }
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
@@ -185,18 +223,18 @@ const Work = ({ isDesktop }) => {
         width={320}
         alt=''
       />
-      <div className='section-container py-10 md:py-20 flex flex-col justify-center'>
+      <div className='section-container pt-6 md:pt-10 pb-10 md:pb-20 flex flex-col justify-center'>
         <div className='flex flex-col work-wrapper'>
           <div className='flex flex-col'>
-            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-base sm:text-lg'>
+            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base'>
               WORK
             </p>
-            <h1 className='text-6xl sm:text-7xl md:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+            <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
               Experience
-            </h1>
-            <h2 className='text-xl sm:text-2xl md:text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
-              A detailed look at my professional journey.{' '}
             </h2>
+            <p className='text-base sm:text-lg md:text-xl font-medium md:max-w-lg w-full mt-3 text-gray-light-4 dark:text-gray-light-3 staggered-reveal'>
+              A detailed look at my professional journey.
+            </p>
           </div>
           <div className='staggered-reveal'>
             <Tabs tabItems={enhancedTabItems} />

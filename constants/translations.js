@@ -1,0 +1,234 @@
+export const translations = {
+  en: {
+    nav: {
+      home: 'Home',
+      about: 'About',
+      skills: 'Skills',
+      projects: 'Projects',
+      education: 'Education',
+      work: 'Work',
+      blogs: 'Blogs',
+      contact: 'Contact',
+      resume: 'Resume'
+    },
+    hero: {
+      greeting: 'Hi, My Name is',
+      name: 'Anas Pirzada',
+      letsTalk: "Let's Talk"
+    },
+    about: {
+      title: 'About Me',
+      subtitle: 'ABOUT ME',
+      fullStackDev: 'Full Stack Developer',
+      aiExpert: 'AI Expert',
+      yearsExp: '5+ years',
+      reactApps: 'React.js',
+      mlSolutions: 'Machine Learning',
+      aiIntegration: 'AI integration',
+      strong: 'strong'
+    },
+    skills: {
+      title: 'My Skills',
+      subtitle: 'SKILLS',
+      description: 'I like to take responsibility to craft aesthetic user experience using modern frontend architecture.',
+      languagesTools: 'LANGUAGES AND TOOLS',
+      librariesFrameworks: 'LIBRARIES AND FRAMEWORKS',
+      databases: 'DATABASES',
+      other: 'Other'
+    },
+    projects: {
+      title: 'My Projects',
+      subtitle: 'PROJECTS',
+      description: "Some things I've built with love, expertise and a pinch of magical ingredients.",
+      viewAll: 'View All Projects'
+    },
+    work: {
+      title: 'Experience',
+      subtitle: 'WORK',
+      description: 'A detailed look at my professional journey.',
+      keyAchievements: 'Key Achievements',
+      impactMetrics: 'Impact Metrics',
+      technologiesUsed: 'Technologies Used'
+    },
+    education: {
+      title: 'Learning Journey',
+      subtitle: 'EDUCATION & CERTIFICATIONS',
+      educationTab: 'Education',
+      certificationsTab: 'Certifications'
+    },
+    contact: {
+      title: 'Contact',
+      subtitle: 'CONTACT',
+      getInTouch: 'Get In Touch.',
+      name: 'Name',
+      email: 'Email',
+      message: 'Message',
+      send: 'Send ->',
+      success: 'Message sent successfully',
+      error: 'Error sending your message',
+      emptyFields: 'Please fill the required fields',
+      invalidEmail: 'Please enter a valid email address',
+      rateLimit: 'Please wait before submitting again'
+    },
+    reviews: {
+      title: 'Client Reviews',
+      subtitle: 'TESTIMONIALS',
+      description: 'Trusted by industry leaders. See what clients say about working with me.',
+      yearsExperience: 'Years Experience',
+      happyClients: 'Happy Clients',
+      averageRating: 'Average Rating',
+      projectsCompleted: 'Projects'
+    },
+    collaboration: {
+      interested: 'Interested in',
+      collaborationText: 'Collaboration',
+      letsCollaborate: "Let's Collaborate",
+      projects: 'Projects',
+      clients: 'Clients',
+      yearsExp: 'Years Exp'
+    },
+    footer: {
+      description: 'Full Stack Developer & AI Integration Specialist crafting innovative web solutions with modern technologies.',
+      availableForWork: 'Available for freelance work',
+      quickLinks: 'Quick Links',
+      services: 'Services',
+      stayUpdated: 'Stay Updated',
+      subscribeText: 'Subscribe to get latest updates and articles.',
+      emailPlaceholder: 'Enter your email',
+      subscribe: 'Subscribe',
+      craftedWith: 'Crafted with',
+      ctaTitle: "Let's Build Something Amazing Together",
+      ctaDescription: "Have a project in mind? Let's discuss how we can bring your ideas to life.",
+      getInTouch: 'Get In Touch',
+      webDev: 'Web Development',
+      uiux: 'UI/UX Design',
+      apiDev: 'API Development',
+      fullStack: 'Full Stack Solutions',
+      aiIntegration: 'AI Integration'
+    },
+    common: {
+      loading: 'Loading...',
+      error: 'Something went wrong',
+      contactUs: 'Contact Us',
+      viewMore: 'View More',
+      goToHome: 'Go to home page'
+    }
+  },
+  ar: {
+    nav: {
+      home: 'الرئيسية',
+      about: 'عني',
+      skills: 'المهارات',
+      projects: 'المشاريع',
+      education: 'التعليم',
+      work: 'الخبرات',
+      blogs: 'المدونة',
+      contact: 'تواصل',
+      resume: 'السيرة الذاتية'
+    },
+    hero: {
+      greeting: 'مرحباً، اسمي',
+      name: 'أنس بيرزادا',
+      letsTalk: 'لنتحدث'
+    },
+    about: {
+      title: 'عني',
+      subtitle: 'عني',
+      fullStackDev: 'مطور ويب متكامل',
+      aiExpert: 'خبير ذكاء اصطناعي',
+      yearsExp: '+5 سنوات',
+      reactApps: 'React.js',
+      mlSolutions: 'تعلم الآلة',
+      aiIntegration: 'دمج الذكاء الاصطناعي',
+      strong: 'قوي'
+    },
+    skills: {
+      title: 'مهاراتي',
+      subtitle: 'المهارات',
+      description: 'أحب تحمل المسؤولية لصياغة تجربة مستخدم جمالية باستخدام بنية الواجهة الأمامية الحديثة.',
+      languagesTools: 'اللغات والأدوات',
+      librariesFrameworks: 'المكتبات وأطر العمل',
+      databases: 'قواعد البيانات',
+      other: 'أخرى'
+    },
+    projects: {
+      title: 'مشاريعي',
+      subtitle: 'المشاريع',
+      description: 'بعض الأشياء التي بنيتها بحب وخبرة ولمسة من المكونات السحرية.',
+      viewAll: 'عرض جميع المشاريع'
+    },
+    work: {
+      title: 'الخبرات',
+      subtitle: 'العمل',
+      description: 'نظرة تفصيلية على مسيرتي المهنية.',
+      keyAchievements: 'الإنجازات الرئيسية',
+      impactMetrics: 'مقاييس التأثير',
+      technologiesUsed: 'التقنيات المستخدمة'
+    },
+    education: {
+      title: 'رحلة التعلم',
+      subtitle: 'التعليم والشهادات',
+      educationTab: 'التعليم',
+      certificationsTab: 'الشهادات'
+    },
+    contact: {
+      title: 'تواصل',
+      subtitle: 'تواصل',
+      getInTouch: 'تواصل معي.',
+      name: 'الاسم',
+      email: 'البريد الإلكتروني',
+      message: 'الرسالة',
+      send: 'إرسال ->',
+      success: 'تم إرسال الرسالة بنجاح',
+      error: 'خطأ في إرسال رسالتك',
+      emptyFields: 'يرجى ملء الحقول المطلوبة',
+      invalidEmail: 'يرجى إدخال بريد إلكتروني صحيح',
+      rateLimit: 'يرجى الانتظار قبل الإرسال مرة أخرى'
+    },
+    reviews: {
+      title: 'آراء العملاء',
+      subtitle: 'الشهادات',
+      description: 'موثوق من قادة الصناعة. شاهد ما يقوله العملاء عن العمل معي.',
+      yearsExperience: 'سنوات الخبرة',
+      happyClients: 'عملاء سعداء',
+      averageRating: 'متوسط التقييم',
+      projectsCompleted: 'المشاريع'
+    },
+    collaboration: {
+      interested: 'مهتم بـ',
+      collaborationText: 'التعاون',
+      letsCollaborate: 'لنتعاون',
+      projects: 'المشاريع',
+      clients: 'العملاء',
+      yearsExp: 'سنوات الخبرة'
+    },
+    footer: {
+      description: 'مطور ويب متكامل ومتخصص في دمج الذكاء الاصطناعي يصنع حلول ويب مبتكرة بتقنيات حديثة.',
+      availableForWork: 'متاح للعمل الحر',
+      quickLinks: 'روابط سريعة',
+      services: 'الخدمات',
+      stayUpdated: 'ابق على اطلاع',
+      subscribeText: 'اشترك للحصول على آخر التحديثات والمقالات.',
+      emailPlaceholder: 'أدخل بريدك الإلكتروني',
+      subscribe: 'اشترك',
+      craftedWith: 'صنع بـ',
+      ctaTitle: 'لنبني شيئاً مذهلاً معاً',
+      ctaDescription: 'هل لديك مشروع في ذهنك؟ لنناقش كيف يمكننا تحويل أفكارك إلى واقع.',
+      getInTouch: 'تواصل معنا',
+      webDev: 'تطوير الويب',
+      uiux: 'تصميم واجهة المستخدم',
+      apiDev: 'تطوير واجهات برمجة التطبيقات',
+      fullStack: 'حلول متكاملة',
+      aiIntegration: 'دمج الذكاء الاصطناعي'
+    },
+    common: {
+      loading: 'جاري التحميل...',
+      error: 'حدث خطأ ما',
+      contactUs: 'تواصل معنا',
+      viewMore: 'عرض المزيد',
+      goToHome: 'الذهاب للصفحة الرئيسية'
+    }
+  }
+};
+
+export default translations;

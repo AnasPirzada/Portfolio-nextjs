@@ -1,63 +1,73 @@
-<!-- <svg width="140" height="335" viewBox="0 0 140 335" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0)">
-<path d="M-26.1622 -2.80142e-06C-26.1622 -2.80142e-06 -2.22705 50.2591 56.984 41.3386C123.376 31.3303 151.87 89.3676 135.457 129.02C118.988 168.673 58.0668 165.899 56.1862 241.287C54.3056 318.308 -22.401 334.517 -22.401 334.517" stroke="#efc041" stroke-width="2" stroke-miterlimit="10"/>
-<path d="M-44 58.0918C-44 58.0918 6.60587 79.849 56.9268 72.0708C107.248 64.2382 113.175 99.4304 107.248 113.409C95.0522 142.455 29.7432 148.058 25.5261 194.944C22.3347 230.191 47.5807 277.622 -9.69287 302.751" stroke="#efc041" stroke-width="2" stroke-miterlimit="10"/>
-<path d="M-21.4322 81.535C-21.4322 81.535 30.2557 73.7025 21.0237 108.351C10.424 148.058 -14.4227 147.459 9.05626 197.718C17.4335 215.614 19.884 287.63 -26.1622 273.107" stroke="#efc041" stroke-width="2" stroke-miterlimit="10"/>
-<path d="M89.4106 106.664C89.4106 98.3432 79.0006 91.5976 66.1593 91.5976C53.3179 91.5976 42.9079 98.3433 42.9079 106.664C42.9079 114.986 53.3179 121.731 66.1593 121.731C79.0006 121.731 89.4106 114.986 89.4106 106.664Z" stroke="#efc041" stroke-width="2" stroke-miterlimit="10"/>
-</g>
-<defs>
-<clipPath id="clip0">
-<rect width="140" height="335" fill="white"/>
-</clipPath>
-</defs>
-</svg> -->
-
-
-<svg width="140" height="335" viewBox="0 0 140 335" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="140" height="400" viewBox="0 0 140 400" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#efc041;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#ff6f61;stop-opacity:1" />
+    <linearGradient id="goldGradientL" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#efc041"/>
+      <stop offset="50%" stop-color="#eeba2c"/>
+      <stop offset="100%" stop-color="#d4a429"/>
     </linearGradient>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" result="blur"/>
+    <filter id="glowL" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <clipPath id="clip0">
-      <rect width="140" height="335" fill="white"/>
-    </clipPath>
   </defs>
-  <g clip-path="url(#clip0)">
-    <path d="M-26.1622 -2.80142e-06C-26.1622 -2.80142e-06 -2.22705 50.2591 56.984 41.3386C123.376 31.3303 151.87 89.3676 135.457 129.02C118.988 168.673 58.0668 165.899 56.1862 241.287C54.3056 318.308 -22.401 334.517 -22.401 334.517" 
-          stroke="url(#gradient1)" 
-          stroke-width="3" 
-          stroke-miterlimit="10" 
-          filter="url(#glow)">
-      <animate attributeName="stroke-dasharray" from="0, 1000" to="1000, 0" dur="3s" repeatCount="indefinite"/>
+  
+  <g opacity="0.7">
+    <!-- Main flowing curve -->
+    <path 
+      d="M-20 0 C30 60, 80 80, 60 140 C40 200, 10 220, 30 280 C50 340, 20 380, -10 400" 
+      stroke="url(#goldGradientL)" 
+      stroke-width="2" 
+      stroke-linecap="round"
+      fill="none"
+      filter="url(#glowL)">
+      <animate attributeName="opacity" values="0.5;0.9;0.5" dur="4s" repeatCount="indefinite"/>
     </path>
-    <path d="M-44 58.0918C-44 58.0918 6.60587 79.849 56.9268 72.0708C107.248 64.2382 113.175 99.4304 107.248 113.409C95.0522 142.455 29.7432 148.058 25.5261 194.944C22.3347 230.191 47.5807 277.622 -9.69287 302.751" 
-          stroke="url(#gradient1)" 
-          stroke-width="2.5" 
-          stroke-miterlimit="10" 
-          filter="url(#glow)">
-      <animate attributeName="stroke-dasharray" from="0, 1000" to="1000, 0" dur="3.5s" repeatCount="indefinite"/>
+    
+    <!-- Secondary curve -->
+    <path 
+      d="M-30 40 C20 90, 70 100, 50 160 C30 220, 0 250, 20 310" 
+      stroke="url(#goldGradientL)" 
+      stroke-width="1.5" 
+      stroke-linecap="round"
+      fill="none"
+      opacity="0.6">
+      <animate attributeName="opacity" values="0.4;0.7;0.4" dur="5s" repeatCount="indefinite"/>
     </path>
-    <path d="M-21.4322 81.535C-21.4322 81.535 30.2557 73.7025 21.0237 108.351C10.424 148.058 -14.4227 147.459 9.05626 197.718C17.4335 215.614 19.884 287.63 -26.1622 273.107" 
-          stroke="url(#gradient1)" 
-          stroke-width="2" 
-          stroke-miterlimit="10" 
-          filter="url(#glow)">
-      <animate attributeName="stroke-dasharray" from="0, 1000" to="1000, 0" dur="4s" repeatCount="indefinite"/>
+    
+    <!-- Accent curve -->
+    <path 
+      d="M0 80 C40 110, 60 130, 45 180 C30 230, 15 260, 25 320" 
+      stroke="url(#goldGradientL)" 
+      stroke-width="1" 
+      stroke-linecap="round"
+      fill="none"
+      opacity="0.5">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="6s" repeatCount="indefinite"/>
     </path>
-    <path d="M89.4106 106.664C89.4106 98.3432 79.0006 91.5976 66.1593 91.5976C53.3179 91.5976 42.9079 98.3433 42.9079 106.664C42.9079 114.986 53.3179 121.731 66.1593 121.731C79.0006 121.731 89.4106 114.986 89.4106 106.664Z" 
-          stroke="url(#gradient1)" 
-          stroke-width="3" 
-          stroke-miterlimit="10" 
-          filter="url(#glow)">
-      <animate attributeName="stroke-opacity" from="0.5" to="1" dur="2s" repeatCount="indefinite"/>
-    </path>
+    
+    <!-- Decorative circles -->
+    <circle cx="55" cy="140" r="8" stroke="url(#goldGradientL)" stroke-width="1.5" fill="none" opacity="0.6">
+      <animate attributeName="r" values="8;10;8" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.7;0.4" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="30" cy="280" r="6" stroke="url(#goldGradientL)" stroke-width="1" fill="none" opacity="0.5">
+      <animate attributeName="r" values="6;8;6" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Small dots -->
+    <circle cx="70" cy="100" r="2" fill="#efc041" opacity="0.7">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="25" cy="200" r="2" fill="#eeba2c" opacity="0.6">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="45" cy="340" r="2" fill="#efc041" opacity="0.7">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+    </circle>
   </g>
 </svg>

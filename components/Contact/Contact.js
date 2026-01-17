@@ -288,7 +288,7 @@ const Contact = () => {
     <section
       ref={sectionRef}
       id={MENULINKS[6].ref}
-      className='w-full relative select-none bg-black py-10 md:py-20'
+      className='w-full relative select-none bg-light-bg dark:bg-black py-10 md:py-20'
     >
       <div>
         <Toaster toastOptions={toastOptions} />

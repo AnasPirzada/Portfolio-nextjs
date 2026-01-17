@@ -12,7 +12,7 @@ const SKILL_COLORS = {
   javascript: { bg: '#F7DF1E', text: '#000000' },
   typescript: { bg: '#3178C6', text: '#FFFFFF' },
   react: { bg: '#61DAFB', text: '#000000' },
-  nextjs: { bg: '#000000', text: '#FFFFFF' },
+  nextjs: { bg: '#1a1a1a', text: '#FFFFFF' },
   nodejs: { bg: '#339933', text: '#FFFFFF' },
   git: { bg: '#F05032', text: '#FFFFFF' },
   sass: { bg: '#CC6699', text: '#FFFFFF' },
@@ -27,7 +27,7 @@ const SKILL_COLORS = {
   webpack: { bg: '#8DD6F9', text: '#000000' },
   vite: { bg: '#646CFF', text: '#FFFFFF' },
   'framer-motion': { bg: '#0055FF', text: '#FFFFFF' },
-  django: { bg: '#092E20', text: '#FFFFFF' },
+  django: { bg: '#0d4a2a', text: '#FFFFFF' },
   laravel: { bg: '#FF2D20', text: '#FFFFFF' },
   'chakra-ui': { bg: '#319795', text: '#FFFFFF' },
   antdesign: { bg: '#0170FE', text: '#FFFFFF' },
@@ -36,7 +36,7 @@ const SKILL_COLORS = {
   styledcomponents: { bg: '#DB7093', text: '#FFFFFF' },
   'tanstack-query': { bg: '#FF4154', text: '#FFFFFF' },
   Turborepo: { bg: '#EF4444', text: '#FFFFFF' },
-  ShadcnUi: { bg: '#000000', text: '#FFFFFF' },
+  ShadcnUi: { bg: '#1a1a1a', text: '#FFFFFF' },
   default: { bg: '#efc041', text: '#000000' },
 };
 
@@ -51,8 +51,8 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
     if (!icon) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             gsap.fromTo(
               icon,
@@ -161,7 +161,13 @@ const Skills = memo(() => {
             </h3>
             <div className='flex items-center flex-wrap gap-4 sm:gap-6 staggered-reveal'>
               {SKILLS.languagesAndTools.map((skill, index) => (
-                <SkillIcon key={skill} skill={skill} width={40} height={40} index={index} />
+                <SkillIcon
+                  key={skill}
+                  skill={skill}
+                  width={40}
+                  height={40}
+                  index={index}
+                />
               ))}
             </div>
           </div>
@@ -171,7 +177,13 @@ const Skills = memo(() => {
             </h3>
             <div className='flex flex-wrap gap-4 sm:gap-6 transform-gpu staggered-reveal'>
               {SKILLS.librariesAndFrameworks.map((skill, index) => (
-                <SkillIcon key={skill} skill={skill} width={40} height={40} index={index} />
+                <SkillIcon
+                  key={skill}
+                  skill={skill}
+                  width={40}
+                  height={40}
+                  index={index}
+                />
               ))}
             </div>
           </div>
@@ -182,7 +194,13 @@ const Skills = memo(() => {
               </h3>
               <div className='flex flex-wrap gap-4 sm:gap-6 transform-gpu'>
                 {SKILLS.databases.map((skill, index) => (
-                  <SkillIcon key={skill} skill={skill} width={40} height={40} index={index} />
+                  <SkillIcon
+                    key={skill}
+                    skill={skill}
+                    width={40}
+                    height={40}
+                    index={index}
+                  />
                 ))}
               </div>
             </div>
@@ -192,7 +210,13 @@ const Skills = memo(() => {
               </h3>
               <div className='flex flex-wrap gap-4 sm:gap-6 transform-gpu'>
                 {SKILLS.other.map((skill, index) => (
-                  <SkillIcon key={skill} skill={skill} width={40} height={40} index={index} />
+                  <SkillIcon
+                    key={skill}
+                    skill={skill}
+                    width={40}
+                    height={40}
+                    index={index}
+                  />
                 ))}
               </div>
             </div>

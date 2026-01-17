@@ -71,11 +71,11 @@ export const MENULINKS = [
 
 export const TYPED_STRINGS = [
   'Full Stack Developer & AI Expert',
-  'I craft modern and responsive web solutions',
-  'Building AI-powered applications with React & Next.js',
-  'Turning ideas into impactful digital experiences',
-  'Mastering the art of seamless UI/UX design',
-  'Specializing in Machine Learning integration',
+  'Crafting modern web solutions',
+  'Building AI-powered apps',
+  'Creating digital experiences',
+  'Designing seamless UI/UX',
+  'ML integration specialist',
 ];
 
 export const SOCIAL_LINKS = [

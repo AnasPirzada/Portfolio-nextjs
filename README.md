@@ -1,44 +1,140 @@
-# devfolio
+# Portfolio Website
 
-<a href="https://anaspirzada.vercel.app/">
-  <img alt="devfolio" src="./public/preview.png" />
-</a>
+A modern, responsive portfolio website showcasing my work as a Full Stack Developer & AI Expert. Built with Next.js, React, and modern web technologies.
 
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-  <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99" alt="Star Badge"/>
-</p>
+## 🚀 Features
 
-👨‍🎓 An eye-catching developer Portfolio, Built on NextJS, GSAP, Tailwind and
-React
+- **Modern UI/UX**: Beautiful, responsive design with smooth animations
+- **Dark/Light Mode**: Theme switching with persistent preferences
+- **Smooth Animations**: GSAP and Framer Motion powered animations
+- **Performance Optimized**: Fast loading times and optimized assets
+- **SEO Friendly**: Meta tags, structured data, and sitemap
+- **Multi-language Support**: English and Arabic (RTL) support
+- **Interactive Sections**:
+  - Hero section with animated text
+  - Skills showcase
+  - Projects portfolio with detailed case studies
+  - Work experience timeline
+  - Education & certifications
+  - Client testimonials
+  - Contact form
 
-### ✨ [Live Demo](https://anaspirzada.vercel.app/)
+## 🛠️ Tech Stack
 
-## Getting Started
+- **Framework**: Next.js 14
+- **UI Library**: React 18
+- **Styling**: Tailwind CSS, SCSS
+- **Animations**: GSAP, Framer Motion
+- **Icons**: React Icons
+- **Form Handling**: EmailJS
+- **Deployment**: Vercel
 
-In the project directory, you can run:
+## 📦 Installation
 
-#### `yarn install`
+1. Clone the repository:
+```bash
+git clone https://github.com/AnasPirzada/devfolio.git
+cd devfolio
+```
 
-#### `yarn dev`
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-Runs the app in the development mode.\
-Open [`http://localhost:3000`](http://localhost:3000) to view it in the browser.
+3. Run the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-## Design
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can always draw inspiration from the design, and no, you don't have to give
-me credits for that.
+## 🏗️ Build
 
-## Forking
+To create a production build:
 
-When people ask me whether they may use the code for their own website, I
-typically say yes as long as they provide proper attribution.
+```bash
+npm run build
+# or
+yarn build
+```
 
-Every time I learn that someone has duplicated my website without giving me
-credit, it saddens me. This version of my website took a significant amount of
-work to construct, and I'm pleased of it! All I ask is that you empathize with
-my situation and leave the footer unaltered.
+To start the production server:
+
+```bash
+npm start
+# or
+yarn start
+```
+
+## 📁 Project Structure
+
+```
+devfolio/
+├── components/          # React components
+│   ├── About/          # About section components
+│   ├── AllProjects/    # Projects showcase
+│   ├── Contact/        # Contact form
+│   ├── EducationandCertification/  # Education & certs
+│   ├── Header/         # Navigation header
+│   ├── Hero/           # Hero section
+│   ├── Projects/       # Project components
+│   ├── Reviews/        # Testimonials
+│   ├── Skills/         # Skills section
+│   ├── Work/           # Work experience
+│   └── ...
+├── constants/           # Data constants
+├── contexts/           # React contexts (Theme, Language)
+├── hooks/              # Custom React hooks
+├── pages/              # Next.js pages
+├── public/             # Static assets
+├── styles/             # Global styles
+└── utils/              # Utility functions
+```
+
+## 🎨 Customization
+
+### Update Personal Information
+
+Edit the following files to update your information:
+
+- `constants/metadata.js` - Site metadata and SEO
+- `constants/content.js` - Personal content
+- `constants/projects.js` - Your projects
+- `constants/work.js` - Work experience
+- `constants/education.js` - Education & certifications
+- `constants/skills.js` - Skills list
+
+### Theme Colors
+
+Theme colors can be customized in:
+- `tailwind.config.js` - Tailwind color configuration
+- `styles/globals.scss` - CSS variables and theme styles
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## 👤 Author
+
+**Anas Pirzada**
+
+- Portfolio: [https://anaspirzada.vercel.app/](https://anaspirzada.vercel.app/)
+- LinkedIn: [https://www.linkedin.com/in/muhammadanaspirzada/](https://www.linkedin.com/in/muhammadanaspirzada/)
+- GitHub: [https://github.com/AnasPirzada](https://github.com/AnasPirzada)
+- Twitter: [@Anas_Pirzada1](https://x.com/Anas_Pirzada1)
+- Instagram: [@anas_pirzada1](https://www.instagram.com/anas_pirzada1/)
+
+## 🙏 Acknowledgments
+
+- Design inspiration from modern portfolio websites
+- Icons from [React Icons](https://react-icons.github.io/react-icons/)
+- Animation libraries: [GSAP](https://greensock.com/gsap/) and [Framer Motion](https://www.framer.com/motion/)
+
+---
+
+Made with ❤️ by Anas Pirzada

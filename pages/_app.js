@@ -2,7 +2,10 @@ import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import Meta from '@/components/Meta/Meta';
 import { GTAG } from '@/constants';
 import { DeviceProvider } from '@/contexts/DeviceContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import { usePerformanceMonitoring } from '@/hooks/usePerformanceMonitoring';
+import useSmoothScroll from '@/hooks/useSmoothScroll';
 import { logger } from '@/utils/logger';
 import { validateEnv } from '@/utils/validateEnv';
 import { GoogleAnalytics } from '@next/third-parties/google';
@@ -14,6 +17,7 @@ import '../styles/globals.scss';
 
 const App = ({ Component, pageProps }) => {
   usePerformanceMonitoring();
+  useSmoothScroll();
 
   useEffect(() => {
     validateEnv();
@@ -24,14 +28,18 @@ const App = ({ Component, pageProps }) => {
     <>
       <Meta />
       <ErrorBoundary>
-        <DeviceProvider>
-          <main
-            className={`${calibre.variable} font-sans ${jetbrains_mono.variable} font-mono`}
-          >
-            <Component {...pageProps} />
-            <GoogleAnalytics gaId={GTAG} />
-          </main>
-        </DeviceProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <DeviceProvider>
+              <main
+                className={`${calibre.variable} font-sans ${jetbrains_mono.variable} font-mono`}
+              >
+                <Component {...pageProps} />
+                <GoogleAnalytics gaId={GTAG} />
+              </main>
+            </DeviceProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </ErrorBoundary>
       {/* Calendly script */}
       <Script

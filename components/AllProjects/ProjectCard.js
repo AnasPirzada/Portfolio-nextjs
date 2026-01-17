@@ -135,7 +135,7 @@ export default function ProjectCard({ project }) {
         y: 0,
         rotateX: 0,
         rotateY: 0,
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
         duration: 0.5,
       })
         .to(
@@ -227,12 +227,12 @@ export default function ProjectCard({ project }) {
         ref={cardRef}
         className='
           group relative z-10 flex flex-col
-          bg-[#0a0a0a] border border-[#1a1a1a]
+          bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 border border-[#efc041]/20
           overflow-hidden transition-all duration-300
-          hover:border-[#efc041]/20
+          hover:border-[#efc041]/40
         '
         style={{
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
           transformStyle: 'preserve-3d',
         }}
         initial={{ opacity: 0, y: 30 }}
@@ -289,16 +289,16 @@ export default function ProjectCard({ project }) {
         </div>
 
         {/* Content Section */}
-        <div className='p-4 sm:p-6 bg-[#0a0a0a] flex-1 flex flex-col'>
+        <div className='p-4 sm:p-6 bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 flex-1 flex flex-col'>
           <h3
             ref={titleRef}
-            className='text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 leading-tight transition-colors duration-300'
+            className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-dark-1 dark:text-white mb-3 leading-tight transition-colors duration-300'
           >
             {project.name}
           </h3>
           <p
             ref={descriptionRef}
-            className='text-xs sm:text-sm md:text-sm text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-1'
+            className='text-xs sm:text-sm md:text-sm text-gray-light-4 dark:text-gray-light-2 mb-4 line-clamp-3 leading-relaxed flex-1'
           >
             {project.description}
           </p>
@@ -306,13 +306,13 @@ export default function ProjectCard({ project }) {
           {/* Tech Stack */}
           <div
             ref={techRef}
-            className='flex gap-2 items-center flex-wrap pt-3 border-t border-[#1a1a1a]'
+            className='flex gap-2 items-center flex-wrap pt-3 border-t border-[#efc041]/20'
           >
             {project?.tech?.slice(0, 6).map(el => (
               <motion.div
                 key={el}
                 whileHover={{ scale: 1.15, rotate: 5 }}
-                className='flex items-center justify-center w-9 h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] group-hover:border-[#efc041]/30 transition-all duration-300'
+                className='flex items-center justify-center w-9 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-all duration-300'
               >
                 <Image
                   src={`/projects/tech/${el}.svg`}
@@ -324,7 +324,7 @@ export default function ProjectCard({ project }) {
               </motion.div>
             ))}
             {project?.tech?.length > 6 && (
-              <div className='flex items-center justify-center px-3 h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] text-gray-500 text-xs font-medium'>
+              <div className='flex items-center justify-center px-3 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 text-gray-light-4 dark:text-gray-500 text-xs font-medium'>
                 +{project.tech.length - 6}
               </div>
             )}
@@ -332,10 +332,10 @@ export default function ProjectCard({ project }) {
         </div>
 
         {/* Animated border glow on hover */}
-        <div className='absolute inset-0 border border-[#1a1a1a] group-hover:border-[#efc041]/30 transition-colors duration-500 pointer-events-none' />
+        <div className='absolute inset-0 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-colors duration-500 pointer-events-none' />
 
         {/* Pulsing border animation */}
-        <div className='absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/10 transition-all duration-700 pointer-events-none animate-pulse' />
+        <div className='absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/20 transition-all duration-700 pointer-events-none animate-pulse' />
       </motion.div>
     </Link>
   );

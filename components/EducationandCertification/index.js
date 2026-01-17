@@ -20,36 +20,82 @@ const EducationSection = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading reveal animation
-      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
-      });
+      const staggeredElements = sectionRef.current.querySelectorAll('.staggered-reveal');
+      const timelineItems = sectionRef.current.querySelectorAll('.timeline-item');
+      
+      // Set initial state for animations
+      gsap.set(staggeredElements, { opacity: 0, y: 30 });
+      gsap.set(timelineItems, { opacity: 0, y: 50 });
+      
+      // Check if section is already in viewport
+      const rect = sectionRef.current.getBoundingClientRect();
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      // Heading reveal animation - works both forward and backward
+      if (isInViewport) {
+        gsap.to(staggeredElements, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+        });
+      } else {
+        gsap.to(staggeredElements, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse',
+            onEnter: () => {
+              gsap.set(staggeredElements, { opacity: 1, y: 0 });
+            },
+            onLeaveBack: () => {
+              gsap.set(staggeredElements, { opacity: 0, y: 30 });
+            },
+          },
+        });
+      }
 
-      // Timeline items animation - changed to play reverse on scroll back
-      gsap.from('.timeline-item', {
-        opacity: 0,
-        y: 50,
-        stagger: 0.3,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'bottom bottom',
-          toggleActions: 'play none none reset',
-        },
-      });
+      // Timeline items animation - works both forward and backward
+      if (isInViewport) {
+        gsap.to(timelineItems, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.3,
+          duration: 0.8,
+          ease: 'power2.out',
+        });
+      } else {
+        gsap.to(timelineItems, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.3,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            end: 'bottom bottom',
+            toggleActions: 'play reverse play reverse',
+            onEnter: () => {
+              gsap.set(timelineItems, { opacity: 1, y: 0 });
+            },
+            onLeaveBack: () => {
+              gsap.set(timelineItems, { opacity: 0, y: 50 });
+            },
+          },
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [activeTab]); // Re-run when tab changes
 
   return (
     <section
@@ -57,13 +103,11 @@ const EducationSection = () => {
       id={'education'}
       className='w-full relative select-none'
     >
-      <div className='section-container py-10 md:py-20 relative'>
-        {/* Animated floating book SVG on the right */}
+      <div className='section-container pt-10 md:pt-20 pb-6 md:pb-10 relative'>
+        {/* Animated floating book SVG on the right - matching gold color scheme */}
         <motion.div
           className='hidden md:block absolute right-0 top-[-3rem] pointer-events-none'
-          style={{
-            width: '220px',
-          }}
+          style={{ width: '220px' }}
           animate={{
             y: [0, -15, 0],
             rotate: [12, 8, 12],
@@ -80,7 +124,6 @@ const EducationSection = () => {
             viewBox='0 0 100 100'
             xmlns='http://www.w3.org/2000/svg'
           >
-            {/* Glow filter */}
             <defs>
               <filter id='bookGlow' x='-50%' y='-50%' width='200%' height='200%'>
                 <feGaussianBlur stdDeviation='2' result='coloredBlur' />
@@ -91,154 +134,111 @@ const EducationSection = () => {
               </filter>
               <linearGradient id='bookGradient' x1='0%' y1='0%' x2='100%' y2='100%'>
                 <stop offset='0%' stopColor='#efc041' />
-                <stop offset='100%' stopColor='#eeba2c' />
+                <stop offset='50%' stopColor='#eeba2c' />
+                <stop offset='100%' stopColor='#d4a429' />
               </linearGradient>
             </defs>
 
-            {/* Book base/spine */}
-            <motion.path
-              d='M20 25 L50 20 L50 80 L20 85 Z'
-              fill='rgba(238, 186, 44, 0.2)'
-              stroke='#eeba2c'
-              strokeWidth='1.5'
-              filter='url(#bookGlow)'
-            />
+            <g opacity='0.7'>
+              {/* Book spine */}
+              <motion.path
+                d='M20 25 L50 20 L50 80 L20 85 Z'
+                fill='rgba(239, 192, 65, 0.15)'
+                stroke='url(#bookGradient)'
+                strokeWidth='1.5'
+                filter='url(#bookGlow)'
+              />
 
-            {/* Book back cover */}
-            <motion.path
-              d='M50 20 L80 25 L80 85 L50 80 Z'
-              fill='rgba(238, 186, 44, 0.15)'
-              stroke='#eeba2c'
-              strokeWidth='1.5'
-            />
+              {/* Book back cover */}
+              <motion.path
+                d='M50 20 L80 25 L80 85 L50 80 Z'
+                fill='rgba(238, 186, 44, 0.1)'
+                stroke='url(#bookGradient)'
+                strokeWidth='1.5'
+              />
 
-            {/* Animated page 1 (back) */}
-            <motion.path
-              d='M50 22 L75 26 L75 82 L50 78 Z'
-              fill='rgba(255, 255, 255, 0.05)'
-              stroke='rgba(238, 186, 44, 0.4)'
-              strokeWidth='0.5'
-              animate={{
-                d: [
-                  'M50 22 L75 26 L75 82 L50 78 Z',
-                  'M50 22 L70 24 L70 80 L50 78 Z',
-                  'M50 22 L75 26 L75 82 L50 78 Z',
-                ],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 0.5,
-              }}
-            />
+              {/* Animated pages */}
+              <motion.path
+                d='M50 22 L75 26 L75 82 L50 78 Z'
+                fill='rgba(239, 192, 65, 0.05)'
+                stroke='#efc041'
+                strokeWidth='0.5'
+                strokeOpacity='0.4'
+                animate={{
+                  d: [
+                    'M50 22 L75 26 L75 82 L50 78 Z',
+                    'M50 22 L70 24 L70 80 L50 78 Z',
+                    'M50 22 L75 26 L75 82 L50 78 Z',
+                  ],
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+              />
 
-            {/* Animated page 2 (middle) */}
-            <motion.path
-              d='M50 23 L72 27 L72 81 L50 77 Z'
-              fill='rgba(255, 255, 255, 0.08)'
-              stroke='rgba(238, 186, 44, 0.5)'
-              strokeWidth='0.5'
-              animate={{
-                d: [
-                  'M50 23 L72 27 L72 81 L50 77 Z',
-                  'M50 23 L60 25 L60 79 L50 77 Z',
-                  'M50 23 L72 27 L72 81 L50 77 Z',
-                ],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 0.3,
-              }}
-            />
+              <motion.path
+                d='M50 23 L72 27 L72 81 L50 77 Z'
+                fill='rgba(238, 186, 44, 0.08)'
+                stroke='#eeba2c'
+                strokeWidth='0.5'
+                strokeOpacity='0.5'
+                animate={{
+                  d: [
+                    'M50 23 L72 27 L72 81 L50 77 Z',
+                    'M50 23 L60 25 L60 79 L50 77 Z',
+                    'M50 23 L72 27 L72 81 L50 77 Z',
+                  ],
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+              />
 
-            {/* Animated page 3 (front - main turning page) */}
-            <motion.path
-              d='M50 24 L70 28 L70 80 L50 76 Z'
-              fill='rgba(255, 255, 255, 0.1)'
-              stroke='rgba(238, 186, 44, 0.6)'
-              strokeWidth='0.8'
-              initial={{ rotateY: 0 }}
-              animate={{
-                d: [
-                  'M50 24 L70 28 L70 80 L50 76 Z',
-                  'M50 24 L50 24 L50 76 L50 76 Z',
-                  'M50 24 L30 28 L30 80 L50 76 Z',
-                  'M50 24 L50 24 L50 76 L50 76 Z',
-                  'M50 24 L70 28 L70 80 L50 76 Z',
-                ],
-                opacity: [1, 0.8, 1, 0.8, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
+              <motion.path
+                d='M50 24 L70 28 L70 80 L50 76 Z'
+                fill='rgba(212, 164, 41, 0.1)'
+                stroke='#d4a429'
+                strokeWidth='0.8'
+                strokeOpacity='0.6'
+                animate={{
+                  d: [
+                    'M50 24 L70 28 L70 80 L50 76 Z',
+                    'M50 24 L50 24 L50 76 L50 76 Z',
+                    'M50 24 L30 28 L30 80 L50 76 Z',
+                    'M50 24 L50 24 L50 76 L50 76 Z',
+                    'M50 24 L70 28 L70 80 L50 76 Z',
+                  ],
+                  opacity: [1, 0.8, 1, 0.8, 1],
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              />
 
-            {/* Text lines on left page */}
-            <motion.g
-              animate={{ opacity: [0.3, 0.6, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <line x1='25' y1='35' x2='45' y2='33' stroke='#eeba2c' strokeWidth='0.8' opacity='0.5' />
-              <line x1='25' y1='42' x2='43' y2='40' stroke='#eeba2c' strokeWidth='0.8' opacity='0.4' />
-              <line x1='25' y1='49' x2='44' y2='47' stroke='#eeba2c' strokeWidth='0.8' opacity='0.5' />
-              <line x1='25' y1='56' x2='42' y2='54' stroke='#eeba2c' strokeWidth='0.8' opacity='0.4' />
-              <line x1='25' y1='63' x2='45' y2='61' stroke='#eeba2c' strokeWidth='0.8' opacity='0.5' />
-              <line x1='25' y1='70' x2='40' y2='68' stroke='#eeba2c' strokeWidth='0.8' opacity='0.4' />
-            </motion.g>
+              {/* Text lines */}
+              <motion.g
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <line x1='25' y1='35' x2='45' y2='33' stroke='#efc041' strokeWidth='0.8' opacity='0.5' />
+                <line x1='25' y1='42' x2='43' y2='40' stroke='#eeba2c' strokeWidth='0.8' opacity='0.4' />
+                <line x1='25' y1='49' x2='44' y2='47' stroke='#d4a429' strokeWidth='0.8' opacity='0.5' />
+                <line x1='25' y1='56' x2='42' y2='54' stroke='#efc041' strokeWidth='0.8' opacity='0.4' />
+                <line x1='25' y1='63' x2='45' y2='61' stroke='#eeba2c' strokeWidth='0.8' opacity='0.5' />
+                <line x1='25' y1='70' x2='40' y2='68' stroke='#d4a429' strokeWidth='0.8' opacity='0.4' />
+              </motion.g>
 
-            {/* Sparkle effects */}
-            <motion.circle
-              cx='75'
-              cy='30'
-              r='1.5'
-              fill='#efc041'
-              animate={{
-                opacity: [0, 1, 0],
-                scale: [0.5, 1.2, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-            <motion.circle
-              cx='25'
-              cy='75'
-              r='1'
-              fill='#efc041'
-              animate={{
-                opacity: [0, 1, 0],
-                scale: [0.5, 1.2, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 0.7,
-              }}
-            />
-            <motion.circle
-              cx='65'
-              cy='70'
-              r='1.2'
-              fill='#efc041'
-              animate={{
-                opacity: [0, 1, 0],
-                scale: [0.5, 1.2, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 1.4,
-              }}
-            />
+              {/* Sparkles */}
+              <motion.circle
+                cx='75' cy='30' r='1.5' fill='#efc041'
+                animate={{ opacity: [0, 1, 0], scale: [0.5, 1.2, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <motion.circle
+                cx='25' cy='75' r='1' fill='#eeba2c'
+                animate={{ opacity: [0, 1, 0], scale: [0.5, 1.2, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
+              />
+              <motion.circle
+                cx='65' cy='70' r='1.2' fill='#d4a429'
+                animate={{ opacity: [0, 1, 0], scale: [0.5, 1.2, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1.4 }}
+              />
+            </g>
           </svg>
         </motion.div>
 
@@ -250,35 +250,24 @@ const EducationSection = () => {
           <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
             Learning Journey
           </h2>
-          {/* Responsive segmented tabs */}
+          <p className='text-base sm:text-lg md:text-xl font-medium md:max-w-lg w-full mt-3 text-gray-light-4 dark:text-gray-light-3 staggered-reveal'>
+            My educational background and professional certifications.
+          </p>
+          {/* Clean minimal tabs */}
           <div className='mt-8 w-full flex justify-center'>
-            <div className='relative bg-gray-900 rounded-2xl overflow-hidden p-1.5 flex max-w-md w-full'>
-              {/* Animated gradient indicator */}
+            <div className='relative bg-gray-light-2/80 dark:bg-gray-dark-3/50 backdrop-blur-sm rounded-full p-1 flex max-w-md w-full border border-gray-light-2 dark:border-gray-dark-2/50'>
+              {/* Animated indicator */}
               <motion.div
-                className='absolute top-1.5 bottom-1.5 rounded-xl bg-gradient-to-r from-[#efc041] to-[#eeba2c] shadow-lg shadow-[#efc041]/30'
+                className='absolute top-1 bottom-1 rounded-full bg-gradient-to-r from-[#efc041] to-[#eeba2c]'
                 initial={false}
                 animate={{
                   left:
                     activeTab === 'education'
-                      ? '0.375rem'
-                      : 'calc(50% + 0.375rem)',
-                  width: 'calc(50% - 0.75rem)',
+                      ? '0.25rem'
+                      : 'calc(50% + 0.25rem)',
+                  width: 'calc(50% - 0.5rem)',
                 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-              />
-
-              {/* Glow effect for active tab */}
-              <motion.div
-                className='absolute top-1.5 bottom-1.5 rounded-xl bg-[#efc041]/20 blur-xl'
-                initial={false}
-                animate={{
-                  left:
-                    activeTab === 'education'
-                      ? '0.375rem'
-                      : 'calc(50% + 0.375rem)',
-                  width: 'calc(50% - 0.75rem)',
-                }}
-                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 35 }}
               />
 
               <motion.button
@@ -286,15 +275,14 @@ const EducationSection = () => {
                   tabClickSound.play();
                   setActiveTab('education');
                 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`relative z-[1] flex-1 px-6 py-3.5 text-center text-sm sm:text-base font-bold transition-all duration-300 rounded-xl ${
+                whileTap={{ scale: 0.97 }}
+                className={`relative z-[1] flex-1 px-6 py-2.5 text-center text-sm font-semibold transition-colors duration-200 rounded-full ${
                   activeTab === 'education'
-                    ? 'text-black shadow-lg'
-                    : 'text-gray-300 hover:text-white'
+                    ? 'text-black'
+                    : 'text-gray-light-4 dark:text-gray-light-3 hover:text-gray-dark-3 dark:hover:text-white'
                 }`}
               >
-                <span className='relative z-10'>Education</span>
+                Education
               </motion.button>
 
               <motion.button
@@ -302,15 +290,14 @@ const EducationSection = () => {
                   tabClickSound.play();
                   setActiveTab('certifications');
                 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`relative z-[1] flex-1 px-6 py-3.5 text-center text-sm sm:text-base font-bold transition-all duration-300 rounded-xl ${
+                whileTap={{ scale: 0.97 }}
+                className={`relative z-[1] flex-1 px-6 py-2.5 text-center text-sm font-semibold transition-colors duration-200 rounded-full ${
                   activeTab === 'certifications'
-                    ? 'text-black shadow-lg'
-                    : 'text-gray-300 hover:text-white'
+                    ? 'text-black'
+                    : 'text-gray-light-4 dark:text-gray-light-3 hover:text-gray-dark-3 dark:hover:text-white'
                 }`}
               >
-                <span className='relative z-10'>Certifications</span>
+                Certifications
               </motion.button>
             </div>
           </div>
@@ -353,31 +340,31 @@ const EducationSection = () => {
 
                 {/* Card */}
                 <motion.div
-                  className={`timeline-item rounded-xl p-5 bg-gray-dark-2/40 border border-gray-dark-3/60 backdrop-blur-sm shadow-[0_10px_0_rgba(0,0,0,0.0)] transition-all w-full md:w-[48%] ${
+                  className={`timeline-item rounded-xl p-5 bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 border border-[#efc041]/20 backdrop-blur-sm shadow-[0_10px_0_rgba(0,0,0,0.0)] transition-all w-full md:w-[48%] ${
                     index % 2 === 0
                       ? 'md:mr-auto md:pr-6'
                       : 'md:ml-auto md:pl-6'
                   }`}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
+                  viewport={{ once: false, margin: '0px' }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                   whileHover={{
                     y: -4,
                     boxShadow: '0 12px 24px rgba(238,186,44,0.12)',
                     borderColor: '#eeba2c',
-                    backgroundColor: 'rgba(255,255,255,0.03)',
                   }}
                 >
                   <p className='text-[#eeba2c] text-sm font-semibold'>
                     {item.year}
                   </p>
-                  <h4 className='text-lg font-bold mt-1'>{item.title}</h4>
+                  <h4 className='text-lg font-bold mt-1 text-gray-dark-1 dark:text-white'>{item.title}</h4>
                   {item.institute && (
-                    <p className='text-gray-400 text-sm'>{item.institute}</p>
+                    <p className='text-gray-light-4 dark:text-gray-light-2 text-sm'>{item.institute}</p>
                   )}
                   {item.description && (
-                    <p className='mt-3 text-gray-300 text-sm'>
+                    <p className='mt-3 text-gray-light-4 dark:text-gray-light-2 text-sm leading-relaxed'>
                       {item.description}
                     </p>
                   )}

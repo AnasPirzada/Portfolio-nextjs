@@ -220,7 +220,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         y: 0,
         rotateX: 0,
         rotateY: 0,
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
         duration: 0.5,
       })
         .to(
@@ -372,9 +372,9 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         ref={cardRef}
         className={`${styles.ProjectTile} group relative ${
           !isDesktop ? 'w-full' : 'w-full sm:w-[480px] md:w-[560px]'
-        } max-w-full bg-[#0a0a0a] border border-[#1a1a1a] cursor-pointer overflow-hidden`}
+        } max-w-full bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 dark:from-[#efc041]/5 dark:to-[#eeba2c]/5 border border-[#efc041]/20 cursor-pointer overflow-hidden`}
         style={{
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
           transformStyle: 'preserve-3d',
         }}
       >
@@ -431,12 +431,12 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         {/* Content Section */}
         <div
           ref={contentRef}
-          className='p-4 sm:p-5 md:p-6 bg-[#0a0a0a] text-left'
+          className='p-4 sm:p-5 md:p-6 bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 text-left'
         >
           {/* Title */}
           <h3
             ref={titleRef}
-            className='text-xl sm:text-2xl md:text-2xl font-semibold text-white mb-2 sm:mb-3 leading-tight transition-colors duration-300 text-left'
+            className='text-xl sm:text-2xl md:text-2xl font-semibold text-gray-dark-1 dark:text-white mb-2 sm:mb-3 leading-tight transition-colors duration-300 text-left'
           >
             {name}
           </h3>
@@ -445,7 +445,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           {description && (
             <p
               ref={descriptionRef}
-              className='text-xs sm:text-sm md:text-sm text-gray-400 mb-3 sm:mb-4 line-clamp-2 leading-relaxed text-left'
+              className='text-xs sm:text-sm md:text-sm text-gray-light-4 dark:text-gray-light-2 mb-3 sm:mb-4 line-clamp-2 leading-relaxed text-left'
             >
               {description}
             </p>
@@ -454,12 +454,12 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           {/* Tech Stack */}
           <div
             ref={techRef}
-            className='flex flex-wrap gap-1.5 sm:gap-2 items-center pt-2 border-t border-[#1a1a1a]'
+            className='flex flex-wrap gap-1.5 sm:gap-2 items-center pt-2 border-t border-[#efc041]/20'
           >
             {tech.slice(0, 6).map((techName, index) => (
               <div
                 key={techName}
-                className='flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] group-hover:border-[#efc041]/30 transition-all duration-300'
+                className='flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-all duration-300'
                 style={{
                   opacity: 0.9,
                 }}
@@ -473,7 +473,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
               </div>
             ))}
             {tech.length > 6 && (
-              <div className='flex items-center justify-center px-2 sm:px-3 h-8 sm:h-9 rounded-lg bg-[#141414] border border-[#1f1f1f] text-gray-500 text-[10px] sm:text-xs font-medium'>
+              <div className='flex items-center justify-center px-2 sm:px-3 h-8 sm:h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 text-gray-light-4 dark:text-gray-500 text-[10px] sm:text-xs font-medium'>
                 +{tech.length - 6}
               </div>
             )}
@@ -481,10 +481,10 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         </div>
 
         {/* Animated border glow on hover */}
-        <div className='absolute inset-0 border border-[#1a1a1a] group-hover:border-[#efc041]/30 transition-colors duration-500 pointer-events-none' />
+        <div className='absolute inset-0 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-colors duration-500 pointer-events-none' />
 
         {/* Pulsing border animation */}
-        <div className='absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/10 transition-all duration-700 pointer-events-none animate-pulse' />
+        <div className='absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/20 transition-all duration-700 pointer-events-none animate-pulse' />
       </div>
     </Link>
   );

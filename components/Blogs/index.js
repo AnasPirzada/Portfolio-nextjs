@@ -20,7 +20,7 @@ const BlogCard = ({ blog, index }) => {
   return (
     <Link
       href={`/blog/${blog.slug}`}
-      className='block rounded-2xl border-2 border-[#efc041]/20 bg-gray-dark-2/40 backdrop-blur-md p-6 hover:border-[#efc041]/40 hover:shadow-lg hover:shadow-[#efc041]/20 transition-all group'
+      className='block rounded-2xl border-2 border-[#efc041]/20 bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 backdrop-blur-md p-6 hover:border-[#efc041]/40 hover:shadow-lg hover:shadow-[#efc041]/20 transition-all group'
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -30,7 +30,7 @@ const BlogCard = ({ blog, index }) => {
       >
         <div className='flex items-start justify-between gap-3 mb-3'>
           <div className='flex-1'>
-            <div className='flex items-center gap-3 text-xs text-gray-400 mb-2'>
+            <div className='flex items-center gap-3 text-xs text-gray-light-4 dark:text-gray-light-2 mb-2'>
               <span className='flex items-center gap-1'>
                 <svg
                   className='w-4 h-4'
@@ -69,12 +69,12 @@ const BlogCard = ({ blog, index }) => {
                 {readingTime} min read
               </span>
             </div>
-            <h3 className='text-xl font-semibold mt-1 group-hover:text-[#eeba2c] transition-colors'>
+            <h3 className='text-xl font-semibold mt-1 text-gray-dark-1 dark:text-white group-hover:text-[#eeba2c] transition-colors'>
               {blog.title}
             </h3>
           </div>
         </div>
-        <p className='mt-3 text-sm text-gray-300 line-clamp-3 leading-relaxed'>
+        <p className='mt-3 text-sm text-gray-dark-2 dark:text-white/90 line-clamp-3 leading-relaxed'>
           {blog.description}
         </p>
         {blog.tags?.length ? (

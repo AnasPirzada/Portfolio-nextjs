@@ -2,8 +2,43 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 const Document = () => {
   return (
-    <Html lang="en">
+    <Html lang="en" dir="ltr" className="dark">
       <Head>
+        {/* Theme and Language initialization script to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  // Theme initialization - default to dark mode (black)
+                  var theme = localStorage.getItem('theme') || 'dark';
+                  if (theme === 'light') {
+                    document.documentElement.classList.remove('dark');
+                  } else {
+                    document.documentElement.classList.add('dark');
+                  }
+                  document.documentElement.setAttribute('data-theme', theme);
+                  
+                  // Language/RTL initialization
+                  var lang = localStorage.getItem('language') || 'en';
+                  var isRTL = lang === 'ar';
+                  document.documentElement.setAttribute('lang', lang);
+                  document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+                  if (isRTL) {
+                    document.documentElement.classList.add('rtl');
+                  } else {
+                    document.documentElement.classList.remove('rtl');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+        {/* Google Fonts - Noto Sans Arabic for RTL support */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
