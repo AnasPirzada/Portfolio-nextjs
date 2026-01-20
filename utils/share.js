@@ -11,7 +11,11 @@ export const shareContent = async ({ title, text, url }) => {
 
   try {
     // Check if Share API is available
-    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+    if (
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare(shareData)
+    ) {
       await navigator.share(shareData);
       return { success: true, method: 'share' };
     } else {
@@ -41,4 +45,3 @@ export const shareContent = async ({ title, text, url }) => {
 export const isShareSupported = () => {
   return typeof navigator !== 'undefined' && 'share' in navigator;
 };
-

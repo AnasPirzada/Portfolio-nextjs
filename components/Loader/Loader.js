@@ -51,16 +51,28 @@ const Loader = () => {
           {/* Rotating Rings */}
           <svg className={styles.decorativeRings} viewBox="0 0 400 400">
             <defs>
-              <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="ringGrad1"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="#efc041" stopOpacity="0.3" />
                 <stop offset="100%" stopColor="#ff6b35" stopOpacity="0.3" />
               </linearGradient>
-              <linearGradient id="ringGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <linearGradient
+                id="ringGrad2"
+                x1="100%"
+                y1="0%"
+                x2="0%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="#64f4ab" stopOpacity="0.2" />
                 <stop offset="100%" stopColor="#eeba2c" stopOpacity="0.2" />
               </linearGradient>
             </defs>
-            
+
             <circle
               cx="200"
               cy="200"

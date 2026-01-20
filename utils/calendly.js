@@ -9,7 +9,10 @@ const loadCalendlyScript = () => {
     }
 
     // Check if Calendly is already loaded
-    if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+    if (
+      window.Calendly &&
+      typeof window.Calendly.initPopupWidget === 'function'
+    ) {
       console.log('Calendly already loaded');
       resolve();
       return;
@@ -23,7 +26,10 @@ const loadCalendlyScript = () => {
       const maxAttempts = 50; // 5 seconds max wait
       const checkInterval = setInterval(() => {
         attempts++;
-        if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+        if (
+          window.Calendly &&
+          typeof window.Calendly.initPopupWidget === 'function'
+        ) {
           clearInterval(checkInterval);
           console.log('Calendly loaded after waiting');
           resolve();
@@ -49,7 +55,10 @@ const loadCalendlyScript = () => {
       const maxAttempts = 50; // 5 seconds max wait
       const initInterval = setInterval(() => {
         attempts++;
-        if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+        if (
+          window.Calendly &&
+          typeof window.Calendly.initPopupWidget === 'function'
+        ) {
           clearInterval(initInterval);
           console.log('Calendly initialized successfully');
           resolve();
@@ -80,7 +89,9 @@ export const openCalendlyPopup = async (url, options = {}) => {
   }
 
   if (!url || url === 'https://calendly.com/your-username') {
-    console.warn('Please update CALENDLY_URL in constants.js with your actual Calendly URL');
+    console.warn(
+      'Please update CALENDLY_URL in constants.js with your actual Calendly URL'
+    );
     return;
   }
 
@@ -93,11 +104,17 @@ export const openCalendlyPopup = async (url, options = {}) => {
 
     console.log('Calendly script ready, initializing popup...');
     console.log('Calendly object:', window.Calendly);
-    console.log('initPopupWidget function:', typeof window.Calendly?.initPopupWidget);
+    console.log(
+      'initPopupWidget function:',
+      typeof window.Calendly?.initPopupWidget
+    );
 
     if (window.Calendly) {
-      console.log('Calendly object available, methods:', Object.keys(window.Calendly));
-      
+      console.log(
+        'Calendly object available, methods:',
+        Object.keys(window.Calendly)
+      );
+
       // First, try to initialize the popup widget properly
       if (typeof window.Calendly.initPopupWidget === 'function') {
         console.log('Initializing popup widget with URL:', url);
@@ -111,7 +128,7 @@ export const openCalendlyPopup = async (url, options = {}) => {
             ...options,
           });
           console.log('Popup widget initialized');
-          
+
           // Wait a moment for initialization, then try to show it
           setTimeout(() => {
             if (typeof window.Calendly.showPopupWidget === 'function') {
@@ -119,13 +136,21 @@ export const openCalendlyPopup = async (url, options = {}) => {
               try {
                 window.Calendly.showPopupWidget(url);
                 console.log('Popup widget shown successfully');
-                
+
                 // Check if popup actually appeared after a short delay
                 setTimeout(() => {
-                  const calendlyPopup = document.querySelector('.calendly-popup-content, [data-calendly-popup]');
+                  const calendlyPopup = document.querySelector(
+                    '.calendly-popup-content, [data-calendly-popup]'
+                  );
                   if (!calendlyPopup) {
-                    console.warn('Popup widget called but popup not visible, opening in new window');
-                    window.open(url, '_blank', 'noopener,noreferrer,width=800,height=600');
+                    console.warn(
+                      'Popup widget called but popup not visible, opening in new window'
+                    );
+                    window.open(
+                      url,
+                      '_blank',
+                      'noopener,noreferrer,width=800,height=600'
+                    );
                   } else {
                     console.log('Popup is visible on page');
                     // Ensure popup has high z-index
@@ -138,27 +163,41 @@ export const openCalendlyPopup = async (url, options = {}) => {
                 console.error('Error showing popup widget:', showError);
                 // Fallback to new window
                 console.log('Falling back to new window');
-                window.open(url, '_blank', 'noopener,noreferrer,width=800,height=600');
+                window.open(
+                  url,
+                  '_blank',
+                  'noopener,noreferrer,width=800,height=600'
+                );
               }
             } else {
               // If showPopupWidget doesn't exist, the popup should auto-open
               console.log('Popup should auto-open after initialization');
               // Check after a delay if popup appeared
               setTimeout(() => {
-                const calendlyPopup = document.querySelector('.calendly-popup-content, [data-calendly-popup]');
+                const calendlyPopup = document.querySelector(
+                  '.calendly-popup-content, [data-calendly-popup]'
+                );
                 if (!calendlyPopup) {
                   console.warn('Popup did not appear, opening in new window');
-                  window.open(url, '_blank', 'noopener,noreferrer,width=800,height=600');
+                  window.open(
+                    url,
+                    '_blank',
+                    'noopener,noreferrer,width=800,height=600'
+                  );
                 }
               }, 1000);
             }
           }, 300);
-          
+
           return; // Exit early after initialization
         } catch (initError) {
           console.error('Error initializing popup widget:', initError);
           // Fallback to new window
-          window.open(url, '_blank', 'noopener,noreferrer,width=800,height=600');
+          window.open(
+            url,
+            '_blank',
+            'noopener,noreferrer,width=800,height=600'
+          );
         }
       } else {
         throw new Error('initPopupWidget is not available');
@@ -173,4 +212,3 @@ export const openCalendlyPopup = async (url, options = {}) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 };
-

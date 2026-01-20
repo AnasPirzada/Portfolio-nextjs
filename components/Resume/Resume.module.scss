@@ -4,7 +4,11 @@
 }
 
 .previewCard {
-  background: linear-gradient(135deg, rgba(239, 192, 65, 0.05), rgba(238, 186, 44, 0.02));
+  background: linear-gradient(
+    135deg,
+    rgba(239, 192, 65, 0.05),
+    rgba(238, 186, 44, 0.02)
+  );
   border: 2px solid rgba(239, 192, 65, 0.2);
   border-radius: 1.5rem;
   padding: 3rem;
@@ -65,7 +69,8 @@
 }
 
 @keyframes shimmer {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.3;
   }
   50% {
@@ -124,7 +129,11 @@
 .featureIcon {
   width: 24px;
   height: 24px;
-  background: linear-gradient(135deg, rgba(239, 192, 65, 0.2), rgba(238, 186, 44, 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(239, 192, 65, 0.2),
+    rgba(238, 186, 44, 0.1)
+  );
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -148,7 +157,11 @@
 
 .downloadBtn {
   position: relative;
-  background: linear-gradient(135deg, rgba(17, 24, 39, 0.8), rgba(31, 41, 55, 0.6));
+  background: linear-gradient(
+    135deg,
+    rgba(17, 24, 39, 0.8),
+    rgba(31, 41, 55, 0.6)
+  );
   backdrop-filter: blur(10px);
   border: 2px solid rgba(239, 192, 65, 0.2);
   border-radius: 1.25rem;
@@ -173,7 +186,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(239, 192, 65, 0.1), rgba(238, 186, 44, 0.05));
+    background: linear-gradient(
+      135deg,
+      rgba(239, 192, 65, 0.1),
+      rgba(238, 186, 44, 0.05)
+    );
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: -1;
@@ -181,7 +198,7 @@
 
   &:hover {
     border-color: rgba(239, 192, 65, 0.6);
-    box-shadow: 
+    box-shadow:
       0 20px 40px rgba(239, 192, 65, 0.2),
       0 0 0 1px rgba(239, 192, 65, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -240,7 +257,11 @@
   transform: translate(-50%, -50%) scale(0.8);
   width: 64px;
   height: 64px;
-  background: radial-gradient(circle, rgba(239, 192, 65, 0.4) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(239, 192, 65, 0.4) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -293,14 +314,22 @@
 
 .pdfBtn {
   &:hover {
-    background: linear-gradient(135deg, rgba(239, 192, 65, 0.15), rgba(238, 186, 44, 0.08));
+    background: linear-gradient(
+      135deg,
+      rgba(239, 192, 65, 0.15),
+      rgba(238, 186, 44, 0.08)
+    );
     border-color: rgba(239, 192, 65, 0.7);
   }
 }
 
 .docxBtn {
   &:hover {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.08));
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.15),
+      rgba(37, 99, 235, 0.08)
+    );
     border-color: rgba(59, 130, 246, 0.7);
 
     .btnIcon {
@@ -308,7 +337,11 @@
     }
 
     .iconGlow {
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+      background: radial-gradient(
+        circle,
+        rgba(59, 130, 246, 0.4) 0%,
+        transparent 70%
+      );
     }
 
     .btnLabel {
@@ -319,7 +352,11 @@
 
 .viewBtn {
   &:hover {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.08));
+    background: linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.15),
+      rgba(5, 150, 105, 0.08)
+    );
     border-color: rgba(16, 185, 129, 0.7);
 
     .btnIcon {
@@ -327,7 +364,11 @@
     }
 
     .iconGlow {
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%);
+      background: radial-gradient(
+        circle,
+        rgba(16, 185, 129, 0.4) 0%,
+        transparent 70%
+      );
     }
 
     .btnLabel {
@@ -342,7 +383,11 @@
   gap: 2rem;
   margin-top: 3rem;
   padding: 2rem;
-  background: linear-gradient(135deg, rgba(239, 192, 65, 0.05), rgba(238, 186, 44, 0.02));
+  background: linear-gradient(
+    135deg,
+    rgba(239, 192, 65, 0.05),
+    rgba(238, 186, 44, 0.02)
+  );
   border-radius: 1rem;
   border: 1px solid rgba(239, 192, 65, 0.1);
 
@@ -379,4 +424,3 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-

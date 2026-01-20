@@ -31,7 +31,7 @@ const About2 = ({ clientHeight }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className='w-full relative select-none'>
+    <section ref={sectionRef} className="w-full relative select-none">
       <div
         className={`${
           clientHeight > 650 ? 'py-10 md:py-20' : 'py-10 md:py-20'
@@ -39,11 +39,11 @@ const About2 = ({ clientHeight }) => {
       >
         <h1
           ref={quoteRef}
-          className='font-medium text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-center px-4 sm:px-6'
+          className="font-medium text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-center px-4 sm:px-6"
         >
           As a Full Stack Developer and AI Expert, I have a{' '}
           <span
-            className='about-3 font-bold'
+            className="about-3 font-bold"
             style={{
               background:
                 'linear-gradient(90deg, #ffffff 0%, #ffffff 50%, #eeba2c 51%, #efc041 102%)',
@@ -54,7 +54,8 @@ const About2 = ({ clientHeight }) => {
           >
             strong
           </span>{' '}
-          obsession for attention to detail in every line of code and AI solution.
+          obsession for attention to detail in every line of code and AI
+          solution.
         </h1>
       </div>
     </section>

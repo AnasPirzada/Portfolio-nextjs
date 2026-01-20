@@ -45,53 +45,66 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
   const iconRef = useRef(null);
   const colors = SKILL_COLORS[skill] || SKILL_COLORS.default;
 
-  // Wave animation on scroll
+  // Wave animation on scroll - resets and re-triggers
   useEffect(() => {
     const icon = iconRef.current;
     if (!icon) return;
+
+    // Set initial state
+    gsap.set(icon, { y: 20, opacity: 0, scale: 0.95 });
 
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            // Reset and animate when entering viewport
             gsap.fromTo(
               icon,
-              { y: 30, opacity: 0, scale: 0.8 },
+              { y: 20, opacity: 0, scale: 0.95 },
               {
                 y: 0,
                 opacity: 1,
                 scale: 1,
-                duration: 0.6,
+                duration: 0.8,
                 delay: index * 0.08,
-                ease: 'back.out(1.7)',
+                ease: 'power3.out',
               }
             );
-            observer.unobserve(icon);
+          } else {
+            // Reset when leaving viewport (scrolling back up)
+            gsap.set(icon, { y: 20, opacity: 0, scale: 0.95 });
           }
         });
       },
-      { threshold: 0.1 }
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -10% 0px',
+      }
     );
 
     observer.observe(icon);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      // Reset on cleanup
+      gsap.set(icon, { clearProps: 'all' });
+    };
   }, [index]);
 
   return (
     <div
       ref={iconRef}
-      className='relative group'
+      className="relative group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{ opacity: 0 }}
     >
-      <div className='transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-2'>
+      <div className="transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-2">
         <Image
           src={`/skills/${skill}.svg`}
           alt={skill}
           width={width}
           height={height}
-          className='filter group-hover:drop-shadow-lg'
+          className="filter group-hover:drop-shadow-lg"
         />
       </div>
 
@@ -114,7 +127,7 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
 
         {/* Arrow pointing up */}
         <div
-          className='absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45'
+          className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45"
           style={{ backgroundColor: colors.bg }}
         />
       </div>
@@ -131,35 +144,35 @@ const Skills = memo(() => {
     <section
       ref={sectionRef}
       id={MENULINKS[1].ref}
-      className='w-full relative select-none'
+      className="w-full relative select-none"
     >
-      <div className='py-10 md:py-20 section-container'>
+      <div className="py-10 md:py-20 section-container">
         <img
-          src='/right-pattern.svg'
-          alt=''
-          className='absolute hidden right-0 bottom-2/4 w-2/12 max-w-xs md:block'
-          loading='lazy'
+          src="/right-pattern.svg"
+          alt=""
+          className="absolute hidden right-0 bottom-2/4 w-2/12 max-w-xs md:block"
+          loading="lazy"
           height={700}
           width={320}
         />
-        <div className='flex flex-col items-start text-left'>
-          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base'>
+        <div className="flex flex-col items-start text-left">
+          <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base">
             SKILLS
           </p>
-          <h1 className='text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+          <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal">
             My Skills
           </h1>
-          <h2 className='text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
+          <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2 staggered-reveal">
             I like to take responsibility to craft aesthetic user experience
             using modern frontend architecture.{' '}
           </h2>
         </div>
-        <div className='flex flex-col skills-wrapper'>
-          <div className='mt-8 sm:mt-10'>
-            <h3 className='uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4 staggered-reveal'>
+        <div className="flex flex-col skills-wrapper">
+          <div className="mt-8 sm:mt-10">
+            <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4 staggered-reveal">
               LANGUAGES AND TOOLS
             </h3>
-            <div className='flex items-center flex-wrap gap-4 sm:gap-6 staggered-reveal'>
+            <div className="flex items-center flex-wrap gap-4 sm:gap-6 staggered-reveal">
               {SKILLS.languagesAndTools.map((skill, index) => (
                 <SkillIcon
                   key={skill}
@@ -171,11 +184,11 @@ const Skills = memo(() => {
               ))}
             </div>
           </div>
-          <div className='mt-8 sm:mt-10'>
-            <h3 className='uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4 staggered-reveal'>
+          <div className="mt-8 sm:mt-10">
+            <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4 staggered-reveal">
               LIBRARIES AND FRAMEWORKS
             </h3>
-            <div className='flex flex-wrap gap-4 sm:gap-6 transform-gpu staggered-reveal'>
+            <div className="flex flex-wrap gap-4 sm:gap-6 transform-gpu staggered-reveal">
               {SKILLS.librariesAndFrameworks.map((skill, index) => (
                 <SkillIcon
                   key={skill}
@@ -187,12 +200,12 @@ const Skills = memo(() => {
               ))}
             </div>
           </div>
-          <div className='flex flex-col sm:flex-row flex-wrap mt-8 sm:mt-10'>
-            <div className='mb-6 sm:mb-0 sm:mr-16 xs:sm:mr-20 staggered-reveal'>
-              <h3 className='uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4'>
+          <div className="flex flex-col sm:flex-row flex-wrap mt-8 sm:mt-10">
+            <div className="mb-6 sm:mb-0 sm:mr-16 xs:sm:mr-20 staggered-reveal">
+              <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4">
                 DATABASES
               </h3>
-              <div className='flex flex-wrap gap-4 sm:gap-6 transform-gpu'>
+              <div className="flex flex-wrap gap-4 sm:gap-6 transform-gpu">
                 {SKILLS.databases.map((skill, index) => (
                   <SkillIcon
                     key={skill}
@@ -204,11 +217,11 @@ const Skills = memo(() => {
                 ))}
               </div>
             </div>
-            <div className='staggered-reveal'>
-              <h3 className='uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4'>
+            <div className="staggered-reveal">
+              <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4">
                 Other
               </h3>
-              <div className='flex flex-wrap gap-4 sm:gap-6 transform-gpu'>
+              <div className="flex flex-wrap gap-4 sm:gap-6 transform-gpu">
                 {SKILLS.other.map((skill, index) => (
                   <SkillIcon
                     key={skill}

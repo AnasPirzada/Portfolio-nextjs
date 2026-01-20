@@ -10,9 +10,9 @@ const Profiles = () => {
           <a
             href={url}
             key={name}
-            className='link'
-            rel='noreferrer'
-            target='_blank'
+            className="link"
+            rel="noreferrer"
+            target="_blank"
             aria-label={name}
           >
             <Icon name={name} />

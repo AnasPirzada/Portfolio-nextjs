@@ -1,10 +1,13 @@
 import Filter from 'bad-words';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { MENULINKS } from '../../constants';
 import styles from './Contact.module.scss';
 import mail from './mailer';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const filter = new Filter();
 filter.removeWords('hell', 'god', 'shit');
@@ -40,12 +43,71 @@ const Contact = () => {
   const [isSending, setIsSending] = useState(false);
   const [submitCount, setSubmitCount] = useState(0);
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
+  const [validationErrors, setValidationErrors] = useState({});
+  const [messageLength, setMessageLength] = useState(0);
   const buttonElementRef = useRef(null);
   const sectionRef = useRef(null);
+
+  const MAX_MESSAGE_LENGTH = 2000;
+
+  const validateEmail = email => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateField = (field, value) => {
+    const errors = { ...validationErrors };
+
+    switch (field) {
+      case 'email':
+        if (value && !validateEmail(value)) {
+          errors.email = 'Please enter a valid email address';
+        } else {
+          delete errors.email;
+        }
+        break;
+      case 'name':
+        if (value && value.trim().length < 2) {
+          errors.name = 'Name must be at least 2 characters';
+        } else {
+          delete errors.name;
+        }
+        break;
+      case 'message':
+        if (value && value.trim().length < 10) {
+          errors.message = 'Message must be at least 10 characters';
+        } else if (value.length > MAX_MESSAGE_LENGTH) {
+          errors.message = `Message must be less than ${MAX_MESSAGE_LENGTH} characters`;
+        } else {
+          delete errors.message;
+        }
+        setMessageLength(value.length);
+        break;
+      default:
+        break;
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleChange = ({ target }) => {
     const { id, value } = target;
     value.length === 0 ? setIsSending(false) : setIsSending(true);
+
+    // Real-time validation
+    if (value) {
+      validateField(id, value);
+    } else {
+      // Clear error if field is empty
+      const errors = { ...validationErrors };
+      delete errors[id];
+      setValidationErrors(errors);
+      if (id === 'message') {
+        setMessageLength(0);
+      }
+    }
+
     setFormData(prevVal => {
       if (
         value.trim() !== prevVal[id] &&
@@ -99,10 +161,21 @@ const Contact = () => {
     }
 
     // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!validateEmail(email)) {
+      setValidationErrors({
+        ...validationErrors,
+        email: 'Please enter a valid email address',
+      });
       toast.error('Please enter a valid email address', {
         id: 'email-error',
+      });
+      return;
+    }
+
+    // Check validation errors
+    if (Object.keys(validationErrors).length > 0) {
+      toast.error('Please fix the errors in the form', {
+        id: 'validation-error',
       });
       return;
     }
@@ -267,104 +340,225 @@ const Contact = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
+      const elements = sectionRef.current.querySelectorAll('.staggered-reveal');
+      if (elements.length === 0) return;
+
+      // Set initial state
+      gsap.set(elements, { opacity: 0, y: 20 });
+
+      // Create animation that can be reset and re-triggered
+      const animation = gsap.to(elements, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
         stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current.querySelector('.contact-wrapper'),
-          start: 'top 80%',
-          toggleActions: 'play none none none',
+        ease: 'power3.out',
+        paused: true,
+      });
+
+      const contactWrapper = sectionRef.current.querySelector('.contact-wrapper');
+      if (!contactWrapper) return;
+
+      ScrollTrigger.create({
+        trigger: contactWrapper,
+        start: 'top 80%',
+        toggleActions: 'play reset play reset',
+        animation: animation,
+        onEnter: () => {
+          animation.play();
+        },
+        onEnterBack: () => {
+          // Reset and play when scrolling back up
+          gsap.set(elements, { opacity: 0, y: 20 });
+          animation.restart();
+        },
+        onLeaveBack: () => {
+          // Reset when scrolling back up past the section
+          gsap.set(elements, { opacity: 0, y: 20 });
         },
       });
+
+      // Check if already in viewport
+      const rect = contactWrapper.getBoundingClientRect();
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isInViewport) {
+        setTimeout(() => {
+          animation.play();
+        }, 100);
+      }
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.refresh();
+    };
   }, []);
 
   return (
     <section
       ref={sectionRef}
       id={MENULINKS[6].ref}
-      className='w-full relative select-none bg-light-bg dark:bg-black py-10 md:py-20'
+      className="w-full relative select-none bg-light-bg dark:bg-black py-10 md:py-20"
     >
       <div>
         <Toaster toastOptions={toastOptions} />
       </div>
-      <div className='section-container flex flex-col justify-center'>
-        <div className='flex flex-col contact-wrapper'>
-          <div className='flex flex-col'>
-            <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base'>
+      <div className="section-container flex flex-col justify-center">
+        <div className="flex flex-col contact-wrapper">
+          <div className="flex flex-col">
+            <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base">
               CONTACT
             </p>
-            <h1 className='text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+            <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal">
               Contact
             </h1>
           </div>
-          <h2 className='text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2 staggered-reveal'>
+          <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2 staggered-reveal">
             Get In Touch.{' '}
           </h2>
         </div>
 
-        <form className='pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem]'>
-          <div className='staggered-reveal'>
-            <div className='relative'>
+        <form className="pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem]">
+          <div className="staggered-reveal">
+            <div className="relative">
               <input
-                type='text'
-                id='name'
-                className='block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-yellow bg-transparent rounded-[0.6rem] transition-all duration-200'
+                type="text"
+                id="name"
+                className={`block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 rounded-[0.6rem] transition-all duration-200 bg-transparent dark:bg-transparent ${
+                  validationErrors.name ? 'border-red-500' : 'border-yellow'
+                }`}
                 value={formData.name}
                 onChange={handleChange}
+                onBlur={() => validateField('name', formData.name)}
                 required
-                aria-label='Name'
-                aria-required='true'
+                aria-label="Name"
+                aria-required="true"
+                aria-invalid={!!validationErrors.name}
+                aria-describedby={
+                  validationErrors.name ? 'name-error' : undefined
+                }
+                style={{ backgroundColor: 'transparent' }}
               />
               <label
-                htmlFor='name'
-                className='absolute top-0 left-0 h-full flex items-center pl-4 text-lg font-mono transform transition-all'
+                htmlFor="name"
+                className={`absolute top-0 left-0 h-full flex items-center pl-4 text-lg font-mono transform transition-all pointer-events-none ${
+                  formData.name ? '!h-[50%] !pl-0 !-translate-y-full' : ''
+                }`}
               >
                 Name
               </label>
+              {/* Error message */}
+              {validationErrors.name && (
+                <div
+                  id="name-error"
+                  className="absolute -bottom-6 left-0 text-sm text-red-500 font-mono"
+                  role="alert"
+                  aria-live="assertive"
+                >
+                  {validationErrors.name}
+                </div>
+              )}
             </div>
 
-            <div className='relative mt-14'>
+            <div className="relative mt-14">
               <input
-                type='email'
-                id='email'
-                className='block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-yellow bg-transparent rounded-[0.6rem] transition-all duration-200'
+                type="email"
+                id="email"
+                className={`block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 rounded-[0.6rem] transition-all duration-200 bg-transparent dark:bg-transparent ${
+                  validationErrors.email ? 'border-red-500' : 'border-yellow'
+                }`}
                 value={formData.email}
                 onChange={handleChange}
+                onBlur={() => validateField('email', formData.email)}
                 required
-                aria-label='Email address'
-                aria-required='true'
-                autoComplete='email'
+                aria-label="Email address"
+                aria-required="true"
+                aria-invalid={!!validationErrors.email}
+                aria-describedby={
+                  validationErrors.email ? 'email-error' : undefined
+                }
+                autoComplete="email"
+                style={{ backgroundColor: 'transparent' }}
               />
               <label
-                htmlFor='email'
-                className='absolute top-0 left-0 h-full flex items-center pl-4 text-lg font-mono transform transition-all'
+                htmlFor="email"
+                className="absolute top-0 left-0 h-full flex items-center pl-4 text-lg font-mono transform transition-all"
               >
                 Email
               </label>
+              {/* Error message */}
+              {validationErrors.email && (
+                <div
+                  id="email-error"
+                  className="absolute -bottom-6 left-0 text-sm text-red-500 font-mono"
+                  role="alert"
+                  aria-live="assertive"
+                >
+                  {validationErrors.email}
+                </div>
+              )}
             </div>
 
-            <div className='relative mt-14'>
-              <textarea
-                id='message'
-                className='block w-full h-auto min-h-[10rem] max-h-[20rem] sm:h-14 py-2 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-yellow bg-transparent rounded-[0.6rem] transition-all duration-200'
-                value={formData.message}
-                onChange={handleChange}
-                required
-                aria-label='Message'
-                aria-required='true'
-              />
-              <label
-                htmlFor='message'
-                className='absolute top-0 left-0 h-14 flex items-center pl-4 text-lg font-mono transform transition-all'
-              >
-                Message
-              </label>
+            <div className="relative mt-14">
+              <div className="relative">
+                <textarea
+                  id="message"
+                  className={`block w-full h-auto min-h-[10rem] max-h-[20rem] sm:h-14 py-2 pl-4 pr-20 pb-8 text-xl sm:text-2xl font-mono outline-none border-2 rounded-[0.6rem] transition-all duration-200 resize-none bg-transparent dark:bg-transparent ${
+                    validationErrors.message
+                      ? 'border-red-500'
+                      : 'border-yellow'
+                  }`}
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  aria-label="Message"
+                  aria-required="true"
+                  aria-invalid={!!validationErrors.message}
+                  aria-describedby={
+                    validationErrors.message
+                      ? 'message-error'
+                      : 'message-counter'
+                  }
+                  maxLength={MAX_MESSAGE_LENGTH}
+                  style={{
+                    paddingBottom: '2rem',
+                    paddingRight: '5rem',
+                    backgroundColor: 'transparent',
+                  }}
+                />
+                <label
+                  htmlFor="message"
+                  className="absolute top-0 left-0 h-14 flex items-center pl-4 text-lg font-mono transform transition-all pointer-events-none"
+                >
+                  Message
+                </label>
+                {/* Character counter - inside the box, bottom right corner */}
+                <div
+                  id="message-counter"
+                  className="text-xs font-mono text-gray-400 dark:text-gray-500 pointer-events-none z-10"
+                  aria-live="polite"
+                  style={{
+                    position: 'absolute',
+                    bottom: '12px',
+                    right: '16px',
+                  }}
+                >
+                  {messageLength}/{MAX_MESSAGE_LENGTH}
+                </div>
+              </div>
+              {/* Error message */}
+              {validationErrors.message && (
+                <div
+                  id="message-error"
+                  className="absolute -bottom-6 left-0 text-sm text-red-500 dark:text-red-400 font-mono bg-transparent"
+                  role="alert"
+                  aria-live="assertive"
+                  style={{ backgroundColor: 'transparent' }}
+                >
+                  {validationErrors.message}
+                </div>
+              )}
             </div>
 
             {/* Honeypot field - hidden from users but visible to bots */}
@@ -375,29 +569,29 @@ const Contact = () => {
                 opacity: 0,
                 pointerEvents: 'none',
               }}
-              aria-hidden='true'
+              aria-hidden="true"
             >
-              <label htmlFor='website'>Website (leave blank)</label>
+              <label htmlFor="website">Website (leave blank)</label>
               <input
-                type='text'
-                id='website'
-                name='website'
+                type="text"
+                id="website"
+                name="website"
                 value={formData.website}
                 onChange={handleChange}
                 tabIndex={-1}
-                autoComplete='off'
+                autoComplete="off"
               />
             </div>
           </div>
 
           {mailerResponse !== 'not initiated' &&
             (mailerResponse === 'success' ? (
-              <div className='hidden'>{success()}</div>
+              <div className="hidden">{success()}</div>
             ) : (
-              <div className='hidden'>{error()}</div>
+              <div className="hidden">{error()}</div>
             ))}
         </form>
-        <div className='mt-9 mx-auto link staggered-reveal'>
+        <div className="mt-9 mx-auto link staggered-reveal">
           <button
             ref={buttonElementRef}
             className={styles.button}
@@ -405,24 +599,25 @@ const Contact = () => {
               formData.name === '' ||
               formData.email === '' ||
               formData.message === '' ||
-              isSending
+              isSending ||
+              Object.keys(validationErrors).length > 0
                 ? true
                 : false
             }
             onClick={handleSubmit}
-            aria-label='Send message'
+            aria-label="Send message"
             aria-busy={isSending}
           >
             <span>Send -&gt;</span>
             <span className={styles.success}>
-              <svg viewBox='0 0 16 16'>
-                <polyline points='3.75 9 7 12 13 5'></polyline>
+              <svg viewBox="0 0 16 16">
+                <polyline points="3.75 9 7 12 13 5"></polyline>
               </svg>
               Sent
             </span>
-            <svg className={styles.trails} viewBox='0 0 33 64'>
-              <path d='M26,4 C28,13.3333333 29,22.6666667 29,32 C29,41.3333333 28,50.6666667 26,60'></path>
-              <path d='M6,4 C8,13.3333333 9,22.6666667 9,32 C9,41.3333333 8,50.6666667 6,60'></path>
+            <svg className={styles.trails} viewBox="0 0 33 64">
+              <path d="M26,4 C28,13.3333333 29,22.6666667 29,32 C29,41.3333333 28,50.6666667 26,60"></path>
+              <path d="M6,4 C8,13.3333333 9,22.6666667 9,32 C9,41.3333333 8,50.6666667 6,60"></path>
             </svg>
             <div className={styles.plane}>
               <div className={styles.left} />
@@ -451,7 +646,17 @@ const Contact = () => {
         }
 
         input:focus + label,
-        input:valid + label {
+        input:valid + label,
+        input:not(:placeholder-shown) + label,
+        input[value]:not([value='']) + label {
+          height: 50%;
+          padding-left: 0;
+          transform: translateY(-100%);
+        }
+
+        /* Force label to show when input has value (for invalid email) */
+        input[type='email']:not(:placeholder-shown) + label,
+        input[type='email'][value]:not([value='']) + label {
           height: 50%;
           padding-left: 0;
           transform: translateY(-100%);
@@ -462,6 +667,48 @@ const Contact = () => {
           height: 17%;
           padding-left: 0;
           transform: translateY(-100%);
+        }
+
+        input[type='text'],
+        input[type='email'],
+        textarea {
+          background-color: transparent !important;
+        }
+
+        input[type='text']:focus,
+        input[type='text']:active,
+        input[type='text']:valid,
+        input[type='text']:invalid,
+        input[type='email']:focus,
+        input[type='email']:active,
+        input[type='email']:valid,
+        input[type='email']:invalid,
+        textarea:focus,
+        textarea:active,
+        textarea:valid,
+        textarea:invalid {
+          background-color: transparent !important;
+        }
+
+        .dark input[type='text'],
+        .dark input[type='email'],
+        .dark textarea {
+          background-color: transparent !important;
+        }
+
+        .dark input[type='text']:focus,
+        .dark input[type='text']:active,
+        .dark input[type='text']:valid,
+        .dark input[type='text']:invalid,
+        .dark input[type='email']:focus,
+        .dark input[type='email']:active,
+        .dark input[type='email']:valid,
+        .dark input[type='email']:invalid,
+        .dark textarea:focus,
+        .dark textarea:active,
+        .dark textarea:valid,
+        .dark textarea:invalid {
+          background-color: transparent !important;
         }
       `}</style>
     </section>

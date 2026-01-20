@@ -12,10 +12,10 @@ const MobileNavigation = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     const handleScroll = () => {
       // Show navigation when scrolled down, hide when at top
       const scrolled = window.scrollY > 100;
@@ -29,7 +29,7 @@ const MobileNavigation = () => {
     };
   }, []);
 
-  const handleNavigation = (ref) => {
+  const handleNavigation = ref => {
     if (router.pathname !== '/') {
       router.push(`/#${ref}`);
     } else {
@@ -53,7 +53,7 @@ const MobileNavigation = () => {
       aria-label="Mobile navigation"
     >
       <div className="flex justify-around items-center h-16 px-4">
-        {MENULINKS.slice(0, 5).map((link) => (
+        {MENULINKS.slice(0, 5).map(link => (
           <button
             key={link.ref}
             onClick={() => handleNavigation(link.ref)}
@@ -69,7 +69,7 @@ const MobileNavigation = () => {
   );
 };
 
-const getIcon = (name) => {
+const getIcon = name => {
   const icons = {
     Home: '🏠',
     Skills: '💻',
@@ -83,4 +83,3 @@ const getIcon = (name) => {
 };
 
 export default MobileNavigation;
-

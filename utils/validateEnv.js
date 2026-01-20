@@ -3,7 +3,9 @@
  * Ensures all required environment variables are present
  */
 export const validateEnv = () => {
-  const requiredVars = ['NEXT_PUBLIC_GTAG'];
+  // Only warn about truly required variables
+  // NEXT_PUBLIC_GTAG is optional (only needed for Google Analytics)
+  const requiredVars = [];
   const missingVars = requiredVars.filter(key => !process.env[key]);
 
   if (missingVars.length > 0) {

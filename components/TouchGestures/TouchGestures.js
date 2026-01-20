@@ -1,6 +1,12 @@
 import { useEffect, useRef } from 'react';
 
-const TouchGestures = ({ children, onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown }) => {
+const TouchGestures = ({
+  children,
+  onSwipeLeft,
+  onSwipeRight,
+  onSwipeUp,
+  onSwipeDown,
+}) => {
   const touchStartRef = useRef(null);
   const touchEndRef = useRef(null);
   const elementRef = useRef(null);
@@ -11,12 +17,12 @@ const TouchGestures = ({ children, onSwipeLeft, onSwipeRight, onSwipeUp, onSwipe
     const element = elementRef.current;
     if (!element) return;
 
-    const handleTouchStart = (e) => {
+    const handleTouchStart = e => {
       touchEndRef.current = null;
       touchStartRef.current = e.touches[0].clientX;
     };
 
-    const handleTouchMove = (e) => {
+    const handleTouchMove = e => {
       touchEndRef.current = e.touches[0].clientX;
     };
 
@@ -57,4 +63,3 @@ const TouchGestures = ({ children, onSwipeLeft, onSwipeRight, onSwipeUp, onSwipe
 };
 
 export default TouchGestures;
-

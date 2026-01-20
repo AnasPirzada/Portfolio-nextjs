@@ -20,93 +20,125 @@ const EducationSection = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const staggeredElements = sectionRef.current.querySelectorAll('.staggered-reveal');
-      const timelineItems = sectionRef.current.querySelectorAll('.timeline-item');
-      
+      if (!sectionRef.current) return;
+
+      // On mobile/tablet, skip scroll-based GSAP and keep content static
+      if (typeof window !== 'undefined') {
+        const isMobile = window.innerWidth < 1024;
+        if (isMobile) {
+          const staggeredElements =
+            sectionRef.current.querySelectorAll('.staggered-reveal');
+          const timelineItems =
+            sectionRef.current.querySelectorAll('.timeline-item');
+
+          gsap.set(staggeredElements, { opacity: 1, y: 0 });
+          gsap.set(timelineItems, { opacity: 1, y: 0 });
+          return;
+        }
+      }
+
+      const staggeredElements =
+        sectionRef.current.querySelectorAll('.staggered-reveal');
+      const timelineItems =
+        sectionRef.current.querySelectorAll('.timeline-item');
+
       // Set initial state for animations
-      gsap.set(staggeredElements, { opacity: 0, y: 30 });
-      gsap.set(timelineItems, { opacity: 0, y: 50 });
-      
+      gsap.set(staggeredElements, { opacity: 0, y: 20 });
+      gsap.set(timelineItems, { opacity: 0, y: 40 });
+
       // Check if section is already in viewport
       const rect = sectionRef.current.getBoundingClientRect();
       const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-      
-      // Heading reveal animation - works both forward and backward
+
+      // Heading reveal animation - resets and re-triggers properly
+      const headingAnimation = gsap.to(staggeredElements, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: 'power3.out',
+        paused: true,
+      });
+
       if (isInViewport) {
-        gsap.to(staggeredElements, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-        });
+        setTimeout(() => {
+          headingAnimation.play();
+        }, 100);
       } else {
-        gsap.to(staggeredElements, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play reverse play reverse',
-            onEnter: () => {
-              gsap.set(staggeredElements, { opacity: 1, y: 0 });
-            },
-            onLeaveBack: () => {
-              gsap.set(staggeredElements, { opacity: 0, y: 30 });
-            },
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play reset play reset',
+          animation: headingAnimation,
+          onEnter: () => {
+            headingAnimation.play();
+          },
+          onEnterBack: () => {
+            // Reset and play when scrolling back up
+            gsap.set(staggeredElements, { opacity: 0, y: 20 });
+            headingAnimation.restart();
+          },
+          onLeaveBack: () => {
+            // Reset when scrolling back up past the section
+            gsap.set(staggeredElements, { opacity: 0, y: 20 });
           },
         });
       }
 
-      // Timeline items animation - works both forward and backward
+      // Timeline items animation - resets and re-triggers properly
+      const timelineAnimation = gsap.to(timelineItems, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.3,
+        duration: 1,
+        ease: 'power3.out',
+        paused: true,
+      });
+
       if (isInViewport) {
-        gsap.to(timelineItems, {
-          opacity: 1,
-          y: 0,
-          stagger: 0.3,
-          duration: 0.8,
-          ease: 'power2.out',
-        });
+        setTimeout(() => {
+          timelineAnimation.play();
+        }, 100);
       } else {
-        gsap.to(timelineItems, {
-          opacity: 1,
-          y: 0,
-          stagger: 0.3,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            end: 'bottom bottom',
-            toggleActions: 'play reverse play reverse',
-            onEnter: () => {
-              gsap.set(timelineItems, { opacity: 1, y: 0 });
-            },
-            onLeaveBack: () => {
-              gsap.set(timelineItems, { opacity: 0, y: 50 });
-            },
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          end: 'bottom bottom',
+          toggleActions: 'play reset play reset',
+          animation: timelineAnimation,
+          onEnter: () => {
+            timelineAnimation.play();
+          },
+          onEnterBack: () => {
+            // Reset and play when scrolling back up
+            gsap.set(timelineItems, { opacity: 0, y: 40 });
+            timelineAnimation.restart();
+          },
+          onLeaveBack: () => {
+            // Reset when scrolling back up past the section
+            gsap.set(timelineItems, { opacity: 0, y: 40 });
           },
         });
       }
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.refresh();
+    };
   }, [activeTab]); // Re-run when tab changes
 
   return (
     <section
       ref={sectionRef}
       id={'education'}
-      className='w-full relative select-none'
+      className="w-full relative select-none"
     >
-      <div className='section-container pt-10 md:pt-20 pb-6 md:pb-10 relative'>
+      <div className="section-container pt-10 md:pt-20 pb-6 md:pb-10 relative">
         {/* Animated floating book SVG on the right - matching gold color scheme */}
         <motion.div
-          className='hidden md:block absolute right-0 top-[-3rem] pointer-events-none'
+          className="hidden md:block absolute right-0 top-[-3rem] pointer-events-none"
           style={{ width: '220px' }}
           animate={{
             y: [0, -15, 0],
@@ -119,51 +151,63 @@ const EducationSection = () => {
           }}
         >
           <svg
-            width='220px'
-            height='220px'
-            viewBox='0 0 100 100'
-            xmlns='http://www.w3.org/2000/svg'
+            width="220px"
+            height="220px"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
-              <filter id='bookGlow' x='-50%' y='-50%' width='200%' height='200%'>
-                <feGaussianBlur stdDeviation='2' result='coloredBlur' />
+              <filter
+                id="bookGlow"
+                x="-50%"
+                y="-50%"
+                width="200%"
+                height="200%"
+              >
+                <feGaussianBlur stdDeviation="2" result="coloredBlur" />
                 <feMerge>
-                  <feMergeNode in='coloredBlur' />
-                  <feMergeNode in='SourceGraphic' />
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
-              <linearGradient id='bookGradient' x1='0%' y1='0%' x2='100%' y2='100%'>
-                <stop offset='0%' stopColor='#efc041' />
-                <stop offset='50%' stopColor='#eeba2c' />
-                <stop offset='100%' stopColor='#d4a429' />
+              <linearGradient
+                id="bookGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#efc041" />
+                <stop offset="50%" stopColor="#eeba2c" />
+                <stop offset="100%" stopColor="#d4a429" />
               </linearGradient>
             </defs>
 
-            <g opacity='0.7'>
+            <g opacity="0.7">
               {/* Book spine */}
               <motion.path
-                d='M20 25 L50 20 L50 80 L20 85 Z'
-                fill='rgba(239, 192, 65, 0.15)'
-                stroke='url(#bookGradient)'
-                strokeWidth='1.5'
-                filter='url(#bookGlow)'
+                d="M20 25 L50 20 L50 80 L20 85 Z"
+                fill="rgba(239, 192, 65, 0.15)"
+                stroke="url(#bookGradient)"
+                strokeWidth="1.5"
+                filter="url(#bookGlow)"
               />
 
               {/* Book back cover */}
               <motion.path
-                d='M50 20 L80 25 L80 85 L50 80 Z'
-                fill='rgba(238, 186, 44, 0.1)'
-                stroke='url(#bookGradient)'
-                strokeWidth='1.5'
+                d="M50 20 L80 25 L80 85 L50 80 Z"
+                fill="rgba(238, 186, 44, 0.1)"
+                stroke="url(#bookGradient)"
+                strokeWidth="1.5"
               />
 
               {/* Animated pages */}
               <motion.path
-                d='M50 22 L75 26 L75 82 L50 78 Z'
-                fill='rgba(239, 192, 65, 0.05)'
-                stroke='#efc041'
-                strokeWidth='0.5'
-                strokeOpacity='0.4'
+                d="M50 22 L75 26 L75 82 L50 78 Z"
+                fill="rgba(239, 192, 65, 0.05)"
+                stroke="#efc041"
+                strokeWidth="0.5"
+                strokeOpacity="0.4"
                 animate={{
                   d: [
                     'M50 22 L75 26 L75 82 L50 78 Z',
@@ -171,15 +215,20 @@ const EducationSection = () => {
                     'M50 22 L75 26 L75 82 L50 78 Z',
                   ],
                 }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 0.5,
+                }}
               />
 
               <motion.path
-                d='M50 23 L72 27 L72 81 L50 77 Z'
-                fill='rgba(238, 186, 44, 0.08)'
-                stroke='#eeba2c'
-                strokeWidth='0.5'
-                strokeOpacity='0.5'
+                d="M50 23 L72 27 L72 81 L50 77 Z"
+                fill="rgba(238, 186, 44, 0.08)"
+                stroke="#eeba2c"
+                strokeWidth="0.5"
+                strokeOpacity="0.5"
                 animate={{
                   d: [
                     'M50 23 L72 27 L72 81 L50 77 Z',
@@ -187,15 +236,20 @@ const EducationSection = () => {
                     'M50 23 L72 27 L72 81 L50 77 Z',
                   ],
                 }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 0.3,
+                }}
               />
 
               <motion.path
-                d='M50 24 L70 28 L70 80 L50 76 Z'
-                fill='rgba(212, 164, 41, 0.1)'
-                stroke='#d4a429'
-                strokeWidth='0.8'
-                strokeOpacity='0.6'
+                d="M50 24 L70 28 L70 80 L50 76 Z"
+                fill="rgba(212, 164, 41, 0.1)"
+                stroke="#d4a429"
+                strokeWidth="0.8"
+                strokeOpacity="0.6"
                 animate={{
                   d: [
                     'M50 24 L70 28 L70 80 L50 76 Z',
@@ -206,59 +260,138 @@ const EducationSection = () => {
                   ],
                   opacity: [1, 0.8, 1, 0.8, 1],
                 }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
               />
 
               {/* Text lines */}
               <motion.g
                 animate={{ opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
               >
-                <line x1='25' y1='35' x2='45' y2='33' stroke='#efc041' strokeWidth='0.8' opacity='0.5' />
-                <line x1='25' y1='42' x2='43' y2='40' stroke='#eeba2c' strokeWidth='0.8' opacity='0.4' />
-                <line x1='25' y1='49' x2='44' y2='47' stroke='#d4a429' strokeWidth='0.8' opacity='0.5' />
-                <line x1='25' y1='56' x2='42' y2='54' stroke='#efc041' strokeWidth='0.8' opacity='0.4' />
-                <line x1='25' y1='63' x2='45' y2='61' stroke='#eeba2c' strokeWidth='0.8' opacity='0.5' />
-                <line x1='25' y1='70' x2='40' y2='68' stroke='#d4a429' strokeWidth='0.8' opacity='0.4' />
+                <line
+                  x1="25"
+                  y1="35"
+                  x2="45"
+                  y2="33"
+                  stroke="#efc041"
+                  strokeWidth="0.8"
+                  opacity="0.5"
+                />
+                <line
+                  x1="25"
+                  y1="42"
+                  x2="43"
+                  y2="40"
+                  stroke="#eeba2c"
+                  strokeWidth="0.8"
+                  opacity="0.4"
+                />
+                <line
+                  x1="25"
+                  y1="49"
+                  x2="44"
+                  y2="47"
+                  stroke="#d4a429"
+                  strokeWidth="0.8"
+                  opacity="0.5"
+                />
+                <line
+                  x1="25"
+                  y1="56"
+                  x2="42"
+                  y2="54"
+                  stroke="#efc041"
+                  strokeWidth="0.8"
+                  opacity="0.4"
+                />
+                <line
+                  x1="25"
+                  y1="63"
+                  x2="45"
+                  y2="61"
+                  stroke="#eeba2c"
+                  strokeWidth="0.8"
+                  opacity="0.5"
+                />
+                <line
+                  x1="25"
+                  y1="70"
+                  x2="40"
+                  y2="68"
+                  stroke="#d4a429"
+                  strokeWidth="0.8"
+                  opacity="0.4"
+                />
               </motion.g>
 
               {/* Sparkles */}
               <motion.circle
-                cx='75' cy='30' r='1.5' fill='#efc041'
+                cx="75"
+                cy="30"
+                r="1.5"
+                fill="#efc041"
                 animate={{ opacity: [0, 1, 0], scale: [0.5, 1.2, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
               />
               <motion.circle
-                cx='25' cy='75' r='1' fill='#eeba2c'
+                cx="25"
+                cy="75"
+                r="1"
+                fill="#eeba2c"
                 animate={{ opacity: [0, 1, 0], scale: [0.5, 1.2, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 0.7,
+                }}
               />
               <motion.circle
-                cx='65' cy='70' r='1.2' fill='#d4a429'
+                cx="65"
+                cy="70"
+                r="1.2"
+                fill="#d4a429"
                 animate={{ opacity: [0, 1, 0], scale: [0.5, 1.2, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1.4 }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 1.4,
+                }}
               />
             </g>
           </svg>
         </motion.div>
 
         {/* Header + Tabs */}
-        <div className='flex flex-col items-start text-left mb-10'>
-          <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base'>
+        <div className="flex flex-col items-start text-left mb-10">
+          <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base">
             EDUCATION & CERTIFICATIONS
           </p>
-          <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal'>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal">
             Learning Journey
           </h2>
-          <p className='text-base sm:text-lg md:text-xl font-medium md:max-w-lg w-full mt-3 text-gray-light-4 dark:text-gray-light-3 staggered-reveal'>
+          <p className="text-base sm:text-lg md:text-xl font-medium md:max-w-lg w-full mt-3 text-gray-light-4 dark:text-gray-light-3 staggered-reveal">
             My educational background and professional certifications.
           </p>
           {/* Clean minimal tabs */}
-          <div className='mt-8 w-full flex justify-center'>
-            <div className='relative bg-gray-light-2/80 dark:bg-gray-dark-3/50 backdrop-blur-sm rounded-full p-1 flex max-w-md w-full border border-gray-light-2 dark:border-gray-dark-2/50'>
+          <div className="mt-8 w-full flex justify-center">
+            <div className="relative bg-gray-light-2/80 dark:bg-gray-dark-3/50 backdrop-blur-sm rounded-full p-1 flex max-w-md w-full border border-gray-light-2 dark:border-gray-dark-2/50">
               {/* Animated indicator */}
               <motion.div
-                className='absolute top-1 bottom-1 rounded-full bg-gradient-to-r from-[#efc041] to-[#eeba2c]'
+                className="absolute top-1 bottom-1 rounded-full bg-gradient-to-r from-[#efc041] to-[#eeba2c]"
                 initial={false}
                 animate={{
                   left:
@@ -304,25 +437,25 @@ const EducationSection = () => {
         </div>
 
         {/* Timeline list (single column, tabbed) */}
-        <div className='relative max-w-4xl mx-auto'>
+        <div className="relative max-w-4xl mx-auto">
           {/* Center Vertical line (desktop only) */}
-          <div className='hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-[#eeba2c]' />
+          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-[#eeba2c]" />
 
           <motion.div
             key={activeTab}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className='space-y-8'
+            className="space-y-8"
           >
             {(activeTab === 'education'
               ? EDUCATION_CONTENTS
               : CERTIFICATION_CONTENTS
             ).map((item, index) => (
-              <div key={`${activeTab}-${index}`} className='relative md:pl-0'>
+              <div key={`${activeTab}-${index}`} className="relative md:pl-0">
                 {/* Dot aligned to center line for each card */}
                 <motion.span
-                  className='hidden md:block absolute left-[49.4%]  -translate-x-1/2 -translate-y-1/2 top-6 h-3 w-3 rounded-full bg-[#eeba2c] shadow-[0_0_0_4px_rgba(238,186,44,0.2)] '
+                  className="hidden md:block absolute left-[49.4%]  -translate-x-1/2 -translate-y-1/2 top-6 h-3 w-3 rounded-full bg-[#eeba2c] shadow-[0_0_0_4px_rgba(238,186,44,0.2)] "
                   animate={{
                     scale: [1, 1.3, 1],
                     boxShadow: [
@@ -356,15 +489,19 @@ const EducationSection = () => {
                     borderColor: '#eeba2c',
                   }}
                 >
-                  <p className='text-[#eeba2c] text-sm font-semibold'>
+                  <p className="text-[#eeba2c] text-sm font-semibold">
                     {item.year}
                   </p>
-                  <h4 className='text-lg font-bold mt-1 text-gray-dark-1 dark:text-white'>{item.title}</h4>
+                  <h4 className="text-lg font-bold mt-1 text-gray-dark-1 dark:text-white">
+                    {item.title}
+                  </h4>
                   {item.institute && (
-                    <p className='text-gray-light-4 dark:text-gray-light-2 text-sm'>{item.institute}</p>
+                    <p className="text-gray-light-4 dark:text-gray-light-2 text-sm">
+                      {item.institute}
+                    </p>
                   )}
                   {item.description && (
-                    <p className='mt-3 text-gray-light-4 dark:text-gray-light-2 text-sm leading-relaxed'>
+                    <p className="mt-3 text-gray-light-4 dark:text-gray-light-2 text-sm leading-relaxed">
                       {item.description}
                     </p>
                   )}

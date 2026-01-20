@@ -1,0 +1,194 @@
+/* Accessibility Enhancements */
+
+/* Focus Visible Styles */
+*:focus-visible {
+  outline: 2px solid #efc041;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip to content link - hidden by default, visible on focus */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 12px 16px;
+  text-decoration: none;
+  z-index: 10000;
+  border: 2px solid #efc041;
+  border-radius: 0 0 4px 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    top 0.2s ease,
+    opacity 0.2s ease;
+  font-weight: 600;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor !important;
+  }
+
+  button,
+  a {
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus trap for modals */
+.focus-trap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+
+/* Aria live regions */
+[aria-live] {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+[aria-live='polite'] {
+  position: relative;
+  left: auto;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+/* Keyboard navigation indicators */
+.keyboard-nav *:focus-visible {
+  outline: 2px solid #efc041;
+  outline-offset: 2px;
+}
+
+/* Touch targets - minimum 44x44px */
+button,
+a,
+input[type='checkbox'],
+input[type='radio'] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Enhanced button states */
+button:disabled,
+button[aria-disabled='true'] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Link focus states */
+a:focus-visible {
+  outline: 2px solid #efc041;
+  outline-offset: 2px;
+  text-decoration: underline;
+}
+
+/* Form field focus states */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #efc041;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(239, 192, 65, 0.2);
+}
+
+/* Error states */
+input[aria-invalid='true'],
+textarea[aria-invalid='true'],
+select[aria-invalid='true'] {
+  border-color: #ef4444;
+}
+
+input[aria-invalid='true']:focus-visible,
+textarea[aria-invalid='true']:focus-visible,
+select[aria-invalid='true']:focus-visible {
+  outline-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+/* Loading states */
+[aria-busy='true'] {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+/* Hidden content that should be visible to screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Ensure semantic HTML elements have proper spacing */
+main:focus {
+  outline: none;
+}
+
+/* Heading hierarchy helpers */
+h1 + h2,
+h2 + h3,
+h3 + h4 {
+  margin-top: 0;
+}
+
+/* Improved contrast for text */
+@media (prefers-contrast: high) {
+  .text-gray-400 {
+    color: #9ca3af !important;
+  }
+
+  .text-gray-500 {
+    color: #6b7280 !important;
+  }
+}

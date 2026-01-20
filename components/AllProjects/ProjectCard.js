@@ -222,15 +222,15 @@ export default function ProjectCard({ project }) {
     .replace(/\s+/g, '-')}`;
 
   return (
-    <Link href={projectUrl} className='block'>
+    <Link href={projectUrl} className="block">
       <motion.div
         ref={cardRef}
-        className='
+        className="
           group relative z-10 flex flex-col
           bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 border border-[#efc041]/20
           overflow-hidden transition-all duration-300
           hover:border-[#efc041]/40
-        '
+        "
         style={{
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
           transformStyle: 'preserve-3d',
@@ -242,7 +242,7 @@ export default function ProjectCard({ project }) {
         {/* Animated Glow Effect */}
         <div
           ref={glowRef}
-          className='absolute w-64 h-64 rounded-full opacity-0 pointer-events-none blur-3xl -z-10'
+          className="absolute w-64 h-64 rounded-full opacity-0 pointer-events-none blur-3xl -z-10"
           style={{
             background: `radial-gradient(circle, rgba(239, 192, 65, 0.4), rgba(239, 192, 65, 0.2), transparent 70%)`,
             left: '50%',
@@ -254,7 +254,7 @@ export default function ProjectCard({ project }) {
         {/* Shimmer Effect */}
         <div
           ref={shimmerRef}
-          className='absolute inset-0 opacity-30 pointer-events-none'
+          className="absolute inset-0 opacity-30 pointer-events-none"
           style={{
             background:
               'linear-gradient(110deg, transparent 40%, rgba(239, 192, 65, 0.3) 50%, transparent 60%)',
@@ -263,42 +263,42 @@ export default function ProjectCard({ project }) {
         />
 
         {/* Image Container - Clean, full width */}
-        <div className='relative w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-[#000]'>
+        <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-[#000]">
           <div
             ref={imageRef}
-            className='absolute inset-0 bg-cover bg-center'
+            className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage: `url(${project.heroSection})`,
             }}
           />
           {/* Subtle gradient overlay */}
-          <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent' />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
           {/* Dynamic hover overlay effect */}
-          <div className='absolute inset-0 bg-gradient-to-br from-[#efc041]/0 to-[#efc041]/0 group-hover:from-[#efc041]/15 group-hover:to-transparent transition-all duration-700' />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#efc041]/0 to-[#efc041]/0 group-hover:from-[#efc041]/15 group-hover:to-transparent transition-all duration-700" />
 
           {/* Arrow indicator - bottom right */}
-          <div className='absolute bottom-4 right-4 z-10'>
+          <div className="absolute bottom-4 right-4 z-10">
             <motion.div
               whileHover={{ scale: 1.1, rotate: 12 }}
-              className='flex items-center justify-center w-12 h-12 rounded-full bg-[#efc041] opacity-0 shadow-lg shadow-[#efc041]/30'
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-[#efc041] opacity-0 shadow-lg shadow-[#efc041]/30"
             >
-              <Image src={allprojectarrow} alt='arrow' width={18} height={18} />
+              <Image src={allprojectarrow} alt="arrow" width={18} height={18} />
             </motion.div>
           </div>
         </div>
 
         {/* Content Section */}
-        <div className='p-4 sm:p-6 bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 flex-1 flex flex-col'>
+        <div className="p-4 sm:p-6 bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 flex-1 flex flex-col">
           <h3
             ref={titleRef}
-            className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-dark-1 dark:text-white mb-3 leading-tight transition-colors duration-300'
+            className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-dark-1 dark:text-white mb-3 leading-tight transition-colors duration-300"
           >
             {project.name}
           </h3>
           <p
             ref={descriptionRef}
-            className='text-xs sm:text-sm md:text-sm text-gray-light-4 dark:text-gray-light-2 mb-4 line-clamp-3 leading-relaxed flex-1'
+            className="text-xs sm:text-sm md:text-sm text-gray-light-4 dark:text-gray-light-2 mb-4 line-clamp-3 leading-relaxed flex-1"
           >
             {project.description}
           </p>
@@ -306,25 +306,25 @@ export default function ProjectCard({ project }) {
           {/* Tech Stack */}
           <div
             ref={techRef}
-            className='flex gap-2 items-center flex-wrap pt-3 border-t border-[#efc041]/20'
+            className="flex gap-2 items-center flex-wrap pt-3 border-t border-[#efc041]/20"
           >
             {project?.tech?.slice(0, 6).map(el => (
               <motion.div
                 key={el}
                 whileHover={{ scale: 1.15, rotate: 5 }}
-                className='flex items-center justify-center w-9 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-all duration-300'
+                className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-all duration-300"
               >
                 <Image
                   src={`/projects/tech/${el}.svg`}
                   alt={el}
                   width={16}
                   height={16}
-                  className='opacity-80 group-hover:opacity-100 transition-opacity duration-300'
+                  className="opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                 />
               </motion.div>
             ))}
             {project?.tech?.length > 6 && (
-              <div className='flex items-center justify-center px-3 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 text-gray-light-4 dark:text-gray-500 text-xs font-medium'>
+              <div className="flex items-center justify-center px-3 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 text-gray-light-4 dark:text-gray-500 text-xs font-medium">
                 +{project.tech.length - 6}
               </div>
             )}
@@ -332,10 +332,10 @@ export default function ProjectCard({ project }) {
         </div>
 
         {/* Animated border glow on hover */}
-        <div className='absolute inset-0 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-colors duration-500 pointer-events-none' />
+        <div className="absolute inset-0 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-colors duration-500 pointer-events-none" />
 
         {/* Pulsing border animation */}
-        <div className='absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/20 transition-all duration-700 pointer-events-none animate-pulse' />
+        <div className="absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/20 transition-all duration-700 pointer-events-none animate-pulse" />
       </motion.div>
     </Link>
   );

@@ -46,25 +46,26 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className='p-6 sm:p-8 md:p-10 mt-12 md:mt-20 section-container'>
+    <div className="p-6 sm:p-8 md:p-10 mt-12 md:mt-20 section-container">
       <motion.div
-        className='mb-8 md:mb-12'
+        className="mb-8 md:mb-12"
         initial="hidden"
         animate="visible"
         variants={headerVariants}
       >
-        <p className='uppercase tracking-widest text-gray-light-4 dark:text-gray-light-1 text-xs sm:text-sm md:text-base mb-2'>
+        <p className="uppercase tracking-widest text-gray-light-4 dark:text-gray-light-1 text-xs sm:text-sm md:text-base mb-2">
           PORTFOLIO
         </p>
-        <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-light-text-primary dark:text-white mb-3'>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-light-text-primary dark:text-white mb-3">
           All Projects
         </h1>
-        <p className='text-base sm:text-lg text-gray-light-4 dark:text-gray-light-2 max-w-2xl'>
-          Here you can see all my projects. Each one represents a unique challenge and creative solution.
+        <p className="text-base sm:text-lg text-gray-light-4 dark:text-gray-light-2 max-w-2xl">
+          Here you can see all my projects. Each one represents a unique
+          challenge and creative solution.
         </p>
       </motion.div>
       <motion.div
-        className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8'
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

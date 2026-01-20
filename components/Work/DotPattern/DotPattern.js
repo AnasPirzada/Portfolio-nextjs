@@ -1,5 +1,5 @@
-import { useId } from "react";
-import { cn } from "utils/cn";
+import { useId } from 'react';
+import { cn } from 'utils/cn';
 
 const DotPattern = ({
   width = 16,
@@ -18,7 +18,7 @@ const DotPattern = ({
     <svg
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-0 h-full w-full fill-[#a3a3a3]/80",
+        'pointer-events-none absolute inset-0 h-full w-full fill-[#a3a3a3]/80',
         className
       )}
       {...props}

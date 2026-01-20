@@ -9,12 +9,12 @@ export const translations = {
       work: 'Work',
       blogs: 'Blogs',
       contact: 'Contact',
-      resume: 'Resume'
+      resume: 'Resume',
     },
     hero: {
       greeting: 'Hi, My Name is',
       name: 'Anas Pirzada',
-      letsTalk: "Let's Talk"
+      letsTalk: "Let's Talk",
     },
     about: {
       title: 'About Me',
@@ -25,22 +25,24 @@ export const translations = {
       reactApps: 'React.js',
       mlSolutions: 'Machine Learning',
       aiIntegration: 'AI integration',
-      strong: 'strong'
+      strong: 'strong',
     },
     skills: {
       title: 'My Skills',
       subtitle: 'SKILLS',
-      description: 'I like to take responsibility to craft aesthetic user experience using modern frontend architecture.',
+      description:
+        'I like to take responsibility to craft aesthetic user experience using modern frontend architecture.',
       languagesTools: 'LANGUAGES AND TOOLS',
       librariesFrameworks: 'LIBRARIES AND FRAMEWORKS',
       databases: 'DATABASES',
-      other: 'Other'
+      other: 'Other',
     },
     projects: {
       title: 'My Projects',
       subtitle: 'PROJECTS',
-      description: "Some things I've built with love, expertise and a pinch of magical ingredients.",
-      viewAll: 'View All Projects'
+      description:
+        "Some things I've built with love, expertise and a pinch of magical ingredients.",
+      viewAll: 'View All Projects',
     },
     work: {
       title: 'Experience',
@@ -48,13 +50,13 @@ export const translations = {
       description: 'A detailed look at my professional journey.',
       keyAchievements: 'Key Achievements',
       impactMetrics: 'Impact Metrics',
-      technologiesUsed: 'Technologies Used'
+      technologiesUsed: 'Technologies Used',
     },
     education: {
       title: 'Learning Journey',
       subtitle: 'EDUCATION & CERTIFICATIONS',
       educationTab: 'Education',
-      certificationsTab: 'Certifications'
+      certificationsTab: 'Certifications',
     },
     contact: {
       title: 'Contact',
@@ -68,16 +70,17 @@ export const translations = {
       error: 'Error sending your message',
       emptyFields: 'Please fill the required fields',
       invalidEmail: 'Please enter a valid email address',
-      rateLimit: 'Please wait before submitting again'
+      rateLimit: 'Please wait before submitting again',
     },
     reviews: {
       title: 'Client Reviews',
       subtitle: 'TESTIMONIALS',
-      description: 'Trusted by industry leaders. See what clients say about working with me.',
+      description:
+        'Trusted by industry leaders. See what clients say about working with me.',
       yearsExperience: 'Years Experience',
       happyClients: 'Happy Clients',
       averageRating: 'Average Rating',
-      projectsCompleted: 'Projects'
+      projectsCompleted: 'Projects',
     },
     collaboration: {
       interested: 'Interested in',
@@ -85,10 +88,11 @@ export const translations = {
       letsCollaborate: "Let's Collaborate",
       projects: 'Projects',
       clients: 'Clients',
-      yearsExp: 'Years Exp'
+      yearsExp: 'Years Exp',
     },
     footer: {
-      description: 'Full Stack Developer & AI Integration Specialist crafting innovative web solutions with modern technologies.',
+      description:
+        'Full Stack Developer & AI Integration Specialist crafting innovative web solutions with modern technologies.',
       availableForWork: 'Available for freelance work',
       quickLinks: 'Quick Links',
       services: 'Services',
@@ -98,21 +102,22 @@ export const translations = {
       subscribe: 'Subscribe',
       craftedWith: 'Crafted with',
       ctaTitle: "Let's Build Something Amazing Together",
-      ctaDescription: "Have a project in mind? Let's discuss how we can bring your ideas to life.",
+      ctaDescription:
+        "Have a project in mind? Let's discuss how we can bring your ideas to life.",
       getInTouch: 'Get In Touch',
       webDev: 'Web Development',
       uiux: 'UI/UX Design',
       apiDev: 'API Development',
       fullStack: 'Full Stack Solutions',
-      aiIntegration: 'AI Integration'
+      aiIntegration: 'AI Integration',
     },
     common: {
       loading: 'Loading...',
       error: 'Something went wrong',
       contactUs: 'Contact Us',
       viewMore: 'View More',
-      goToHome: 'Go to home page'
-    }
+      goToHome: 'Go to home page',
+    },
   },
   ar: {
     nav: {
@@ -124,12 +129,12 @@ export const translations = {
       work: 'الخبرات',
       blogs: 'المدونة',
       contact: 'تواصل',
-      resume: 'السيرة الذاتية'
+      resume: 'السيرة الذاتية',
     },
     hero: {
       greeting: 'مرحباً، اسمي',
       name: 'أنس بيرزادا',
-      letsTalk: 'لنتحدث'
+      letsTalk: 'لنتحدث',
     },
     about: {
       title: 'عني',
@@ -140,22 +145,24 @@ export const translations = {
       reactApps: 'React.js',
       mlSolutions: 'تعلم الآلة',
       aiIntegration: 'دمج الذكاء الاصطناعي',
-      strong: 'قوي'
+      strong: 'قوي',
     },
     skills: {
       title: 'مهاراتي',
       subtitle: 'المهارات',
-      description: 'أحب تحمل المسؤولية لصياغة تجربة مستخدم جمالية باستخدام بنية الواجهة الأمامية الحديثة.',
+      description:
+        'أحب تحمل المسؤولية لصياغة تجربة مستخدم جمالية باستخدام بنية الواجهة الأمامية الحديثة.',
       languagesTools: 'اللغات والأدوات',
       librariesFrameworks: 'المكتبات وأطر العمل',
       databases: 'قواعد البيانات',
-      other: 'أخرى'
+      other: 'أخرى',
     },
     projects: {
       title: 'مشاريعي',
       subtitle: 'المشاريع',
-      description: 'بعض الأشياء التي بنيتها بحب وخبرة ولمسة من المكونات السحرية.',
-      viewAll: 'عرض جميع المشاريع'
+      description:
+        'بعض الأشياء التي بنيتها بحب وخبرة ولمسة من المكونات السحرية.',
+      viewAll: 'عرض جميع المشاريع',
     },
     work: {
       title: 'الخبرات',
@@ -163,13 +170,13 @@ export const translations = {
       description: 'نظرة تفصيلية على مسيرتي المهنية.',
       keyAchievements: 'الإنجازات الرئيسية',
       impactMetrics: 'مقاييس التأثير',
-      technologiesUsed: 'التقنيات المستخدمة'
+      technologiesUsed: 'التقنيات المستخدمة',
     },
     education: {
       title: 'رحلة التعلم',
       subtitle: 'التعليم والشهادات',
       educationTab: 'التعليم',
-      certificationsTab: 'الشهادات'
+      certificationsTab: 'الشهادات',
     },
     contact: {
       title: 'تواصل',
@@ -183,7 +190,7 @@ export const translations = {
       error: 'خطأ في إرسال رسالتك',
       emptyFields: 'يرجى ملء الحقول المطلوبة',
       invalidEmail: 'يرجى إدخال بريد إلكتروني صحيح',
-      rateLimit: 'يرجى الانتظار قبل الإرسال مرة أخرى'
+      rateLimit: 'يرجى الانتظار قبل الإرسال مرة أخرى',
     },
     reviews: {
       title: 'آراء العملاء',
@@ -192,7 +199,7 @@ export const translations = {
       yearsExperience: 'سنوات الخبرة',
       happyClients: 'عملاء سعداء',
       averageRating: 'متوسط التقييم',
-      projectsCompleted: 'المشاريع'
+      projectsCompleted: 'المشاريع',
     },
     collaboration: {
       interested: 'مهتم بـ',
@@ -200,10 +207,11 @@ export const translations = {
       letsCollaborate: 'لنتعاون',
       projects: 'المشاريع',
       clients: 'العملاء',
-      yearsExp: 'سنوات الخبرة'
+      yearsExp: 'سنوات الخبرة',
     },
     footer: {
-      description: 'مطور ويب متكامل ومتخصص في دمج الذكاء الاصطناعي يصنع حلول ويب مبتكرة بتقنيات حديثة.',
+      description:
+        'مطور ويب متكامل ومتخصص في دمج الذكاء الاصطناعي يصنع حلول ويب مبتكرة بتقنيات حديثة.',
       availableForWork: 'متاح للعمل الحر',
       quickLinks: 'روابط سريعة',
       services: 'الخدمات',
@@ -213,22 +221,23 @@ export const translations = {
       subscribe: 'اشترك',
       craftedWith: 'صنع بـ',
       ctaTitle: 'لنبني شيئاً مذهلاً معاً',
-      ctaDescription: 'هل لديك مشروع في ذهنك؟ لنناقش كيف يمكننا تحويل أفكارك إلى واقع.',
+      ctaDescription:
+        'هل لديك مشروع في ذهنك؟ لنناقش كيف يمكننا تحويل أفكارك إلى واقع.',
       getInTouch: 'تواصل معنا',
       webDev: 'تطوير الويب',
       uiux: 'تصميم واجهة المستخدم',
       apiDev: 'تطوير واجهات برمجة التطبيقات',
       fullStack: 'حلول متكاملة',
-      aiIntegration: 'دمج الذكاء الاصطناعي'
+      aiIntegration: 'دمج الذكاء الاصطناعي',
     },
     common: {
       loading: 'جاري التحميل...',
       error: 'حدث خطأ ما',
       contactUs: 'تواصل معنا',
       viewMore: 'عرض المزيد',
-      goToHome: 'الذهاب للصفحة الرئيسية'
-    }
-  }
+      goToHome: 'الذهاب للصفحة الرئيسية',
+    },
+  },
 };
 
 export default translations;

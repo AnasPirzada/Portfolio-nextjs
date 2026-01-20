@@ -308,20 +308,20 @@ export default function ProjectDetailPage() {
     return (
       <>
         <Meta
-          title='Project Not Found'
-          description='The requested project could not be found. Explore other projects by Anas Pirzada, Full Stack Developer & AI Expert.'
+          title="Project Not Found"
+          description="The requested project could not be found. Explore other projects by Anas Pirzada, Full Stack Developer & AI Expert."
         />
         <Header>
           <Menu />
         </Header>
         <ProgressIndicator />
         <Cursor isDesktop={isDesktop} />
-        <main className='flex flex-col min-h-screen items-center justify-center'>
-          <div className='text-center'>
-            <h1 className='text-6xl font-bold text-gradient mb-4'>404</h1>
-            <p className='text-xl text-gray-300 mb-8'>Project not found</p>
-            <Link href='/projects'>
-              <button className='px-6 py-3 bg-[#eeba2c] text-black font-semibold rounded-lg hover:bg-[#efc041] transition-colors'>
+        <main className="flex flex-col min-h-screen items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-6xl font-bold text-gradient mb-4">404</h1>
+            <p className="text-xl text-gray-300 mb-8">Project not found</p>
+            <Link href="/projects">
+              <button className="px-6 py-3 bg-[#eeba2c] text-black font-semibold rounded-lg hover:bg-[#efc041] transition-colors">
                 Back to Projects
               </button>
             </Link>
@@ -404,18 +404,18 @@ export default function ProjectDetailPage() {
         description={projectDescription}
         image={projectImage}
         url={projectUrl}
-        type='website'
+        type="website"
       />
 
       {/* Project Schema */}
       <script
-        type='application/ld+json'
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
       />
 
       {/* Breadcrumb Schema */}
       <script
-        type='application/ld+json'
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
@@ -424,43 +424,43 @@ export default function ProjectDetailPage() {
       </Header>
       <ProgressIndicator />
       <Cursor isDesktop={isDesktop} />
-      <main className='flex flex-col min-h-screen'>
+      <main className="flex flex-col min-h-screen">
         {/* Breadcrumb Navigation */}
-        <section className='pt-20 md:pt-24 pb-6 px-4 bg-gray-900'>
-          <div className='max-w-6xl mx-auto'>
-            <nav className='flex items-center space-x-2 text-sm'>
+        <section className="pt-20 md:pt-24 pb-6 px-4 bg-gray-900">
+          <div className="max-w-6xl mx-auto">
+            <nav className="flex items-center space-x-2 text-sm">
               <Link
-                href='/'
-                className='text-gray-400 hover:text-[#eeba2c] transition-colors'
+                href="/"
+                className="text-gray-400 hover:text-[#eeba2c] transition-colors"
               >
                 Home
               </Link>
-              <span className='text-gray-500'>›</span>
+              <span className="text-gray-500">›</span>
               <Link
-                href='/projects'
-                className='text-gray-400 hover:text-[#eeba2c] transition-colors'
+                href="/projects"
+                className="text-gray-400 hover:text-[#eeba2c] transition-colors"
               >
                 Portfolio
               </Link>
-              <span className='text-gray-500'>›</span>
-              <span className='text-white'>{project.name}</span>
+              <span className="text-gray-500">›</span>
+              <span className="text-white">{project.name}</span>
             </nav>
           </div>
         </section>
 
         {/* Hero Section */}
-        <section className='relative min-h-screen flex items-center justify-center overflow-hidden'>
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
           {/* Background with gradient overlay */}
-          <div className='absolute inset-0 z-0'>
+          <div className="absolute inset-0 z-0">
             <Image
               src={project.heroSection}
               alt={project.name}
               fill
-              className='object-cover'
+              className="object-cover"
               priority
             />
             <div
-              className='absolute inset-0'
+              className="absolute inset-0"
               style={{
                 background: `linear-gradient(135deg, ${project.gradient[0]}80, ${project.gradient[1]}80)`,
               }}
@@ -468,17 +468,17 @@ export default function ProjectDetailPage() {
           </div>
 
           {/* Content */}
-          <div className='relative z-10 text-center px-4 max-w-4xl mx-auto'>
+          <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
             <div>
               <h1
                 ref={heroTitleRef}
-                className='text-6xl md:text-8xl font-bold text-white mb-6 drop-shadow-2xl'
+                className="text-6xl md:text-8xl font-bold text-white mb-6 drop-shadow-2xl"
               >
                 {project.name}
               </h1>
               <p
                 ref={heroDescRef}
-                className='text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed'
+                className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed"
               >
                 {project.description}
               </p>
@@ -487,14 +487,14 @@ export default function ProjectDetailPage() {
               <div ref={heroButtonRef}>
                 <Link
                   href={project.url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='inline-block'
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block"
                 >
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className='px-8 py-4 bg-[#eeba2c] text-black font-bold text-lg rounded-lg hover:bg-[#efc041] transition-all duration-300 shadow-2xl hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)]'
+                    className="px-8 py-4 bg-[#eeba2c] text-black font-bold text-lg rounded-lg hover:bg-[#efc041] transition-all duration-300 shadow-2xl hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)]"
                   >
                     Live Website
                   </motion.button>
@@ -505,57 +505,57 @@ export default function ProjectDetailPage() {
 
           {/* Scroll indicator */}
           <motion.div
-            className='absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10'
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
             animate={{ y: [0, 10, 0] }}
             transition={{ repeat: Infinity, duration: 2 }}
           >
-            <div className='w-6 h-10 border-2 border-white rounded-full flex justify-center'>
-              <div className='w-1 h-3 bg-white rounded-full mt-2'></div>
+            <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-white rounded-full mt-2"></div>
             </div>
           </motion.div>
         </section>
 
         {/* Case Study Section */}
         {project.caseStudy && (
-          <section className='py-20 px-4 bg-gradient-to-b from-gray-900 to-black'>
-            <div className='max-w-6xl mx-auto'>
-              <div ref={caseStudyTitleRef} className='text-center mb-16'>
-                <p className='uppercase tracking-widest text-gray-400 mb-4'>
+          <section className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black">
+            <div className="max-w-6xl mx-auto">
+              <div ref={caseStudyTitleRef} className="text-center mb-16">
+                <p className="uppercase tracking-widest text-gray-400 mb-4">
                   CASE STUDY
                 </p>
-                <h2 className='text-4xl md:text-5xl font-bold text-white mb-4'>
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
                   Problem → Solution → Impact
                 </h2>
               </div>
 
               <div
                 ref={caseStudyCardsRef}
-                className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16'
+                className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16"
               >
                 {/* Problem */}
-                <div className='bg-gradient-to-br from-red-500/10 to-red-900/5 rounded-2xl p-8 border-2 border-red-500/20 hover:border-red-500/40 transition-all'>
-                  <h3 className='text-2xl font-bold text-white mb-4'>
+                <div className="bg-gradient-to-br from-red-500/10 to-red-900/5 rounded-2xl p-8 border-2 border-red-500/20 hover:border-red-500/40 transition-all">
+                  <h3 className="text-2xl font-bold text-white mb-4">
                     Problem
                   </h3>
-                  <p className='text-gray-300 leading-relaxed'>
+                  <p className="text-gray-300 leading-relaxed">
                     {project.caseStudy.problem}
                   </p>
                 </div>
 
                 {/* Solution */}
-                <div className='bg-gradient-to-br from-blue-500/10 to-blue-900/5 rounded-2xl p-8 border-2 border-blue-500/20 hover:border-blue-500/40 transition-all'>
-                  <h3 className='text-2xl font-bold text-white mb-4'>
+                <div className="bg-gradient-to-br from-blue-500/10 to-blue-900/5 rounded-2xl p-8 border-2 border-blue-500/20 hover:border-blue-500/40 transition-all">
+                  <h3 className="text-2xl font-bold text-white mb-4">
                     Solution
                   </h3>
-                  <p className='text-gray-300 leading-relaxed'>
+                  <p className="text-gray-300 leading-relaxed">
                     {project.caseStudy.solution}
                   </p>
                 </div>
 
                 {/* Impact */}
-                <div className='bg-gradient-to-br from-green-500/10 to-green-900/5 rounded-2xl p-8 border-2 border-green-500/20 hover:border-green-500/40 transition-all'>
-                  <h3 className='text-2xl font-bold text-white mb-4'>Impact</h3>
-                  <p className='text-gray-300 leading-relaxed'>
+                <div className="bg-gradient-to-br from-green-500/10 to-green-900/5 rounded-2xl p-8 border-2 border-green-500/20 hover:border-green-500/40 transition-all">
+                  <h3 className="text-2xl font-bold text-white mb-4">Impact</h3>
+                  <p className="text-gray-300 leading-relaxed">
                     {project.caseStudy.impact}
                   </p>
                 </div>
@@ -565,19 +565,19 @@ export default function ProjectDetailPage() {
               {project.caseStudy.metrics &&
                 project.caseStudy.metrics.length > 0 && (
                   <div ref={metricsRef}>
-                    <h3 className='text-3xl font-bold text-white text-center mb-8'>
+                    <h3 className="text-3xl font-bold text-white text-center mb-8">
                       Key Metrics
                     </h3>
-                    <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                       {project.caseStudy.metrics.map((metric, index) => (
                         <div
                           key={index}
-                          className='metric-item bg-gradient-to-br from-[#efc041]/10 to-[#eeba2c]/5 rounded-xl p-6 border border-[#efc041]/20 hover:border-[#efc041]/40 transition-all text-center'
+                          className="metric-item bg-gradient-to-br from-[#efc041]/10 to-[#eeba2c]/5 rounded-xl p-6 border border-[#efc041]/20 hover:border-[#efc041]/40 transition-all text-center"
                         >
-                          <div className='text-3xl md:text-4xl font-bold text-[#efc041] mb-2'>
+                          <div className="text-3xl md:text-4xl font-bold text-[#efc041] mb-2">
                             {metric.value}
                           </div>
-                          <div className='text-sm text-gray-400 uppercase tracking-wide'>
+                          <div className="text-sm text-gray-400 uppercase tracking-wide">
                             {metric.label}
                           </div>
                         </div>
@@ -590,41 +590,41 @@ export default function ProjectDetailPage() {
         )}
 
         {/* Project Details Section */}
-        <section className='py-20 px-4 bg-black'>
-          <div className='max-w-6xl mx-auto'>
+        <section className="py-20 px-4 bg-black">
+          <div className="max-w-6xl mx-auto">
             <div
               ref={projectDetailsRef}
-              className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'
+              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
             >
               {/* Project Image */}
-              <div className='relative'>
-                <div className='relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl'>
+              <div className="relative">
+                <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src={project.image}
                     alt={project.name}
                     fill
-                    className='object-cover'
+                    className="object-cover"
                   />
                 </div>
               </div>
 
               {/* Project Info */}
-              <div className='space-y-8'>
+              <div className="space-y-8">
                 <div>
-                  <h2 className='text-4xl font-bold text-white mb-4'>
+                  <h2 className="text-4xl font-bold text-white mb-4">
                     Project Overview
                   </h2>
-                  <p className='text-lg text-gray-300 leading-relaxed'>
+                  <p className="text-lg text-gray-300 leading-relaxed">
                     {project.description}
                   </p>
                 </div>
 
                 {/* Tech Stack */}
                 <div>
-                  <h3 className='text-2xl font-semibold text-white mb-4'>
+                  <h3 className="text-2xl font-semibold text-white mb-4">
                     Technologies Used
                   </h3>
-                  <div className='flex flex-wrap gap-4'>
+                  <div className="flex flex-wrap gap-4">
                     {project.tech?.map((tech, index) => (
                       <motion.div
                         key={tech}
@@ -632,7 +632,7 @@ export default function ProjectDetailPage() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         viewport={{ once: true }}
-                        className='flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg border border-white/20 hover:border-[#eeba2c] transition-colors'
+                        className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg border border-white/20 hover:border-[#eeba2c] transition-colors"
                       >
                         <Image
                           src={`/projects/tech/${tech}.svg`}
@@ -640,7 +640,7 @@ export default function ProjectDetailPage() {
                           width={24}
                           height={24}
                         />
-                        <span className='text-white font-medium capitalize'>
+                        <span className="text-white font-medium capitalize">
                           {tech.replace(/([A-Z])/g, ' $1').trim()}
                         </span>
                       </motion.div>
@@ -652,14 +652,14 @@ export default function ProjectDetailPage() {
                 <div>
                   <Link
                     href={project.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='inline-block'
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block"
                   >
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className='w-full px-8 py-4 bg-gradient-to-r from-[#eeba2c] to-[#efc041] text-black font-bold text-lg rounded-lg hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)] transition-all duration-300'
+                      className="w-full px-8 py-4 bg-gradient-to-r from-[#eeba2c] to-[#efc041] text-black font-bold text-lg rounded-lg hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)] transition-all duration-300"
                     >
                       Visit Live Website
                     </motion.button>
@@ -671,13 +671,13 @@ export default function ProjectDetailPage() {
         </section>
 
         {/* Project Information Grid */}
-        <section className='py-20 px-4 bg-gray-900'>
-          <div className='max-w-6xl mx-auto'>
-            <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-white mb-4'>
+        <section className="py-20 px-4 bg-gray-900">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4">
                 Project Information
               </h2>
-              <p className='text-lg text-gray-300 max-w-2xl mx-auto'>
+              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
                 Detailed information about the project, technologies used, and
                 development process.
               </p>
@@ -685,24 +685,24 @@ export default function ProjectDetailPage() {
 
             <div
               ref={projectInfoGridRef}
-              className='grid grid-cols-1 md:grid-cols-3 gap-8'
+              className="grid grid-cols-1 md:grid-cols-3 gap-8"
             >
               {/* Client */}
-              <div className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'>
-                <h3 className='text-xl font-semibold text-white mb-4'>
+              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors">
+                <h3 className="text-xl font-semibold text-white mb-4">
                   Client
                 </h3>
-                <p className='text-gray-300'>
+                <p className="text-gray-300">
                   {project.client || project.name}
                 </p>
               </div>
 
               {/* Services */}
-              <div className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'>
-                <h3 className='text-xl font-semibold text-white mb-4'>
+              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors">
+                <h3 className="text-xl font-semibold text-white mb-4">
                   Services
                 </h3>
-                <ul className='text-gray-300 space-y-2'>
+                <ul className="text-gray-300 space-y-2">
                   {project.services?.map((service, index) => (
                     <li key={index}>• {service}</li>
                   )) || (
@@ -717,15 +717,15 @@ export default function ProjectDetailPage() {
               </div>
 
               {/* Live Website */}
-              <div className='bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors'>
-                <h3 className='text-xl font-semibold text-white mb-4'>
+              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors">
+                <h3 className="text-xl font-semibold text-white mb-4">
                   Live Website
                 </h3>
                 <Link
                   href={project.url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-[#eeba2c] hover:text-[#efc041] transition-colors font-medium'
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#eeba2c] hover:text-[#efc041] transition-colors font-medium"
                 >
                   Visit Website →
                 </Link>
@@ -735,13 +735,13 @@ export default function ProjectDetailPage() {
         </section>
 
         {/* Work Experience Section */}
-        <section className='py-20 px-4 bg-black'>
-          <div className='max-w-6xl mx-auto'>
-            <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-white mb-4'>
+        <section className="py-20 px-4 bg-black">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4">
                 Work Experience
               </h2>
-              <p className='text-lg text-gray-300 max-w-3xl mx-auto'>
+              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                 This project showcases my expertise in modern web development,
                 combining cutting-edge technologies with user-centered design
                 principles.
@@ -750,20 +750,20 @@ export default function ProjectDetailPage() {
 
             <div
               ref={workExpRef}
-              className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'
+              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
             >
-              <div className='space-y-6'>
+              <div className="space-y-6">
                 <div>
-                  <h3 className='text-2xl font-semibold text-white mb-4'>
+                  <h3 className="text-2xl font-semibold text-white mb-4">
                     Development Process
                   </h3>
-                  <p className='text-gray-300 leading-relaxed mb-4'>
+                  <p className="text-gray-300 leading-relaxed mb-4">
                     The development of {project.name} involved a comprehensive
                     approach to modern web development. Starting with careful
                     planning and design, I implemented a robust architecture
                     using the latest technologies.
                   </p>
-                  <p className='text-gray-300 leading-relaxed'>
+                  <p className="text-gray-300 leading-relaxed">
                     The project demonstrates my ability to create scalable,
                     maintainable, and user-friendly web applications that meet
                     modern standards and provide exceptional user experiences.
@@ -771,10 +771,10 @@ export default function ProjectDetailPage() {
                 </div>
 
                 <div>
-                  <h3 className='text-2xl font-semibold text-white mb-4'>
+                  <h3 className="text-2xl font-semibold text-white mb-4">
                     Key Features
                   </h3>
-                  <ul className='text-gray-300 space-y-2'>
+                  <ul className="text-gray-300 space-y-2">
                     <li>• Responsive Design for all devices</li>
                     <li>• Modern UI/UX Implementation</li>
                     <li>• Optimized Performance</li>
@@ -784,13 +784,13 @@ export default function ProjectDetailPage() {
                 </div>
               </div>
 
-              <div className='relative'>
-                <div className='relative w-full h-80 rounded-2xl overflow-hidden shadow-2xl'>
+              <div className="relative">
+                <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src={project.heroSection}
                     alt={`${project.name} showcase`}
                     fill
-                    className='object-cover'
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -799,11 +799,11 @@ export default function ProjectDetailPage() {
         </section>
 
         {/* Services Section */}
-        <section className='py-20 px-4 bg-gray-900'>
-          <div className='max-w-6xl mx-auto'>
-            <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-white mb-4'>Services</h2>
-              <p className='text-lg text-gray-300 max-w-2xl mx-auto'>
+        <section className="py-20 px-4 bg-gray-900">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4">Services</h2>
+              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
                 Comprehensive web development services delivered with expertise
                 and attention to detail.
               </p>
@@ -811,7 +811,7 @@ export default function ProjectDetailPage() {
 
             <div
               ref={servicesRef}
-              className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
             >
               {(
                 project.services || [
@@ -823,9 +823,9 @@ export default function ProjectDetailPage() {
               ).map((service, index) => (
                 <div
                   key={service}
-                  className='bg-white/5 rounded-xl p-6 border border-white/10 hover:border-[#eeba2c] transition-colors text-center'
+                  className="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-[#eeba2c] transition-colors text-center"
                 >
-                  <h3 className='text-lg font-semibold text-white'>
+                  <h3 className="text-lg font-semibold text-white">
                     {service}
                   </h3>
                 </div>
@@ -835,26 +835,26 @@ export default function ProjectDetailPage() {
         </section>
 
         {/* Navigation Section */}
-        <section className='py-20 px-4 bg-black'>
-          <div ref={navigationRef} className='max-w-6xl mx-auto text-center'>
-            <h2 className='text-3xl font-bold text-white mb-8'>
+        <section className="py-20 px-4 bg-black">
+          <div ref={navigationRef} className="max-w-6xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-white mb-8">
               Explore More Projects
             </h2>
-            <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-              <Link href='/projects'>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/projects">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className='px-8 py-4 bg-transparent border-2 border-[#eeba2c] text-[#eeba2c] font-semibold rounded-lg hover:bg-[#eeba2c] hover:text-black transition-all duration-300'
+                  className="px-8 py-4 bg-transparent border-2 border-[#eeba2c] text-[#eeba2c] font-semibold rounded-lg hover:bg-[#eeba2c] hover:text-black transition-all duration-300"
                 >
                   View All Projects
                 </motion.button>
               </Link>
-              <Link href='/'>
+              <Link href="/">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className='px-8 py-4 bg-[#eeba2c] text-black font-semibold rounded-lg hover:bg-[#efc041] transition-all duration-300'
+                  className="px-8 py-4 bg-[#eeba2c] text-black font-semibold rounded-lg hover:bg-[#efc041] transition-all duration-300"
                 >
                   Back to Home
                 </motion.button>

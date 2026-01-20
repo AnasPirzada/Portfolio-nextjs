@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 
 const SoundBar = () => {
   const soundBarEl = useRef(null);
@@ -18,10 +18,14 @@ const SoundBar = () => {
           status: response.status,
           statusText: response.statusText,
           headers: Object.fromEntries(response.headers.entries()),
-          ok: response.ok
+          ok: response.ok,
         });
         if (!response.ok) {
-          console.error('Audio file not accessible:', response.status, response.statusText);
+          console.error(
+            'Audio file not accessible:',
+            response.status,
+            response.statusText
+          );
           setAudioError(true);
         } else {
           console.log('Audio file is accessible');
@@ -32,29 +36,32 @@ const SoundBar = () => {
       }
     };
 
-    const handleError = (e) => {
-      console.error("Audio error:", e);
-      console.error("Audio error details:", {
+    const handleError = e => {
+      console.error('Audio error:', e);
+      console.error('Audio error details:', {
         error: audio.error,
         code: audio.error?.code,
         message: audio.error?.message,
         networkState: audio.networkState,
         readyState: audio.readyState,
         src: audio.src,
-        currentSrc: audio.currentSrc
+        currentSrc: audio.currentSrc,
       });
-      
+
       // Log specific error codes
       if (audio.error) {
         const errorMessages = {
           1: 'MEDIA_ERR_ABORTED - The user aborted the audio',
           2: 'MEDIA_ERR_NETWORK - A network error occurred',
           3: 'MEDIA_ERR_DECODE - An error occurred while decoding',
-          4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - The audio source is not supported'
+          4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - The audio source is not supported',
         };
-        console.error('Error code meaning:', errorMessages[audio.error.code] || 'Unknown error');
+        console.error(
+          'Error code meaning:',
+          errorMessages[audio.error.code] || 'Unknown error'
+        );
       }
-      
+
       setAudioError(true);
     };
 
@@ -67,19 +74,19 @@ const SoundBar = () => {
       console.log('Audio data loaded:', {
         duration: audio.duration,
         readyState: audio.readyState,
-        networkState: audio.networkState
+        networkState: audio.networkState,
       });
       setAudioError(false);
     };
-    
+
     const handleLoadStart = () => {
       console.log('Audio load started');
     };
-    
+
     const handleStalled = () => {
       console.warn('Audio load stalled - network issue?');
     };
-    
+
     const handleSuspend = () => {
       console.warn('Audio load suspended');
     };
@@ -114,7 +121,7 @@ const SoundBar = () => {
         setIsPlaying(true);
       }
     } catch (error) {
-      console.error("Error playing audio:", error);
+      console.error('Error playing audio:', error);
       setIsPlaying(false);
       setAudioError(true);
     }
@@ -122,7 +129,7 @@ const SoundBar = () => {
 
   return (
     <div
-      className={`soundBars link top-1 right-14 flex items-center justify-center ${isPlaying ? "play" : ""}`}
+      className={`soundBars link top-1 right-14 flex items-center justify-center ${isPlaying ? 'play' : ''}`}
       onClick={togglePlayPause}
     >
       <span />

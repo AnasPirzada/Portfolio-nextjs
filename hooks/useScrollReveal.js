@@ -28,21 +28,63 @@ export const useScrollReveal = (config = {}) => {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      gsap.from(ref.current.querySelectorAll('.staggered-reveal'), {
-        opacity: 0,
-        y: 30,
+      const elements = ref.current.querySelectorAll('.staggered-reveal');
+      
+      if (elements.length === 0) return;
+
+      // Set initial state
+      gsap.set(elements, { opacity: 0, y: 30 });
+
+      // Create animation that can re-trigger
+      const animation = gsap.to(elements, {
+        opacity: 1,
+        y: 0,
         duration: defaultConfig.duration,
         stagger: defaultConfig.stagger,
         ease: defaultConfig.ease,
-        scrollTrigger: {
-          trigger: ref.current,
-          start: defaultConfig.triggerStart,
-          toggleActions: 'play none none none',
+        paused: true,
+      });
+
+      // Create ScrollTrigger that resets and re-triggers
+      ScrollTrigger.create({
+        trigger: ref.current,
+        start: defaultConfig.triggerStart,
+        toggleActions: 'play reset play reset',
+        animation: animation,
+        onEnter: () => {
+          animation.play();
+        },
+        onEnterBack: () => {
+          // Reset and play when scrolling back up
+          gsap.set(elements, { opacity: 0, y: 30 });
+          animation.restart();
+        },
+        onLeave: () => {
+          // Keep visible when scrolling past
+        },
+        onLeaveBack: () => {
+          // Reset when scrolling back up past the section
+          gsap.set(elements, { opacity: 0, y: 30 });
         },
       });
-    });
 
-    return () => ctx.revert();
+      // Check if already in viewport on mount
+      const rect = ref.current.getBoundingClientRect();
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isInViewport) {
+        // Small delay to ensure ScrollTrigger is ready
+        setTimeout(() => {
+          animation.play();
+        }, 100);
+      }
+    }, ref);
+
+    return () => {
+      ctx.revert();
+      // Refresh ScrollTrigger after cleanup
+      ScrollTrigger.refresh();
+    };
   }, []);
 
   return ref;

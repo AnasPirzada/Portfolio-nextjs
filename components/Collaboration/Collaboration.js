@@ -7,7 +7,11 @@ const Collaboration = ({ clientHeight }) => {
   const sectionRef = useRef(null);
   const quoteRef = useRef(null);
   const statsRef = useRef(null);
-  const [counters, setCounters] = useState({ projects: 0, clients: 0, experience: 0 });
+  const [counters, setCounters] = useState({
+    projects: 0,
+    clients: 0,
+    experience: 0,
+  });
 
   useEffect(() => {
     const smallScreen = document.body.clientWidth < 767;
@@ -53,13 +57,13 @@ const Collaboration = ({ clientHeight }) => {
 
     // Counter animation
     const counterObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             // Animate counters
             const duration = 2;
             const targets = { projects: 0, clients: 0, experience: 0 };
-            
+
             gsap.to(targets, {
               projects: 20,
               clients: 15,
@@ -74,7 +78,7 @@ const Collaboration = ({ clientHeight }) => {
                 });
               },
             });
-            
+
             counterObserver.unobserve(entry.target);
           }
         });
@@ -94,9 +98,9 @@ const Collaboration = ({ clientHeight }) => {
   }, [quoteRef, sectionRef]);
 
   return (
-    <section ref={sectionRef} className='w-full relative select-none'>
-      <div className='py-10 md:py-20 section-container flex flex-col'>
-        <p className='opacity-40 text-6xl sm:text-7xl font-semibold whitespace-nowrap ui-left transform-gpu'>
+    <section ref={sectionRef} className="w-full relative select-none">
+      <div className="py-10 md:py-20 section-container flex flex-col">
+        <p className="opacity-40 text-6xl sm:text-7xl font-semibold whitespace-nowrap ui-left transform-gpu">
           {Array(5)
             .fill(
               ' Full Stack Development React.js Next.js Three.js TypeScript Node.js '
@@ -106,11 +110,11 @@ const Collaboration = ({ clientHeight }) => {
 
         <h1
           ref={quoteRef}
-          className='mt-6 md:mt-8 font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center'
+          className="mt-6 md:mt-8 font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center"
         >
           Interested in{' '}
           <span
-            className='text-strong font-semibold'
+            className="text-strong font-semibold"
             style={{
               background:
                 'linear-gradient(90deg, #ffffff 0%, #ffffff 50%, #eeba2c 51%, #efc041 102%)',
@@ -125,42 +129,48 @@ const Collaboration = ({ clientHeight }) => {
         </h1>
 
         {/* Animated Stats */}
-        <div 
+        <div
           ref={statsRef}
-          className='mt-8 md:mt-12 flex justify-center gap-8 md:gap-16'
+          className="mt-8 md:mt-12 flex justify-center gap-8 md:gap-16"
         >
-          <div className='text-center'>
-            <div className='text-4xl md:text-5xl font-bold text-[#efc041]'>
+          <div className="text-center">
+            <div className="text-4xl md:text-5xl font-bold text-[#efc041]">
               {counters.projects}+
             </div>
-            <div className='text-sm md:text-base text-gray-400 mt-1'>Projects</div>
+            <div className="text-sm md:text-base text-gray-400 mt-1">
+              Projects
+            </div>
           </div>
-          <div className='text-center'>
-            <div className='text-4xl md:text-5xl font-bold text-[#efc041]'>
+          <div className="text-center">
+            <div className="text-4xl md:text-5xl font-bold text-[#efc041]">
               {counters.clients}+
             </div>
-            <div className='text-sm md:text-base text-gray-400 mt-1'>Clients</div>
+            <div className="text-sm md:text-base text-gray-400 mt-1">
+              Clients
+            </div>
           </div>
-          <div className='text-center'>
-            <div className='text-4xl md:text-5xl font-bold text-[#efc041]'>
+          <div className="text-center">
+            <div className="text-4xl md:text-5xl font-bold text-[#efc041]">
               {counters.experience}+
             </div>
-            <div className='text-sm md:text-base text-gray-400 mt-1'>Years Exp</div>
+            <div className="text-sm md:text-base text-gray-400 mt-1">
+              Years Exp
+            </div>
           </div>
         </div>
 
-        <p className='mt-6 md:mt-8 opacity-40 text-6xl sm:text-7xl font-semibold whitespace-nowrap ui-right transform-gpu'>
+        <p className="mt-6 md:mt-8 opacity-40 text-6xl sm:text-7xl font-semibold whitespace-nowrap ui-right transform-gpu">
           {Array(5)
             .fill(' AI Integration Laravel Django MongoDB Firebase ')
             .reduce((str, el) => str.concat(el), '')}{' '}
         </p>
 
-        <div className='mt-12 md:mt-16 flex justify-center'>
+        <div className="mt-12 md:mt-16 flex justify-center">
           <button
             onClick={() =>
               window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer')
             }
-            className='inline-block px-8 py-4 md:px-10 md:py-5 text-lg md:text-xl font-bold text-black bg-[#efc041] rounded-lg hover:bg-[#eeba2c] transition-colors duration-300 shadow-lg shadow-[#efc041]/30 hover:shadow-[#eeba2c]/40 cursor-pointer border-none'
+            className="inline-block px-8 py-4 md:px-10 md:py-5 text-lg md:text-xl font-bold text-black bg-[#efc041] rounded-lg hover:bg-[#eeba2c] transition-colors duration-300 shadow-lg shadow-[#efc041]/30 hover:shadow-[#eeba2c]/40 cursor-pointer border-none"
           >
             Let&apos;s Collaborate
           </button>

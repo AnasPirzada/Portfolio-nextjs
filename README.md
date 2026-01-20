@@ -32,12 +32,14 @@ A modern, responsive portfolio website showcasing my work as a Full Stack Develo
 ## 📦 Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/AnasPirzada/devfolio.git
 cd devfolio
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -45,6 +47,7 @@ yarn install
 ```
 
 3. Run the development server:
+
 ```bash
 npm run dev
 # or
@@ -112,6 +115,7 @@ Edit the following files to update your information:
 ### Theme Colors
 
 Theme colors can be customized in:
+
 - `tailwind.config.js` - Tailwind color configuration
 - `styles/globals.scss` - CSS variables and theme styles
 

@@ -9,11 +9,13 @@
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 20px rgba(29, 191, 115, 0.25),
-              0 0 0 0 rgba(29, 191, 115, 0.4);
-  animation: floatBadge 4s ease-in-out infinite,
-             shimmerGlow 3s ease-in-out infinite,
-             pulseShadow 2s ease-in-out infinite;
+  box-shadow:
+    0 4px 20px rgba(29, 191, 115, 0.25),
+    0 0 0 0 rgba(29, 191, 115, 0.4);
+  animation:
+    floatBadge 4s ease-in-out infinite,
+    shimmerGlow 3s ease-in-out infinite,
+    pulseShadow 2s ease-in-out infinite;
 
   &::before {
     content: '';
@@ -40,7 +42,9 @@
     border-radius: 2rem;
     padding: 2px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
@@ -50,14 +54,15 @@
 
   &:hover {
     transform: translateY(-4px) scale(1.08) rotate(1deg);
-    box-shadow: 0 12px 40px rgba(29, 191, 115, 0.4),
-                0 0 30px rgba(29, 191, 115, 0.3);
+    box-shadow:
+      0 12px 40px rgba(29, 191, 115, 0.4),
+      0 0 30px rgba(29, 191, 115, 0.3);
     animation-play-state: paused;
-    
+
     &::before {
       animation: shimmer 1s ease-in-out infinite;
     }
-    
+
     &::after {
       opacity: 1;
       animation: borderGlow 1s ease-in-out infinite;
@@ -163,7 +168,8 @@
 }
 
 @keyframes floatBadge {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg) scale(1);
   }
   25% {
@@ -187,29 +193,36 @@
 }
 
 @keyframes shimmerGlow {
-  0%, 100% {
-    box-shadow: 0 4px 20px rgba(29, 191, 115, 0.25),
-                0 0 0 0 rgba(29, 191, 115, 0.4);
+  0%,
+  100% {
+    box-shadow:
+      0 4px 20px rgba(29, 191, 115, 0.25),
+      0 0 0 0 rgba(29, 191, 115, 0.4);
   }
   50% {
-    box-shadow: 0 4px 25px rgba(29, 191, 115, 0.35),
-                0 0 20px rgba(29, 191, 115, 0.2);
+    box-shadow:
+      0 4px 25px rgba(29, 191, 115, 0.35),
+      0 0 20px rgba(29, 191, 115, 0.2);
   }
 }
 
 @keyframes pulseShadow {
-  0%, 100% {
-    box-shadow: 0 4px 20px rgba(29, 191, 115, 0.25),
-                0 0 0 0 rgba(29, 191, 115, 0.4);
+  0%,
+  100% {
+    box-shadow:
+      0 4px 20px rgba(29, 191, 115, 0.25),
+      0 0 0 0 rgba(29, 191, 115, 0.4);
   }
   50% {
-    box-shadow: 0 4px 20px rgba(29, 191, 115, 0.25),
-                0 0 15px rgba(29, 191, 115, 0.3);
+    box-shadow:
+      0 4px 20px rgba(29, 191, 115, 0.25),
+      0 0 15px rgba(29, 191, 115, 0.3);
   }
 }
 
 @keyframes borderGlow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0;
     transform: scale(1);
   }
@@ -220,7 +233,8 @@
 }
 
 @keyframes iconFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
@@ -229,7 +243,8 @@
 }
 
 @keyframes iconBounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) scale(1);
   }
   50% {
@@ -238,7 +253,8 @@
 }
 
 @keyframes starSparkle {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1) rotate(0deg);
     filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
@@ -261,7 +277,8 @@
 }
 
 @keyframes starGlow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.3;
     transform: scale(1);
   }

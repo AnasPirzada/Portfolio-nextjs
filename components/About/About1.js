@@ -76,33 +76,36 @@ const About1 = ({ clientHeight }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className='w-full relative select-none -mt-16 md:mt-0'>
-      <div className='py-6 md:py-20 section-container'>
-        <p className='uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base text-center mb-4'>
+    <section
+      ref={sectionRef}
+      className="w-full relative select-none -mt-16 md:mt-0"
+    >
+      <div className="py-6 md:py-20 section-container">
+        <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base text-center mb-4">
           ABOUT ME
         </p>
         <h1
           ref={quoteRef}
-          className='font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center leading-relaxed px-4 sm:px-6 md:px-0 staggered-reveal'
+          className="font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center leading-relaxed px-4 sm:px-6 md:px-0 staggered-reveal"
         >
-          <span className='about-1 leading-tight block mb-4'>
+          <span className="about-1 leading-tight block mb-4">
             I&apos;m a passionate{' '}
-            <span className='text-[#efc041]'>Full Stack Developer</span> and{' '}
-            <span className='text-[#efc041]'>AI Expert</span> who&apos;s focused
+            <span className="text-[#efc041]">Full Stack Developer</span> and{' '}
+            <span className="text-[#efc041]">AI Expert</span> who&apos;s focused
             on building scalable and performant applications.
           </span>
-          <span className='about-2 leading-tight block mb-4'>
+          <span className="about-2 leading-tight block mb-4">
             I strive to deliver seamless user experiences by embracing modern
             frontend practices,{' '}
-            <span className='text-[#efc041]'>AI integration</span>, and
+            <span className="text-[#efc041]">AI integration</span>, and
             thoughtful design principles.
           </span>
-          <span className='about-3 leading-tight block'>
-            With <span className='text-[#efc041]'>5+ years</span> of experience,
+          <span className="about-3 leading-tight block">
+            With <span className="text-[#efc041]">5+ years</span> of experience,
             I specialize in building{' '}
-            <span className='text-[#efc041]'>React.js</span> applications,
+            <span className="text-[#efc041]">React.js</span> applications,
             integrating APIs, implementing{' '}
-            <span className='text-[#efc041]'>Machine Learning</span> solutions,
+            <span className="text-[#efc041]">Machine Learning</span> solutions,
             and leveraging frameworks like Django, Laravel, and Next.js.
           </span>
         </h1>

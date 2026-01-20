@@ -4,7 +4,7 @@ const SkipToContent = () => {
       href="#home"
       className="skip-to-content"
       aria-label="Skip to main content"
-      onClick={(e) => {
+      onClick={e => {
         e.preventDefault();
         const target = document.getElementById('home');
         if (target) {
@@ -19,4 +19,3 @@ const SkipToContent = () => {
 };
 
 export default SkipToContent;
-

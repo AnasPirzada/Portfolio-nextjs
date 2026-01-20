@@ -125,7 +125,7 @@ export const WORK_CONTENTS = {
       description:
         'A Journey of Growth - From Learning to Leading in Modern Web Development',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Empowering Ideas, Shaping the Future of Digital Innovation
         </div>
       ),
@@ -135,7 +135,7 @@ export const WORK_CONTENTS = {
       description:
         'At Createex, my journey began with learning React.js, mastering the fundamentals of frontend development. I built engaging and interactive UIs, laying the foundation for a successful career in web development.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Aspiring React Developer
         </div>
       ),
@@ -145,7 +145,7 @@ export const WORK_CONTENTS = {
       description:
         'Transitioning to a Junior React.js Developer role, I honed my skills in crafting modern web applications using Next.js, React.js, and Firebase. I contributed to diverse projects, integrating APIs and ensuring robust, scalable solutions.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Junior React.js Developer
         </div>
       ),
@@ -155,7 +155,7 @@ export const WORK_CONTENTS = {
       description:
         'As a Team Lead, I guided a team of talented developers, steering projects involving 3D web applications, Next.js, Laravel, and Firebase. My leadership ensured timely deliveries and high-quality outputs, setting a benchmark for excellence.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Team Lead
         </div>
       ),
@@ -165,7 +165,7 @@ export const WORK_CONTENTS = {
       description:
         'I ventured into the realm of 3D web development, creating immersive digital experiences that captivated users. Leveraging modern libraries and frameworks, I pushed the boundaries of what web applications can achieve.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Innovator in 3D Web Development
         </div>
       ),
@@ -175,7 +175,7 @@ export const WORK_CONTENTS = {
       description:
         'Over the years, I built a versatile portfolio of projects, utilizing technologies like React.js, Next.js, Laravel, and Firebase. From interactive dashboards to scalable backends, my work exemplifies innovation and technical expertise.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Full-Stack Innovator
         </div>
       ),
@@ -188,7 +188,7 @@ export const WORK_CONTENTS = {
       description:
         'TakhleeqSoft is a forward-thinking startup led by a visionary and highly talented team. As a Senior React.js and Laravel Developer, I had the privilege of working closely with them to deliver impactful and innovative projects, driving success through collaboration and expertise.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Empowering Growth Through Collaboration and Innovation
         </div>
       ),
@@ -199,7 +199,7 @@ export const WORK_CONTENTS = {
       description:
         'I joined TakhleeqSoft as a Senior Developer, taking charge of data integration APIs for a major project. My role involved seamlessly connecting multiple data sources, ensuring data accuracy, and optimizing API performance to drive project success.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Senior Developer
         </div>
       ),
@@ -209,7 +209,7 @@ export const WORK_CONTENTS = {
       description:
         "I spearheaded the development of Q-Rate, their flagship product, a voice-based applicant screening platform. This project combined advanced technical solutions with user-focused design, enhancing engagement and increasing daily traffic. Additionally, I introduced an error-logging and bug reporting system, significantly reducing user-reported bugs and improving the platform's reliability.",
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Innovator & Problem Solver
         </div>
       ),
@@ -219,7 +219,7 @@ export const WORK_CONTENTS = {
       description:
         'Leveraging my expertise in API development and data management, I optimized data workflows, improved application performance, and contributed to achieving key project milestones. My efforts ensured the platform could handle scale and complexity, creating a seamless user experience.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Data Integration Expert
         </div>
       ),
@@ -232,7 +232,7 @@ export const WORK_CONTENTS = {
       description:
         'MahamAI is an emerging Saudi-based technology company specializing in AI-powered platforms and modern web solutions. The team focuses on building scalable, intelligent systems using the latest advancements in React, Next.js, and monorepo architecture to enhance business automation and performance.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           About the Company
         </div>
       ),
@@ -241,7 +241,7 @@ export const WORK_CONTENTS = {
       title: 'Role',
       description: 'Full-Stack Developer (AI & Monorepo Architecture)',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Role
         </div>
       ),
@@ -250,7 +250,7 @@ export const WORK_CONTENTS = {
       title: 'Duration',
       description: 'September - Present',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Duration
         </div>
       ),
@@ -265,7 +265,7 @@ Configured build environment using TypeScript (strict mode), PostCSS, and Autopr
 Managed hybrid module setups (ESM / CJS) across configurations for better compatibility and cleaner builds.\n
 Collaborated in an agile environment, utilizing Node.js 20.x, .env.local, and Turbo CLI for environment management and parallel app execution.`,
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Responsibilities & Achievements
         </div>
       ),
@@ -279,7 +279,7 @@ UI Library: @maham/ui-components (Shadcn/UI, CSS variable theming)\n
 Build Tools: TypeScript (strict), PostCSS, Autoprefixer\n
 Environment: Node.js ≥ 18.17, Turbo CLI, .env.local`,
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Tech Stack
         </div>
       ),
@@ -292,7 +292,7 @@ Environment: Node.js ≥ 18.17, Turbo CLI, .env.local`,
       description:
         "As a freelance Full Stack Developer, I have worked with 20+ clients from around the world through Fiverr, Upwork, and local connections. Specializing in Python, Laravel, React.js, and Next.js, I deliver custom web solutions tailored to each client's unique needs.",
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Global Freelance Experience
         </div>
       ),
@@ -302,7 +302,7 @@ Environment: Node.js ≥ 18.17, Turbo CLI, .env.local`,
       description:
         'Successfully delivered 20+ projects across various industries including e-commerce, SaaS platforms, educational websites, and business applications. Maintained a perfect 5-star rating on both Fiverr and Upwork with 100% client satisfaction.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           20+ Happy Clients
         </div>
       ),
@@ -312,7 +312,7 @@ Environment: Node.js ≥ 18.17, Turbo CLI, .env.local`,
       description:
         'Built robust web applications using Python and Django for backend services, Laravel for enterprise solutions, and React.js/Next.js for modern, responsive frontends. Specialized in API development, database design, and cloud deployment.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Full Stack Solutions
         </div>
       ),
@@ -322,7 +322,7 @@ Environment: Node.js ≥ 18.17, Turbo CLI, .env.local`,
       description:
         'End-to-end web development from planning and design to deployment and maintenance. Custom SaaS applications, e-commerce platforms, business websites, API development, database design, and third-party integrations.',
       content: (
-        <div className='h-full w-full flex items-center justify-center text-white px-4'>
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
           Comprehensive Development Services
         </div>
       ),

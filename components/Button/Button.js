@@ -1,7 +1,15 @@
 import PropTypes from 'prop-types';
 import styles from './Button.module.scss';
 
-const Button = ({ href, onClick, children, classes, type, style, ...otherProps }) => {
+const Button = ({
+  href,
+  onClick,
+  children,
+  classes,
+  type,
+  style,
+  ...otherProps
+}) => {
   let additionalClasses = '';
   if (classes) {
     additionalClasses = classes;
@@ -19,8 +27,8 @@ const Button = ({ href, onClick, children, classes, type, style, ...otherProps }
               ? styles.primary__button
               : styles.primary__disabledButton
             : !otherProps.disable
-            ? styles.secondary__button
-            : styles.secondary__disabledButton
+              ? styles.secondary__button
+              : styles.secondary__disabledButton
         }
           ${additionalClasses}
       `}

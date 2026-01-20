@@ -8,10 +8,16 @@ const Cursor = ({ isDesktop }) => {
 
   useEffect(() => {
     try {
-      if (isDesktop && document.body.clientWidth > 767 && cursor.current && follower.current && ring.current) {
+      if (
+        isDesktop &&
+        document.body.clientWidth > 767 &&
+        cursor.current &&
+        follower.current &&
+        ring.current
+      ) {
         // Mark cursor as loaded
         document.body.classList.add('cursor-loaded');
-        
+
         // Show cursor elements
         follower.current.classList.remove('hidden');
         cursor.current.classList.remove('hidden');
@@ -27,7 +33,7 @@ const Cursor = ({ isDesktop }) => {
                 duration: 0,
                 ease: 'none',
               });
-              
+
               // Outer ring
               gsap.to(ring.current, {
                 x: e.clientX,
@@ -35,7 +41,7 @@ const Cursor = ({ isDesktop }) => {
                 duration: 0.15,
                 ease: 'power2.out',
               });
-              
+
               // Follower circle
               gsap.to(follower.current, {
                 x: e.clientX,
@@ -199,31 +205,34 @@ const Cursor = ({ isDesktop }) => {
       {/* Main cursor dot - glowing center */}
       <div
         ref={cursor}
-        className='fixed w-3 h-3 rounded-full select-none pointer-events-none z-[99999] hidden cursor-dot'
+        className="fixed w-3 h-3 rounded-full select-none pointer-events-none z-[99999] hidden cursor-dot"
         style={{
           background: 'radial-gradient(circle, #efc041 0%, #eeba2c 100%)',
-          boxShadow: '0 0 20px rgba(239, 192, 65, 0.8), 0 0 40px rgba(239, 192, 65, 0.4)',
+          boxShadow:
+            '0 0 20px rgba(239, 192, 65, 0.8), 0 0 40px rgba(239, 192, 65, 0.4)',
           transform: 'translate(-50%, -50%)',
         }}
       />
-      
+
       {/* Outer ring - animated border */}
       <div
         ref={ring}
-        className='fixed w-8 h-8 rounded-full border-2 select-none pointer-events-none z-[99999] hidden cursor-ring'
+        className="fixed w-8 h-8 rounded-full border-2 select-none pointer-events-none z-[99999] hidden cursor-ring"
         style={{
           borderColor: 'rgba(239, 192, 65, 0.8)',
           transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, transparent 60%, rgba(239, 192, 65, 0.15) 100%)',
+          background:
+            'radial-gradient(circle, transparent 60%, rgba(239, 192, 65, 0.15) 100%)',
         }}
       />
-      
+
       {/* Follower circle - large subtle glow */}
       <div
         ref={follower}
-        className='fixed w-12 h-12 rounded-full select-none pointer-events-none z-[99999] hidden cursor-follower'
+        className="fixed w-12 h-12 rounded-full select-none pointer-events-none z-[99999] hidden cursor-follower"
         style={{
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
+          background:
+            'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
           border: '1px solid rgba(255, 255, 255, 0.2)',
           transform: 'translate(-50%, -50%)',
         }}

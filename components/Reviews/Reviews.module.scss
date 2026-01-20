@@ -10,7 +10,11 @@
 }
 
 .card {
-  background: linear-gradient(135deg, rgba(239, 192, 65, 0.1), rgba(238, 186, 44, 0.05));
+  background: linear-gradient(
+    135deg,
+    rgba(239, 192, 65, 0.1),
+    rgba(238, 186, 44, 0.05)
+  );
   border: 2px solid rgba(239, 192, 65, 0.3);
   border-radius: 1.5rem;
   padding: 3rem;
@@ -86,7 +90,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.5;
     transform: translate(-50%, -50%) scale(1);
   }
@@ -195,5 +200,3 @@
     transform: scale(1.2);
   }
 }
-
-

@@ -109,18 +109,18 @@ export default function BlogDetail({ blog }) {
         description={blogDescription}
         image={blogImage}
         url={blogUrl}
-        type='article'
+        type="article"
       />
 
       {/* Article Schema */}
       <script
-        type='application/ld+json'
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      
+
       {/* Breadcrumb Schema */}
       <script
-        type='application/ld+json'
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
@@ -128,46 +128,46 @@ export default function BlogDetail({ blog }) {
         <Menu />
       </Header>
       <Cursor isDesktop={isDesktop} />
-      <main className='section-container pt-24 pb-16'>
+      <main className="section-container pt-24 pb-16">
         {/* Breadcrumb Navigation */}
-        <nav className='mb-6' aria-label='Breadcrumb'>
-          <ol className='flex items-center space-x-2 text-sm'>
+        <nav className="mb-6" aria-label="Breadcrumb">
+          <ol className="flex items-center space-x-2 text-sm">
             <li>
               <Link
-                href='/'
-                className='text-gray-400 hover:text-white transition-colors'
+                href="/"
+                className="text-gray-400 hover:text-white transition-colors"
               >
                 Home
               </Link>
             </li>
-            <li className='text-gray-500'>›</li>
+            <li className="text-gray-500">›</li>
             <li>
               <Link
                 href={`/#${
                   MENULINKS.find(m => m.ref === 'blogs') ? 'blogs' : ''
                 }`}
-                className='text-gray-400 hover:text-white transition-colors'
+                className="text-gray-400 hover:text-white transition-colors"
               >
                 Blogs
               </Link>
             </li>
-            <li className='text-gray-500'>›</li>
-            <li className='text-white' aria-current='page'>
+            <li className="text-gray-500">›</li>
+            <li className="text-white" aria-current="page">
               {blogTitle}
             </li>
           </ol>
         </nav>
 
-        <article itemScope itemType='https://schema.org/Article'>
-          <header className='mb-8'>
+        <article itemScope itemType="https://schema.org/Article">
+          <header className="mb-8">
             <h1
-              className='text-4xl md:text-5xl font-semibold mb-4'
-              itemProp='headline'
+              className="text-4xl md:text-5xl font-semibold mb-4"
+              itemProp="headline"
             >
               {blogTitle}
             </h1>
-            <div className='flex flex-wrap items-center gap-4 text-gray-400 text-sm'>
-              <time dateTime={blog.date} itemProp='datePublished'>
+            <div className="flex flex-wrap items-center gap-4 text-gray-400 text-sm">
+              <time dateTime={blog.date} itemProp="datePublished">
                 {new Date(blog.date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -178,21 +178,21 @@ export default function BlogDetail({ blog }) {
               <span>{readingTime} min read</span>
               <span>•</span>
               <span
-                itemProp='author'
+                itemProp="author"
                 itemScope
-                itemType='https://schema.org/Person'
+                itemType="https://schema.org/Person"
               >
-                <span itemProp='name'>Anas Pirzada</span>
+                <span itemProp="name">Anas Pirzada</span>
               </span>
             </div>
 
             {/* Tags */}
             {blog.tags && (
-              <div className='mt-4 flex flex-wrap gap-2'>
+              <div className="mt-4 flex flex-wrap gap-2">
                 {blog.tags.map(tag => (
                   <span
                     key={tag}
-                    className='px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 border border-white/20'
+                    className="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 border border-white/20"
                   >
                     #{tag}
                   </span>
@@ -202,8 +202,8 @@ export default function BlogDetail({ blog }) {
           </header>
 
           <div
-            className='prose prose-invert max-w-none mt-8'
-            itemProp='articleBody'
+            className="prose prose-invert max-w-none mt-8"
+            itemProp="articleBody"
             dangerouslySetInnerHTML={{
               __html: blog.content?.replace(/\n/g, '<br/>'),
             }}
@@ -211,35 +211,35 @@ export default function BlogDetail({ blog }) {
         </article>
 
         {/* Author Bio Section */}
-        <section className='mt-12 p-6 bg-white/5 rounded-2xl border border-white/10'>
-          <div className='flex items-start gap-4'>
-            <div className='w-16 h-16 bg-gradient-to-br from-[#eeba2c] to-[#efc041] rounded-full flex items-center justify-center text-black font-bold text-xl'>
+        <section className="mt-12 p-6 bg-white/5 rounded-2xl border border-white/10">
+          <div className="flex items-start gap-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#eeba2c] to-[#efc041] rounded-full flex items-center justify-center text-black font-bold text-xl">
               AP
             </div>
             <div>
-              <h3 className='text-xl font-semibold text-white mb-2'>
+              <h3 className="text-xl font-semibold text-white mb-2">
                 About the Author
               </h3>
-              <p className='text-gray-300 leading-relaxed'>
+              <p className="text-gray-300 leading-relaxed">
                 Anas Pirzada is a Full Stack Developer and AI Expert with 2+
                 years of experience in building scalable web applications and
                 AI-powered solutions. He specializes in React.js, Next.js, and
                 Machine Learning integration.
               </p>
-              <div className='mt-4 flex gap-4'>
+              <div className="mt-4 flex gap-4">
                 <Link
-                  href='https://www.linkedin.com/in/muhammadanaspirzada/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-[#eeba2c] hover:text-[#efc041] transition-colors'
+                  href="https://www.linkedin.com/in/muhammadanaspirzada/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#eeba2c] hover:text-[#efc041] transition-colors"
                 >
                   LinkedIn
                 </Link>
                 <Link
-                  href='https://github.com/AnasPirzada'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-[#eeba2c] hover:text-[#efc041] transition-colors'
+                  href="https://github.com/AnasPirzada"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#eeba2c] hover:text-[#efc041] transition-colors"
                 >
                   GitHub
                 </Link>

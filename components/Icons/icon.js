@@ -7,23 +7,23 @@ import {
   IconFiverr,
   IconUpwork,
   IconExternal,
-} from "@/components/Icons";
+} from '@/components/Icons';
 
 const Icon = ({ name }) => {
   switch (name) {
-    case "mail":
+    case 'mail':
       return <IconMail />;
-    case "github":
+    case 'github':
       return <IconGithub />;
-    case "linkedin":
+    case 'linkedin':
       return <IconLinkedin />;
-    case "instagram":
+    case 'instagram':
       return <IconInstagram />;
-    case "twitter":
+    case 'twitter':
       return <IconTwitter />;
-    case "fiverr":
+    case 'fiverr':
       return <IconFiverr />;
-    case "upwork":
+    case 'upwork':
       return <IconUpwork />;
     default:
       return <IconExternal />;

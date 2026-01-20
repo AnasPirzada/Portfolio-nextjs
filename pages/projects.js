@@ -119,11 +119,10 @@ export default function ProjectsPage() {
       </Header>
       <ProgressIndicator />
       <Cursor isDesktop={isDesktop} />
-      <main className='flex flex-col'>
+      <main className="flex flex-col">
         <MainPage />
       </main>
       <Footer />
     </>
   );
 }
-

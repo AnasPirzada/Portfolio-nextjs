@@ -1,5 +1,6 @@
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import Meta from '@/components/Meta/Meta';
+import VoiceAssistant from '@/components/VoiceAssistant';
 import { GTAG } from '@/constants';
 import { DeviceProvider } from '@/contexts/DeviceContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
@@ -12,17 +13,53 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from 'next/script';
 import { calibre, jetbrains_mono } from 'public/fonts';
 import { useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useRouter } from 'next/router';
 import '../styles/globals.css';
 import '../styles/globals.scss';
+import '../styles/accessibility.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const App = ({ Component, pageProps }) => {
   usePerformanceMonitoring();
   useSmoothScroll();
+  const router = useRouter();
 
   useEffect(() => {
     validateEnv();
     logger.info('Application initialized');
   }, []);
+
+  // Refresh ScrollTrigger on route change and page load
+  useEffect(() => {
+    const handleRouteChange = () => {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    };
+
+    // Refresh on route change
+    router.events.on('routeChangeComplete', handleRouteChange);
+    
+    // Refresh on initial load
+    if (typeof window !== 'undefined') {
+      window.addEventListener('load', handleRouteChange);
+      // Also refresh after a short delay on mount
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 500);
+    }
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('load', handleRouteChange);
+      }
+    };
+  }, [router]);
 
   return (
     <>
@@ -36,6 +73,7 @@ const App = ({ Component, pageProps }) => {
               >
                 <Component {...pageProps} />
                 <GoogleAnalytics gaId={GTAG} />
+                <VoiceAssistant />
               </main>
             </DeviceProvider>
           </LanguageProvider>
@@ -43,8 +81,8 @@ const App = ({ Component, pageProps }) => {
       </ErrorBoundary>
       {/* Calendly script */}
       <Script
-        src='https://assets.calendly.com/assets/external/widget.js'
-        strategy='afterInteractive'
+        src="https://assets.calendly.com/assets/external/widget.js"
+        strategy="afterInteractive"
         onLoad={() => {
           // Mark Calendly as loaded
           if (typeof window !== 'undefined') {

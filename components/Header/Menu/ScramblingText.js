@@ -8,8 +8,9 @@ const ScramblingText = ({ text }) => {
   const containerRef = useRef(null);
   const revealedRef = useRef(new Array(text.length).fill(true));
 
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-  
+  const chars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+
   const getRandomChar = () => {
     return chars[Math.floor(Math.random() * chars.length)];
   };
@@ -42,23 +43,23 @@ const ScramblingText = ({ text }) => {
     // Start animation immediately - no delay
     const textArray = text.split('');
     revealedRef.current = new Array(textArray.length).fill(false);
-    
+
     // Function to scramble and reveal a specific letter position
-    const animateLetter = (index) => {
+    const animateLetter = index => {
       if (revealedRef.current[index] || !isHoveredRef.current) return;
-      
+
       let scrambleCount = 0;
       const maxScrambles = Math.floor(Math.random() * 5) + 7; // 7-11 scrambles per letter
-      
+
       const scrambleInterval = setInterval(() => {
         // Check if still hovered
         if (!isHoveredRef.current || revealedRef.current[index]) {
           clearInterval(scrambleInterval);
           return;
         }
-        
+
         scrambleCount++;
-        
+
         // Update this specific letter position with random char
         setDisplayChars(prev => {
           const newChars = [...prev];
@@ -67,12 +68,12 @@ const ScramblingText = ({ text }) => {
           }
           return newChars;
         });
-        
+
         // After enough scrambles, reveal the actual letter
         if (scrambleCount >= maxScrambles) {
           clearInterval(scrambleInterval);
           revealedRef.current[index] = true;
-          
+
           setDisplayChars(prev => {
             const newChars = [...prev];
             newChars[index] = textArray[index];
@@ -80,7 +81,7 @@ const ScramblingText = ({ text }) => {
           });
         }
       }, 30); // Scramble speed
-      
+
       intervalsRef.current.push(scrambleInterval);
     };
 
@@ -118,4 +119,3 @@ const ScramblingText = ({ text }) => {
 };
 
 export default ScramblingText;
-

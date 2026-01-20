@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import Image from 'next/image';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import Typed from 'typed.js';
 import { CALENDLY_URL, MENULINKS, TYPED_STRINGS } from '../../constants';
@@ -34,7 +35,8 @@ const Hero = () => {
         );
 
       // Floating particles animation
-      const particles = sectionRef.current.querySelectorAll('.floating-particle');
+      const particles =
+        sectionRef.current.querySelectorAll('.floating-particle');
       particles.forEach((particle, i) => {
         gsap.to(particle, {
           y: 'random(-20, 20)',
@@ -59,12 +61,12 @@ const Hero = () => {
   }, [typedElementRef]);
 
   // Magnetic button effect
-  const handleMouseMove = (e) => {
+  const handleMouseMove = e => {
     const btn = e.currentTarget;
     const rect = btn.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
-    
+
     gsap.to(btn, {
       x: x * 0.3,
       y: y * 0.3,
@@ -73,7 +75,7 @@ const Hero = () => {
     });
   };
 
-  const handleMouseLeave = (e) => {
+  const handleMouseLeave = e => {
     gsap.to(e.currentTarget, {
       x: 0,
       y: 0,
@@ -86,16 +88,22 @@ const Hero = () => {
     <section
       ref={sectionRef}
       id={MENULINKS[0].ref}
-      className='w-full flex items-center md:items-center py-6 sm:py-10 md:py-8 2xl:container mx-auto xl:px-20 md:px-12 px-4 sm:px-6 min-h-[70vh] md:min-h-screen relative mb-0 md:mb-24'
+      className="w-full flex items-center md:items-center py-6 sm:py-10 md:py-8 2xl:container mx-auto xl:px-20 md:px-12 px-4 sm:px-6 min-h-[70vh] md:min-h-screen relative mb-0 md:mb-24"
       style={{ opacity: 0 }}
     >
       {/* Floating Particles */}
-      <div className='absolute inset-0 overflow-hidden pointer-events-none'>
-        <div className='floating-particle absolute top-20 left-10 w-3 h-3 bg-[#efc041] rounded-full opacity-40' />
-        <div className='floating-particle absolute top-40 right-20 w-2 h-2 bg-[#eeba2c] rounded-full opacity-30' />
-        <div className='floating-particle absolute bottom-32 left-1/4 w-4 h-4 border-2 border-[#efc041] rounded-full opacity-30' />
-        <div className='floating-particle absolute top-1/3 left-1/3 w-2 h-2 bg-[#efc041] opacity-20' style={{ transform: 'rotate(45deg)' }} />
-        <div className='floating-particle absolute bottom-1/4 right-1/3 w-3 h-3 border border-[#eeba2c] opacity-25' style={{ transform: 'rotate(45deg)' }} />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="floating-particle absolute top-20 left-10 w-3 h-3 bg-[#efc041] rounded-full opacity-40" />
+        <div className="floating-particle absolute top-40 right-20 w-2 h-2 bg-[#eeba2c] rounded-full opacity-30" />
+        <div className="floating-particle absolute bottom-32 left-1/4 w-4 h-4 border-2 border-[#efc041] rounded-full opacity-30" />
+        <div
+          className="floating-particle absolute top-1/3 left-1/3 w-2 h-2 bg-[#efc041] opacity-20"
+          style={{ transform: 'rotate(45deg)' }}
+        />
+        <div
+          className="floating-particle absolute bottom-1/4 right-1/3 w-3 h-3 border border-[#eeba2c] opacity-25"
+          style={{ transform: 'rotate(45deg)' }}
+        />
       </div>
 
       <style global jsx>
@@ -120,7 +128,7 @@ const Hero = () => {
         `}
       </style>
       <div
-        className='flex flex-col justify-center items-start md:items-start text-left md:text-left pt-0 md:pt-0 select-none w-full md:max-w-[50%] lg:max-w-[45%] relative z-10'
+        className="flex flex-col justify-center items-start md:items-start text-left md:text-left pt-0 md:pt-0 select-none w-full md:max-w-[50%] lg:max-w-[45%] relative z-10"
         style={{ pointerEvents: 'auto' }}
       >
         <h5
@@ -134,25 +142,25 @@ const Hero = () => {
           <span className={`relative ${styles.emphasize} staggered-reveal`}>
             Anas
           </span>
-          <span className='staggered-reveal'> Pirzada</span>
+          <span className="staggered-reveal"> Pirzada</span>
         </h1>
-        <p className='mb-3 sm:mb-4 md:mb-5 lg:mb-6 inline-block w-full break-words'>
+        <p className="mb-3 sm:mb-4 md:mb-5 lg:mb-6 inline-block w-full break-words">
           <span
             ref={typedElementRef}
-            className='staggered-reveal text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-light-3 font-mono leading-relaxed inline-block min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] max-w-full break-words'
+            className="staggered-reveal text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-light-3 font-mono leading-relaxed inline-block min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] max-w-full break-words"
           />
         </p>
-        <div className='staggered-reveal mb-3 sm:mb-4 md:mb-5 lg:mb-6'>
+        <div className="staggered-reveal mb-3 sm:mb-4 md:mb-5 lg:mb-6">
           <Profiles />
         </div>
         <div
-          className='staggered-reveal pt-2'
+          className="staggered-reveal pt-2"
           style={{ position: 'relative', zIndex: 10, pointerEvents: 'auto' }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
           <Button
-            href='#'
+            href="#"
             onClick={async e => {
               e.preventDefault();
               e.stopPropagation();
@@ -195,8 +203,8 @@ const Hero = () => {
                 }
               }
             }}
-            classes='link'
-            type='primary'
+            classes="link"
+            type="primary"
             style={{
               pointerEvents: 'auto',
               position: 'relative',
@@ -209,7 +217,7 @@ const Hero = () => {
         </div>
       </div>
       <div
-        className='absolute invisible md:visible md:right-8 lg:right-12 2xl:right-16 bottom-0 flex items-end justify-center z-0'
+        className="absolute invisible md:visible md:right-8 lg:right-12 2xl:right-16 bottom-0 flex items-end justify-center z-0"
         style={{
           width: 'clamp(500px, 55vw, 800px)',
           maxHeight: '95vh',
@@ -218,23 +226,25 @@ const Hero = () => {
         }}
       >
         {/* Fiverr Badge - Top Right */}
-        <div 
-          className='staggered-reveal absolute top-2 -right-15 z-20'
+        <div
+          className="staggered-reveal absolute top-2 -right-15 z-20"
           style={{ pointerEvents: 'auto' }}
         >
           <FiverrBadge />
         </div>
         <div className={styles.imageWrapper}>
-          <img
-            src='/lottie/anas.svg'
-            alt='Anas Pirzada - Developer illustration'
+          <Image
+            src="/lottie/anas.svg"
+            alt="Anas Pirzada - Developer illustration"
+            width={800}
+            height={800}
             className={`w-full h-auto object-contain ${styles.heroImage}`}
             style={{
               maxWidth: '100%',
               maxHeight: '95vh',
             }}
-            loading='lazy'
-            decoding='async'
+            priority
+            quality={90}
           />
         </div>
       </div>

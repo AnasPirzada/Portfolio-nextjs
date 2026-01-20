@@ -1,10 +1,10 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react';
 
 const ProgressIndicator = () => {
   const progressRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    window.addEventListener('scroll', () => {
       const totalScroll =
         document.body.scrollTop || document.documentElement.scrollTop;
       const windowHeight =
@@ -13,7 +13,7 @@ const ProgressIndicator = () => {
       const scrolled = totalScroll / windowHeight;
       progressRef.current
         ? (progressRef.current.style.transform = `scaleX(${scrolled})`)
-        : "";
+        : '';
     });
   }, [progressRef]);
 

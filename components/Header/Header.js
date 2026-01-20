@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
-// import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 // import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import SoundBar from './SoundBar/SoundBar';
 
@@ -60,58 +60,60 @@ const Header = ({ children }) => {
   }, [handleKeyDown]);
 
   return (
-    <nav 
+    <nav
       className={`w-full fixed top-0 py-4 md:py-8 z-50 select-none transition-all duration-300 ${isRTL ? 'rtl' : 'ltr'} ${
-        isScrolled 
-          ? 'bg-white/80 dark:bg-gray-dark-5/80 shadow-lg shadow-black/5 dark:shadow-black/30 border-b border-gray-light-2/50 dark:border-white/10' 
+        isScrolled
+          ? 'bg-transparent'
           : 'bg-gradient-to-b from-white/90 dark:from-black/50 to-transparent'
       }`}
     >
-      <div className={`flex justify-between section-container ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <a 
-          href='#home' 
-          className='link'
-          aria-label='Go to home page'
-        >
+      <div
+        className={`flex justify-between section-container ${isRTL ? 'flex-row-reverse' : ''}`}
+      >
+        <a href="#home" className="link" aria-label="Go to home page">
           <Image
-            src='/logo.svg'
-            alt='Logo - Anas Pirzada'
+            src="/logo.svg"
+            alt="Logo - Anas Pirzada"
             width={25}
             height={25}
-            className='w-5 h-5 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-10 xl:h-10 transition-all duration-300'
+            className="w-5 h-5 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-10 xl:h-10 transition-all duration-300"
             style={{
               filter: isDark ? 'none' : 'invert(1) brightness(0.1)',
             }}
           />
         </a>
-        <div className={`outer-menu relative flex items-center gap-4 md:gap-8 z-[1] ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div
+          className={`outer-menu relative flex items-center gap-4 md:gap-8 z-[1] ${isRTL ? 'flex-row-reverse' : ''}`}
+        >
           {/* <LanguageSwitcher /> */}
-          {/* <ThemeToggle /> */}
+          <ThemeToggle />
           <SoundBar />
           <input
             ref={inputRef}
-            id='menu-toggle'
-            aria-label='Toggle navigation menu'
-            aria-expanded='false'
-            aria-controls='navigation-menu'
-            className='checkbox-toggle link absolute top-0 right-0 w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 opacity-0 cursor-pointer'
-            type='checkbox'
+            id="menu-toggle"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+            aria-controls="navigation-menu"
+            className="checkbox-toggle link absolute top-0 right-0 w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 opacity-0 cursor-pointer"
+            type="checkbox"
             style={{ touchAction: 'manipulation' }}
-            onClick={(e) => {
+            onClick={e => {
               handleClick(e);
               e.target.setAttribute('aria-expanded', e.target.checked);
             }}
             onTouchEnd={handleTouchEnd}
           />
-          <div className='hamburger w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 flex items-center justify-center cursor-pointer pointer-events-none'>
-            <div className='relative w-5 md:w-6 lg:w-7 xl:w-8' />
+          <div className="hamburger w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 flex items-center justify-center cursor-pointer pointer-events-none">
+            <div className="relative w-5 md:w-6 lg:w-7 xl:w-8" />
           </div>
           {children}
           {/* Contact Us Button - Right side bottom on laptop/desktop */}
-          <div className={`contact-btn-desktop hidden md:block fixed ${isRTL ? 'left-8 lg:left-12 xl:left-16' : 'right-8 lg:right-12 xl:right-16'} bottom-8 lg:bottom-12 z-[9999]`}>
+          <div
+            className={`contact-btn-desktop hidden md:block fixed ${isRTL ? 'left-8 lg:left-12 xl:left-16' : 'right-8 lg:right-12 xl:right-16'} bottom-8 lg:bottom-12 z-[9999]`}
+          >
             <a
-              href='#contact'
-              className='link relative inline-block font-bold md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl duration-300 md:px-6 md:py-3 lg:px-8 lg:py-4 xl:px-10 xl:py-5 rounded-lg border-2 border-gray-dark-1 dark:border-white text-gray-dark-1 dark:text-white hover:bg-[#efc041] hover:text-black hover:border-[#efc041] transition-all whitespace-nowrap'
+              href="#contact"
+              className="link relative inline-block font-bold md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl duration-300 md:px-6 md:py-3 lg:px-8 lg:py-4 xl:px-10 xl:py-5 rounded-lg border-2 border-gray-dark-1 dark:border-white text-gray-dark-1 dark:text-white hover:bg-[#efc041] hover:text-black hover:border-[#efc041] transition-all whitespace-nowrap"
               style={{
                 fontFamily:
                   'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
@@ -132,4 +134,3 @@ const Header = ({ children }) => {
 };
 
 export default Header;
-

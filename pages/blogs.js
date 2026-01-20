@@ -107,19 +107,19 @@ export default function BlogsIndex() {
         title={pageTitle}
         description={pageDescription}
         url={pageUrl}
-        type='website'
+        type="website"
       />
 
       {/* JSON-LD Schemas */}
       <Head>
         <script
-          type='application/ld+json'
+          type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(blogListSchema),
           }}
         />
         <script
-          type='application/ld+json'
+          type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(breadcrumbSchema),
           }}
@@ -130,20 +130,20 @@ export default function BlogsIndex() {
         <Menu />
       </Header>
       <Cursor isDesktop={isDesktop} />
-      <main className='section-container pt-24 pb-16'>
+      <main className="section-container pt-24 pb-16">
         {/* Page Header with animation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className='uppercase tracking-widest text-gray-light-4 dark:text-gray-light-1 text-xs sm:text-sm md:text-base mb-2'>
+          <p className="uppercase tracking-widest text-gray-light-4 dark:text-gray-light-1 text-xs sm:text-sm md:text-base mb-2">
             BLOG
           </p>
-          <h1 className='text-4xl md:text-5xl font-semibold mb-4 text-light-text-primary dark:text-white'>
+          <h1 className="text-4xl md:text-5xl font-semibold mb-4 text-light-text-primary dark:text-white">
             All Blogs
           </h1>
-          <p className='text-gray-light-4 dark:text-gray-light-3 mb-8 max-w-2xl'>
+          <p className="text-gray-light-4 dark:text-gray-light-3 mb-8 max-w-2xl">
             Technical articles about React.js, Next.js, animations, and modern
             web development.
           </p>
@@ -151,32 +151,32 @@ export default function BlogsIndex() {
 
         {/* Blog Grid with stagger animation */}
         <motion.div
-          className='grid sm:grid-cols-2 lg:grid-cols-3 gap-6'
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
-          initial='hidden'
-          animate='visible'
+          initial="hidden"
+          animate="visible"
         >
           {sorted.map((blog, index) => (
             <motion.div key={blog.slug} variants={cardVariants}>
               <Link
                 href={`/blog/${blog.slug}`}
-                className='block rounded-2xl border border-gray-light-2 dark:border-white/15 bg-light-surface dark:bg-gray-dark-2/40 backdrop-blur-md p-5 hover:border-[#eeba2c] transition-all duration-300 hover:shadow-lg hover:shadow-[#eeba2c]/10 group h-full'
+                className="block rounded-2xl border border-gray-light-2 dark:border-white/15 bg-light-surface dark:bg-gray-dark-2/40 backdrop-blur-md p-5 hover:border-[#eeba2c] transition-all duration-300 hover:shadow-lg hover:shadow-[#eeba2c]/10 group h-full"
               >
-                <p className='text-xs text-gray-light-4 dark:text-gray-400'>
+                <p className="text-xs text-gray-light-4 dark:text-gray-400">
                   {new Date(blog.date).toDateString()}
                 </p>
-                <h3 className='text-xl font-semibold mt-1 text-light-text-primary dark:text-white group-hover:text-[#eeba2c] transition-colors'>
+                <h3 className="text-xl font-semibold mt-1 text-light-text-primary dark:text-white group-hover:text-[#eeba2c] transition-colors">
                   {blog.title}
                 </h3>
-                <p className='mt-3 text-sm text-gray-light-3 dark:text-white/90 line-clamp-3 leading-relaxed'>
+                <p className="mt-3 text-sm text-gray-light-3 dark:text-white/90 line-clamp-3 leading-relaxed">
                   {blog.description}
                 </p>
                 {blog.tags && (
-                  <div className='mt-4 flex flex-wrap gap-2'>
+                  <div className="mt-4 flex flex-wrap gap-2">
                     {blog.tags.slice(0, 3).map(tag => (
                       <span
                         key={tag}
-                        className='px-2 py-1 bg-gray-light-1 dark:bg-white/10 rounded-full text-xs text-gray-light-4 dark:text-gray-300'
+                        className="px-2 py-1 bg-gray-light-1 dark:bg-white/10 rounded-full text-xs text-gray-light-4 dark:text-gray-300"
                       >
                         #{tag}
                       </span>

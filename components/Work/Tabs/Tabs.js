@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Howl } from "howler";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Howl } from 'howler';
 
 const mouseClickSound = new Howl({
-  src: ["/sounds/mouse-click.mp3"],
+  src: ['/sounds/mouse-click.mp3'],
   volume: 0.3,
 });
 
@@ -16,7 +16,7 @@ const TabsContent = ({ activeTab }) => {
           initial={{ opacity: 1, y: 0, scale: 1 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -10, scale: 0.98 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
           className="w-full mt-12 md:mt-10"
           style={{ willChange: 'auto', opacity: 1 }}
         >
@@ -31,7 +31,7 @@ const Tabs = ({ tabItems }) => {
   const [activeTab, setActiveTab] = useState(tabItems[0]);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const handleOnClick = (tab) => {
+  const handleOnClick = tab => {
     if (tab.value === activeTab.value || isAnimating) return;
     setIsAnimating(true);
     setActiveTab(tab);
@@ -54,14 +54,14 @@ const Tabs = ({ tabItems }) => {
               left: `calc(${(activeIndex / tabCount) * 100}% + 0.25rem)`,
               width: `calc(${100 / tabCount}% - 0.5rem)`,
             }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 400, 
+            transition={{
+              type: 'spring',
+              stiffness: 400,
               damping: 30,
-              mass: 1
+              mass: 1,
             }}
           />
-          
+
           {/* Subtle glow effect */}
           <motion.div
             className="absolute top-1 bottom-1 rounded-full bg-[#efc041]/30 blur-md"
@@ -71,22 +71,22 @@ const Tabs = ({ tabItems }) => {
               width: `calc(${100 / tabCount}% - 0.5rem)`,
               opacity: [0.5, 0.8, 0.5],
             }}
-            transition={{ 
-              left: { type: "spring", stiffness: 400, damping: 30 },
-              width: { type: "spring", stiffness: 400, damping: 30 },
-              opacity: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+            transition={{
+              left: { type: 'spring', stiffness: 400, damping: 30 },
+              width: { type: 'spring', stiffness: 400, damping: 30 },
+              opacity: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
             }}
           />
 
-          {tabItems.map((tab) => (
+          {tabItems.map(tab => (
             <motion.button
               key={tab.value}
               onClick={() => handleOnClick(tab)}
               whileTap={{ scale: 0.95 }}
               className={`relative z-[1] px-5 sm:px-8 py-2.5 text-center text-sm font-semibold transition-colors duration-200 rounded-full whitespace-nowrap ${
                 activeTab.value === tab.value
-                  ? "text-black"
-                  : "text-gray-light-4 dark:text-gray-light-3 hover:text-gray-dark-3 dark:hover:text-white"
+                  ? 'text-black'
+                  : 'text-gray-light-4 dark:text-gray-light-3 hover:text-gray-dark-3 dark:hover:text-white'
               }`}
             >
               <motion.span

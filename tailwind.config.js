@@ -68,16 +68,19 @@ module.exports = {
         meteor: {
           '0%': { transform: 'rotate(215deg) translateX(0)', opacity: 1 },
           '70%': { opacity: 1 },
-          '100%': { transform: 'rotate(215deg) translateX(-500px)', opacity: 0 },
+          '100%': {
+            transform: 'rotate(215deg) translateX(-500px)',
+            opacity: 0,
+          },
         },
       },
     },
   },
   plugins: [
-    plugin(function({ addUtilities, addVariant }) {
+    plugin(function ({ addUtilities, addVariant }) {
       addVariant('rtl', '[dir="rtl"] &');
       addVariant('ltr', '[dir="ltr"] &');
-      
+
       addUtilities({
         '.start-0': { 'inset-inline-start': '0' },
         '.start-auto': { 'inset-inline-start': 'auto' },
@@ -91,8 +94,14 @@ module.exports = {
         '.text-end': { 'text-align': 'end' },
         '.border-s': { 'border-inline-start-width': '1px' },
         '.border-e': { 'border-inline-end-width': '1px' },
-        '.rounded-s': { 'border-start-start-radius': '0.25rem', 'border-end-start-radius': '0.25rem' },
-        '.rounded-e': { 'border-start-end-radius': '0.25rem', 'border-end-end-radius': '0.25rem' },
+        '.rounded-s': {
+          'border-start-start-radius': '0.25rem',
+          'border-end-start-radius': '0.25rem',
+        },
+        '.rounded-e': {
+          'border-start-end-radius': '0.25rem',
+          'border-end-end-radius': '0.25rem',
+        },
         '.flip-x': { transform: 'scaleX(-1)' },
       });
     }),
