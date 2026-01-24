@@ -118,7 +118,7 @@ const VoiceAssistant = () => {
               <>
                 AI Ready <span className={styles.accent}>•</span> Say{' '}
                 <span className={styles.accent}>
-                  "{ASSISTANT_CONFIG.wakePhrase}"
+                  &ldquo;{ASSISTANT_CONFIG.wakePhrase}&rdquo;
                 </span>
               </>
             ) : (
@@ -398,7 +398,7 @@ const VoiceAssistant = () => {
             !currentTranscript ? (
               <div className={styles.welcomeMessage}>
                 <p>
-                  Voice assistant ready. Say "{ASSISTANT_CONFIG.wakePhrase}" to
+                  Voice assistant ready. Say &ldquo;{ASSISTANT_CONFIG.wakePhrase}&rdquo; to
                   begin.
                 </p>
                 <p>
