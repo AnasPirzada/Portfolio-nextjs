@@ -1,4 +1,3 @@
-import webpack from 'webpack';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
@@ -98,6 +97,9 @@ const nextConfig = {
 
   // Webpack configuration
   webpack: (config, { isServer }) => {
+    // Get webpack from Next.js internal compilation
+    const webpack = require('next/dist/compiled/webpack/webpack-lib.js');
+
     // Audio file handling
     config.module.rules.push({
       test: /\.(mp3|wav)$/i,
