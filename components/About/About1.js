@@ -7,70 +7,79 @@ const About1 = ({ clientHeight }) => {
   const quoteRef = useRef(null);
 
   useLayoutEffect(() => {
+    if (!sectionRef.current || !quoteRef.current) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // Initial reveal animation
-      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-      });
-
-      // Text highlight animation on scroll
-      const tl = gsap
-        .timeline({
-          defaults: { ease: 'power2.out', duration: 0.8 },
-        })
-        .fromTo(
-          quoteRef.current.querySelector('.about-1'),
-          { opacity: 0.2, y: 20 },
-          { opacity: 1, y: 0 }
-        )
-        .to(quoteRef.current.querySelector('.about-1'), {
-          opacity: 0.2,
-          y: -10,
-          duration: 0.6,
-        })
-        .fromTo(
-          quoteRef.current.querySelector('.about-2'),
-          { opacity: 0.2, y: 20 },
-          { opacity: 1, y: 0 },
-          '<0.2'
-        )
-        .to(quoteRef.current.querySelector('.about-2'), {
-          opacity: 0.2,
-          y: -10,
-          duration: 0.6,
-        })
-        .fromTo(
-          quoteRef.current.querySelector('.about-3'),
-          { opacity: 0.2, y: 20 },
-          { opacity: 1, y: 0 },
-          '<0.2'
-        )
-        .to(quoteRef.current.querySelector('.about-3'), {
-          opacity: 0.2,
-          y: -10,
-          duration: 0.6,
+      // Initial reveal animation - one time only
+      const staggeredElements = sectionRef.current.querySelectorAll('.staggered-reveal');
+      if (staggeredElements.length > 0) {
+        gsap.set(staggeredElements, { opacity: 0, y: 30 });
+        
+        gsap.to(staggeredElements, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            once: true, // Only animate once
+            toggleActions: 'play none none none',
+          },
         });
+      }
 
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top 70%',
-        end: 'bottom 30%',
-        scrub: 1,
-        animation: tl,
-        pin: false,
-      });
-    });
+      // Text highlight animation on scroll - keep this for the sequential text effect
+      const about1 = quoteRef.current.querySelector('.about-1');
+      const about2 = quoteRef.current.querySelector('.about-2');
+      const about3 = quoteRef.current.querySelector('.about-3');
+
+      if (about1 && about2 && about3) {
+        const tl = gsap
+          .timeline({
+            defaults: { ease: 'power2.out', duration: 0.8 },
+          })
+          .fromTo(
+            about1,
+            { opacity: 0.2, y: 20 },
+            { opacity: 1, y: 0 }
+          )
+          .to(about1, {
+            opacity: 0.2,
+            y: -10,
+            duration: 0.6,
+          })
+          .fromTo(
+            about2,
+            { opacity: 0.2, y: 20 },
+            { opacity: 1, y: 0 },
+            '<0.2'
+          )
+          .to(about2, {
+            opacity: 0.2,
+            y: -10,
+            duration: 0.6,
+          })
+          .fromTo(
+            about3,
+            { opacity: 0.2, y: 20 },
+            { opacity: 1, y: 0 },
+            '<0.2'
+          );
+
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 70%',
+          end: 'bottom 30%',
+          scrub: 1,
+          animation: tl,
+          pin: false,
+        });
+      }
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
@@ -80,13 +89,22 @@ const About1 = ({ clientHeight }) => {
       ref={sectionRef}
       className="w-full relative select-none -mt-16 md:mt-0"
     >
-      <div className="py-6 md:py-20 section-container">
+      <style jsx>{`
+        .about-1-section .about-3 {
+          -webkit-text-fill-color: unset !important;
+          -webkit-background-clip: unset !important;
+          background-clip: unset !important;
+          background: none !important;
+          color: inherit !important;
+        }
+      `}</style>
+      <div className="py-6 md:py-20 section-container about-1-section">
         <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base text-center mb-4">
           ABOUT ME
         </p>
         <h1
           ref={quoteRef}
-          className="font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center leading-relaxed px-4 sm:px-6 md:px-0 staggered-reveal"
+          className="font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center leading-relaxed px-4 sm:px-6 md:px-0 staggered-reveal text-white dark:text-white"
         >
           <span className="about-1 leading-tight block mb-4">
             I&apos;m a passionate{' '}

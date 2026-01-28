@@ -50,7 +50,7 @@ function Home() {
         >
           DEV
         </div>
-        <div className="fixed top-0 left-0 h-screen w-screen -z-1" />
+        <div className="fixed top-0 left-0 h-screen w-screen -z-10" />
         <Hero />
         <About1 clientHeight={device.clientHeight} />
         <Skills />

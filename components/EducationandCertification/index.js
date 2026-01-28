@@ -19,9 +19,11 @@ const EducationSection = () => {
   });
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!sectionRef.current) return;
+    if (!sectionRef.current) return;
 
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
       // On mobile/tablet, skip scroll-based GSAP and keep content static
       if (typeof window !== 'undefined') {
         const isMobile = window.innerWidth < 1024;
@@ -42,82 +44,42 @@ const EducationSection = () => {
       const timelineItems =
         sectionRef.current.querySelectorAll('.timeline-item');
 
-      // Set initial state for animations
-      gsap.set(staggeredElements, { opacity: 0, y: 20 });
-      gsap.set(timelineItems, { opacity: 0, y: 40 });
-
-      // Check if section is already in viewport
-      const rect = sectionRef.current.getBoundingClientRect();
-      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-
-      // Heading reveal animation - resets and re-triggers properly
-      const headingAnimation = gsap.to(staggeredElements, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'power3.out',
-        paused: true,
-      });
-
-      if (isInViewport) {
-        setTimeout(() => {
-          headingAnimation.play();
-        }, 100);
-      } else {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          toggleActions: 'play reset play reset',
-          animation: headingAnimation,
-          onEnter: () => {
-            headingAnimation.play();
-          },
-          onEnterBack: () => {
-            // Reset and play when scrolling back up
-            gsap.set(staggeredElements, { opacity: 0, y: 20 });
-            headingAnimation.restart();
-          },
-          onLeaveBack: () => {
-            // Reset when scrolling back up past the section
-            gsap.set(staggeredElements, { opacity: 0, y: 20 });
+      if (staggeredElements.length > 0) {
+        // Set initial state
+        gsap.set(staggeredElements, { opacity: 0, y: 30 });
+        
+        // Heading reveal animation - one time only
+        gsap.to(staggeredElements, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            once: true,
+            toggleActions: 'play none none none',
           },
         });
       }
 
-      // Timeline items animation - resets and re-triggers properly
-      const timelineAnimation = gsap.to(timelineItems, {
-        opacity: 1,
-        y: 0,
-        stagger: 0.3,
-        duration: 1,
-        ease: 'power3.out',
-        paused: true,
-      });
-
-      if (isInViewport) {
-        setTimeout(() => {
-          timelineAnimation.play();
-        }, 100);
-      } else {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'bottom bottom',
-          toggleActions: 'play reset play reset',
-          animation: timelineAnimation,
-          onEnter: () => {
-            timelineAnimation.play();
-          },
-          onEnterBack: () => {
-            // Reset and play when scrolling back up
-            gsap.set(timelineItems, { opacity: 0, y: 40 });
-            timelineAnimation.restart();
-          },
-          onLeaveBack: () => {
-            // Reset when scrolling back up past the section
-            gsap.set(timelineItems, { opacity: 0, y: 40 });
+      if (timelineItems.length > 0) {
+        // Set initial state
+        gsap.set(timelineItems, { opacity: 0, y: 40 });
+        
+        // Timeline items animation - one time only
+        gsap.to(timelineItems, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.3,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            once: true,
+            toggleActions: 'play none none none',
           },
         });
       }
@@ -125,7 +87,6 @@ const EducationSection = () => {
 
     return () => {
       ctx.revert();
-      ScrollTrigger.refresh();
     };
   }, [activeTab]); // Re-run when tab changes
 

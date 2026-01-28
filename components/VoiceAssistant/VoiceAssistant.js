@@ -105,290 +105,47 @@ const VoiceAssistant = () => {
 
   return (
     <>
-      {/* Premium AI Voice Pill - Bottom Right */}
+      {/* AI Assistant Button */}
       <button
-        className={`${styles.voicePill} ${styles[getMicButtonState()]}`}
+        className={`${styles.assistantButton} ${styles[getMicButtonState()]}`}
         onClick={activate}
         aria-label="Activate voice assistant"
       >
-        <div className={styles.voicePillContent}>
-          {/* Text Status with Gold Accent */}
-          <div className={styles.statusText}>
-            {state === 'idle' ? (
-              <>
-                AI Ready <span className={styles.accent}>•</span> Say{' '}
-                <span className={styles.accent}>
-                  &ldquo;{ASSISTANT_CONFIG.wakePhrase}&rdquo;
-                </span>
-              </>
-            ) : (
-              <>
-                <span className={styles.accent}>AI {getStateLabel()}</span>
-              </>
-            )}
-          </div>
-
-          {/* Animated Sound Wave - White */}
-          <div className={styles.soundWave}>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        <FiMic className={styles.micIcon} />
+        <span className={styles.buttonText}>
+          {state === 'idle' ? 'AI Assistant' : getStateLabel()}
+        </span>
+        {state !== 'idle' && (
+          <div className={styles.activeIndicator}>
             <span></span>
           </div>
-        </div>
+        )}
       </button>
 
-      {/* Chat Panel */}
+      {/* AI Panel */}
       {isPanelOpen && (
         <div className={styles.panel} ref={panelRef}>
           {/* Header */}
           <div className={styles.header}>
-            <div className={styles.headerContent}>
-              <button
-                className={styles.closeButton}
-                onClick={togglePanel}
-                aria-label="Close panel"
-              >
-                <FiX />
-              </button>
+            <div className={styles.headerLeft}>
+              <div className={styles.headerBadge}>AI</div>
+              <div className={styles.headerInfo}>
+                <div className={styles.headerTitle}>Assistant</div>
+                <div className={styles.headerStatus}>
+                  {state === 'idle' && 'Ready'}
+                  {state === 'listening' && 'Listening...'}
+                  {state === 'processing' && 'Processing...'}
+                  {state === 'speaking' && 'Speaking...'}
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* Abstract AI Presence - Horizontal Capsule with Eyes */}
-          <div
-            ref={avatarContainerRef}
-            className={styles.avatarContainer}
-            onMouseMove={e => {
-              if (avatarContainerRef.current) {
-                const rect = avatarContainerRef.current.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const x = (e.clientX - centerX) / (rect.width / 2);
-                const y = (e.clientY - centerY) / (rect.height / 2);
-                setMousePosition({ x, y });
-                setIsHovering(true);
-              }
-            }}
-            onMouseLeave={() => {
-              setIsHovering(false);
-              setMousePosition({ x: 0, y: 0 });
-            }}
-          >
-            <div
-              className={`${styles.aiPresence} ${styles[`presence${state.charAt(0).toUpperCase() + state.slice(1)}`]}`}
-              style={{
-                transform: isHovering
-                  ? `perspective(1000px) rotateY(${mousePosition.x * 8}deg) rotateX(${-mousePosition.y * 8}deg)`
-                  : 'perspective(1000px) rotateY(0deg) rotateX(0deg)',
-                transition: isHovering ? 'none' : 'transform 0.5s ease-out',
-              }}
+            <button
+              className={styles.closeButton}
+              onClick={togglePanel}
+              aria-label="Close panel"
             >
-              <svg
-                className={styles.capsuleSvg}
-                viewBox="0 0 180 140"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  {/* Body Gradient */}
-                  <linearGradient
-                    id="bodyGradient"
-                    x1="0"
-                    y1="0"
-                    x2="180"
-                    y2="0"
-                  >
-                    <stop offset="0%" stopColor="#101010" />
-                    <stop offset="100%" stopColor="#1C1C1C" />
-                  </linearGradient>
-
-                  {/* Accent Glow Gradient */}
-                  <linearGradient id="accentGlow" x1="0" y1="0" x2="180" y2="0">
-                    <stop offset="0%" stopColor="#00FFFF" stopOpacity="0" />
-                    <stop offset="50%" stopColor="#00FFFF" stopOpacity="0.5" />
-                    <stop offset="100%" stopColor="#00FFFF" stopOpacity="0" />
-                  </linearGradient>
-
-                  {/* Eye Glow - for listening */}
-                  <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="#00FFFF" stopOpacity="1" />
-                    <stop offset="100%" stopColor="#00FFFF" stopOpacity="0" />
-                  </radialGradient>
-                </defs>
-
-                {/* Main Capsule Body - Horizontal */}
-                <rect
-                  x="20"
-                  y="20"
-                  width="140"
-                  height="100"
-                  rx="50"
-                  ry="50"
-                  fill="url(#bodyGradient)"
-                  className={styles.capsuleBody}
-                />
-
-                {/* Left Eye - Proper eye structure with blinking */}
-                <g
-                  className={styles.eyeGroup}
-                  transform={
-                    isHovering
-                      ? `translate(${70 + mousePosition.x * 3}, ${70 + mousePosition.y * 3})`
-                      : 'translate(70, 70)'
-                  }
-                >
-                  {/* Eye white/sclera */}
-                  <ellipse
-                    cx="0"
-                    cy="0"
-                    rx="10"
-                    ry="7"
-                    fill="#ffffff"
-                    className={styles.eyeSclera}
-                  />
-                  {/* Iris */}
-                  <ellipse
-                    cx={isHovering ? mousePosition.x * 2 : 0}
-                    cy={isHovering ? mousePosition.y * 2 : 0}
-                    rx={state === 'listening' ? 5 : 4}
-                    ry={state === 'listening' ? 5 : 4}
-                    fill="#00d4ff"
-                    className={`${styles.eyeIris} ${styles.eyeLeftIris}`}
-                  />
-                  {/* Pupil */}
-                  <circle
-                    cx={isHovering ? mousePosition.x * 2 : 0}
-                    cy={isHovering ? mousePosition.y * 2 : 0}
-                    r={state === 'listening' ? 2.5 : 2}
-                    fill="#000000"
-                    className={styles.eyePupil}
-                  />
-                  {/* Eye highlight */}
-                  <circle
-                    cx={(isHovering ? mousePosition.x * 2 : 0) - 1}
-                    cy={(isHovering ? mousePosition.y * 2 : 0) - 1}
-                    r="1"
-                    fill="#ffffff"
-                    opacity="0.8"
-                    className={styles.eyeHighlight}
-                  />
-                  {/* Eyelid - for blinking */}
-                  <rect
-                    x="-11"
-                    y="-8"
-                    width="22"
-                    height="8"
-                    fill="#101010"
-                    className={`${styles.eyelid} ${styles.eyelidTop}`}
-                  />
-                  <rect
-                    x="-11"
-                    y="0"
-                    width="22"
-                    height="8"
-                    fill="#101010"
-                    className={`${styles.eyelid} ${styles.eyelidBottom}`}
-                  />
-                </g>
-
-                {/* Right Eye - Proper eye structure with blinking */}
-                <g
-                  className={styles.eyeGroup}
-                  transform={
-                    isHovering
-                      ? `translate(${110 + mousePosition.x * 3}, ${70 + mousePosition.y * 3})`
-                      : 'translate(110, 70)'
-                  }
-                >
-                  {/* Eye white/sclera */}
-                  <ellipse
-                    cx="0"
-                    cy="0"
-                    rx="10"
-                    ry="7"
-                    fill="#ffffff"
-                    className={styles.eyeSclera}
-                  />
-                  {/* Iris */}
-                  <ellipse
-                    cx={isHovering ? mousePosition.x * 2 : 0}
-                    cy={isHovering ? mousePosition.y * 2 : 0}
-                    rx={state === 'listening' ? 5 : 4}
-                    ry={state === 'listening' ? 5 : 4}
-                    fill="#00d4ff"
-                    className={`${styles.eyeIris} ${styles.eyeRightIris}`}
-                  />
-                  {/* Pupil */}
-                  <circle
-                    cx={isHovering ? mousePosition.x * 2 : 0}
-                    cy={isHovering ? mousePosition.y * 2 : 0}
-                    r={state === 'listening' ? 2.5 : 2}
-                    fill="#000000"
-                    className={styles.eyePupil}
-                  />
-                  {/* Eye highlight */}
-                  <circle
-                    cx={(isHovering ? mousePosition.x * 2 : 0) - 1}
-                    cy={(isHovering ? mousePosition.y * 2 : 0) - 1}
-                    r="1"
-                    fill="#ffffff"
-                    opacity="0.8"
-                    className={styles.eyeHighlight}
-                  />
-                  {/* Eyelid - for blinking */}
-                  <rect
-                    x="-11"
-                    y="-8"
-                    width="22"
-                    height="8"
-                    fill="#101010"
-                    className={`${styles.eyelid} ${styles.eyelidTop}`}
-                  />
-                  <rect
-                    x="-11"
-                    y="0"
-                    width="22"
-                    height="8"
-                    fill="#101010"
-                    className={`${styles.eyelid} ${styles.eyelidBottom}`}
-                  />
-                </g>
-
-                {/* Accent Neon Stroke */}
-                <rect
-                  x="20"
-                  y="20"
-                  width="140"
-                  height="100"
-                  rx="50"
-                  ry="50"
-                  fill="none"
-                  stroke="#00FFFF"
-                  strokeWidth="2"
-                  className={styles.neonStroke}
-                  opacity="0.3"
-                />
-
-                {/* Accent Glow Overlay */}
-                <rect
-                  x="20"
-                  y="20"
-                  width="140"
-                  height="100"
-                  rx="50"
-                  ry="50"
-                  fill="url(#accentGlow)"
-                  className={styles.glowOverlay}
-                  opacity="0.4"
-                />
-              </svg>
-
-              {/* Breathing Glow - Idle state */}
-              <div className={styles.breathingGlow}></div>
-            </div>
+              <FiX />
+            </button>
           </div>
 
           {/* Messages */}
@@ -397,14 +154,27 @@ const VoiceAssistant = () => {
             !interimTranscript &&
             !currentTranscript ? (
               <div className={styles.welcomeMessage}>
-                <p>
-                  Voice assistant ready. Say &ldquo;{ASSISTANT_CONFIG.wakePhrase}&rdquo; to
-                  begin.
-                </p>
-                <p>
-                  Ask about experience, skills, projects, or contact
-                  information.
-                </p>
+                <div className={styles.welcomeGrid}></div>
+                <div className={styles.welcomeContent}>
+                  <div className={styles.welcomeIcon}>
+                    <div className={styles.aiGlow}></div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                      <path d="M2 17l10 5 10-5" />
+                      <path d="M2 12l10 5 10-5" />
+                    </svg>
+                  </div>
+                  <div className={styles.welcomeTitleContainer}>
+                    <h3 className={styles.welcomeTitle}>AI Assistant</h3>
+                    <div className={styles.welcomeTitleLine}></div>
+                  </div>
+                  <p className={styles.welcomeText}>
+                    Say &ldquo;{ASSISTANT_CONFIG.wakePhrase}&rdquo; to start
+                  </p>
+                  <p className={styles.welcomeHint}>
+                    Ask about my experience, skills, projects, or contact info
+                  </p>
+                </div>
               </div>
             ) : (
               <>
@@ -413,29 +183,36 @@ const VoiceAssistant = () => {
                     key={index}
                     className={`${styles.message} ${styles[message.type]}`}
                   >
+                    {message.type === 'assistant' && (
+                      <div className={styles.messageAvatar}>
+                        <div className={styles.avatarGlow}></div>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="M12 6v6l4 2" />
+                        </svg>
+                      </div>
+                    )}
+                    <div className={styles.messageContent}>
+                      {message.text}
+                    </div>
                     {message.type === 'user' && (
-                      <div className={styles.userMessageIcon}>
+                      <div className={styles.messageAvatar}>
                         <FiMic />
                       </div>
                     )}
-                    <div className={styles.messageContent}>{message.text}</div>
                   </div>
                 ))}
 
-                {/* Live User Transcription - Shows as temporary user message */}
-                {/* Only show if we have transcript AND we're actively listening (not processing/speaking) */}
                 {state === 'listening' &&
                   (interimTranscript || currentTranscript) && (
                     <div
                       className={`${styles.message} ${styles.user} ${styles.liveTranscript}`}
                     >
-                      <div
-                        className={`${styles.userMessageIcon} ${styles.micPulsing}`}
-                      >
-                        <FiMic />
-                      </div>
                       <div className={styles.messageContent}>
                         {interimTranscript || currentTranscript}
+                      </div>
+                      <div className={`${styles.messageAvatar} ${styles.pulsing}`}>
+                        <FiMic />
                       </div>
                     </div>
                   )}
@@ -446,23 +223,20 @@ const VoiceAssistant = () => {
           </div>
 
           {/* Footer */}
-          <div className={styles.footer}>
-            {(state === 'listening' || state === 'speaking') && (
-              <div className={styles.footerHint}>
-                {state === 'listening' && <p>Listening</p>}
-                {state === 'speaking' && <p>Speaking</p>}
-              </div>
-            )}
-            {state === 'speaking' && (
+          {state === 'speaking' && (
+            <div className={styles.footer}>
               <button
-                className={styles.idleButton}
+                className={styles.stopButton}
                 onClick={goIdle}
                 aria-label="Stop speaking"
               >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="6" width="12" height="12" rx="2" />
+                </svg>
                 Stop
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       )}
     </>

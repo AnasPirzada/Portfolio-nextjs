@@ -1,10 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import { FaCalendarAlt, FaUsers, FaStar, FaBriefcase } from 'react-icons/fa';
 import { TESTIMONIALS, METADATA } from '../../constants';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Reviews = () => {
   // Generate Review/Rating Schema for SEO
@@ -43,30 +46,19 @@ const Reviews = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
+    gsap.registerPlugin(ScrollTrigger);
+
     const ctx = gsap.context(() => {
       const staggeredElements =
         sectionRef.current.querySelectorAll('.staggered-reveal') || [];
       const statsCards =
         sectionRef.current.querySelectorAll('.stats-card') || [];
 
-      // Set initial state for animations
-      gsap.set(staggeredElements, { opacity: 0, y: 30 });
-      gsap.set(statsCards, { opacity: 0, y: 50 });
-
-      // Check if section is already in viewport
-      const rect = sectionRef.current.getBoundingClientRect();
-      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-
-      // Animate staggered elements - works both forward and backward
-      if (isInViewport) {
-        gsap.to(staggeredElements, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-        });
-      } else {
+      if (staggeredElements.length > 0) {
+        // Set initial state
+        gsap.set(staggeredElements, { opacity: 0, y: 30 });
+        
+        // Simple one-time reveal for header elements
         gsap.to(staggeredElements, {
           opacity: 1,
           y: 0,
@@ -76,28 +68,17 @@ const Reviews = () => {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play reverse play reverse',
-            onEnter: () => {
-              gsap.set(staggeredElements, { opacity: 1, y: 0 });
-            },
-            onLeaveBack: () => {
-              gsap.set(staggeredElements, { opacity: 0, y: 30 });
-            },
+            once: true,
+            toggleActions: 'play none none none',
           },
         });
       }
 
-      // Animate stats cards - works both forward and backward
-      if (isInViewport) {
-        gsap.to(statsCards, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.2,
-          ease: 'power3.out',
-        });
-      } else {
+      if (statsCards.length > 0) {
+        // Set initial state
+        gsap.set(statsCards, { opacity: 0, y: 50 });
+        
+        // Simple one-time reveal for stats cards
         gsap.to(statsCards, {
           opacity: 1,
           y: 0,
@@ -107,14 +88,8 @@ const Reviews = () => {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play reverse play reverse',
-            onEnter: () => {
-              gsap.set(statsCards, { opacity: 1, y: 0 });
-            },
-            onLeaveBack: () => {
-              gsap.set(statsCards, { opacity: 0, y: 50 });
-            },
+            once: true,
+            toggleActions: 'play none none none',
           },
         });
       }

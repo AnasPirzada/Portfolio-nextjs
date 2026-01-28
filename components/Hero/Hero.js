@@ -106,27 +106,25 @@ const Hero = () => {
         />
       </div>
 
-      <style global jsx>
-        {`
+      <style jsx global>{`
+        .typed-cursor {
+          font-size: 2.25rem;
+          display: inline-block;
+          vertical-align: baseline;
+          line-height: inherit;
+          margin-left: 2px;
+        }
+        @media (min-width: 640px) {
           .typed-cursor {
-            font-size: 2.25rem;
-            display: inline-block;
-            vertical-align: baseline;
-            line-height: inherit;
-            margin-left: 2px;
+            font-size: 2.75rem;
           }
-          @media (min-width: 640px) {
-            .typed-cursor {
-              font-size: 2.75rem;
-            }
+        }
+        @media (min-width: 768px) {
+          .typed-cursor {
+            font-size: 2rem;
           }
-          @media (min-width: 768px) {
-            .typed-cursor {
-              font-size: 2rem;
-            }
-          }
-        `}
-      </style>
+        }
+      `}</style>
       <div
         className="flex flex-col justify-center items-start md:items-start text-left md:text-left pt-0 md:pt-0 select-none w-full md:max-w-[50%] lg:max-w-[45%] relative z-10"
         style={{ pointerEvents: 'auto' }}
@@ -225,9 +223,9 @@ const Hero = () => {
           backgroundColor: 'transparent',
         }}
       >
-        {/* Fiverr Badge - Top Right */}
+        {/* Fiverr Badge - Center */}
         <div
-          className="staggered-reveal absolute top-2 -right-15 z-20"
+          className="staggered-reveal absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
           style={{ pointerEvents: 'auto' }}
         >
           <FiverrBadge />

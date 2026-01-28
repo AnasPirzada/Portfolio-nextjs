@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from 'react';
 
 /**
  * Custom hook for scroll reveal animations
+ * Prevents animation conflicts and ensures smooth scroll reveals
  * @param {Object} config - Configuration object
  * @param {number} config.duration - Animation duration
  * @param {number} config.stagger - Stagger delay between elements
@@ -35,57 +36,26 @@ export const useScrollReveal = (config = {}) => {
       // Set initial state
       gsap.set(elements, { opacity: 0, y: 30 });
 
-      // Create animation that can re-trigger
-      const animation = gsap.to(elements, {
+      // Simple one-time reveal animation - no reset on scroll
+      gsap.to(elements, {
         opacity: 1,
         y: 0,
         duration: defaultConfig.duration,
         stagger: defaultConfig.stagger,
         ease: defaultConfig.ease,
-        paused: true,
-      });
-
-      // Create ScrollTrigger that resets and re-triggers
-      ScrollTrigger.create({
-        trigger: ref.current,
-        start: defaultConfig.triggerStart,
-        toggleActions: 'play reset play reset',
-        animation: animation,
-        onEnter: () => {
-          animation.play();
-        },
-        onEnterBack: () => {
-          // Reset and play when scrolling back up
-          gsap.set(elements, { opacity: 0, y: 30 });
-          animation.restart();
-        },
-        onLeave: () => {
-          // Keep visible when scrolling past
-        },
-        onLeaveBack: () => {
-          // Reset when scrolling back up past the section
-          gsap.set(elements, { opacity: 0, y: 30 });
+        scrollTrigger: {
+          trigger: ref.current,
+          start: defaultConfig.triggerStart,
+          once: true, // Only animate once
+          toggleActions: 'play none none none',
         },
       });
-
-      // Check if already in viewport on mount
-      const rect = ref.current.getBoundingClientRect();
-      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-      
-      if (isInViewport) {
-        // Small delay to ensure ScrollTrigger is ready
-        setTimeout(() => {
-          animation.play();
-        }, 100);
-      }
     }, ref);
 
     return () => {
       ctx.revert();
-      // Refresh ScrollTrigger after cleanup
-      ScrollTrigger.refresh();
     };
-  }, []);
+  }, [defaultConfig.duration, defaultConfig.ease, defaultConfig.stagger, defaultConfig.triggerStart]);
 
   return ref;
 };

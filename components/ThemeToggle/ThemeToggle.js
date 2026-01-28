@@ -1,5 +1,5 @@
 import { useTheme } from '@/contexts/ThemeContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useRef } from 'react';
 
 const ThemeToggle = () => {
@@ -28,7 +28,7 @@ const ThemeToggle = () => {
       ref={buttonRef}
       onClick={handleClick}
       disabled={isTransitioning}
-      className="relative w-[72px] h-9 rounded-full p-1 overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#efc041]/50 focus:ring-offset-2 disabled:cursor-not-allowed border border-[#efc041]/20 dark:border-[#efc041]/30 transition-all duration-300"
+      className="relative w-[100px] h-[6px] rounded-full p-0.5 overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#efc041]/50 focus:ring-offset-2 disabled:cursor-not-allowed border border-[#efc041]/20 dark:border-[#efc041]/30 transition-all duration-300"
       style={{
         background: isDark
           ? 'linear-gradient(145deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%)'
@@ -102,17 +102,17 @@ const ThemeToggle = () => {
 
       {/* Toggle orb (Sun/Moon) - using site's gold accent colors */}
       <motion.div
-        className="relative w-7 h-7 rounded-full flex items-center justify-center"
+        className="relative w-5 h-5 rounded-full flex items-center justify-center"
         style={{
           background: isDark
             ? 'linear-gradient(135deg, #efc041 0%, #eeba2c 50%, #d4a429 100%)'
             : 'linear-gradient(135deg, #efc041 0%, #facc15 50%, #eeba2c 100%)',
           boxShadow: isDark
-            ? '0 0 16px rgba(239, 192, 65, 0.7), 0 0 32px rgba(238, 186, 44, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.2)'
-            : '0 0 20px rgba(239, 192, 65, 0.9), 0 0 40px rgba(238, 186, 44, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.3)',
+            ? '0 0 12px rgba(239, 192, 65, 0.7), 0 0 24px rgba(238, 186, 44, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2)'
+            : '0 0 14px rgba(239, 192, 65, 0.9), 0 0 28px rgba(238, 186, 44, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3)',
         }}
         animate={{ 
-          x: isDark ? 0 : 36, 
+          x: isDark ? 2 : 67, 
           rotate: isDark ? 0 : 360,
         }}
         transition={{ 
@@ -141,27 +141,27 @@ const ThemeToggle = () => {
               />
               {/* Moon craters with gold accents */}
               <div
-                className="absolute w-2 h-2 rounded-full"
+                className="absolute w-1 h-1 rounded-full"
                 style={{
                   background:
                     'radial-gradient(circle, rgba(239, 192, 65, 0.5) 0%, rgba(238, 186, 44, 0.2) 100%)',
                   top: '20%',
                   left: '15%',
-                  boxShadow: '0 0 2px rgba(239, 192, 65, 0.3)',
+                  boxShadow: '0 0 1px rgba(239, 192, 65, 0.3)',
                 }}
               />
               <div
-                className="absolute w-1.5 h-1.5 rounded-full"
+                className="absolute w-0.5 h-0.5 rounded-full"
                 style={{
                   background:
                     'radial-gradient(circle, rgba(239, 192, 65, 0.4) 0%, rgba(238, 186, 44, 0.15) 100%)',
                   top: '50%',
                   left: '45%',
-                  boxShadow: '0 0 2px rgba(239, 192, 65, 0.2)',
+                  boxShadow: '0 0 1px rgba(239, 192, 65, 0.2)',
                 }}
               />
               <div
-                className="absolute w-1 h-1 rounded-full"
+                className="absolute w-[2px] h-[2px] rounded-full"
                 style={{
                   background: 'rgba(239, 192, 65, 0.3)',
                   top: '65%',
@@ -185,15 +185,15 @@ const ThemeToggle = () => {
                   key={i}
                   className="absolute rounded-full"
                   style={{
-                    width: '2px',
-                    height: '7px',
+                    width: '1.5px',
+                    height: '4px',
                     background: 'linear-gradient(to bottom, #efc041, #eeba2c)',
-                    transform: `rotate(${i * 45}deg) translateY(-15px)`,
+                    transform: `rotate(${i * 45}deg) translateY(-10px)`,
                     transformOrigin: 'center center',
                   }}
                   animate={{
                     opacity: [0.7, 1, 0.7],
-                    height: ['7px', '9px', '7px'],
+                    height: ['4px', '5px', '4px'],
                   }}
                   transition={{
                     duration: 1.5,
@@ -205,7 +205,7 @@ const ThemeToggle = () => {
               ))}
               {/* Sun center */}
               <div
-                className="w-4 h-4 rounded-full"
+                className="w-2.5 h-2.5 rounded-full"
                 style={{
                   background:
                     'radial-gradient(circle at 35% 35%, #efc041 0%, #eeba2c 50%, #d4a429 100%)',

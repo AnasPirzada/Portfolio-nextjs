@@ -64,7 +64,7 @@ const Header = ({ children }) => {
       className={`w-full fixed top-0 py-4 md:py-8 z-50 select-none transition-all duration-300 ${isRTL ? 'rtl' : 'ltr'} ${
         isScrolled
           ? 'bg-transparent'
-          : 'bg-gradient-to-b from-white/90 dark:from-black/50 to-transparent'
+          : 'bg-transparent dark:bg-gradient-to-b dark:from-black/50 dark:to-transparent'
       }`}
     >
       <div
@@ -107,26 +107,6 @@ const Header = ({ children }) => {
             <div className="relative w-5 md:w-6 lg:w-7 xl:w-8" />
           </div>
           {children}
-          {/* Contact Us Button - Right side bottom on laptop/desktop */}
-          <div
-            className={`contact-btn-desktop hidden md:block fixed ${isRTL ? 'left-8 lg:left-12 xl:left-16' : 'right-8 lg:right-12 xl:right-16'} bottom-8 lg:bottom-12 z-[9999]`}
-          >
-            <a
-              href="#contact"
-              className="link relative inline-block font-bold md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl duration-300 md:px-6 md:py-3 lg:px-8 lg:py-4 xl:px-10 xl:py-5 rounded-lg border-2 border-gray-dark-1 dark:border-white text-gray-dark-1 dark:text-white hover:bg-[#efc041] hover:text-black hover:border-[#efc041] transition-all whitespace-nowrap"
-              style={{
-                fontFamily:
-                  'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-              }}
-              onClick={() => {
-                if (inputRef.current) {
-                  inputRef.current.checked = false;
-                }
-              }}
-            >
-              {t('common.contactUs')}
-            </a>
-          </div>
         </div>
       </div>
     </nav>

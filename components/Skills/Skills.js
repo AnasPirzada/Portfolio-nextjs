@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { MENULINKS, SKILLS } from '@/constants';
+import { useTheme } from '@/contexts/ThemeContext';
 import { useScrollReveal } from '@/hooks';
 import gsap from 'gsap';
 import Image from 'next/image';
@@ -43,9 +44,10 @@ const SKILL_COLORS = {
 const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const iconRef = useRef(null);
+  const { isDark } = useTheme();
   const colors = SKILL_COLORS[skill] || SKILL_COLORS.default;
 
-  // Wave animation on scroll - resets and re-triggers
+  // Wave animation on scroll - simple one-time reveal
   useEffect(() => {
     const icon = iconRef.current;
     if (!icon) return;
@@ -57,22 +59,15 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Reset and animate when entering viewport
-            gsap.fromTo(
-              icon,
-              { y: 20, opacity: 0, scale: 0.95 },
-              {
-                y: 0,
-                opacity: 1,
-                scale: 1,
-                duration: 0.8,
-                delay: index * 0.08,
-                ease: 'power3.out',
-              }
-            );
-          } else {
-            // Reset when leaving viewport (scrolling back up)
-            gsap.set(icon, { y: 20, opacity: 0, scale: 0.95 });
+            gsap.to(icon, {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.8,
+              delay: index * 0.08,
+              ease: 'power3.out',
+            });
+            observer.unobserve(icon); // Only animate once
           }
         });
       },
@@ -85,8 +80,6 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
     observer.observe(icon);
     return () => {
       observer.disconnect();
-      // Reset on cleanup
-      gsap.set(icon, { clearProps: 'all' });
     };
   }, [index]);
 
@@ -104,18 +97,20 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
           alt={skill}
           width={width}
           height={height}
-          className="filter group-hover:drop-shadow-lg"
+          className={`filter group-hover:drop-shadow-lg ${
+            skill === 'nextjs' ? 'nextjs-icon' : ''
+          }`}
         />
       </div>
 
       {/* Animated Badge/Tooltip */}
       <div
-        className={`absolute left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 rounded-lg font-medium text-xs whitespace-nowrap transition-all duration-300 pointer-events-none ${
+        className={`absolute left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 rounded-lg font-medium text-xs whitespace-nowrap transition-all duration-300 pointer-events-none skill-tooltip ${
           isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
         }`}
         style={{
           backgroundColor: colors.bg,
-          color: colors.text,
+          ...(isDark ? { color: colors.text } : {}),
           boxShadow: `0 4px 12px ${colors.bg}40`,
           top: '100%',
         }}

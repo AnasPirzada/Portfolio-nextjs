@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { BLOGS } from '../../constants';
 import Button from '../Button/Button';
+import { useScrollReveal } from '@/hooks';
 
 // Calculate reading time based on content length
 const calculateReadingTime = content => {
@@ -111,15 +112,21 @@ const BlogCard = ({ blog, index }) => {
 };
 
 const Blogs = ({ clientHeight }) => {
+  const sectionRef = useScrollReveal();
+
   return (
-    <section id="blogs" className="w-full relative select-none">
+    <section 
+      ref={sectionRef} 
+      id="blogs" 
+      className="w-full relative select-none"
+    >
       <div className="section-container py-10 md:py-20 flex flex-col justify-center">
         <div className="flex flex-col">
           <div className="text-left mb-6">
-            <p className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base">
+            <p className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base staggered-reveal">
               BLOGS
             </p>
-            <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit">
+            <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal">
               Latest Writing
             </h2>
           </div>
@@ -130,11 +137,9 @@ const Blogs = ({ clientHeight }) => {
           </div>
           <div className="mt-6 text-center">
             <div className="staggered-reveal pt-4">
-              {/* <Link href='/blogs'> */}
               <Button href="/blogs" classes="link" type="primary">
                 View All Blogs
               </Button>
-              {/* </Link> */}
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 import { RESUME_DATA } from '../../constants';
 import PDFViewer from '../PDFViewer/PDFViewer';
@@ -10,20 +11,32 @@ const Resume = () => {
   const [showPDFViewer, setShowPDFViewer] = useState(false);
 
   useEffect(() => {
+    if (!sectionRef.current) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
     const ctx = gsap.context(() => {
-      gsap.from(sectionRef.current.querySelectorAll('.staggered-reveal'), {
-        opacity: 0,
-        y: 30,
+      const elements = sectionRef.current.querySelectorAll('.staggered-reveal');
+      if (elements.length === 0) return;
+
+      // Set initial state
+      gsap.set(elements, { opacity: 0, y: 30 });
+
+      // Simple one-time reveal animation
+      gsap.to(elements, {
+        opacity: 1,
+        y: 0,
         duration: 0.8,
         stagger: 0.15,
         ease: 'power2.out',
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 80%',
+          once: true, // Only animate once
           toggleActions: 'play none none none',
         },
       });
-    });
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);

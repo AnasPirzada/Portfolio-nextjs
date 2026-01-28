@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useEffect, useRef } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 
 const Tag = ({ clientHeight }) => {
@@ -11,8 +11,43 @@ const Tag = ({ clientHeight }) => {
   // Get the appropriate gradient based on theme
   const gradientColor = isDark ? '#ffffff' : '#121212';
 
+  // Handle theme changes - update gradient when theme switches
+  useEffect(() => {
+    if (!quoteRef.current) return;
+    
+    const updateStyles = () => {
+      const knowledgeSpan = quoteRef.current.querySelector('.about-3');
+      if (!knowledgeSpan) return;
+
+      // Update the background gradient when theme changes
+      knowledgeSpan.style.background = `linear-gradient(90deg, ${gradientColor} 0%, ${gradientColor} 50%, #eeba2c 51%, #efc041 102%)`;
+      
+      // Ensure background-clip properties are always applied
+      knowledgeSpan.style.display = 'inline-block';
+      knowledgeSpan.style.WebkitBackgroundClip = 'text';
+      knowledgeSpan.style.WebkitTextFillColor = 'transparent';
+      knowledgeSpan.style.backgroundClip = 'text';
+      knowledgeSpan.style.backgroundSize = '200% 100%';
+      
+      // Force a reflow to ensure styles are applied
+      void knowledgeSpan.offsetHeight;
+    };
+
+    // Apply immediately
+    updateStyles();
+    
+    // Also apply after theme transition completes (theme changes at 300ms, transition ends at 650ms)
+    const timeoutId = setTimeout(() => {
+      updateStyles();
+    }, 700);
+
+    return () => clearTimeout(timeoutId);
+  }, [isDark, gradientColor]);
+
   useLayoutEffect(() => {
     if (!sectionRef.current || !quoteRef.current) return;
+
+    gsap.registerPlugin(ScrollTrigger);
 
     // On mobile/tablet, skip scroll-based GSAP and keep static for smoother UX
     if (typeof window !== 'undefined') {
@@ -27,95 +62,64 @@ const Tag = ({ clientHeight }) => {
       }
     }
 
-    let timeoutId;
-    let ctx;
+    const ctx = gsap.context(() => {
+      const knowledgeSpan = quoteRef.current.querySelector('.about-3');
+      if (!knowledgeSpan) return;
 
-    // Small delay to ensure DOM is ready
-    timeoutId = setTimeout(() => {
-      ctx = gsap.context(() => {
-        const knowledgeSpan = quoteRef.current.querySelector('.about-3');
-        if (!knowledgeSpan) return;
+      // Set initial state for animation - ensure it starts unfilled
+      gsap.set(quoteRef.current, { opacity: 0, y: 30 });
+      // Force initial background position to 0% (unfilled state)
+      gsap.set(knowledgeSpan, {
+        backgroundPosition: '0% 0%',
+        backgroundPositionX: '0%',
+      });
+      // Also set inline style to ensure it's not filled initially
+      knowledgeSpan.style.backgroundPosition = '0% 0%';
+      knowledgeSpan.style.backgroundPositionX = '0%';
 
-        // Set initial state for animation
-        gsap.set(quoteRef.current, { opacity: 0, y: 30 });
-        // Set initial background position for fill animation - ensure it's set inline
-        knowledgeSpan.style.backgroundPosition = '0% 0%';
-        gsap.set(knowledgeSpan, {
-          backgroundPosition: '0% 0%',
-        });
-
-        // Check if section is already in viewport
-        const rect = sectionRef.current.getBoundingClientRect();
-        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-
-        const tl = gsap
-          .timeline({
-            defaults: { ease: 'power2.out' },
-            onComplete: () => {
-              // Ensure text stays visible after animation
-              gsap.set(quoteRef.current, { opacity: 1, y: 0 });
-              // Ensure fill animation completes
-              gsap.set(knowledgeSpan, {
-                backgroundPosition: '100% 0%',
-                backgroundPositionX: '100%',
-              });
-            },
-          })
-          .to(quoteRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-          })
-          .to(
-            knowledgeSpan,
-            {
-              backgroundPosition: '100% 0%',
-              duration: 1.2,
-              ease: 'power1.inOut',
-              force3D: false,
-              onStart: () => {
-                // Ensure gradient is visible before animation
-                knowledgeSpan.style.backgroundPosition = '0% 0%';
-              },
-              onComplete: () => {
-                // Ensure final state
-                knowledgeSpan.style.backgroundPosition = '100% 0%';
-              },
-            },
-            '-=0.2'
-          );
-
-        if (isInViewport) {
-          // If already visible, play animation immediately
-          tl.play();
-        } else {
-          // Otherwise, wait for scroll trigger (one-way, no hide on scroll)
-          ScrollTrigger.create({
+      const tl = gsap
+        .timeline({
+          defaults: { ease: 'power2.out' },
+          scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',
-            end: 'bottom 20%',
+            once: true,
             toggleActions: 'play none none none',
-            animation: tl,
-            onEnter: () => {
-              // Ensure visibility when entering
-              gsap.set(quoteRef.current, { opacity: 1, y: 0 });
-              tl.play();
-            },
-            onEnterBack: () => {
-              // Ensure visibility when scrolling back into view
-              gsap.set(quoteRef.current, { opacity: 1, y: 0 });
-              tl.play();
-            },
-          });
-        }
-      }, sectionRef);
-    }, 100);
+          },
+          onComplete: () => {
+            // Ensure text stays visible after animation
+            gsap.set(quoteRef.current, { opacity: 1, y: 0 });
+            // Ensure fill animation completes
+            gsap.set(knowledgeSpan, {
+              backgroundPosition: '100% 0%',
+              backgroundPositionX: '100%',
+            });
+            knowledgeSpan.style.backgroundPosition = '100% 0%';
+            knowledgeSpan.style.backgroundPositionX = '100%';
+          },
+        })
+        .to(quoteRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+        })
+        .to(
+          knowledgeSpan,
+          {
+            backgroundPosition: '100% 0%',
+            backgroundPositionX: '100%',
+            duration: 1.2,
+            ease: 'power1.inOut',
+            force3D: false,
+          },
+          '-=0.2'
+        );
+    }, sectionRef);
 
     return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-      if (ctx) ctx.revert();
+      ctx.revert();
     };
-  }, []);
+  }, [gradientColor]);
   return (
     <section
       ref={sectionRef}
@@ -131,12 +135,14 @@ const Tag = ({ clientHeight }) => {
           <span
             className="about-3 font-bold"
             style={{
+              display: 'inline-block',
               background: `linear-gradient(90deg, ${gradientColor} 0%, ${gradientColor} 50%, #eeba2c 51%, #efc041 102%)`,
               backgroundSize: '200% 100%',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
               backgroundPosition: '0% 0%',
+              backgroundPositionX: '0%',
             }}
           >
             {' '}

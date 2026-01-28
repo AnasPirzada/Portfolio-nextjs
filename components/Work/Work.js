@@ -159,6 +159,8 @@ const Work = ({ isDesktop }) => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
+    gsap.registerPlugin(ScrollTrigger);
+
     const ctx = gsap.context(() => {
       // On mobile/tablet, keep section static and skip scroll-based GSAP
       if (typeof window !== 'undefined') {
@@ -171,66 +173,32 @@ const Work = ({ isDesktop }) => {
         }
       }
 
-      const workWrapper = sectionRef.current.querySelector('.work-wrapper');
-      if (!workWrapper) return;
-
       const staggeredElements =
         sectionRef.current.querySelectorAll('.staggered-reveal');
 
       if (staggeredElements.length === 0) return;
 
-      // Set initial state for animation
-      gsap.set(staggeredElements, { opacity: 0, y: 20 });
+      // Set initial state
+      gsap.set(staggeredElements, { opacity: 0, y: 30 });
 
-      // Create animation that can be reset and re-triggered
-      const animation = gsap.to(staggeredElements, {
+      // Simple one-time reveal animation
+      gsap.to(staggeredElements, {
         opacity: 1,
         y: 0,
         duration: 1,
         stagger: 0.15,
         ease: 'power3.out',
-        paused: true,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          once: true, // Only animate once
+          toggleActions: 'play none none none',
+        },
       });
-
-      // Check if element is already in viewport on mount
-      const rect = workWrapper.getBoundingClientRect();
-      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-
-      if (isInViewport) {
-        // Animate immediately if already in viewport
-        setTimeout(() => {
-          animation.play();
-        }, 100);
-      } else {
-        // Create ScrollTrigger that resets and re-triggers
-        ScrollTrigger.create({
-          trigger: workWrapper,
-          start: 'top 85%',
-          end: 'bottom 20%',
-          toggleActions: 'play reset play reset',
-          animation: animation,
-          onEnter: () => {
-            animation.play();
-          },
-          onEnterBack: () => {
-            // Reset and play when scrolling back up
-            gsap.set(staggeredElements, { opacity: 0, y: 20 });
-            animation.restart();
-          },
-          onLeave: () => {
-            // Keep visible when scrolling past
-          },
-          onLeaveBack: () => {
-            // Reset when scrolling back up past the section
-            gsap.set(staggeredElements, { opacity: 0, y: 20 });
-          },
-        });
-      }
     }, sectionRef);
 
     return () => {
       ctx.revert();
-      ScrollTrigger.refresh();
     };
   }, []);
 

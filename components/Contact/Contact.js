@@ -339,59 +339,35 @@ const Contact = () => {
   }, [buttonElementRef]);
 
   useEffect(() => {
+    if (!sectionRef.current) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
     const ctx = gsap.context(() => {
       const elements = sectionRef.current.querySelectorAll('.staggered-reveal');
       if (elements.length === 0) return;
 
       // Set initial state
-      gsap.set(elements, { opacity: 0, y: 20 });
+      gsap.set(elements, { opacity: 0, y: 30 });
 
-      // Create animation that can be reset and re-triggered
-      const animation = gsap.to(elements, {
+      // Simple one-time reveal animation
+      gsap.to(elements, {
         opacity: 1,
         y: 0,
         duration: 1,
         stagger: 0.15,
         ease: 'power3.out',
-        paused: true,
-      });
-
-      const contactWrapper = sectionRef.current.querySelector('.contact-wrapper');
-      if (!contactWrapper) return;
-
-      ScrollTrigger.create({
-        trigger: contactWrapper,
-        start: 'top 80%',
-        toggleActions: 'play reset play reset',
-        animation: animation,
-        onEnter: () => {
-          animation.play();
-        },
-        onEnterBack: () => {
-          // Reset and play when scrolling back up
-          gsap.set(elements, { opacity: 0, y: 20 });
-          animation.restart();
-        },
-        onLeaveBack: () => {
-          // Reset when scrolling back up past the section
-          gsap.set(elements, { opacity: 0, y: 20 });
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          once: true, // Only animate once
+          toggleActions: 'play none none none',
         },
       });
-
-      // Check if already in viewport
-      const rect = contactWrapper.getBoundingClientRect();
-      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-      
-      if (isInViewport) {
-        setTimeout(() => {
-          animation.play();
-        }, 100);
-      }
     }, sectionRef);
 
     return () => {
       ctx.revert();
-      ScrollTrigger.refresh();
     };
   }, []);
 
