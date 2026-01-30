@@ -94,7 +94,7 @@ const Footer = () => {
     linkedin: { title: 'LinkedIn', subtitle: 'Professional network' },
     github: { title: 'GitHub', subtitle: 'View my code' },
     instagram: { title: 'Instagram', subtitle: 'Follow my journey' },
-    twitter: { title: 'Twitter', subtitle: 'Latest updates' },
+    upwork: { title: 'Upwork', subtitle: 'Hire me' },
     fiverr: { title: 'Fiverr', subtitle: 'Hire me' },
   };
 

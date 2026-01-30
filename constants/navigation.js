@@ -61,8 +61,8 @@ export const SOCIAL_LINKS = [
     url: 'https://www.instagram.com/anas_pirzada1/',
   },
   {
-    name: 'twitter',
-    url: 'https://x.com/Anas_Pirzada1',
+    name: 'upwork',
+    url: 'https://www.upwork.com/freelancers/~0199934b87d980c5f6?mp_source=share',
   },
   {
     name: 'fiverr',

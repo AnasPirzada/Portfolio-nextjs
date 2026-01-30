@@ -6,6 +6,7 @@ import { CALENDLY_URL, MENULINKS, TYPED_STRINGS } from '../../constants';
 import { openCalendlyPopup } from '../../utils/calendly';
 import Button from '../Button/Button';
 import FiverrBadge from '../FiverrBadge/FiverrBadge';
+import UpworkBadge from '../UpworkBadge/UpworkBadge';
 import Profiles from '../Profiles/Profiles';
 import styles from './Hero.module.scss';
 
@@ -223,12 +224,13 @@ const Hero = () => {
           backgroundColor: 'transparent',
         }}
       >
-        {/* Fiverr Badge - Center */}
+        {/* Fiverr & Upwork Badges - Center */}
         <div
-          className="staggered-reveal absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+          className="staggered-reveal absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex gap-3 items-center"
           style={{ pointerEvents: 'auto' }}
         >
           <FiverrBadge />
+          {/* <UpworkBadge /> */}
         </div>
         <div className={styles.imageWrapper}>
           <Image

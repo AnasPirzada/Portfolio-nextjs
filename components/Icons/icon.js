@@ -2,7 +2,6 @@ import {
   IconMail,
   IconLinkedin,
   IconInstagram,
-  IconTwitter,
   IconGithub,
   IconFiverr,
   IconUpwork,
@@ -19,8 +18,6 @@ const Icon = ({ name }) => {
       return <IconLinkedin />;
     case 'instagram':
       return <IconInstagram />;
-    case 'twitter':
-      return <IconTwitter />;
     case 'fiverr':
       return <IconFiverr />;
     case 'upwork':
