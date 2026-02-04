@@ -14,7 +14,6 @@ export const usePerformanceMonitoring = () => {
       const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
 
       if (process.env.NODE_ENV === 'development') {
-        console.log(`⏱️ Page Load Time: ${pageLoadTime}ms`);
       }
 
       // Send to analytics service
@@ -39,7 +38,6 @@ export const usePerformanceMonitoring = () => {
             );
 
             if (process.env.NODE_ENV === 'development') {
-              console.log(`📊 ${metricName}: ${metricValue}ms`);
             }
 
             // Send to Google Analytics
@@ -68,7 +66,6 @@ export const usePerformanceMonitoring = () => {
           const lcp = Math.round(lastEntry.renderTime || lastEntry.loadTime);
 
           if (process.env.NODE_ENV === 'development') {
-            console.log(`🎯 LCP (Largest Contentful Paint): ${lcp}ms`);
           }
 
           // Send to Google Analytics
@@ -106,7 +103,6 @@ export const usePerformanceMonitoring = () => {
               const fid = Math.round(entry.processingStart - entry.startTime);
 
               if (process.env.NODE_ENV === 'development') {
-                console.log(`⚡ FID (First Input Delay): ${fid}ms`);
               }
 
               if (window.gtag) {
@@ -134,7 +130,6 @@ export const usePerformanceMonitoring = () => {
         } catch (e) {
           // FID observer may not be supported in all browsers
           if (process.env.NODE_ENV === 'development') {
-            console.warn('FID observer not supported:', e);
           }
         }
 
@@ -148,11 +143,6 @@ export const usePerformanceMonitoring = () => {
             }
           });
 
-          if (process.env.NODE_ENV === 'development') {
-            console.log(
-              `📐 CLS (Cumulative Layout Shift): ${clsValue.toFixed(4)}`
-            );
-          }
 
           // Send to Google Analytics (only on page unload or when significant)
           if (window.gtag && clsValue > 0) {
@@ -219,7 +209,6 @@ export const usePerformanceMonitoring = () => {
           }
         };
       } catch (e) {
-        console.warn('PerformanceObserver not supported:', e);
       }
     }
 

@@ -33,8 +33,9 @@ export const ELEVENLABS_CONFIG = {
   },
 
   // Default voice (can be changed)
+  // Options: 'adam', 'josh', 'antoni', 'arnold'
   // Use Josh for a younger, more "boyish" male voice
-  defaultVoice: 'boyish',
+  defaultVoice: 'josh', // Energetic, young, friendly male voice
 
   // Model Settings
   model: 'eleven_turbo_v2_5', // Fast, high-quality model

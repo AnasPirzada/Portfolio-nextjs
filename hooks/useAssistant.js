@@ -8,6 +8,7 @@ import {
 import { useVoiceRecognition } from './useVoiceRecognition';
 import { useTextToSpeech } from './useTextToSpeech';
 import { useElevenLabsTTS } from './useElevenLabsTTS';
+import { useOpenAITTS } from './useOpenAITTS';
 import { ELEVENLABS_CONFIG } from '@/constants/elevenlabs.config';
 import { useWakeWord } from './useWakeWord';
 import { ASSISTANT_CONFIG } from '@/constants/assistant.config';
@@ -32,13 +33,21 @@ export const useAssistant = () => {
   const startListeningRef = useRef(null);
   const hasWelcomedRef = useRef(false);
   const micPermissionRef = useRef(false);
+  const currentProcessingRef = useRef(null); // Track current processing to cancel if new input arrives
+  const processingQueueRef = useRef([]); // Queue of pending inputs (only process latest)
 
   // Initialize analytics on mount
   useEffect(() => {
     initAnalytics();
   }, []);
 
-  // Text-to-Speech - Try ElevenLabs first, fallback to Web Speech API
+  // Text-to-Speech - Priority: ElevenLabs (premium) > OpenAI TTS > Web Speech API
+  const openAITTS = useOpenAITTS({
+    voice: 'nova', // Bright, energetic voice (good for portfolio assistant)
+    model: 'tts-1', // Fast, affordable model
+    speed: 1.0,
+  });
+
   const elevenLabsTTS = useElevenLabsTTS({
     voiceId: ELEVENLABS_CONFIG.voices[ELEVENLABS_CONFIG.defaultVoice]?.id,
     modelId: ELEVENLABS_CONFIG.model,
@@ -53,88 +62,98 @@ export const useAssistant = () => {
     preferredVoice: ASSISTANT_CONFIG.voice.preferredVoice,
   });
 
-  // Use ElevenLabs if available, otherwise fallback to Web Speech API
-  const ttsSupported = elevenLabsTTS.isSupported || webSpeechTTS.isSupported;
-  const isSpeaking = elevenLabsTTS.isSpeaking || webSpeechTTS.isSpeaking;
+  // Use best available TTS (ElevenLabs > OpenAI > Web Speech API)
+  const ttsSupported = elevenLabsTTS.isSupported || openAITTS.isSupported || webSpeechTTS.isSupported;
+  const isSpeaking = elevenLabsTTS.isSpeaking || openAITTS.isSpeaking || webSpeechTTS.isSpeaking;
 
-  // Debug: Log ElevenLabs support status
+  // TTS Status
   useEffect(() => {
-    const apiKey = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY;
-    console.log('[Voice Assistant] 🎤 TTS Status Check:');
-    console.log('  - ElevenLabs supported:', elevenLabsTTS.isSupported);
-    console.log('  - Web Speech API supported:', webSpeechTTS.isSupported);
-    console.log('  - API Key present:', !!apiKey);
-    if (apiKey) {
-      console.log('  - API Key length:', apiKey.length, 'characters');
-      console.log('  - API Key starts with:', apiKey.substring(0, 5) + '...');
-    } else {
-      console.warn('  - ⚠️ API Key NOT FOUND!');
-      console.warn(
-        '  - Make sure NEXT_PUBLIC_ELEVENLABS_API_KEY is in .env.local'
-      );
-      console.warn('  - Restart dev server after adding to .env.local');
-    }
-    console.log(
-      '  - Will use:',
-      elevenLabsTTS.isSupported ? 'ElevenLabs' : 'Web Speech API'
-    );
-  }, [elevenLabsTTS.isSupported, webSpeechTTS.isSupported]);
+    const selectedTTS = elevenLabsTTS.isSupported 
+      ? '🎤 ElevenLabs' 
+      : openAITTS.isSupported 
+        ? '🎤 OpenAI' 
+        : '🎤 Web Speech';
+  }, [openAITTS.isSupported, elevenLabsTTS.isSupported, webSpeechTTS.isSupported]);
 
-  // Unified speak function
+  // Unified speak function - Priority: ElevenLabs > OpenAI TTS > Web Speech API
   const speak = useCallback(
     async (text, voiceParams = null) => {
-      console.log('[Voice Assistant] Speaking:', text.substring(0, 50) + '...');
-      console.log(
-        '[Voice Assistant] ElevenLabs supported:',
-        elevenLabsTTS.isSupported
-      );
-
       if (elevenLabsTTS.isSupported) {
-        // Use ElevenLabs for premium voice
+        // Use ElevenLabs for premium voice (user preference)
         const toneProfile = voiceParams?.tone || 'default';
         const toneSettings =
           ELEVENLABS_CONFIG.toneProfiles[toneProfile] ||
           ELEVENLABS_CONFIG.toneProfiles.default;
 
-        console.log(
-          '[Voice Assistant] Using ElevenLabs TTS with tone:',
-          toneProfile
-        );
-
         try {
           await elevenLabsTTS.speak(text, {
-            voiceId:
-              ELEVENLABS_CONFIG.voices[ELEVENLABS_CONFIG.defaultVoice]?.id,
+            voiceId: ELEVENLABS_CONFIG.voices[ELEVENLABS_CONFIG.defaultVoice]?.id,
             ...toneSettings,
           });
-          console.log(
-            '[Voice Assistant] ✅ ElevenLabs TTS started successfully'
-          );
         } catch (error) {
-          console.warn(
-            '[Voice Assistant] ⚠️ ElevenLabs failed, falling back to Web Speech API:',
-            error
-          );
-          // Fallback to Web Speech API on error
+          // Fallback to OpenAI TTS
+          if (openAITTS.isSupported) {
+            try {
+              const voiceMap = {
+                greeting: 'nova',
+                projects: 'echo',
+                experience: 'alloy',
+                contact: 'shimmer',
+                technical: 'onyx',
+                default: 'nova',
+              };
+              const selectedVoice = voiceMap[voiceParams?.tone || 'default'];
+              
+              await openAITTS.speak(text, {
+                voice: selectedVoice,
+                model: 'tts-1',
+                speed: 1.0,
+              });
+            } catch (e2) {
+              webSpeechTTS.speak(text, voiceParams);
+            }
+          } else {
+            webSpeechTTS.speak(text, voiceParams);
+          }
+        }
+      } else if (openAITTS.isSupported) {
+        // Use OpenAI TTS as fallback
+        try {
+          const voiceMap = {
+            greeting: 'nova',
+            projects: 'echo',
+            experience: 'alloy',
+            contact: 'shimmer',
+            technical: 'onyx',
+            default: 'nova',
+          };
+          const selectedVoice = voiceMap[voiceParams?.tone || 'default'];
+          
+          await openAITTS.speak(text, {
+            voice: selectedVoice,
+            model: 'tts-1',
+            speed: 1.0,
+          });
+        } catch (error) {
           webSpeechTTS.speak(text, voiceParams);
         }
       } else {
-        console.log(
-          '[Voice Assistant] Using Web Speech API (ElevenLabs not available)'
-        );
         // Fallback to Web Speech API
         webSpeechTTS.speak(text, voiceParams);
       }
     },
-    [elevenLabsTTS, webSpeechTTS]
+    [elevenLabsTTS, openAITTS, webSpeechTTS]
   );
 
   const stopSpeaking = useCallback(() => {
+    if (openAITTS.isSupported) {
+      openAITTS.stop();
+    }
     if (elevenLabsTTS.isSupported) {
       elevenLabsTTS.stop();
     }
     webSpeechTTS.stop();
-  }, [elevenLabsTTS, webSpeechTTS]);
+  }, [openAITTS, elevenLabsTTS, webSpeechTTS]);
 
   // Create stable callbacks for voice recognition (using refs to avoid circular dependencies)
   const handleRecognitionResult = useCallback(result => {
@@ -155,10 +174,30 @@ export const useAssistant = () => {
     }
 
     // Process final transcript immediately (with correction applied)
+    // If user speaks while assistant is speaking/processing, interrupt and handle new input
     if (result.isFinal && correctedFinal && handleUserInputRef.current) {
+      // Only interrupt if we're actually speaking (not just processing)
+      // This prevents cancelling responses that are about to be spoken
+      const currentState = state;
+      const isCurrentlySpeaking = isSpeaking;
+      
+      // Always interrupt and handle new input - cancel previous processing/speaking
+      if (currentState === 'speaking' || currentState === 'processing' || isCurrentlySpeaking) {
+        stopSpeaking(); // Stop any current speech immediately
+        
+        // Always cancel previous processing when new input arrives
+        if (currentProcessingRef.current) {
+          currentProcessingRef.current.cancelled = true;
+        }
+        
+        // Set state to processing for new input
+        setState('processing');
+      }
+      
+      // Always handle new input (don't skip it)
       handleUserInputRef.current(correctedFinal);
     }
-  }, []);
+  }, [state, isSpeaking, stopSpeaking]);
 
   const handleRecognitionError = useCallback(error => {
     // Handle "not-allowed" error gracefully - usually means mic permission not granted
@@ -174,9 +213,6 @@ export const useAssistant = () => {
     // Handle "no-speech" error - restart listening instead of going idle
     // This keeps the assistant ready even after silence
     if (error.error === 'no-speech') {
-      console.log(
-        '[Voice Assistant] No speech detected, restarting listening...'
-      );
       // Don't go idle - restart listening to keep it active
       setTimeout(() => {
         if (state === 'listening' && startListeningRef.current) {
@@ -198,7 +234,6 @@ export const useAssistant = () => {
       error.error !== 'aborted' &&
       error.error !== 'no-speech'
     ) {
-      console.warn('Recognition error:', error.error);
     }
   }, []);
 
@@ -219,25 +254,25 @@ export const useAssistant = () => {
     onResult: handleRecognitionResult,
     onError: handleRecognitionError,
     onEnd: () => {
-      // If we have a transcript, process it
-      if (transcript && state === 'listening' && handleUserInputRef.current) {
+      // If we have a transcript, process it (but only if we're listening, not processing/speaking)
+      if (transcript && state === 'listening' && !isSpeaking && handleUserInputRef.current) {
+        // Only process if we're actually listening and not speaking/processing
         handleUserInputRef.current(transcript);
-      } else if (state === 'listening') {
+      } else if (state === 'listening' && !isSpeaking) {
         // No transcript, but keep listening active (don't go idle)
         // Restart recognition to keep it ready for next question
         // Use longer delay to prevent rapid restarts
-        console.log(
-          '[Voice Assistant] Recognition ended, will restart after delay...'
-        );
         const timeoutId = setTimeout(() => {
-          // Double-check state before restarting
-          if (state === 'listening' && startListeningRef.current) {
+          // Double-check state before restarting - don't restart if speaking/processing
+          if (state === 'listening' && !isSpeaking && startListeningRef.current) {
             startListeningRef.current();
           }
         }, 1500);
 
         // Store timeout to clear if needed
         return () => clearTimeout(timeoutId);
+      } else {
+        // If we're speaking or processing, don't restart recognition
       }
     },
     enabled: state === 'listening',
@@ -252,7 +287,6 @@ export const useAssistant = () => {
   const requestMicPermission = useCallback(async () => {
     // If already granted, return immediately
     if (micPermissionRef.current) {
-      console.log('[Permission] Already granted, skipping check');
       return true;
     }
 
@@ -275,21 +309,16 @@ export const useAssistant = () => {
     // Always try getUserMedia directly - it's the most reliable way
     // Permissions API can be inaccurate, especially on localhost
     try {
-      console.log(
-        '[Permission] Requesting microphone access via getUserMedia...'
-      );
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
       // Success! Immediately stop tracks; we only need permission granted
       stream.getTracks().forEach(t => t.stop());
       micPermissionRef.current = true;
-      console.log('[Permission] ✅ Microphone permission granted!');
       return true;
     } catch (err) {
       const errorName = err?.name || 'UnknownError';
       const errorMessage = err?.message || 'Permission denied';
 
-      console.warn('[Permission] ❌ Error:', errorName, errorMessage);
 
       // Check if it's a real permission denial or something else
       if (
@@ -302,10 +331,6 @@ export const useAssistant = () => {
             const permissionStatus = await navigator.permissions.query({
               name: 'microphone',
             });
-            console.log(
-              '[Permission] Permission state:',
-              permissionStatus.state
-            );
 
             if (permissionStatus.state === 'denied') {
               setConversation(prev => [
@@ -333,7 +358,6 @@ export const useAssistant = () => {
             }
           }
         } catch (permError) {
-          console.log('[Permission] Permissions API check failed:', permError);
         }
 
         // Fallback message
@@ -358,7 +382,6 @@ export const useAssistant = () => {
         return false;
       } else {
         // Other errors
-        console.error('[Permission] Unexpected error:', err);
         setConversation(prev => [
           ...prev,
           {
@@ -421,77 +444,227 @@ export const useAssistant = () => {
         return;
       }
 
+      // Create new processing context FIRST (before cancelling old one)
+      // This ensures our processing ID is set before we check cancellations
+      const processingId = Date.now();
+      const previousProcessing = currentProcessingRef.current;
+      currentProcessingRef.current = { id: processingId, cancelled: false };
+      
+
+      // ALWAYS cancel any ongoing processing/speaking when new input arrives
+      // This prevents multiple responses from being spoken simultaneously
+      if (previousProcessing && previousProcessing.id !== processingId) {
+        previousProcessing.cancelled = true;
+      }
+      
+      // Always stop any ongoing speech immediately
+      if (isSpeaking || state === 'speaking') {
+        stopSpeaking();
+      }
+
       setState('processing');
 
       // Clear transcript immediately to prevent duplicate display
       setCurrentTranscript('');
       resetTranscript();
 
-      // Add user message to conversation
-      setConversation(prev => [
-        ...prev,
-        { type: 'user', text: userText, timestamp: Date.now() },
-      ]);
+      // Add user message to conversation and get updated conversation for history
+      let conversationHistory = [];
+      setConversation(prev => {
+        const updated = [
+          ...prev,
+          { type: 'user', text: userText, timestamp: Date.now() },
+        ];
+        
+        // Get conversation history for LLM (limit to max history length)
+        const maxHistory = ASSISTANT_CONFIG.llm?.maxHistoryLength || 5;
+        conversationHistory = updated.slice(0, -1).slice(-maxHistory); // Exclude current message
+        
+        return updated;
+      });
 
-      // Detect intent
-      const intent = detectIntent(userText);
-      const isFallback = intent === 'unknown';
+      // Process async (intent detection and response generation)
+      try {
+        // Check if cancelled before processing
+        if (currentProcessingRef.current?.cancelled || currentProcessingRef.current?.id !== processingId) {
+          return;
+        }
 
-      // Generate response
-      const response = generateResponse(intent, userText);
+        // Detect intent (async if using LLM, sync otherwise)
+        const useLLM = ASSISTANT_CONFIG.llm?.useLLMForIntent || false;
+        const intentResult = detectIntent(userText, useLLM);
+        // Always await - Promise.resolve wraps non-promises, await unwraps promises
+        const intent = await Promise.resolve(intentResult);
+        
+        // Check again if cancelled after intent detection
+        if (currentProcessingRef.current?.cancelled || currentProcessingRef.current?.id !== processingId) {
+          return;
+        }
+        
+        const isFallback = intent === 'unknown';
 
-      // Log interaction for learning
-      logInteraction(userText, intent, response, isFallback);
+        // Generate response (async - may use LLM)
+        const response = await generateResponse(intent, userText, conversationHistory);
+        
+        // Check again if cancelled after response generation
+        // Only cancel if ref exists and indicates cancellation
+        if (currentProcessingRef.current) {
+          if (currentProcessingRef.current.cancelled === true || 
+              currentProcessingRef.current.id !== processingId) {
+            return;
+          }
+        }
 
-      // Add assistant response to conversation
-      setConversation(prev => [
-        ...prev,
-        { type: 'assistant', text: response, timestamp: Date.now() },
-      ]);
+        // Log interaction for learning
+        logInteraction(userText, intent, response, isFallback);
 
-      // Check if action is required
-      if (requiresAction(intent)) {
-        const action = getBookingAction();
-        if (action.type === 'open_calendly') {
-          // Small delay before opening
-          setTimeout(() => {
-            openCalendlyPopup(action.url);
+        // Add assistant response to conversation
+        setConversation(prev => [
+          ...prev,
+          { type: 'assistant', text: response, timestamp: Date.now() },
+        ]);
+
+        // Check if action is required
+        if (requiresAction(intent)) {
+          const action = getBookingAction();
+          if (action.type === 'open_calendly') {
+            // Small delay before opening
+            setTimeout(() => {
+              openCalendlyPopup(action.url);
+            }, ASSISTANT_CONFIG.behavior.responseDelay);
+          }
+        }
+
+        // Capture the processing reference at this point to check cancellation
+        const thisProcessing = currentProcessingRef.current;
+        
+        // Final check before speaking - check if THIS specific processing was cancelled
+        // We check both the captured reference and the current ref
+        if (thisProcessing?.cancelled === true || currentProcessingRef.current?.cancelled === true) {
+          return;
+        }
+        
+        // Only cancel if a NEW processing has definitely started (different ID and ref exists and not cancelled)
+        // Don't cancel if ref was cleared or if it's our own processing
+        if (currentProcessingRef.current && 
+            currentProcessingRef.current.id && 
+            currentProcessingRef.current.id !== processingId &&
+            !currentProcessingRef.current.cancelled) {
+          return;
+        }
+        
+        // Also check if the captured processing ID doesn't match (meaning it was replaced)
+        if (thisProcessing && thisProcessing.id !== processingId) {
+          return;
+        }
+        
+
+        // Stop listening BEFORE speaking to prevent feedback loop and interruptions
+        stopListening();
+
+        // Ensure recognition is fully stopped before starting speech
+        // Add a small delay to ensure clean state and prevent interruptions
+        setTimeout(() => {
+          // Check if cancelled - be conservative but not too aggressive
+          // Only cancel if ref exists and has different ID (new processing started)
+          // OR if explicitly marked as cancelled
+          if (currentProcessingRef.current) {
+            // Check if this is a different processing (new one started)
+            if (currentProcessingRef.current.id !== processingId) {
+              return;
+            }
+            
+            // Check if explicitly cancelled
+            if (currentProcessingRef.current.cancelled === true) {
+              return;
+            }
+          }
+          
+          // If ref doesn't exist, proceed (might be cleanup, but don't cancel valid responses)
+          // If ref exists and ID matches and not cancelled, proceed
+
+          // Set speaking state and speak with dynamic tone
+          setState('speaking');
+
+          // Get dynamic voice tone based on intent and response content
+          const voiceTone = getDynamicTone(
+            typeof intent === 'object' ? intent.type : intent,
+            response
+          );
+          const voiceParams = getVoiceParams(voiceTone);
+          // Add tone name for ElevenLabs (maps to tone profiles)
+          const intentType = typeof intent === 'object' ? intent.type : intent;
+          const toneMap = {
+            greeting: 'greeting',
+            projects: 'projects',
+            experience: 'experience',
+            contact: 'contact',
+            technical: 'technical',
+          };
+          voiceParams.tone = toneMap[intentType] || 'default';
+
+          // Small delay before speaking for confident delivery
+          setTimeout(async () => {
+            // Final check before actually speaking - be very conservative
+            
+            // Check if cancelled - only cancel if ref exists and indicates cancellation
+            if (currentProcessingRef.current) {
+              // Check if this is a different processing (new one started)
+              if (currentProcessingRef.current.id !== processingId) {
+                return;
+              }
+              
+              // Check if explicitly cancelled
+              if (currentProcessingRef.current.cancelled === true) {
+                return;
+              }
+            }
+            
+            // If ref doesn't exist, proceed (might be cleanup, but don't cancel valid responses)
+            // If ref exists and ID matches and not cancelled, proceed
+            
+            // Speak the response - use await to ensure it completes
+            try {
+              await speak(response, voiceParams);
+            } catch (error) {
+              // Even if speaking fails, go back to listening
+              setTimeout(() => {
+                if (currentProcessingRef.current?.id === processingId) {
+                  setState('listening');
+                  startListening();
+                }
+              }, 1000);
+            }
           }, ASSISTANT_CONFIG.behavior.responseDelay);
+        }, 150);
+      } catch (error) {
+        // Don't show error if processing was cancelled
+        if (currentProcessingRef.current?.cancelled || currentProcessingRef.current?.id !== processingId) {
+          return;
+        }
+
+        console.log('❌');
+        
+        // Show error message to user
+        const errorMessage = "I'm having trouble processing that. Could you try again?";
+        setConversation(prev => [
+          ...prev,
+          { type: 'assistant', text: errorMessage, timestamp: Date.now() },
+        ]);
+        
+        // Go back to listening
+        setTimeout(() => {
+          if (currentProcessingRef.current?.id === processingId) {
+            setState('listening');
+            startListening();
+          }
+        }, 1000);
+      } finally {
+        // Clear processing ref if this was the current processing
+        if (currentProcessingRef.current?.id === processingId) {
+          currentProcessingRef.current = null;
         }
       }
-
-      // Stop listening BEFORE speaking to prevent feedback loop and interruptions
-      console.log('[Voice Assistant] Stopping recognition before speaking...');
-      stopListening();
-
-      // Ensure recognition is fully stopped before starting speech
-      // Add a small delay to ensure clean state and prevent interruptions
-      setTimeout(() => {
-        // Set speaking state and speak with dynamic tone
-        setState('speaking');
-
-        // Get dynamic voice tone based on intent and response content
-        const voiceTone = getDynamicTone(
-          typeof intent === 'object' ? intent.type : intent,
-          response
-        );
-        const voiceParams = getVoiceParams(voiceTone);
-        // Add tone name for ElevenLabs (maps to tone profiles)
-        const intentType = typeof intent === 'object' ? intent.type : intent;
-        const toneMap = {
-          greeting: 'greeting',
-          projects: 'projects',
-          experience: 'experience',
-          contact: 'contact',
-          technical: 'technical',
-        };
-        voiceParams.tone = toneMap[intentType] || 'default';
-
-        // Small delay before speaking for confident delivery
-        setTimeout(() => {
-          speak(response, voiceParams);
-        }, ASSISTANT_CONFIG.behavior.responseDelay);
-      }, 150);
     },
     [speak, resetTranscript, goIdle, stopListening]
   );
@@ -505,31 +678,23 @@ export const useAssistant = () => {
 
   // Manual activation (mic button click)
   const activate = useCallback(async () => {
-    console.log('[Voice Assistant] AI tab clicked, current state:', state);
 
     if (state === 'idle') {
-      console.log('[Voice Assistant] Requesting microphone permission...');
       setIsPanelOpen(true); // Open panel first so user can see what's happening
 
       // Reset welcome flag so welcome message plays
       hasWelcomedRef.current = false;
 
       const allowed = await requestMicPermission();
-      console.log('[Voice Assistant] Permission result:', allowed);
 
       if (!allowed) {
-        console.warn('[Voice Assistant] Microphone permission not granted');
         return; // Panel is already open, error message will be shown
       }
 
       // Permission granted - welcome message will play, then listening will start
       // Don't start listening here - let welcome message play first
-      console.log(
-        '[Voice Assistant] ✅ Permission granted! Welcome message will play, then listening will start.'
-      );
       lastActivityRef.current = Date.now();
     } else if (state === 'listening') {
-      console.log('[Voice Assistant] Stopping listening, going idle');
       goIdle();
     }
   }, [state, goIdle, requestMicPermission]);
@@ -542,9 +707,6 @@ export const useAssistant = () => {
   // Welcome message when panel opens for the first time
   useEffect(() => {
     if (isPanelOpen && !hasWelcomedRef.current && ttsSupported) {
-      console.log(
-        '[Voice Assistant] Panel opened, preparing welcome message...'
-      );
       hasWelcomedRef.current = true;
       const welcomeMessage = `Hey — I'm ${ASSISTANT_CONFIG.name}. You can ask me about my work, experience, projects, or book a call with me.`;
 
@@ -553,7 +715,6 @@ export const useAssistant = () => {
         { type: 'assistant', text: welcomeMessage, timestamp: Date.now() },
       ]);
 
-      console.log('[Voice Assistant] Speaking welcome message...');
       // Stop any listening before speaking welcome message
       stopListening();
       setState('speaking');
@@ -561,35 +722,27 @@ export const useAssistant = () => {
       // Use friendly tone for welcome message
       const welcomeTone = getDynamicTone('greeting', welcomeMessage);
       const welcomeParams = getVoiceParams(welcomeTone);
-      // Add tone name for ElevenLabs
+      // Add tone name for ElevenLabs/OpenAI TTS
       welcomeParams.tone = 'greeting';
 
-      // For the initial welcome message, force Web Speech API in Chrome
-      // This avoids any possible ElevenLabs/autoplay quirks and ensures
-      // the user hears the greeting after clicking the AI tab.
-      console.log(
-        '[Voice Assistant] TTS ready, speaking welcome via Web Speech API...'
-      );
-      webSpeechTTS.speak(welcomeMessage, welcomeParams);
+      // Play audio immediately (no setTimeout) to maintain user interaction chain
+      // This is critical for browser autoplay policies - audio must play in response to user click
+      // Use unified speak function (will use ElevenLabs if available, then OpenAI TTS, then Web Speech API)
+      // Play immediately to maintain user interaction context for autoplay
+      speak(welcomeMessage, welcomeParams);
     } else if (isPanelOpen && !hasWelcomedRef.current && !ttsSupported) {
       // If TTS not supported, just start listening immediately
-      console.log(
-        '[Voice Assistant] TTS not supported, starting listening immediately...'
-      );
       hasWelcomedRef.current = true;
       setState('listening');
       setTimeout(() => {
         startListening();
       }, 500);
     }
-  }, [isPanelOpen, ttsSupported, speak, stopListening, startListening, webSpeechTTS]);
+  }, [isPanelOpen, ttsSupported, speak, stopListening, startListening, elevenLabsTTS.isSupported, openAITTS.isSupported]);
 
   // Stop listening when AI starts speaking (prevent feedback loop and interruptions)
   useEffect(() => {
     if (state === 'speaking' || isSpeaking) {
-      console.log(
-        '[Voice Assistant] AI is speaking - stopping recognition to prevent feedback and interruptions'
-      );
       stopListening();
       // Also cancel any pending recognition starts
       if (startListeningRef.current) {
@@ -603,9 +756,6 @@ export const useAssistant = () => {
   useEffect(() => {
     if (state === 'speaking' && !isSpeaking) {
       // Finished speaking, go back to listening or idle
-      console.log(
-        '[Voice Assistant] AI finished speaking - resuming listening'
-      );
       setTimeout(() => {
         if (isPanelOpen) {
           setState('listening');
@@ -614,9 +764,6 @@ export const useAssistant = () => {
           resetTranscript();
           // Small delay before starting recognition to ensure clean state
           setTimeout(() => {
-            console.log(
-              '[Voice Assistant] Starting listening after welcome message...'
-            );
             if (startListeningRef.current) {
               startListeningRef.current();
             }

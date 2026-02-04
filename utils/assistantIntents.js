@@ -1,15 +1,41 @@
 /**
  * Intent Detection and Response Generation for Voice Assistant
  * All responses are strictly based on portfolio data - NO hallucinations!
+ * 
+ * Now supports LLM-powered responses with fallback to rule-based system
  */
 
 import { PORTFOLIO_DATA } from '@/constants/assistant.data';
 import { normalizeForIntent } from '@/utils/textCorrection';
+import { getLLMResponse, detectIntentWithLLM } from '@/utils/assistantLLM';
+import { ASSISTANT_CONFIG } from '@/constants/assistant.config';
 
 /**
  * Detect user intent from transcript
+ * Uses LLM if enabled, otherwise falls back to regex patterns
+ * 
+ * @param {string} transcript - User's transcript
+ * @param {boolean} useLLM - Whether to use LLM for intent detection
+ * @returns {Promise<string>|string} - Detected intent (async if using LLM)
  */
-export const detectIntent = transcript => {
+export const detectIntent = (transcript, useLLM = false) => {
+  // Use LLM for intent detection if enabled
+  if (useLLM && ASSISTANT_CONFIG.llm?.useLLMForIntent) {
+    // Return promise for async LLM call
+    return detectIntentWithLLM(transcript).catch(error => {
+      // Fall through to regex-based detection
+      return detectIntentRegex(transcript);
+    });
+  }
+  
+  // Use regex-based detection (synchronous)
+  return detectIntentRegex(transcript);
+};
+
+/**
+ * Detect intent using regex patterns (synchronous fallback)
+ */
+const detectIntentRegex = (transcript) => {
   // Normalize text and correct common errors (e.g., "anus" -> "anas")
   const normalized = normalizeForIntent(transcript);
 
@@ -116,9 +142,34 @@ export const detectIntent = transcript => {
 };
 
 /**
- * Generate response based on intent
+ * Generate response using LLM (if enabled) or fallback to rule-based
  */
-export const generateResponse = (intent, transcript = '') => {
+export const generateResponse = async (intent, transcript = '', conversationHistory = []) => {
+  // Check if LLM is enabled
+  if (ASSISTANT_CONFIG.llm?.enabled) {
+    try {
+      // Use LLM to generate natural response
+      const llmResult = await getLLMResponse(transcript, conversationHistory, ASSISTANT_CONFIG.llm.provider);
+      return llmResult.response;
+    } catch (error) {
+      // Fallback to rule-based if enabled
+      if (ASSISTANT_CONFIG.llm?.fallbackOnError) {
+        return generateRuleBasedResponse(intent, transcript);
+      }
+      
+      // If no fallback, return error message
+      return "I'm having trouble processing that right now. Could you try rephrasing your question?";
+    }
+  }
+  
+  // Use rule-based system if LLM is disabled
+  return generateRuleBasedResponse(intent, transcript);
+};
+
+/**
+ * Generate response based on intent (rule-based fallback)
+ */
+const generateRuleBasedResponse = (intent, transcript = '') => {
   const data = PORTFOLIO_DATA;
 
   switch (intent) {

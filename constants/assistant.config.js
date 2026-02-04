@@ -70,4 +70,24 @@ export const ASSISTANT_CONFIG = {
     minConfidence: 0.7, // Minimum confidence for wake word detection (0-1)
     responseDelay: 400, // Brief pause before speaking for confident delivery (ms)
   },
+
+  // LLM Settings
+  llm: {
+    // Enable LLM-powered responses (requires API key)
+    enabled: true, // Set to false to use rule-based system only
+    
+    // Provider: 'groq' (FREE), 'openai', 'anthropic', 'huggingface' (FREE), or 'auto'
+    // Auto-selects: Groq (free) > OpenAI > Anthropic > Hugging Face (free)
+    provider: 'auto',
+    
+    // Fallback to rule-based system if LLM fails
+    fallbackOnError: true,
+    
+    // Use LLM for intent detection (more accurate than regex)
+    useLLMForIntent: false, // Set to true for better intent detection (uses more API calls)
+    
+    // Maximum conversation history to send to LLM (to manage context window)
+    // Reduced to 2 to avoid rate limits on free tier
+    maxHistoryLength: 2, // Last 2 messages (reduced for rate limit management)
+  },
 };

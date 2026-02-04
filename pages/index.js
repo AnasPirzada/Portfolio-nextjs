@@ -31,7 +31,6 @@ function Home() {
 
   useEffect(() => {
     displayFancyLogs();
-    logger.info('Home page loaded successfully');
   }, []);
 
   return (

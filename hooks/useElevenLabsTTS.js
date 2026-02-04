@@ -25,7 +25,6 @@ export const useElevenLabsTTS = (options = {}) => {
   const getApiKey = useCallback(() => {
     // First check if provided directly
     if (apiKey) {
-      console.log('[ElevenLabs TTS] ✅ API key provided directly');
       return apiKey;
     }
 
@@ -34,28 +33,10 @@ export const useElevenLabsTTS = (options = {}) => {
     const envKey = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY;
 
     if (envKey && envKey.trim()) {
-      console.log('[ElevenLabs TTS] ✅ API key found in environment variable');
-      console.log('[ElevenLabs TTS] Key length:', envKey.length, 'characters');
       return envKey.trim();
     } else {
       // Debug: Show what we're looking for
       if (typeof window !== 'undefined') {
-        console.warn(
-          '[ElevenLabs TTS] ⚠️ API key not found in environment variable'
-        );
-        console.warn(
-          '[ElevenLabs TTS] process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY:',
-          process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY
-        );
-        console.warn(
-          '[ElevenLabs TTS] Available NEXT_PUBLIC_ vars:',
-          Object.keys(process.env)
-            .filter(k => k.startsWith('NEXT_PUBLIC_'))
-            .join(', ')
-        );
-        console.warn(
-          '[ElevenLabs TTS] 💡 SOLUTION: Restart your dev server after adding to .env.local'
-        );
       }
     }
 
@@ -68,27 +49,16 @@ export const useElevenLabsTTS = (options = {}) => {
 
     const key = getApiKey();
     if (!key) {
-      console.warn('[ElevenLabs TTS] ❌ Not supported - API key not found');
-      console.warn('[ElevenLabs TTS] Setup instructions:');
-      console.warn('  1. Create .env.local in project root');
-      console.warn(
-        '  2. Add: NEXT_PUBLIC_ELEVENLABS_API_KEY=your_api_key_here'
-      );
-      console.warn('  3. Restart dev server: npm run dev');
       setIsSupported(false);
       return;
     }
 
     if (typeof Audio === 'undefined') {
-      console.warn(
-        '[ElevenLabs TTS] ❌ Not supported - HTMLAudioElement not available'
-      );
       setIsSupported(false);
       return;
     }
 
     setIsSupported(true);
-    console.log('[ElevenLabs TTS] ✅ REST TTS ready (browser Audio + API key)');
   }, [getApiKey]);
 
   // Available premium voices (you can change these)
@@ -110,18 +80,9 @@ export const useElevenLabsTTS = (options = {}) => {
     async (text, voiceOptions = {}) => {
       const key = getApiKey();
       if (!isSupported || !text || !key) {
-        console.warn(
-          '[ElevenLabs TTS] Not supported or no text provided',
-          {
-            isSupported,
-            hasText: !!text,
-            hasKey: !!key,
-          }
-        );
         return;
       }
 
-      console.log('[ElevenLabs TTS] ✅ Starting REST TTS request...');
 
       // Stop any current audio
       if (currentAudioRef.current) {
@@ -137,11 +98,6 @@ export const useElevenLabsTTS = (options = {}) => {
         const selectedVoiceId = voiceOptions.voiceId || voiceId;
         const selectedModelId = voiceOptions.modelId || modelId;
 
-        console.log('[ElevenLabs TTS] Requesting audio via REST...', {
-          voiceId: selectedVoiceId,
-          modelId: selectedModelId,
-          textLength: text.length,
-        });
 
         const response = await fetch(
           `https://api.elevenlabs.io/v1/text-to-speech/${selectedVoiceId}`,
@@ -169,12 +125,6 @@ export const useElevenLabsTTS = (options = {}) => {
 
         if (!response.ok) {
           const errText = await response.text().catch(() => '');
-          console.error(
-            '[ElevenLabs TTS] ❌ REST request failed:',
-            response.status,
-            response.statusText,
-            errText
-          );
           throw new Error(
             `ElevenLabs REST TTS failed: ${response.status} ${response.statusText}`
           );
@@ -182,11 +132,6 @@ export const useElevenLabsTTS = (options = {}) => {
 
         const audioBuffer = await response.arrayBuffer();
 
-        console.log(
-          '[ElevenLabs TTS] ✅ Audio received | Size:',
-          audioBuffer.byteLength,
-          'bytes'
-        );
 
         // Convert ArrayBuffer to Blob
         const audioBlob = new Blob([audioBuffer], { type: 'audio/mpeg' });
@@ -200,45 +145,46 @@ export const useElevenLabsTTS = (options = {}) => {
         // Set volume explicitly (ensure it's not muted)
         audio.volume = 1.0;
         audio.muted = false;
+        
+        // Preload audio to ensure it's ready
+        audio.preload = 'auto';
+        
+        // Set autoplay attribute (helps with some browsers)
+        audio.setAttribute('autoplay', '');
 
         // Set up event handlers
         audio.onplay = () => {
           setIsSpeaking(true);
           setIsLoading(false);
-          console.log(
-            '[ElevenLabs TTS] ✅ Started speaking | Volume:',
-            audio.volume,
-            '| Muted:',
-            audio.muted
-          );
         };
 
         audio.onended = () => {
           setIsSpeaking(false);
+          setIsLoading(false);
           URL.revokeObjectURL(audioUrl);
           currentAudioRef.current = null;
-          console.log('[ElevenLabs TTS] ✅ Finished speaking');
+          // Remove from DOM if we added it
+          if (audio.parentNode) {
+            audio.parentNode.removeChild(audio);
+          }
         };
 
         audio.onerror = error => {
-          console.error('[ElevenLabs TTS] ❌ Audio playback error:', error);
           setIsSpeaking(false);
           setIsLoading(false);
           URL.revokeObjectURL(audioUrl);
           currentAudioRef.current = null;
+          // Remove from DOM if we added it
+          if (audio.parentNode) {
+            audio.parentNode.removeChild(audio);
+          }
         };
 
         audio.onloadeddata = () => {
-          console.log(
-            '[ElevenLabs TTS] Audio loaded | Duration:',
-            audio.duration,
-            's'
-          );
         };
 
         // Wait for audio to be ready before playing
         audio.oncanplaythrough = () => {
-          console.log('[ElevenLabs TTS] Audio ready to play');
         };
 
         // Play audio - handle autoplay policy
@@ -247,7 +193,6 @@ export const useElevenLabsTTS = (options = {}) => {
           try {
             // Ensure audio is loaded
             if (audio.readyState < 2) {
-              console.log('[ElevenLabs TTS] Waiting for audio to load...');
               await new Promise((resolve, reject) => {
                 const timeout = setTimeout(() => {
                   reject(new Error('Audio load timeout'));
@@ -265,30 +210,61 @@ export const useElevenLabsTTS = (options = {}) => {
               });
             }
 
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-              await playPromise;
-              console.log('[ElevenLabs TTS] ✅ Audio playing successfully');
+            // Ensure audio is not muted and volume is set
+            audio.volume = 1.0;
+            audio.muted = false;
+            
+            // Add audio to DOM (some browsers require this for autoplay)
+            if (!audio.parentNode && typeof document !== 'undefined') {
+              audio.style.display = 'none';
+              document.body.appendChild(audio);
+            }
+
+            // Check if audio can actually play
+            if (audio.paused) {
+              
+              const playPromise = audio.play();
+              
+              if (playPromise !== undefined) {
+                await playPromise;
+                // Verify it's actually playing after a short delay
+                setTimeout(() => {
+                  const isPlaying = !audio.paused && audio.currentTime > 0;
+                  
+                  if (!isPlaying) {
+                    // Add a one-time click handler to unlock audio
+                    const unlockAudio = () => {
+                      if (audio && audio.paused) {
+                        audio.play().catch(() => {});
+                      }
+                      document.removeEventListener('click', unlockAudio);
+                      document.removeEventListener('touchstart', unlockAudio);
+                    };
+                    
+                    document.addEventListener('click', unlockAudio, { once: true });
+                    document.addEventListener('touchstart', unlockAudio, { once: true });
+                  }
+                }, 200);
+              }
+            } else {
             }
           } catch (error) {
-            console.error('[ElevenLabs TTS] ❌ Play error:', error);
             // Try once more after a short delay (sometimes helps with browser policies)
-            setTimeout(() => {
-              audio.play().catch(retryError => {
-                console.error(
-                  '[ElevenLabs TTS] ❌ Retry play failed:',
-                  retryError
-                );
+            setTimeout(async () => {
+              try {
+                audio.volume = 1.0;
+                audio.muted = false;
+                await audio.play();
+              } catch (retryError) {
                 setIsSpeaking(false);
                 setIsLoading(false);
-              });
-            }, 100);
+              }
+            }, 200);
           }
         };
 
         attemptPlay();
       } catch (error) {
-        console.error('[ElevenLabs TTS] ❌ Error:', error);
         setIsSpeaking(false);
         setIsLoading(false);
         throw error;
@@ -305,7 +281,6 @@ export const useElevenLabsTTS = (options = {}) => {
       currentAudioRef.current = null;
       setIsSpeaking(false);
       setIsLoading(false);
-      console.log('[ElevenLabs TTS] Stopped speaking');
     }
   }, []);
 
@@ -313,7 +288,6 @@ export const useElevenLabsTTS = (options = {}) => {
   const pause = useCallback(() => {
     if (currentAudioRef.current && !currentAudioRef.current.paused) {
       currentAudioRef.current.pause();
-      console.log('[ElevenLabs TTS] Paused speaking');
     }
   }, []);
 
@@ -321,7 +295,6 @@ export const useElevenLabsTTS = (options = {}) => {
   const resume = useCallback(() => {
     if (currentAudioRef.current && currentAudioRef.current.paused) {
       currentAudioRef.current.play();
-      console.log('[ElevenLabs TTS] Resumed speaking');
     }
   }, []);
 

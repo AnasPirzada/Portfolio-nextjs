@@ -63,7 +63,7 @@ const Document = () => {
         />
         <meta
           httpEquiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://assets.calendly.com https://calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com https://calendly.com; font-src 'self' https://fonts.gstatic.com https://assets.calendly.com; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://api.emailjs.com https://calendly.com https://*.calendly.com https://api.calendly.com; frame-src 'self' https://www.google.com https://calendly.com https://*.calendly.com; object-src 'none'; base-uri 'self';"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://assets.calendly.com https://calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com https://calendly.com; font-src 'self' https://fonts.gstatic.com https://assets.calendly.com; img-src 'self' data: https: blob:; media-src 'self' blob: data: https://api.elevenlabs.io https://api.openai.com; connect-src 'self' https://www.google-analytics.com https://api.emailjs.com https://calendly.com https://*.calendly.com https://api.calendly.com https://api.elevenlabs.io https://api.openai.com; frame-src 'self' https://www.google.com https://calendly.com https://*.calendly.com; object-src 'none'; base-uri 'self';"
         />
 
         {/* Mobile web app meta tags */}

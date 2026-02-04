@@ -85,16 +85,7 @@ export const logInteraction = (
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 
-    // Log to console in dev mode
-    if (process.env.NODE_ENV === 'development') {
-      console.log('[Analytics] Logged interaction:', {
-        intent: intentKey,
-        wasFallback,
-        totalInteractions: data.totalInteractions,
-      });
-    }
   } catch (error) {
-    console.error('[Analytics] Error logging interaction:', error);
   }
 };
 
@@ -107,7 +98,6 @@ export const getAnalytics = () => {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
   } catch (error) {
-    console.error('[Analytics] Error reading analytics:', error);
     return null;
   }
 };

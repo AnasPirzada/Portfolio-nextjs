@@ -119,13 +119,11 @@ export const useVoiceRecognition = (options = {}) => {
   // Start listening
   const startListening = useCallback(() => {
     if (!recognitionRef.current) {
-      console.warn('[Voice Recognition] Recognition instance not available');
       return;
     }
 
     // Check if already listening or starting
     if (isListening) {
-      console.log('[Voice Recognition] Already listening, skipping');
       return;
     }
 
@@ -136,16 +134,13 @@ export const useVoiceRecognition = (options = {}) => {
         recognition &&
         (recognition.state === 'started' || recognition.state === 'starting')
       ) {
-        console.log('[Voice Recognition] Recognition already active, skipping');
         return;
       }
 
-      console.log('[Voice Recognition] Starting recognition...');
       finalTranscriptRef.current = '';
       setTranscript('');
       setInterimTranscript('');
       recognition.start();
-      console.log('[Voice Recognition] ✅ Recognition started successfully');
     } catch (error) {
       const errorName = error?.name || 'UnknownError';
       const errorMessage = error?.message || String(error);
@@ -155,17 +150,9 @@ export const useVoiceRecognition = (options = {}) => {
         errorName === 'InvalidStateError' ||
         errorMessage.includes('already started')
       ) {
-        console.log(
-          '[Voice Recognition] Recognition already started, ignoring'
-        );
         return;
       }
 
-      console.error(
-        '[Voice Recognition] ❌ Error starting:',
-        errorName,
-        errorMessage
-      );
       setError(error);
 
       // Call onError handler if available
@@ -182,7 +169,6 @@ export const useVoiceRecognition = (options = {}) => {
     try {
       recognitionRef.current.stop();
     } catch (error) {
-      console.error('Error stopping recognition:', error);
     }
   }, [isListening]);
 

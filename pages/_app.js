@@ -29,7 +29,6 @@ const App = ({ Component, pageProps }) => {
 
   useEffect(() => {
     validateEnv();
-    logger.info('Application initialized');
   }, []);
 
   // Refresh ScrollTrigger on route change and page load
@@ -87,19 +86,14 @@ const App = ({ Component, pageProps }) => {
           // Mark Calendly as loaded
           if (typeof window !== 'undefined') {
             window.calendlyLoaded = true;
-            console.log('Calendly script loaded via Next.js Script component');
             // Wait a moment for Calendly to initialize
             setTimeout(() => {
               if (window.Calendly) {
-                console.log('Calendly object is available:', window.Calendly);
-              } else {
-                console.warn('Calendly object not found after script load');
               }
             }, 500);
           }
         }}
         onError={e => {
-          console.error('Failed to load Calendly script:', e);
         }}
       />
     </>
