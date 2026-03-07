@@ -6,7 +6,6 @@ import { CALENDLY_URL, MENULINKS, TYPED_STRINGS } from '../../constants';
 import { openCalendlyPopup } from '../../utils/calendly';
 import Button from '../Button/Button';
 import FiverrBadge from '../FiverrBadge/FiverrBadge';
-import UpworkBadge from '../UpworkBadge/UpworkBadge';
 import Profiles from '../Profiles/Profiles';
 import styles from './Hero.module.scss';
 
@@ -146,7 +145,7 @@ const Hero = () => {
         <p className="mb-3 sm:mb-4 md:mb-5 lg:mb-6 inline-block w-full break-words">
           <span
             ref={typedElementRef}
-            className="staggered-reveal text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-light-3 font-mono leading-relaxed inline-block min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] max-w-full break-words"
+            className="staggered-reveal text-lg sm:text-xl md:text-2xl lg:text-2xl text-gray-light-3 font-mono leading-relaxed inline-block min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] max-w-full break-words"
           />
         </p>
         <div className="staggered-reveal mb-3 sm:mb-4 md:mb-5 lg:mb-6">
@@ -226,7 +225,7 @@ const Hero = () => {
       >
         {/* Fiverr & Upwork Badges - Center */}
         <div
-          className="staggered-reveal absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex gap-3 items-center"
+          className="staggered-reveal absolute top-10 left-[45%] -translate-x-1/2 -translate-y-1/2 z-20 flex gap-3 items-center"
           style={{ pointerEvents: 'auto' }}
         >
           <FiverrBadge />
@@ -234,17 +233,17 @@ const Hero = () => {
         </div>
         <div className={styles.imageWrapper}>
           <Image
-            src="/lottie/anas.svg"
+            src="/lottie/231902f6-ec2c-4ae1-b37a-0d9a0efa873c.png"
             alt="Anas Pirzada - Developer illustration"
-            width={800}
-            height={800}
+            width={1152}
+            height={768}
             className={`w-full h-auto object-contain ${styles.heroImage}`}
             style={{
               maxWidth: '100%',
               maxHeight: '95vh',
             }}
             priority
-            quality={90}
+            quality={100}
           />
         </div>
       </div>
