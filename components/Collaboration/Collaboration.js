@@ -235,53 +235,53 @@ const Collaboration = ({ clientHeight }) => {
 
             <div
               ref={statsRef}
-              className="relative flex flex-col sm:flex-row justify-between gap-6 sm:gap-8 z-10"
+              className="relative z-10 grid grid-cols-2 gap-2.5 max-sm:gap-3 sm:flex sm:flex-row sm:justify-between sm:gap-6 md:gap-8"
             >
               {/* Projects */}
-              <div className="flex-1 text-center group">
-                <div className="inline-flex items-center justify-center mb-2 px-3 py-1 rounded-full bg-[color:color-mix(in_srgb,var(--accent-light)_8%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_12%,transparent)] text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-700 dark:text-[color:var(--accent-light)]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--accent-light)] mr-2 shadow-[0_0_6px_rgba(200,134,10,0.45)]" />
+              <div className="group flex min-w-0 flex-1 flex-col justify-center rounded-2xl border border-[color:color-mix(in_srgb,var(--accent-light)_22%,transparent)] bg-[color:color-mix(in_srgb,var(--accent-light)_7%,transparent)] px-3 py-4 text-center max-sm:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none dark:border-[color:color-mix(in_srgb,var(--accent-light)_28%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_10%,transparent)] dark:sm:border-0 dark:sm:bg-transparent">
+                <div className="mb-2 inline-flex items-center justify-center rounded-full bg-[color:color-mix(in_srgb,var(--accent-light)_8%,transparent)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-gray-700 max-sm:w-full dark:bg-[color:color-mix(in_srgb,var(--accent-light)_14%,transparent)] dark:text-[color:var(--accent-light)] sm:mb-2 sm:w-auto sm:px-3 sm:text-[11px] sm:tracking-[0.15em]">
+                  <span className="mr-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent-light)] shadow-[0_0_6px_rgba(200,134,10,0.45)] sm:mr-2" />
                   Projects
                 </div>
                 <div className="relative inline-block">
-                  <div className="text-4xl md:text-5xl font-extrabold bg-gradient-to-br from-[color:var(--accent-light)] via-[color:var(--accent-dark)] to-[color:var(--accent-light)] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(200,134,10,0.2)] dark:drop-shadow-[0_0_18px_rgba(239,192,65,0.35)] transition-transform duration-300 group-hover:scale-110">
+                  <div className="text-3xl font-extrabold bg-gradient-to-br from-[color:var(--accent-light)] via-[color:var(--accent-dark)] to-[color:var(--accent-light)] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(200,134,10,0.2)] transition-transform duration-300 group-hover:scale-110 max-sm:tabular-nums sm:text-4xl md:text-5xl dark:drop-shadow-[0_0_18px_rgba(239,192,65,0.35)]">
                     {counters.projects}+
                   </div>
-                  <div className="pointer-events-none absolute inset-0 blur-3xl bg-[color:color-mix(in_srgb,var(--accent-light)_20%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_30%,transparent)] opacity-40 dark:opacity-60 group-hover:opacity-70 dark:group-hover:opacity-80 transition-opacity" />
+                  <div className="pointer-events-none absolute inset-0 blur-3xl bg-[color:color-mix(in_srgb,var(--accent-light)_20%,transparent)] opacity-40 transition-opacity group-hover:opacity-70 dark:bg-[color:color-mix(in_srgb,var(--accent-light)_30%,transparent)] dark:opacity-60 dark:group-hover:opacity-80" />
                 </div>
               </div>
 
-              {/* Divider (only on desktop) */}
-              <div className="hidden sm:block w-px bg-gradient-to-b from-transparent via-[color:color-mix(in_srgb,var(--accent-light)_40%,transparent)] to-transparent opacity-70" />
+              {/* Divider (sm+ row layout) */}
+              <div className="hidden w-px shrink-0 bg-gradient-to-b from-transparent via-[color:color-mix(in_srgb,var(--accent-light)_40%,transparent)] to-transparent opacity-70 sm:block" />
 
               {/* Clients */}
-              <div className="flex-1 text-center group">
-                <div className="inline-flex items-center justify-center mb-2 px-3 py-1 rounded-full bg-[color:color-mix(in_srgb,var(--accent-light)_8%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_12%,transparent)] text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-700 dark:text-[color:var(--accent-light)]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--accent-light)] mr-2 shadow-[0_0_6px_rgba(200,134,10,0.45)]" />
+              <div className="group flex min-w-0 flex-1 flex-col justify-center rounded-2xl border border-[color:color-mix(in_srgb,var(--accent-light)_22%,transparent)] bg-[color:color-mix(in_srgb,var(--accent-light)_7%,transparent)] px-3 py-4 text-center max-sm:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none dark:border-[color:color-mix(in_srgb,var(--accent-light)_28%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_10%,transparent)] dark:sm:border-0 dark:sm:bg-transparent">
+                <div className="mb-2 inline-flex items-center justify-center rounded-full bg-[color:color-mix(in_srgb,var(--accent-light)_8%,transparent)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-gray-700 max-sm:w-full dark:bg-[color:color-mix(in_srgb,var(--accent-light)_14%,transparent)] dark:text-[color:var(--accent-light)] sm:mb-2 sm:w-auto sm:px-3 sm:text-[11px] sm:tracking-[0.15em]">
+                  <span className="mr-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent-light)] shadow-[0_0_6px_rgba(200,134,10,0.45)] sm:mr-2" />
                   Clients
                 </div>
                 <div className="relative inline-block">
-                  <div className="text-4xl md:text-5xl font-extrabold bg-gradient-to-br from-[color:var(--accent-light)] via-[color:var(--accent-dark)] to-[color:var(--accent-light)] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(200,134,10,0.2)] dark:drop-shadow-[0_0_18px_rgba(239,192,65,0.35)] transition-transform duration-300 group-hover:scale-110">
+                  <div className="text-3xl font-extrabold bg-gradient-to-br from-[color:var(--accent-light)] via-[color:var(--accent-dark)] to-[color:var(--accent-light)] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(200,134,10,0.2)] transition-transform duration-300 group-hover:scale-110 max-sm:tabular-nums sm:text-4xl md:text-5xl dark:drop-shadow-[0_0_18px_rgba(239,192,65,0.35)]">
                     {counters.clients}+
                   </div>
-                  <div className="pointer-events-none absolute inset-0 blur-3xl bg-[color:color-mix(in_srgb,var(--accent-light)_20%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_30%,transparent)] opacity-40 dark:opacity-60 group-hover:opacity-70 dark:group-hover:opacity-80 transition-opacity" />
+                  <div className="pointer-events-none absolute inset-0 blur-3xl bg-[color:color-mix(in_srgb,var(--accent-light)_20%,transparent)] opacity-40 transition-opacity group-hover:opacity-70 dark:bg-[color:color-mix(in_srgb,var(--accent-light)_30%,transparent)] dark:opacity-60 dark:group-hover:opacity-80" />
                 </div>
               </div>
 
-              {/* Divider (only on desktop) */}
-              <div className="hidden sm:block w-px bg-gradient-to-b from-transparent via-[color:color-mix(in_srgb,var(--accent-light)_40%,transparent)] to-transparent opacity-70" />
+              {/* Divider (sm+ row layout) */}
+              <div className="hidden w-px shrink-0 bg-gradient-to-b from-transparent via-[color:color-mix(in_srgb,var(--accent-light)_40%,transparent)] to-transparent opacity-70 sm:block" />
 
-              {/* Years Experience */}
-              <div className="flex-1 text-center group">
-                <div className="inline-flex items-center justify-center mb-2 px-3 py-1 rounded-full bg-[color:color-mix(in_srgb,var(--accent-light)_8%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_12%,transparent)] text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-700 dark:text-[color:var(--accent-light)]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--accent-light)] mr-2 shadow-[0_0_6px_rgba(200,134,10,0.45)]" />
+              {/* Years Experience — full width row on mobile grid */}
+              <div className="group col-span-2 flex min-w-0 flex-1 flex-col justify-center rounded-2xl border border-[color:color-mix(in_srgb,var(--accent-light)_22%,transparent)] bg-[color:color-mix(in_srgb,var(--accent-light)_7%,transparent)] px-3 py-4 text-center max-sm:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:col-span-1 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:shadow-none dark:border-[color:color-mix(in_srgb,var(--accent-light)_28%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_10%,transparent)] dark:sm:border-0 dark:sm:bg-transparent">
+                <div className="mb-2 inline-flex items-center justify-center rounded-full bg-[color:color-mix(in_srgb,var(--accent-light)_8%,transparent)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-gray-700 max-sm:mx-auto max-sm:min-w-[10rem] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_14%,transparent)] dark:text-[color:var(--accent-light)] sm:mb-2 sm:min-w-0 sm:px-3 sm:text-[11px] sm:tracking-[0.15em]">
+                  <span className="mr-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent-light)] shadow-[0_0_6px_rgba(200,134,10,0.45)] sm:mr-2" />
                   Years Exp
                 </div>
                 <div className="relative inline-block">
-                  <div className="text-4xl md:text-5xl font-extrabold bg-gradient-to-br from-[color:var(--accent-light)] via-[color:var(--accent-dark)] to-[color:var(--accent-light)] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(200,134,10,0.2)] dark:drop-shadow-[0_0_18px_rgba(239,192,65,0.35)] transition-transform duration-300 group-hover:scale-110">
+                  <div className="text-3xl font-extrabold bg-gradient-to-br from-[color:var(--accent-light)] via-[color:var(--accent-dark)] to-[color:var(--accent-light)] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(200,134,10,0.2)] transition-transform duration-300 group-hover:scale-110 max-sm:tabular-nums sm:text-4xl md:text-5xl dark:drop-shadow-[0_0_18px_rgba(239,192,65,0.35)]">
                     {counters.experience}+
                   </div>
-                  <div className="pointer-events-none absolute inset-0 blur-3xl bg-[color:color-mix(in_srgb,var(--accent-light)_20%,transparent)] dark:bg-[color:color-mix(in_srgb,var(--accent-light)_30%,transparent)] opacity-40 dark:opacity-60 group-hover:opacity-70 dark:group-hover:opacity-80 transition-opacity" />
+                  <div className="pointer-events-none absolute inset-0 blur-3xl bg-[color:color-mix(in_srgb,var(--accent-light)_20%,transparent)] opacity-40 transition-opacity group-hover:opacity-70 dark:bg-[color:color-mix(in_srgb,var(--accent-light)_30%,transparent)] dark:opacity-60 dark:group-hover:opacity-80" />
                 </div>
               </div>
             </div>

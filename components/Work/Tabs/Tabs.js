@@ -1,6 +1,23 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Howl } from 'howler';
+import { useEffect, useState } from 'react';
+
+const SM_BREAKPOINT_PX = 640;
+
+/** Keeps sliding tab indicator math aligned with track padding (mobile vs sm+). */
+function useCompactTabTrack() {
+  const [compact, setCompact] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${SM_BREAKPOINT_PX - 1}px)`);
+    const sync = () => setCompact(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  return compact;
+}
 
 const mouseClickSound = new Howl({
   src: ['/sounds/mouse-click.mp3'],
@@ -30,6 +47,10 @@ const TabsContent = ({ activeTab }) => {
 const Tabs = ({ tabItems }) => {
   const [activeTab, setActiveTab] = useState(tabItems[0]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const compactTrack = useCompactTabTrack();
+
+  const trackPad = compactTrack ? '0.125rem' : '0.25rem';
+  const trackPadDouble = compactTrack ? '0.25rem' : '0.5rem';
 
   const handleOnClick = tab => {
     if (tab.value === activeTab.value || isAnimating) return;
@@ -44,15 +65,27 @@ const Tabs = ({ tabItems }) => {
 
   return (
     <div>
-      <div className="pt-8 flex w-full justify-center px-2 sm:px-4 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        <div className="relative inline-flex w-max max-w-none shrink-0 bg-gray-light-2/80 dark:bg-gray-dark-3/50 backdrop-blur-sm rounded-full p-1 border border-gray-light-2 dark:border-gray-dark-2/50 overflow-hidden">
+      <div
+        className={`flex w-full justify-center overflow-x-auto px-3 pt-8 [scrollbar-width:none] [-ms-overflow-style:none] sm:px-4 [&::-webkit-scrollbar]:hidden ${
+          compactTrack ? 'min-w-0' : ''
+        }`}
+      >
+        <div
+          className={`relative overflow-hidden rounded-full border border-gray-light-2 bg-gray-light-2/80 backdrop-blur-sm dark:border-gray-dark-2/50 dark:bg-gray-dark-3/50 ${
+            compactTrack
+              ? 'flex w-full min-w-0 p-0.5'
+              : 'inline-flex w-max max-w-none shrink-0 p-1'
+          }`}
+        >
           {/* Animated indicator with glow */}
           <motion.div
-            className="absolute top-1 bottom-1 rounded-full bg-gradient-to-r from-accent-light to-accent-dark"
+            className={`absolute rounded-full bg-gradient-to-r from-accent-light to-accent-dark ${
+              compactTrack ? 'top-0.5 bottom-0.5' : 'top-1 bottom-1'
+            }`}
             initial={false}
             animate={{
-              left: `calc(${(activeIndex / tabCount) * 100}% + 0.25rem)`,
-              width: `calc(${100 / tabCount}% - 0.5rem)`,
+              left: `calc(${(activeIndex / tabCount) * 100}% + ${trackPad})`,
+              width: `calc(${100 / tabCount}% - ${trackPadDouble})`,
             }}
             transition={{
               type: 'spring',
@@ -64,11 +97,13 @@ const Tabs = ({ tabItems }) => {
 
           {/* Subtle glow effect */}
           <motion.div
-            className="absolute top-1 bottom-1 rounded-full bg-accent-light/30 blur-md"
+            className={`absolute rounded-full bg-accent-light/30 ${
+              compactTrack ? 'top-0.5 bottom-0.5 blur-sm' : 'top-1 bottom-1 blur-md'
+            }`}
             initial={false}
             animate={{
-              left: `calc(${(activeIndex / tabCount) * 100}% + 0.25rem)`,
-              width: `calc(${100 / tabCount}% - 0.5rem)`,
+              left: `calc(${(activeIndex / tabCount) * 100}% + ${trackPad})`,
+              width: `calc(${100 / tabCount}% - ${trackPadDouble})`,
               opacity: [0.5, 0.8, 0.5],
             }}
             transition={{
@@ -83,13 +118,17 @@ const Tabs = ({ tabItems }) => {
               key={tab.value}
               onClick={() => handleOnClick(tab)}
               whileTap={{ scale: 0.95 }}
-              className={`relative z-[1] px-5 sm:px-8 py-2.5 text-center text-sm font-semibold transition-colors duration-200 rounded-full whitespace-nowrap ${
+              type="button"
+              className={`relative z-[1] inline-flex min-h-0 items-center justify-center whitespace-nowrap rounded-full px-3 py-2 text-center text-xs font-semibold leading-tight transition-colors duration-200 sm:px-8 sm:py-2.5 sm:text-sm sm:leading-normal ${
+                compactTrack ? 'min-w-0 flex-1 basis-0 sm:flex-none sm:basis-auto' : ''
+              } ${
                 activeTab.value === tab.value
                   ? 'text-black'
                   : 'text-gray-light-4 dark:text-gray-light-3 hover:text-gray-dark-3 dark:hover:text-white'
               }`}
             >
               <motion.span
+                className="inline-flex max-w-full items-center justify-center whitespace-nowrap text-center"
                 initial={false}
                 animate={{
                   scale: activeTab.value === tab.value ? 1.05 : 1,

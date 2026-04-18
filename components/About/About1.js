@@ -93,7 +93,7 @@ const About1 = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full relative select-none -mt-16 md:mt-0"
+      className="w-full relative select-none -mt-10 md:mt-0"
     >
       <style jsx>{`
         .about-1-section .about-3 {
@@ -104,7 +104,7 @@ const About1 = () => {
           color: inherit !important;
         }
       `}</style>
-      <div className="py-6 md:py-20 section-container about-1-section">
+      <div className="pt-12 pb-6 md:py-20 section-container about-1-section">
         <RevealStagger className="flex flex-col items-center">
           <RevealItem
             as={m.p}
@@ -119,9 +119,10 @@ const About1 = () => {
           >
             <span className="about-1 leading-tight block mb-4">
               I&apos;m a passionate{' '}
-              <span className="text-accent-light">Full Stack Developer</span> and{' '}
-              <span className="text-accent-light">AI Expert</span> who&apos;s
-              focused on building scalable and performant applications.
+              <span className="text-accent-light">Full Stack Developer</span>{' '}
+              and <span className="text-accent-light">AI Expert</span>{' '}
+              who&apos;s focused on building scalable and performant
+              applications.
             </span>
             <span className="about-2 leading-tight block mb-4">
               I strive to deliver seamless user experiences by embracing modern

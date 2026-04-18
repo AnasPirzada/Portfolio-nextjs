@@ -128,7 +128,7 @@ const Hero = () => {
     <m.section
       ref={sectionRef}
       id={MENULINKS[0].ref}
-      className="relative mb-0 flex w-full max-w-[1400px] min-h-[70vh] flex-col justify-center overflow-hidden px-4 py-6 sm:px-6 sm:py-10 md:min-h-screen md:px-10 md:py-8 lg:min-h-[min(100vh,56rem)] lg:py-12 lg:pl-10 lg:pr-12 xl:px-16 2xl:px-20 md:mb-24 mx-auto"
+      className="relative mb-0 flex w-full max-w-[1400px] min-h-[70vh] flex-col justify-center overflow-hidden px-4 py-6 max-sm:justify-start max-sm:pt-24 max-sm:pb-10 sm:justify-center sm:px-6 sm:py-10 md:min-h-screen md:px-10 md:py-8 lg:min-h-[min(100vh,56rem)] lg:py-12 lg:pl-10 lg:pr-12 xl:px-16 2xl:px-20 md:mb-24 mx-auto"
     >
       {/* Large-screen ambient layers (dark mode only — avoids warm gold wash in light mode) */}
       <div className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:dark:block">

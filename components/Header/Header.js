@@ -1,8 +1,8 @@
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Howl } from 'howler';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
-import { useLanguage } from '@/contexts/LanguageContext';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
 // import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import SoundBar from './SoundBar/SoundBar';

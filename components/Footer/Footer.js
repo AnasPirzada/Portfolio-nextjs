@@ -232,9 +232,9 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.55 }}
-          className="mb-14 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-14"
+          className="mb-14 grid grid-cols-2 gap-x-6 gap-y-12 md:gap-12 lg:grid-cols-4 lg:gap-14"
         >
-          <div className="space-y-5">
+          <div className="col-span-2 space-y-5 md:col-span-1">
             <h3 className="bg-gradient-to-r from-accent-light via-accent-dark to-accent-light bg-clip-text text-2xl font-bold text-transparent">
               Anas Pirzada
             </h3>
@@ -304,7 +304,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="space-y-5">
+          <div className="col-span-2 space-y-5 md:col-span-1">
             <h4 className="text-lg font-semibold tracking-wide text-gray-900 dark:text-white">
               Newsletter
             </h4>
