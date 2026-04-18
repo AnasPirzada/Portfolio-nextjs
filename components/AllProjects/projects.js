@@ -9,8 +9,8 @@ export default function ProjectsPage() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
+        staggerChildren: 0.1,
+        delayChildren: 0.08,
       },
     },
   };
@@ -18,17 +18,20 @@ export default function ProjectsPage() {
   const itemVariants = {
     hidden: {
       opacity: 0,
-      y: 40,
-      scale: 0.95,
+      y: 48,
+      scale: 0.94,
+      filter: 'blur(6px)',
     },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
+      filter: 'blur(0px)',
       transition: {
         type: 'spring',
-        stiffness: 100,
-        damping: 12,
+        stiffness: 76,
+        damping: 14,
+        mass: 0.85,
       },
     },
   };
@@ -50,7 +53,8 @@ export default function ProjectsPage() {
       <motion.div
         className="mb-8 md:mb-12"
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
         variants={headerVariants}
       >
         <p className="uppercase tracking-widest text-gray-light-4 dark:text-gray-light-1 text-xs sm:text-sm md:text-base mb-2">
@@ -68,11 +72,12 @@ export default function ProjectsPage() {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12, margin: '0px 0px -10% 0px' }}
       >
         {PROJECTS.map((project, index) => (
           <motion.div key={project.name} variants={itemVariants}>
-            <Card project={project} />
+            <Card project={project} index={index} />
           </motion.div>
         ))}
       </motion.div>

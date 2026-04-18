@@ -12,13 +12,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { METADATA, PROJECTS } from '@/constants';
+import styles from './ProjectDetail.module.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.config({ nullTargetWarn: false });
 
-/** Local SVGs in /public: next/image with fill can render blank unless unoptimized is set. */
-function isSvgPath(src) {
-  return typeof src === 'string' && /\.svg(\?.*)?$/i.test(src);
+function formatTechLabel(tech) {
+  if (tech === 'nestjs') return 'Nest.js';
+  return tech.replace(/([A-Z])/g, ' $1').trim();
 }
 
 export default function ProjectDetailPage() {
@@ -402,6 +403,10 @@ export default function ProjectDetailPage() {
     ],
   };
 
+  const accentG1 = project.gradient?.[0] ?? '#c8860a';
+  const accentG2 = project.gradient?.[1] ?? '#5c3d00';
+  const pageAccentStyle = { '--p-g1': accentG1, '--p-g2': accentG2 };
+
   return (
     <>
       <Meta
@@ -429,163 +434,109 @@ export default function ProjectDetailPage() {
       </Header>
       <ProgressIndicator />
       <Cursor isDesktop={isDesktop} />
-      <main className="flex flex-col min-h-screen">
-        {/* Breadcrumb Navigation */}
-        <section className="pt-20 md:pt-24 pb-6 px-4 bg-gray-900">
-          <div className="max-w-6xl mx-auto">
-            <nav className="flex items-center space-x-2 text-sm">
-              <Link
-                href="/"
-                className="text-gray-400 hover:text-accent-dark transition-colors"
-              >
-                Home
-              </Link>
-              <span className="text-gray-500">›</span>
-              <Link
-                href="/projects"
-                className="text-gray-400 hover:text-accent-dark transition-colors"
-              >
-                Portfolio
-              </Link>
-              <span className="text-gray-500">›</span>
-              <span className="text-white">{project.name}</span>
-            </nav>
-          </div>
-        </section>
-
-        {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-          {/* Background with gradient overlay */}
-          <div className="absolute inset-0 z-0">
-            <Image
+      <main className={styles.page} style={pageAccentStyle}>
+        {/* Hero */}
+        <section className={styles.hero}>
+          <div className={styles.heroBg}>
+            {/* eslint-disable-next-line @next/next/no-img-element -- static /public hero; native img avoids fill/layout issues */}
+            <img
               src={project.heroSection}
-              alt={project.name}
-              fill
-              className="object-cover"
-              priority
-              unoptimized={isSvgPath(project.heroSection)}
+              alt=""
+              className={styles.heroImg}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `linear-gradient(135deg, ${project.gradient[0]}80, ${project.gradient[1]}80)`,
-              }}
-            />
+            <div className={styles.heroTint} />
+            <div className={styles.heroVignette} />
+            <div className={styles.heroNoise} aria-hidden />
+            <div className={styles.heroGrid} aria-hidden />
           </div>
 
-          {/* Content */}
-          <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-            <div>
-              <h1
-                ref={heroTitleRef}
-                className="text-6xl md:text-8xl font-bold text-white mb-6 drop-shadow-2xl"
+          <div className={styles.heroContent}>
+            {project.category ? (
+              <p className={styles.categoryPill}>{project.category}</p>
+            ) : null}
+            <h1 ref={heroTitleRef} className={styles.heroTitle}>
+              {project.name}
+            </h1>
+            <p ref={heroDescRef} className={styles.heroDesc}>
+              {project.description}
+            </p>
+            <div ref={heroButtonRef} className={styles.heroActions}>
+              <motion.a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.btnPrimary}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
-                {project.name}
-              </h1>
-              <p
-                ref={heroDescRef}
-                className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed"
-              >
-                {project.description}
-              </p>
-
-              {/* Live Website Button */}
-              <div ref={heroButtonRef}>
-                <Link
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block"
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-accent-dark text-black font-bold text-lg rounded-lg hover:bg-accent-light transition-all duration-300 shadow-2xl hover:shadow-[0_20px_40px_color-mix(in_srgb,var(--accent-light)_30%,transparent)]"
-                  >
-                    Live Website
-                  </motion.button>
-                </Link>
-              </div>
+                Visit live site
+              </motion.a>
+              {project.caseStudy ? (
+                <a href="#case-study" className={styles.btnGhost}>
+                  Read case study
+                </a>
+              ) : null}
             </div>
           </div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-          >
-            <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-white rounded-full mt-2"></div>
-            </div>
-          </motion.div>
         </section>
 
-        {/* Case Study Section */}
+        {/* Case study */}
         {project.caseStudy && (
-          <section className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black">
-            <div className="max-w-6xl mx-auto">
-              <div ref={caseStudyTitleRef} className="text-center mb-16">
-                <p className="uppercase tracking-widest text-gray-400 mb-4">
-                  CASE STUDY
+          <section
+            id="case-study"
+            className={`${styles.section} ${styles.sectionMuted} ${styles.caseStudySection}`}
+          >
+            <div className={styles.sectionInner}>
+              <div ref={caseStudyTitleRef} className={styles.sectionHeadCenter}>
+                <p className={styles.overline}>Case study</p>
+                <h2 className={styles.headline}>Problem, solution, impact</h2>
+                <p className={styles.subheadCenter}>
+                  A concise narrative of the challenge, what shipped, and the
+                  outcome.
                 </p>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                  Problem → Solution → Impact
-                </h2>
               </div>
 
-              <div
-                ref={caseStudyCardsRef}
-                className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16"
-              >
-                {/* Problem */}
-                <div className="bg-gradient-to-br from-red-500/10 to-red-900/5 rounded-2xl p-8 border-2 border-red-500/20 hover:border-red-500/40 transition-all">
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    Problem
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed">
+              <div ref={caseStudyCardsRef} className={styles.caseGrid}>
+                <article className={styles.caseCard}>
+                  <p className={styles.caseStep}>01 — Problem</p>
+                  <h3 className={styles.caseCardTitle}>The challenge</h3>
+                  <p className={styles.caseCardBody}>
                     {project.caseStudy.problem}
                   </p>
-                </div>
-
-                {/* Solution */}
-                <div className="bg-gradient-to-br from-blue-500/10 to-blue-900/5 rounded-2xl p-8 border-2 border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    Solution
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed">
+                </article>
+                <article className={styles.caseCard}>
+                  <p className={styles.caseStep}>02 — Solution</p>
+                  <h3 className={styles.caseCardTitle}>What we built</h3>
+                  <p className={styles.caseCardBody}>
                     {project.caseStudy.solution}
                   </p>
-                </div>
-
-                {/* Impact */}
-                <div className="bg-gradient-to-br from-green-500/10 to-green-900/5 rounded-2xl p-8 border-2 border-green-500/20 hover:border-green-500/40 transition-all">
-                  <h3 className="text-2xl font-bold text-white mb-4">Impact</h3>
-                  <p className="text-gray-300 leading-relaxed">
+                </article>
+                <article className={styles.caseCard}>
+                  <p className={styles.caseStep}>03 — Impact</p>
+                  <h3 className={styles.caseCardTitle}>Results</h3>
+                  <p className={styles.caseCardBody}>
                     {project.caseStudy.impact}
                   </p>
-                </div>
+                </article>
               </div>
 
-              {/* Metrics */}
               {project.caseStudy.metrics &&
                 project.caseStudy.metrics.length > 0 && (
                   <div ref={metricsRef}>
-                    <h3 className="text-3xl font-bold text-white text-center mb-8">
-                      Key Metrics
-                    </h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                      {project.caseStudy.metrics.map((metric, index) => (
+                    <h3 className={styles.metricsTitle}>At a glance</h3>
+                    <div className={styles.metricsGrid}>
+                      {project.caseStudy.metrics.map((metric, idx) => (
                         <div
-                          key={index}
-                          className="metric-item bg-gradient-to-br from-accent-light/10 to-accent-dark/5 rounded-xl p-6 border border-accent-light/20 hover:border-accent-light/40 transition-all text-center"
+                          key={`${metric.label}-${idx}`}
+                          className={`${styles.metricCell} metric-item`}
                         >
-                          <div className="text-3xl md:text-4xl font-bold text-accent-light mb-2">
+                          <div className={styles.metricValue}>
                             {metric.value}
                           </div>
-                          <div className="text-sm text-gray-400 uppercase tracking-wide">
-                            {metric.label}
-                          </div>
+                          <div className={styles.metricLabel}>{metric.label}</div>
                         </div>
                       ))}
                     </div>
@@ -595,213 +546,168 @@ export default function ProjectDetailPage() {
           </section>
         )}
 
-        {/* Project Details Section */}
-        <section className="py-20 px-4 bg-black">
-          <div className="max-w-6xl mx-auto">
-            <div
-              ref={projectDetailsRef}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-            >
-              {/* Project Image */}
-              <div className="relative">
-                <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
-                  <Image
+        {/* Overview + tech */}
+        <section className={`${styles.section} ${styles.sectionDark}`}>
+          <div className={styles.sectionInner}>
+            <div ref={projectDetailsRef} className={styles.overviewGrid}>
+              <div className={styles.imageFrame}>
+                <div className={styles.imageFrameInner}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={project.image}
                     alt={project.name}
-                    fill
-                    className="object-cover"
-                    unoptimized={isSvgPath(project.image)}
+                    className={styles.coverImg}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>
 
-              {/* Project Info */}
-              <div className="space-y-8">
-                <div>
-                  <h2 className="text-4xl font-bold text-white mb-4">
-                    Project Overview
-                  </h2>
-                  <p className="text-lg text-gray-300 leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
+              <div>
+                <p className={styles.overline}>Overview</p>
+                <h2 className={styles.headline}>Project snapshot</h2>
+                <p className={`${styles.bodyProse} mb-8`}>{project.description}</p>
 
-                {/* Tech Stack */}
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">
-                    Technologies Used
-                  </h3>
-                  <div className="flex flex-wrap gap-4">
-                    {project.tech?.map((tech, index) => (
-                      <motion.div
-                        key={tech}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        viewport={{ once: true }}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg border border-white/20 hover:border-accent-dark transition-colors"
-                      >
-                        <Image
-                          src={`/projects/tech/${tech}.svg`}
-                          alt={tech}
-                          width={24}
-                          height={24}
-                          unoptimized
-                        />
-                        <span className="text-white font-medium capitalize">
-                          {tech === 'nestjs'
-                            ? 'Nest.js'
-                            : tech.replace(/([A-Z])/g, ' $1').trim()}
-                        </span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Live Website Button */}
-                <div>
-                  <Link
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block"
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-full px-8 py-4 bg-gradient-to-r from-accent-dark to-accent-light text-black font-bold text-lg rounded-lg hover:shadow-[0_20px_40px_color-mix(in_srgb,var(--accent-light)_30%,transparent)] transition-all duration-300"
+                <h3 className="text-base font-semibold tracking-tight text-white mb-3">
+                  Stack
+                </h3>
+                <div className={`${styles.techGrid} mb-8`}>
+                  {project.tech?.map((tech, idx) => (
+                    <motion.span
+                      key={tech}
+                      className={styles.techChip}
+                      initial={{ opacity: 0, y: 8 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.35, delay: idx * 0.05 }}
+                      viewport={{ once: true }}
                     >
-                      Visit Live Website
-                    </motion.button>
-                  </Link>
+                      <Image
+                        src={`/projects/tech/${tech}.svg`}
+                        alt=""
+                        width={20}
+                        height={20}
+                        unoptimized
+                      />
+                      <span className="capitalize">{formatTechLabel(tech)}</span>
+                    </motion.span>
+                  ))}
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Project Information Grid */}
-        <section className="py-20 px-4 bg-gray-900">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Project Information
-              </h2>
-              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-                Detailed information about the project, technologies used, and
-                development process.
-              </p>
-            </div>
-
-            <div
-              ref={projectInfoGridRef}
-              className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            >
-              {/* Client */}
-              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-accent-dark transition-colors">
-                <h3 className="text-xl font-semibold text-white mb-4">
-                  Client
-                </h3>
-                <p className="text-gray-300">
-                  {project.client || project.name}
-                </p>
-              </div>
-
-              {/* Services */}
-              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-accent-dark transition-colors">
-                <h3 className="text-xl font-semibold text-white mb-4">
-                  Services
-                </h3>
-                <ul className="text-gray-300 space-y-2">
-                  {project.services?.map((service, index) => (
-                    <li key={index}>• {service}</li>
-                  )) || (
-                    <>
-                      <li>• Web Development</li>
-                      <li>• UI/UX Design</li>
-                      <li>• Frontend Development</li>
-                      <li>• Responsive Design</li>
-                    </>
-                  )}
-                </ul>
-              </div>
-
-              {/* Live Website */}
-              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-accent-dark transition-colors">
-                <h3 className="text-xl font-semibold text-white mb-4">
-                  Live Website
-                </h3>
-                <Link
+                <motion.a
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-accent-dark hover:text-accent-light transition-colors font-medium"
+                  className={`${styles.btnPrimary} ${styles.btnBlock}`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  Visit Website →
-                </Link>
+                  Open live website
+                </motion.a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Work Experience Section */}
-        <section className="py-20 px-4 bg-black">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Work Experience
-              </h2>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                This project showcases my expertise in modern web development,
-                combining cutting-edge technologies with user-centered design
-                principles.
+        {/* Meta grid */}
+        <section className={`${styles.section} ${styles.sectionMuted}`}>
+          <div className={styles.sectionInner}>
+            <div className={styles.sectionHeadCenter}>
+              <p className={styles.overline}>Details</p>
+              <h2 className={styles.headline}>Engagement</h2>
+              <p className={styles.subheadCenter}>
+                Client context, scope, and where to see it live.
               </p>
             </div>
 
-            <div
-              ref={workExpRef}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-            >
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">
-                    Development Process
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    The development of {project.name} involved a comprehensive
-                    approach to modern web development. Starting with careful
-                    planning and design, I implemented a robust architecture
-                    using the latest technologies.
-                  </p>
-                  <p className="text-gray-300 leading-relaxed">
-                    The project demonstrates my ability to create scalable,
-                    maintainable, and user-friendly web applications that meet
-                    modern standards and provide exceptional user experiences.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">
-                    Key Features
-                  </h3>
-                  <ul className="text-gray-300 space-y-2">
-                    <li>• Responsive Design for all devices</li>
-                    <li>• Modern UI/UX Implementation</li>
-                    <li>• Optimized Performance</li>
-                    <li>• Cross-browser Compatibility</li>
-                    <li>• SEO Optimized</li>
-                  </ul>
-                </div>
+            <div ref={projectInfoGridRef} className={styles.infoGrid}>
+              <div className={styles.infoCard}>
+                <h3 className={styles.infoCardTitle}>Client</h3>
+                <p className={styles.infoCardBody}>
+                  {project.client || project.name}
+                </p>
               </div>
+              <div className={styles.infoCard}>
+                <h3 className={styles.infoCardTitle}>Services</h3>
+                <ul className={styles.infoList}>
+                  {(project.services || [
+                    'Web Development',
+                    'UI/UX Design',
+                    'Frontend Development',
+                    'Responsive Design',
+                  ]).map((service, idx) => (
+                    <li key={idx}>{service}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.infoCard}>
+                <h3 className={styles.infoCardTitle}>Live URL</h3>
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.infoLink}
+                >
+                  {project.url.replace(/^https?:\/\//, '')}
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
 
-              <div className="relative">
-                <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-2xl">
-                  <Image
+        {/* Delivery narrative */}
+        <section className={`${styles.section} ${styles.sectionDark}`}>
+          <div className={styles.sectionInner}>
+            <div className={styles.sectionHeadCenter}>
+              <p className={styles.overline}>Delivery</p>
+              <h2 className={styles.headline}>How it came together</h2>
+              <p className={styles.subheadCenter}>
+                Process, quality bar, and what this build demonstrates.
+              </p>
+            </div>
+
+            <div ref={workExpRef} className={styles.splitSection}>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  Development approach
+                </h3>
+                <p className={`${styles.bodyProse} mb-4`}>
+                  Building {project.name} meant aligning product goals with a
+                  maintainable architecture—clear information hierarchy,
+                  performant delivery, and interfaces that stay coherent across
+                  devices.
+                </p>
+                <p className={`${styles.bodyProse} mb-8`}>
+                  The result is a production-ready experience that reflects
+                  modern standards for accessibility, performance, and long-term
+                  maintainability.
+                </p>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  Quality checklist
+                </h3>
+                <ul className={styles.featureList}>
+                  {[
+                    'Responsive layouts across breakpoints',
+                    'UI aligned with brand and content goals',
+                    'Performance-conscious implementation',
+                    'Cross-browser compatible experience',
+                    'SEO-aware structure where applicable',
+                  ].map(line => (
+                    <li key={line}>
+                      <span className={styles.checkIcon} aria-hidden />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.imageFrame}>
+                <div className={styles.imageFrameInner}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={project.heroSection}
-                    alt={`${project.name} showcase`}
-                    fill
-                    className="object-cover"
-                    unoptimized={isSvgPath(project.heroSection)}
+                    alt=""
+                    className={styles.coverImg}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>
@@ -809,21 +715,14 @@ export default function ProjectDetailPage() {
           </div>
         </section>
 
-        {/* Services Section */}
-        <section className="py-20 px-4 bg-gray-900">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4">Services</h2>
-              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-                Comprehensive web development services delivered with expertise
-                and attention to detail.
-              </p>
+        {/* Services */}
+        <section className={`${styles.section} ${styles.sectionMuted}`}>
+          <div className={styles.sectionInner}>
+            <div className={styles.sectionHeadCenter}>
+              <p className={styles.overline}>Scope</p>
+              <h2 className={styles.headline}>Services in this project</h2>
             </div>
-
-            <div
-              ref={servicesRef}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            >
+            <div ref={servicesRef} className={styles.servicesGrid}>
               {(
                 project.services || [
                   'Web Development',
@@ -831,44 +730,22 @@ export default function ProjectDetailPage() {
                   'Frontend Development',
                   'Responsive Design',
                 ]
-              ).map((service, index) => (
-                <div
-                  key={service}
-                  className="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-accent-dark transition-colors text-center"
-                >
-                  <h3 className="text-lg font-semibold text-white">
-                    {service}
-                  </h3>
+              ).map(service => (
+                <div key={service} className={styles.serviceCell}>
+                  {service}
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Navigation Section */}
-        <section className="py-20 px-4 bg-black">
-          <div ref={navigationRef} className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-8">
-              Explore More Projects
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/projects">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-transparent border-2 border-accent-dark text-accent-dark font-semibold rounded-lg hover:bg-accent-dark hover:text-black transition-all duration-300"
-                >
-                  View All Projects
-                </motion.button>
-              </Link>
-              <Link href="/">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-accent-dark text-black font-semibold rounded-lg hover:bg-accent-light transition-all duration-300"
-                >
-                  Back to Home
-                </motion.button>
+        {/* Nav footer */}
+        <section className={styles.navFooter}>
+          <div ref={navigationRef} className={styles.navFooterInner}>
+            <h2 className={styles.navTitle}>Continue exploring</h2>
+            <div className={styles.navButtons}>
+              <Link href="/" className={styles.btnPrimary}>
+                Back home
               </Link>
             </div>
           </div>

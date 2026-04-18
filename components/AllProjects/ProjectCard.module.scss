@@ -1,11 +1,424 @@
-.card {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  cursor: pointer;
-  transition: transform 0.4s ease;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+/* Premium project cards — per-card CSS variables: --g1, --g2, --g-mid */
 
-  &:hover {
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+.cardLink {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 1.25rem;
+  outline-offset: 4px;
+}
+
+.cardLink:focus-visible {
+  outline: 2px solid var(--accent-light);
+}
+
+.card {
+  --g1: #c8860a;
+  --g2: #8b5a00;
+  --g-mid: color-mix(in srgb, var(--g1) 50%, var(--g2));
+  position: relative;
+  border-radius: 1.25rem;
+  isolation: isolate;
+}
+
+.tiltLayer {
+  position: relative;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Animated conic border ring */
+.borderRing {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--ring-angle, 0deg),
+    var(--g1),
+    var(--g2),
+    color-mix(in srgb, var(--g1) 40%, transparent),
+    var(--g-mid),
+    var(--g1)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+  animation: ringRotate 10s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .borderRing {
+    animation: none;
+    opacity: 0.55;
   }
+}
+
+@keyframes ringRotate {
+  to {
+    --ring-angle: 360deg;
+  }
+}
+
+@property --ring-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.tiltLayer:hover .borderRing {
+  opacity: 1;
+  animation-duration: 4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tiltLayer:hover .borderRing {
+    animation-duration: 0s;
+  }
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  border-radius: calc(1.25rem - 1px);
+  overflow: hidden;
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--card-bg) 96%, var(--g1) 4%) 0%,
+    var(--card-bg) 48%,
+    color-mix(in srgb, var(--card-bg) 94%, var(--g2) 6%) 100%
+  );
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--g1) 12%, transparent),
+    0 24px 48px -12px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 color-mix(in srgb, #fff 6%, transparent);
+}
+
+.dark .inner {
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--g1) 18%, transparent),
+    0 28px 56px -16px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 color-mix(in srgb, #fff 4%, transparent);
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  z-index: 3;
+}
+
+.indexWatermark {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.5rem;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: clamp(2.5rem, 8vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--g1) 35%, transparent),
+    transparent 55%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  pointer-events: none;
+  z-index: 4;
+  user-select: none;
+}
+
+.imageShell {
+  position: relative;
+  height: 13rem;
+  overflow: hidden;
+  background: #050508;
+}
+
+@media (min-width: 640px) {
+  .imageShell {
+    height: 14.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .imageShell {
+    height: 15.5rem;
+  }
+}
+
+/* Layout variants — rotate visual language across the grid */
+.variantDefault {
+  /* baseline; accents come from project gradient */
+}
+
+.variantBar .imageShell {
+  margin-left: 0.65rem;
+  border-radius: 0 0 0 1rem;
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, var(--g1), var(--g2)) 1;
+}
+
+.variantSoft .imageShell {
+  border-radius: 0 1.75rem 0 0;
+}
+
+.variantDiagonal .imageShell {
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+}
+
+.imageGlow {
+  position: absolute;
+  inset: auto 10% -30% 10%;
+  height: 60%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--g1) 45%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tiltLayer:hover .imageGlow {
+  opacity: 0.55;
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+}
+
+.metaRow {
+  position: absolute;
+  left: 0.875rem;
+  right: 0.875rem;
+  top: 0.875rem;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, #000 45%, transparent);
+  border: 1px solid color-mix(in srgb, var(--g1) 35%, transparent);
+  color: #f5f0e8;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.imageParallax {
+  position: absolute;
+  inset: -8%;
+  z-index: 0;
+  will-change: transform;
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  z-index: 1;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.body {
+  position: relative;
+  padding: 1.1rem 1.15rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+  z-index: 2;
+}
+
+@media (min-width: 640px) {
+  .body {
+    padding: 1.25rem 1.35rem 1.1rem;
+  }
+}
+
+.title {
+  font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-primary);
+  transition: color 0.35s ease;
+}
+
+.dark .title {
+  color: #fff;
+}
+
+.desc {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.techRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding-top: 0.5rem;
+  margin-top: 0.15rem;
+  border-top: 1px solid color-mix(in srgb, var(--g1) 18%, transparent);
+}
+
+.techIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--card-bg) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--g1) 15%, transparent);
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.tiltLayer:hover .techIcon {
+  border-color: color-mix(in srgb, var(--g1) 45%, transparent);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--g1) 15%, transparent);
+}
+
+.morePill {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0 0.45rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  color: var(--text-muted);
+  border: 1px dashed color-mix(in srgb, var(--g1) 25%, transparent);
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid color-mix(in srgb, var(--g1) 12%, transparent);
+}
+
+.ctaLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--g1) 90%, var(--text-primary));
+}
+
+.ctaArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--g1) 88%, #000),
+    color-mix(in srgb, var(--g2) 90%, #000)
+  );
+  color: #fff;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, #fff 15%, transparent),
+    0 8px 24px color-mix(in srgb, var(--g1) 35%, transparent);
+  transform: translateX(0.25rem) scale(0.92);
+  opacity: 0;
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tiltLayer:hover .ctaArrow {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaArrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.cornerAccent {
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0 0 0 100%;
+  top: 0;
+  right: 0;
+  background: radial-gradient(
+    circle at 100% 0%,
+    color-mix(in srgb, var(--g1) 22%, transparent),
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.9;
 }
