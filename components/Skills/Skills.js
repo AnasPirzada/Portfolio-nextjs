@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
+import { RevealItem, RevealStagger } from '@/components/ui/Reveal';
 import { MENULINKS, SKILLS } from '@/constants';
 import { useTheme } from '@/contexts/ThemeContext';
-import { useScrollReveal } from '@/hooks';
+import { prefersReducedMotion } from '@/utils/scrollRevealSupport';
+import { m, useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
 import Image from 'next/image';
 import { memo, useEffect, useRef, useState } from 'react';
@@ -38,13 +40,14 @@ const SKILL_COLORS = {
   'tanstack-query': { bg: '#FF4154', text: '#FFFFFF' },
   Turborepo: { bg: '#EF4444', text: '#FFFFFF' },
   ShadcnUi: { bg: '#1a1a1a', text: '#FFFFFF' },
-  default: { bg: '#efc041', text: '#000000' },
+  default: { bg: '#c8860a', text: '#000000' },
 };
 
 const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const iconRef = useRef(null);
   const { isDark } = useTheme();
+  const reduceMotion = useReducedMotion();
   const colors = SKILL_COLORS[skill] || SKILL_COLORS.default;
 
   // Wave animation on scroll - simple one-time reveal
@@ -52,7 +55,14 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
     const icon = iconRef.current;
     if (!icon) return;
 
-    // Set initial state
+    const isCoarse =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(max-width: 768px)').matches;
+    if (prefersReducedMotion() || isCoarse) {
+      gsap.set(icon, { y: 0, opacity: 1, scale: 1 });
+      return;
+    }
+
     gsap.set(icon, { y: 20, opacity: 0, scale: 0.95 });
 
     const observer = new IntersectionObserver(
@@ -63,17 +73,17 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
               y: 0,
               opacity: 1,
               scale: 1,
-              duration: 0.8,
-              delay: index * 0.08,
+              duration: 0.55,
+              delay: index * 0.06,
               ease: 'power3.out',
             });
-            observer.unobserve(icon); // Only animate once
+            observer.unobserve(icon);
           }
         });
       },
       {
-        threshold: 0.15,
-        rootMargin: '0px 0px -10% 0px',
+        threshold: 0.12,
+        rootMargin: '0px 0px -8% 0px',
       }
     );
 
@@ -89,19 +99,40 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
       className="relative group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ opacity: 0 }}
     >
-      <div className="transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-2">
+      <m.div
+        className="origin-center"
+        whileHover={
+          reduceMotion
+            ? undefined
+            : {
+                y: -8,
+                scale: 1.1,
+                rotate: 6,
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 26,
+                },
+              }
+        }
+        whileTap={
+          reduceMotion
+            ? undefined
+            : { scale: 0.94, transition: { duration: 0.15 } }
+        }
+      >
         <Image
           src={`/skills/${skill}.svg`}
           alt={skill}
           width={width}
           height={height}
-          className={`filter group-hover:drop-shadow-lg ${
+          unoptimized
+          className={`filter transition-shadow duration-300 group-hover:drop-shadow-[0_8px_24px_color-mix(in_srgb,var(--accent-light)_25%,transparent)] ${
             skill === 'nextjs' ? 'nextjs-icon' : ''
           }`}
         />
-      </div>
+      </m.div>
 
       {/* Animated Badge/Tooltip */}
       <div
@@ -133,41 +164,57 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
 SkillIcon.displayName = 'SkillIcon';
 
 const Skills = memo(() => {
-  const sectionRef = useScrollReveal();
-
   return (
-    <section
-      ref={sectionRef}
+    <m.section
       id={MENULINKS[1].ref}
-      className="w-full relative select-none"
+      className="relative w-full select-none overflow-hidden"
     >
-      <div className="py-10 md:py-20 section-container">
+      <div
+        className="pointer-events-none absolute inset-0 hidden lg:dark:block"
+        aria-hidden
+      >
+        <div className="absolute -right-10 top-10 h-80 w-80 rounded-full bg-accent-light/[0.07] blur-[90px]" />
+        <div className="absolute bottom-20 left-[-4rem] h-64 w-64 rounded-full bg-accent-dark/[0.06] blur-[80px]" />
+      </div>
+      <div className="section-container relative z-10 py-10 md:py-20">
         <img
           src="/right-pattern.svg"
           alt=""
-          className="absolute hidden right-0 bottom-2/4 w-2/12 max-w-xs md:block"
+          className="absolute right-0 bottom-2/4 hidden w-2/12 max-w-xs opacity-80 md:block md:opacity-100"
           loading="lazy"
           height={700}
           width={320}
         />
-        <div className="flex flex-col items-start text-left">
-          <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base">
+        <RevealStagger className="flex flex-col items-start text-left">
+          <RevealItem
+            as={m.p}
+            className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
+          >
             SKILLS
-          </p>
-          <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal">
+          </RevealItem>
+          <RevealItem
+            as={m.h1}
+            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit"
+          >
             My Skills
-          </h1>
-          <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2 staggered-reveal">
+          </RevealItem>
+          <RevealItem
+            as={m.h2}
+            className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2"
+          >
             I like to take responsibility to craft aesthetic user experience
             using modern frontend architecture.{' '}
-          </h2>
-        </div>
-        <div className="flex flex-col skills-wrapper">
+          </RevealItem>
+        </RevealStagger>
+        <RevealStagger className="flex flex-col skills-wrapper">
           <div className="mt-8 sm:mt-10">
-            <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4 staggered-reveal">
+            <RevealItem
+              as={m.h3}
+              className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4"
+            >
               LANGUAGES AND TOOLS
-            </h3>
-            <div className="flex items-center flex-wrap gap-4 sm:gap-6 staggered-reveal">
+            </RevealItem>
+            <RevealItem className="flex items-center flex-wrap gap-4 sm:gap-6">
               {SKILLS.languagesAndTools.map((skill, index) => (
                 <SkillIcon
                   key={skill}
@@ -177,13 +224,16 @@ const Skills = memo(() => {
                   index={index}
                 />
               ))}
-            </div>
+            </RevealItem>
           </div>
           <div className="mt-8 sm:mt-10">
-            <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4 staggered-reveal">
+            <RevealItem
+              as={m.h3}
+              className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4"
+            >
               LIBRARIES AND FRAMEWORKS
-            </h3>
-            <div className="flex flex-wrap gap-4 sm:gap-6 transform-gpu staggered-reveal">
+            </RevealItem>
+            <RevealItem className="flex flex-wrap gap-4 sm:gap-6 transform-gpu">
               {SKILLS.librariesAndFrameworks.map((skill, index) => (
                 <SkillIcon
                   key={skill}
@@ -193,10 +243,10 @@ const Skills = memo(() => {
                   index={index}
                 />
               ))}
-            </div>
+            </RevealItem>
           </div>
           <div className="flex flex-col sm:flex-row flex-wrap mt-8 sm:mt-10">
-            <div className="mb-6 sm:mb-0 sm:mr-16 xs:sm:mr-20 staggered-reveal">
+            <RevealItem className="mb-6 sm:mb-0 sm:mr-16 xs:sm:mr-20">
               <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4">
                 DATABASES
               </h3>
@@ -211,8 +261,8 @@ const Skills = memo(() => {
                   />
                 ))}
               </div>
-            </div>
-            <div className="staggered-reveal">
+            </RevealItem>
+            <RevealItem>
               <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4">
                 Other
               </h3>
@@ -227,11 +277,11 @@ const Skills = memo(() => {
                   />
                 ))}
               </div>
-            </div>
+            </RevealItem>
           </div>
-        </div>
+        </RevealStagger>
       </div>
-    </section>
+    </m.section>
   );
 });
 

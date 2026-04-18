@@ -114,7 +114,7 @@
 }
 
 .downloadBtn {
-  background: linear-gradient(135deg, #efc041, #eeba2c);
+  background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
   color: #000;
   border-color: transparent;
 
@@ -165,7 +165,7 @@
   width: 50px;
   height: 50px;
   border: 4px solid rgba(239, 192, 65, 0.1);
-  border-top-color: #efc041;
+  border-top-color: var(--accent-light);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -240,7 +240,7 @@
 
 .errorBtn {
   padding: 0.75rem 2rem;
-  background: linear-gradient(135deg, #efc041, #eeba2c);
+  background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
   color: #000;
   border: none;
   border-radius: 0.5rem;
@@ -270,7 +270,7 @@
 }
 
 .fallbackLink {
-  color: #efc041;
+  color: var(--accent-light);
   text-decoration: underline;
   cursor: pointer;
   background: none;

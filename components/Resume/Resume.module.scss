@@ -31,7 +31,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #efc041, #eeba2c);
+    background: linear-gradient(90deg, var(--accent-light), var(--accent-dark));
   }
 }
 
@@ -94,7 +94,7 @@
 .title {
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #efc041, #eeba2c);
+  background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -138,7 +138,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #efc041;
+  color: var(--accent-light);
   font-size: 0.875rem;
   flex-shrink: 0;
 }
@@ -208,7 +208,7 @@
     }
 
     .btnIcon {
-      color: #efc041;
+      color: var(--accent-light);
       transform: scale(1.1) rotate(5deg);
     }
 
@@ -222,7 +222,7 @@
     }
 
     .btnLabel {
-      color: #efc041;
+      color: var(--accent-light);
     }
   }
 
@@ -407,7 +407,7 @@
 .statValue {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #efc041, #eeba2c);
+  background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

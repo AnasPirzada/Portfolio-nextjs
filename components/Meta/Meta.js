@@ -151,7 +151,7 @@ const Meta = ({ title, description, image, url, type = 'website' }) => {
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
-      <meta name="msapplication-TileColor" content="#efc041" />
+      <meta name="msapplication-TileColor" content="#c8860a" />
       <link rel="manifest" href="/manifest.json" />
 
       {/* RSS Feed */}

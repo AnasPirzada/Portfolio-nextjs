@@ -1,125 +1,60 @@
+import { GooeyText } from '@/components/ui/gooey-text-morphing';
+import { isScrollRevealDesktop } from '@/utils/scrollRevealSupport';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useLayoutEffect, useEffect, useRef } from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useEffect, useRef } from 'react';
 
-const Tag = ({ clientHeight }) => {
+const morphWords = ['knowledge', 'ideas', 'skills', 'experience'];
+
+const Tag = () => {
   const sectionRef = useRef(null);
   const quoteRef = useRef(null);
-  const { isDark } = useTheme();
 
-  // Get the appropriate gradient based on theme
-  const gradientColor = isDark ? '#ffffff' : '#121212';
-
-  // Handle theme changes - update gradient when theme switches
   useEffect(() => {
-    if (!quoteRef.current) return;
-    
-    const updateStyles = () => {
-      const knowledgeSpan = quoteRef.current.querySelector('.about-3');
-      if (!knowledgeSpan) return;
+    let ctx;
+    const rafId = requestAnimationFrame(() => {
+      if (!sectionRef.current || !quoteRef.current) return;
 
-      // Update the background gradient when theme changes
-      knowledgeSpan.style.background = `linear-gradient(90deg, ${gradientColor} 0%, ${gradientColor} 50%, #eeba2c 51%, #efc041 102%)`;
-      
-      // Ensure background-clip properties are always applied
-      knowledgeSpan.style.display = 'inline-block';
-      knowledgeSpan.style.WebkitBackgroundClip = 'text';
-      knowledgeSpan.style.WebkitTextFillColor = 'transparent';
-      knowledgeSpan.style.backgroundClip = 'text';
-      knowledgeSpan.style.backgroundSize = '200% 100%';
-      
-      // Force a reflow to ensure styles are applied
-      void knowledgeSpan.offsetHeight;
-    };
+      gsap.registerPlugin(ScrollTrigger);
 
-    // Apply immediately
-    updateStyles();
-    
-    // Also apply after theme transition completes (theme changes at 300ms, transition ends at 650ms)
-    const timeoutId = setTimeout(() => {
-      updateStyles();
-    }, 700);
-
-    return () => clearTimeout(timeoutId);
-  }, [isDark, gradientColor]);
-
-  useLayoutEffect(() => {
-    if (!sectionRef.current || !quoteRef.current) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    // On mobile/tablet, skip scroll-based GSAP and keep static for smoother UX
-    if (typeof window !== 'undefined') {
-      const isMobile = window.innerWidth < 1024;
-      if (isMobile) {
+      if (!isScrollRevealDesktop()) {
         gsap.set(quoteRef.current, { opacity: 1, y: 0 });
-        const knowledgeSpan = quoteRef.current.querySelector('.about-3');
-        if (knowledgeSpan) {
-          gsap.set(knowledgeSpan, { backgroundPosition: '100% 0%' });
-        }
         return;
       }
-    }
 
-    const ctx = gsap.context(() => {
-      const knowledgeSpan = quoteRef.current.querySelector('.about-3');
-      if (!knowledgeSpan) return;
+      ctx = gsap.context(() => {
+        gsap.set(quoteRef.current, { opacity: 0, y: 30 });
 
-      // Set initial state for animation - ensure it starts unfilled
-      gsap.set(quoteRef.current, { opacity: 0, y: 30 });
-      // Force initial background position to 0% (unfilled state)
-      gsap.set(knowledgeSpan, {
-        backgroundPosition: '0% 0%',
-        backgroundPositionX: '0%',
-      });
-      // Also set inline style to ensure it's not filled initially
-      knowledgeSpan.style.backgroundPosition = '0% 0%';
-      knowledgeSpan.style.backgroundPositionX = '0%';
+        gsap
+          .timeline({
+            defaults: { ease: 'power2.out' },
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 80%',
+              once: true,
+              toggleActions: 'play none none none',
+              invalidateOnRefresh: true,
+            },
+            onComplete: () => {
+              gsap.set(quoteRef.current, { opacity: 1, y: 0 });
+            },
+          })
+          .to(quoteRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+          });
+      }, sectionRef);
 
-      const tl = gsap
-        .timeline({
-          defaults: { ease: 'power2.out' },
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            once: true,
-            toggleActions: 'play none none none',
-          },
-          onComplete: () => {
-            // Ensure text stays visible after animation
-            gsap.set(quoteRef.current, { opacity: 1, y: 0 });
-            // Ensure fill animation completes
-            gsap.set(knowledgeSpan, {
-              backgroundPosition: '100% 0%',
-              backgroundPositionX: '100%',
-            });
-            knowledgeSpan.style.backgroundPosition = '100% 0%';
-            knowledgeSpan.style.backgroundPositionX = '100%';
-          },
-        })
-        .to(quoteRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-        })
-        .to(
-          knowledgeSpan,
-          {
-            backgroundPosition: '100% 0%',
-            backgroundPositionX: '100%',
-            duration: 1.2,
-            ease: 'power1.inOut',
-            force3D: false,
-          },
-          '-=0.2'
-        );
-    }, sectionRef);
+      ScrollTrigger.refresh();
+    });
 
     return () => {
-      ctx.revert();
+      cancelAnimationFrame(rafId);
+      ctx?.revert();
     };
-  }, [gradientColor]);
+  }, []);
+
   return (
     <section
       ref={sectionRef}
@@ -131,23 +66,14 @@ const Tag = ({ clientHeight }) => {
           className="font-medium text-4xl sm:text-5xl md:text-4xl lg:text-6xl xl:text-[4rem] text-center px-4 sm:px-6 leading-relaxed text-gray-dark-1 dark:text-white"
           style={{ minHeight: '120px', display: 'block' }}
         >
-          I turn
-          <span
-            className="about-3 font-bold"
-            style={{
-              display: 'inline-block',
-              background: `linear-gradient(90deg, ${gradientColor} 0%, ${gradientColor} 50%, #eeba2c 51%, #efc041 102%)`,
-              backgroundSize: '200% 100%',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              backgroundPosition: '0% 0%',
-              backgroundPositionX: '0%',
-            }}
-          >
-            {' '}
-            &nbsp; knowledge &nbsp;
-          </span>{' '}
+          I turn{' '}
+          <GooeyText
+            texts={morphWords}
+            morphTime={1}
+            cooldownTime={0.25}
+            className="mx-1 align-baseline sm:mx-2"
+            textClassName="font-bold text-4xl sm:text-5xl md:text-4xl lg:text-6xl xl:text-[4rem] leading-relaxed text-accent-light dark:text-GoldenGlow-light"
+          />{' '}
           into meaningful creations, one project at a time
         </h1>
       </div>

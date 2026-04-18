@@ -76,6 +76,7 @@ const Header = ({ children }) => {
             alt="Logo - Anas Pirzada"
             width={25}
             height={25}
+            unoptimized
             className="w-5 h-5 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-10 xl:h-10 transition-all duration-300"
             style={{
               filter: isDark ? 'none' : 'invert(1) brightness(0.1)',

@@ -43,12 +43,12 @@ const Tabs = ({ tabItems }) => {
   const tabCount = tabItems.length;
 
   return (
-    <div className="staggered-reveal">
+    <div>
       <div className="pt-8 flex justify-center">
         <div className="relative bg-gray-light-2/80 dark:bg-gray-dark-3/50 backdrop-blur-sm rounded-full p-1 flex border border-gray-light-2 dark:border-gray-dark-2/50 overflow-hidden">
           {/* Animated indicator with glow */}
           <motion.div
-            className="absolute top-1 bottom-1 rounded-full bg-gradient-to-r from-[#efc041] to-[#eeba2c]"
+            className="absolute top-1 bottom-1 rounded-full bg-gradient-to-r from-accent-light to-accent-dark"
             initial={false}
             animate={{
               left: `calc(${(activeIndex / tabCount) * 100}% + 0.25rem)`,
@@ -64,7 +64,7 @@ const Tabs = ({ tabItems }) => {
 
           {/* Subtle glow effect */}
           <motion.div
-            className="absolute top-1 bottom-1 rounded-full bg-[#efc041]/30 blur-md"
+            className="absolute top-1 bottom-1 rounded-full bg-accent-light/30 blur-md"
             initial={false}
             animate={{
               left: `calc(${(activeIndex / tabCount) * 100}% + 0.25rem)`,

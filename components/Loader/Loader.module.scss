@@ -46,7 +46,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #efc041, #eeba2c);
+  background: radial-gradient(circle at 30% 30%, var(--accent-light), var(--accent-dark));
   box-shadow:
     0 0 30px rgba(239, 192, 65, 1),
     0 0 60px rgba(239, 192, 65, 0.8),

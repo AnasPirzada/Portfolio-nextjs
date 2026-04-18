@@ -1,7 +1,7 @@
 .button {
   --primary: #000000;
-  --primary-dark: #efc041;
-  --shadow: #{rgba(#efc041, 0.3)};
+  --primary-dark: var(--accent-light);
+  --shadow: color-mix(in srgb, var(--accent-light) 30%, transparent);
   --text: #fff;
   --text-opacity: 1;
   --success: #eeecff;

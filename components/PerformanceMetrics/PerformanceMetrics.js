@@ -1,10 +1,9 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { motion } from 'framer-motion';
-import { useEffect, useRef, useState, useLayoutEffect } from 'react';
-import { FaBox, FaStar, FaCodeCommit, FaChartLine } from 'react-icons/fa';
-import { PERFORMANCE_METRICS, WORK_ACHIEVEMENTS } from '../../constants';
-import styles from './PerformanceMetrics.module.scss';
+import { RevealItem, RevealStagger } from '@/components/ui/Reveal';
+import { defaultViewport } from '@/lib/motionVariants';
+import { m, motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { FaBox, FaChartLine, FaCodeCommit, FaStar } from 'react-icons/fa';
+import { PERFORMANCE_METRICS } from '../../constants';
 
 const CountUp = ({ end, duration = 2 }) => {
   const [count, setCount] = useState(0);
@@ -61,7 +60,6 @@ const CountUp = ({ end, duration = 2 }) => {
 
 const GitHubStats = () => {
   const { github } = PERFORMANCE_METRICS;
-  const sectionRef = useRef(null);
 
   const stats = [
     {
@@ -74,7 +72,7 @@ const GitHubStats = () => {
     {
       label: 'Stars',
       value: github.totalStars,
-      color: '#efc041',
+      color: 'var(--accent-light)',
       gradient: 'from-yellow-500/20 to-yellow-600/10',
       icon: FaStar,
     },
@@ -93,28 +91,6 @@ const GitHubStats = () => {
       icon: FaChartLine,
     },
   ];
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(
-        sectionRef.current?.querySelectorAll('.staggered-reveal') || [],
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-    });
-
-    return () => ctx.revert();
-  }, []);
 
   // Calculate max value for scaling
   const maxValue = Math.max(...stats.map(s => s.value));
@@ -150,10 +126,7 @@ const GitHubStats = () => {
   };
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full relative select-none py-20 bg-gradient-to-b from-black via-gray-900 to-black overflow-hidden"
-    >
+    <section className="w-full relative select-none py-20 bg-gradient-to-b from-black via-gray-900 to-black overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
@@ -161,17 +134,26 @@ const GitHubStats = () => {
       </div>
 
       <div className="section-container relative z-10">
-        <div className="flex flex-col text-center mb-20">
-          <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal text-base sm:text-lg mb-2">
+        <RevealStagger className="flex flex-col text-center mb-20">
+          <RevealItem
+            as={m.p}
+            className="uppercase tracking-widest text-gray-light-1 text-base sm:text-lg mb-2"
+          >
             STATISTICS
-          </p>
-          <h1 className="text-6xl sm:text-7xl md:text-6xl mt-2 font-semibold text-gradient w-fit mx-auto staggered-reveal">
+          </RevealItem>
+          <RevealItem
+            as={m.h1}
+            className="text-6xl sm:text-7xl md:text-6xl mt-2 font-semibold text-gradient w-fit mx-auto"
+          >
             GitHub Stats
-          </h1>
-          <h2 className="text-xl sm:text-2xl md:text-xl font-light md:max-w-2xl w-full mt-4 mx-auto staggered-reveal text-gray-400">
+          </RevealItem>
+          <RevealItem
+            as={m.h2}
+            className="text-xl sm:text-2xl md:text-xl font-light md:max-w-2xl w-full mt-4 mx-auto text-gray-400"
+          >
             My contribution journey on GitHub over time.
-          </h2>
-        </div>
+          </RevealItem>
+        </RevealStagger>
 
         {/* Enhanced Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -180,15 +162,15 @@ const GitHubStats = () => {
             return (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                initial={{ opacity: 0, y: 24, scale: 0.97 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={defaultViewport}
                 transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                  ease: 'easeOut',
+                  duration: 0.5,
+                  delay: index * 0.08,
+                  ease: [0.25, 0.1, 0.25, 1],
                 }}
-                whileHover={{ y: -8, scale: 1.02 }}
+                whileHover={{ y: -6, scale: 1.02 }}
                 className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/40 via-gray-800/30 to-gray-900/40 backdrop-blur-xl border border-gray-700/30 p-6 hover:border-gray-600/50 transition-all duration-300"
               >
                 {/* Gradient overlay on hover */}
@@ -498,7 +480,7 @@ const GitHubStats = () => {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#efc041] via-[#eeba2c] to-[#efc041] text-black font-semibold text-base rounded-xl transition-all duration-500 shadow-lg hover:shadow-[0_20px_50px_rgba(239,192,65,0.4)] overflow-hidden"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent-light via-accent-dark to-accent-light text-black font-semibold text-base rounded-xl transition-all duration-500 shadow-lg hover:shadow-[0_20px_50px_color-mix(in_srgb,var(--accent-light)_40%,transparent)] overflow-hidden"
             style={{
               backgroundSize: '200% 100%',
               backgroundPosition: '0% 0%',

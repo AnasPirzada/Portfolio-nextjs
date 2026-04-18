@@ -11,7 +11,8 @@
       "@/utils/*": ["utils/*"],
       "@/config/*": ["config/*"],
       "@/constants": ["constants/index.js"],
-      "@/constants/*": ["constants/*"]
+      "@/constants/*": ["constants/*"],
+      "@/lib/*": ["lib/*"]
     }
   },
   "exclude": ["node_modules"]

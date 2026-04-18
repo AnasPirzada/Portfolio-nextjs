@@ -31,7 +31,7 @@ const GitHubContributions = ({ username = 'AnasPirzada' }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#eeba2c]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-dark"></div>
       </div>
     );
   }
@@ -42,7 +42,7 @@ const GitHubContributions = ({ username = 'AnasPirzada' }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 rounded-2xl p-6 border border-[#efc041]/20 hover:border-[#efc041]/40 transition-all"
+      className="w-full bg-gradient-to-br from-accent-light/5 to-accent-dark/5 rounded-2xl p-6 border border-accent-light/20 hover:border-accent-light/40 transition-all"
     >
       <h3 className="text-2xl font-bold text-gray-dark-1 dark:text-white mb-4 flex items-center gap-2">
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@ const GitHubContributions = ({ username = 'AnasPirzada' }) => {
         <>
           <div className="mb-4 flex gap-4 text-sm">
             <div className="text-gray-dark-3 dark:text-gray-light-2">
-              <span className="text-[#eeba2c] font-semibold">
+              <span className="text-accent-dark font-semibold">
                 {contributions.total}
               </span>{' '}
               contributions in the last year
@@ -68,7 +68,7 @@ const GitHubContributions = ({ username = 'AnasPirzada' }) => {
           {contributions.streak && (
             <div className="flex items-center gap-2 text-sm mt-2">
               <div className="text-gray-dark-3 dark:text-gray-light-2">
-                <span className="text-[#eeba2c] font-semibold">
+                <span className="text-accent-dark font-semibold">
                   {contributions.streak}
                 </span>{' '}
                 day streak
@@ -89,7 +89,7 @@ const GitHubContributions = ({ username = 'AnasPirzada' }) => {
             href={`https://github.com/${username}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 text-[#eeba2c] hover:text-[#efc041] transition-colors text-sm"
+            className="mt-4 inline-flex items-center gap-2 text-accent-dark hover:text-accent-light transition-colors text-sm"
           >
             View full profile
             <svg

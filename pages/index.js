@@ -18,7 +18,6 @@ import SkipToContent from '@/components/SkipToContent/SkipToContent';
 import Work from '@/components/Work/Work';
 import { useDevice } from '@/contexts/DeviceContext';
 import { displayFancyLogs } from '@/utils/log';
-import { logger } from '@/utils/logger';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { useEffect } from 'react';
@@ -57,9 +56,9 @@ function Home() {
           isDesktop={device.isDesktop}
           clientHeight={device.clientHeight}
         />
-        <TagLine clientHeight={device.clientHeight} />
+        <TagLine />
         <EducationandCertification isDesktop={device.isDesktop} />
-        <Work isDesktop={device.isDesktop} />
+        <Work />
         <Reviews />
         <Blogs clientHeight={device.clientHeight} />
         <Resume />

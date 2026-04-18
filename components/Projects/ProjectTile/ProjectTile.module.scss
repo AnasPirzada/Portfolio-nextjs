@@ -2,4 +2,5 @@
   will-change: transform;
   transform-style: preserve-3d;
   backface-visibility: hidden;
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease-out;
 }

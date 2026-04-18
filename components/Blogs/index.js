@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { motion } from 'framer-motion';
+import { RevealFade, RevealItem, RevealStagger } from '@/components/ui/Reveal';
+import { defaultViewport } from '@/lib/motionVariants';
+import { m, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import { BLOGS } from '../../constants';
 import Button from '../Button/Button';
-import { useScrollReveal } from '@/hooks';
 
 // Calculate reading time based on content length
 const calculateReadingTime = content => {
@@ -17,17 +18,22 @@ const calculateReadingTime = content => {
 
 const BlogCard = ({ blog, index }) => {
   const readingTime = calculateReadingTime(blog.content || blog.description);
+  const reduce = useReducedMotion();
 
   return (
     <Link
       href={`/blog/${blog.slug}`}
-      className="block rounded-2xl border-2 border-[#efc041]/20 bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 backdrop-blur-md p-6 hover:border-[#efc041]/40 hover:shadow-lg hover:shadow-[#efc041]/20 transition-all group"
+      className="block rounded-2xl border-2 border-accent-light/20 bg-gradient-to-br from-accent-light/5 to-accent-dark/5 backdrop-blur-md p-6 hover:border-accent-light/40 hover:shadow-lg hover:shadow-accent-light/20 transition-all group md:transition-transform md:duration-300 md:hover:scale-[1.02]"
     >
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.4, delay: index * 0.05 }}
+      <m.div
+        initial={reduce ? false : { opacity: 0, y: 22 }}
+        whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+        viewport={defaultViewport}
+        transition={{
+          duration: reduce ? 0 : 0.42,
+          delay: reduce ? 0 : index * 0.05,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
       >
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex-1">
@@ -70,7 +76,7 @@ const BlogCard = ({ blog, index }) => {
                 {readingTime} min read
               </span>
             </div>
-            <h3 className="text-xl font-semibold mt-1 text-gray-dark-1 dark:text-white group-hover:text-[#eeba2c] transition-colors">
+            <h3 className="text-xl font-semibold mt-1 text-gray-dark-1 dark:text-white group-hover:text-accent-dark transition-colors">
               {blog.title}
             </h3>
           </div>
@@ -83,14 +89,14 @@ const BlogCard = ({ blog, index }) => {
             {blog.tags.map(tag => (
               <span
                 key={tag}
-                className="px-2.5 py-1 text-xs rounded-md bg-[#eeba2c]/10 border border-[#eeba2c]/30 text-[#eeba2c] font-medium"
+                className="px-2.5 py-1 text-xs rounded-md bg-accent-dark/10 border border-accent-dark/30 text-accent-dark font-medium"
               >
                 #{tag}
               </span>
             ))}
           </div>
         ) : null}
-        <div className="mt-4 flex items-center gap-2 text-[#eeba2c] text-sm font-medium group-hover:gap-3 transition-all">
+        <div className="mt-4 flex items-center gap-2 text-accent-dark text-sm font-medium group-hover:gap-3 transition-all">
           <span>Read more</span>
           <svg
             className="w-4 h-4"
@@ -106,41 +112,41 @@ const BlogCard = ({ blog, index }) => {
             />
           </svg>
         </div>
-      </motion.div>
+      </m.div>
     </Link>
   );
 };
 
 const Blogs = ({ clientHeight }) => {
-  const sectionRef = useScrollReveal();
-
   return (
-    <section 
-      ref={sectionRef} 
-      id="blogs" 
-      className="w-full relative select-none"
-    >
+    <section id="blogs" className="w-full relative select-none">
       <div className="section-container py-10 md:py-20 flex flex-col justify-center">
         <div className="flex flex-col">
-          <div className="text-left mb-6">
-            <p className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base staggered-reveal">
+          <RevealStagger className="text-left mb-6">
+            <RevealItem
+              as={m.p}
+              className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
+            >
               BLOGS
-            </p>
-            <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal">
+            </RevealItem>
+            <RevealItem
+              as={m.h2}
+              className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit"
+            >
               Latest Writing
-            </h2>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            </RevealItem>
+          </RevealStagger>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {BLOGS.slice(0, 3).map((blog, i) => (
               <BlogCard key={blog.title + i} blog={blog} index={i} />
             ))}
           </div>
           <div className="mt-6 text-center">
-            <div className="staggered-reveal pt-4">
+            <RevealFade className="pt-4 inline-block">
               <Button href="/blogs" classes="link" type="primary">
                 View All Blogs
               </Button>
-            </div>
+            </RevealFade>
           </div>
         </div>
       </div>

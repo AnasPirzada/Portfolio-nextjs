@@ -95,8 +95,15 @@ const nextConfig = {
     ];
   },
 
-  // Webpack configuration
-  webpack: (config, { isServer }) => {
+  // Webpack: used for `next build` and `npm run dev:webpack`.
+  // Default `npm run dev` uses Turbopack (`next dev --turbo`) and skips this hook in dev.
+  webpack: (config, { isServer, dev }) => {
+    // Dev (webpack only): disable persistent pack cache. On Windows, stale `.next` touches
+    // can cause ENOENT *.pack.gz or chunk/runtime mismatches (e.g. vendor-chunks).
+    if (dev) {
+      config.cache = false;
+    }
+
     // Get webpack from Next.js internal compilation
     const webpack = require('next/dist/compiled/webpack/webpack-lib.js');
 

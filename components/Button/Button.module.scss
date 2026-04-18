@@ -15,32 +15,53 @@
   border-radius: 0.4rem;
   color: #fff;
   background-size: 220%;
-  outline: 2px solid #eeba2c;
+  outline: 2px solid var(--accent-dark);
   background-image: linear-gradient(
     120deg,
     transparent 0%,
     transparent 50%,
-    #efc041 50%
+    var(--accent-light) 50%
   );
-  transition: all 0.3s ease-in-out;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background-position 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    outline-color 0.3s ease,
+    color 0.25s ease;
 
-  &:hover,
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: scale(1.05);
+      background-position: 100%;
+      color: #fff;
+      box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--accent-dark) 40%, transparent),
+        0 14px 42px color-mix(in srgb, var(--accent-light) 32%, transparent);
+    }
+  }
+
   &:active {
     background-position: 100%;
     color: #fff;
-    box-shadow: 0 0 1rem #eeba2c;
+    box-shadow: 0 0 1rem var(--accent-dark);
   }
 }
 
 /* Light mode button styles */
 :global(html:not(.dark)) .primary__button {
-  color: #121212;
-  outline-color: #121212;
+  color: var(--text-primary);
+  outline-color: var(--text-primary);
 
-  &:hover,
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: #000;
+      outline-color: var(--accent-dark);
+    }
+  }
+
   &:active {
     color: #000;
-    outline-color: #eeba2c;
+    outline-color: var(--accent-dark);
   }
 }
 
@@ -66,11 +87,26 @@
     120deg,
     transparent 0%,
     transparent 50%,
-    #efc041 50%
+    var(--accent-light) 50%
   );
-  transition: all 0.3s ease-in-out;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background-position 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    outline-color 0.3s ease,
+    color 0.25s ease;
 
-  &:hover,
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: scale(1.05);
+      background-position: 100%;
+      color: #fff;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 14px 40px rgba(0, 0, 0, 0.35);
+    }
+  }
+
   &:active {
     background-position: 100%;
     color: #fff;
@@ -80,12 +116,30 @@
 
 /* Light mode secondary button styles */
 :global(html:not(.dark)) .secondary__button {
-  color: #121212;
-  outline-color: #121212;
+  color: var(--text-primary);
+  outline-color: var(--text-primary);
 
-  &:hover,
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: #000;
+      outline-color: var(--accent-dark);
+    }
+  }
+
   &:active {
     color: #000;
-    outline-color: #eeba2c;
+    outline-color: var(--accent-dark);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary__button,
+  .secondary__button {
+    transition-duration: 0.01ms;
+
+    &:hover,
+    &:active {
+      transform: none;
+    }
   }
 }

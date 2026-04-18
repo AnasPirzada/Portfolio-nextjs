@@ -1,4 +1,5 @@
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
+import MotionRoot from '@/components/MotionRoot';
 import Meta from '@/components/Meta/Meta';
 import VoiceAssistant from '@/components/VoiceAssistant';
 import { GTAG } from '@/constants';
@@ -60,23 +61,47 @@ const App = ({ Component, pageProps }) => {
     };
   }, [router]);
 
+  // Native scroll / wheel path (no Lenis): keep ScrollTrigger in sync on all laptops and tablets.
+  useEffect(() => {
+    const onScroll = () => {
+      ScrollTrigger.update();
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    let t;
+    const onResize = () => {
+      clearTimeout(t);
+      t = setTimeout(() => ScrollTrigger.refresh(), 200);
+    };
+    window.addEventListener('resize', onResize);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
+
   return (
     <>
       <Meta />
       <ErrorBoundary>
-        <ThemeProvider>
-          <LanguageProvider>
-            <DeviceProvider>
-              <main
-                className={`${calibre.variable} font-sans ${jetbrains_mono.variable} font-mono`}
-              >
-                <Component {...pageProps} />
-                <GoogleAnalytics gaId={GTAG} />
-                <VoiceAssistant />
-              </main>
-            </DeviceProvider>
-          </LanguageProvider>
-        </ThemeProvider>
+        <MotionRoot>
+          <ThemeProvider>
+            <LanguageProvider>
+              <DeviceProvider>
+                <main
+                  className={`${calibre.variable} font-sans ${jetbrains_mono.variable} font-mono`}
+                >
+                  <Component {...pageProps} />
+                  <GoogleAnalytics gaId={GTAG} />
+                  <VoiceAssistant />
+                </main>
+              </DeviceProvider>
+            </LanguageProvider>
+          </ThemeProvider>
+        </MotionRoot>
       </ErrorBoundary>
       {/* Calendly script */}
       <Script

@@ -122,7 +122,7 @@ export const openCalendlyPopup = async (url, options = {}) => {
           window.Calendly.initPopupWidget({
             url: url,
             text: 'Schedule time with me',
-            color: '#efc041',
+            color: '#c8860a',
             textColor: '#ffffff',
             branding: false,
             ...options,

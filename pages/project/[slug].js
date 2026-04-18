@@ -321,7 +321,7 @@ export default function ProjectDetailPage() {
             <h1 className="text-6xl font-bold text-gradient mb-4">404</h1>
             <p className="text-xl text-gray-300 mb-8">Project not found</p>
             <Link href="/projects">
-              <button className="px-6 py-3 bg-[#eeba2c] text-black font-semibold rounded-lg hover:bg-[#efc041] transition-colors">
+              <button className="px-6 py-3 bg-accent-dark text-black font-semibold rounded-lg hover:bg-accent-light transition-colors">
                 Back to Projects
               </button>
             </Link>
@@ -431,14 +431,14 @@ export default function ProjectDetailPage() {
             <nav className="flex items-center space-x-2 text-sm">
               <Link
                 href="/"
-                className="text-gray-400 hover:text-[#eeba2c] transition-colors"
+                className="text-gray-400 hover:text-accent-dark transition-colors"
               >
                 Home
               </Link>
               <span className="text-gray-500">›</span>
               <Link
                 href="/projects"
-                className="text-gray-400 hover:text-[#eeba2c] transition-colors"
+                className="text-gray-400 hover:text-accent-dark transition-colors"
               >
                 Portfolio
               </Link>
@@ -494,7 +494,7 @@ export default function ProjectDetailPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-[#eeba2c] text-black font-bold text-lg rounded-lg hover:bg-[#efc041] transition-all duration-300 shadow-2xl hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)]"
+                    className="px-8 py-4 bg-accent-dark text-black font-bold text-lg rounded-lg hover:bg-accent-light transition-all duration-300 shadow-2xl hover:shadow-[0_20px_40px_color-mix(in_srgb,var(--accent-light)_30%,transparent)]"
                   >
                     Live Website
                   </motion.button>
@@ -572,9 +572,9 @@ export default function ProjectDetailPage() {
                       {project.caseStudy.metrics.map((metric, index) => (
                         <div
                           key={index}
-                          className="metric-item bg-gradient-to-br from-[#efc041]/10 to-[#eeba2c]/5 rounded-xl p-6 border border-[#efc041]/20 hover:border-[#efc041]/40 transition-all text-center"
+                          className="metric-item bg-gradient-to-br from-accent-light/10 to-accent-dark/5 rounded-xl p-6 border border-accent-light/20 hover:border-accent-light/40 transition-all text-center"
                         >
-                          <div className="text-3xl md:text-4xl font-bold text-[#efc041] mb-2">
+                          <div className="text-3xl md:text-4xl font-bold text-accent-light mb-2">
                             {metric.value}
                           </div>
                           <div className="text-sm text-gray-400 uppercase tracking-wide">
@@ -632,13 +632,14 @@ export default function ProjectDetailPage() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         viewport={{ once: true }}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg border border-white/20 hover:border-[#eeba2c] transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg border border-white/20 hover:border-accent-dark transition-colors"
                       >
                         <Image
                           src={`/projects/tech/${tech}.svg`}
                           alt={tech}
                           width={24}
                           height={24}
+                          unoptimized
                         />
                         <span className="text-white font-medium capitalize">
                           {tech.replace(/([A-Z])/g, ' $1').trim()}
@@ -659,7 +660,7 @@ export default function ProjectDetailPage() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-full px-8 py-4 bg-gradient-to-r from-[#eeba2c] to-[#efc041] text-black font-bold text-lg rounded-lg hover:shadow-[0_20px_40px_rgba(238,186,44,0.3)] transition-all duration-300"
+                      className="w-full px-8 py-4 bg-gradient-to-r from-accent-dark to-accent-light text-black font-bold text-lg rounded-lg hover:shadow-[0_20px_40px_color-mix(in_srgb,var(--accent-light)_30%,transparent)] transition-all duration-300"
                     >
                       Visit Live Website
                     </motion.button>
@@ -688,7 +689,7 @@ export default function ProjectDetailPage() {
               className="grid grid-cols-1 md:grid-cols-3 gap-8"
             >
               {/* Client */}
-              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors">
+              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-accent-dark transition-colors">
                 <h3 className="text-xl font-semibold text-white mb-4">
                   Client
                 </h3>
@@ -698,7 +699,7 @@ export default function ProjectDetailPage() {
               </div>
 
               {/* Services */}
-              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors">
+              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-accent-dark transition-colors">
                 <h3 className="text-xl font-semibold text-white mb-4">
                   Services
                 </h3>
@@ -717,7 +718,7 @@ export default function ProjectDetailPage() {
               </div>
 
               {/* Live Website */}
-              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#eeba2c] transition-colors">
+              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-accent-dark transition-colors">
                 <h3 className="text-xl font-semibold text-white mb-4">
                   Live Website
                 </h3>
@@ -725,7 +726,7 @@ export default function ProjectDetailPage() {
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#eeba2c] hover:text-[#efc041] transition-colors font-medium"
+                  className="text-accent-dark hover:text-accent-light transition-colors font-medium"
                 >
                   Visit Website →
                 </Link>
@@ -823,7 +824,7 @@ export default function ProjectDetailPage() {
               ).map((service, index) => (
                 <div
                   key={service}
-                  className="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-[#eeba2c] transition-colors text-center"
+                  className="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-accent-dark transition-colors text-center"
                 >
                   <h3 className="text-lg font-semibold text-white">
                     {service}
@@ -845,7 +846,7 @@ export default function ProjectDetailPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-transparent border-2 border-[#eeba2c] text-[#eeba2c] font-semibold rounded-lg hover:bg-[#eeba2c] hover:text-black transition-all duration-300"
+                  className="px-8 py-4 bg-transparent border-2 border-accent-dark text-accent-dark font-semibold rounded-lg hover:bg-accent-dark hover:text-black transition-all duration-300"
                 >
                   View All Projects
                 </motion.button>
@@ -854,7 +855,7 @@ export default function ProjectDetailPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-[#eeba2c] text-black font-semibold rounded-lg hover:bg-[#efc041] transition-all duration-300"
+                  className="px-8 py-4 bg-accent-dark text-black font-semibold rounded-lg hover:bg-accent-light transition-all duration-300"
                 >
                   Back to Home
                 </motion.button>

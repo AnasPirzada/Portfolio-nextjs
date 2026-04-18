@@ -46,7 +46,7 @@ const About2 = ({ clientHeight }) => {
             className="about-3 font-bold"
             style={{
               background:
-                'linear-gradient(90deg, #ffffff 0%, #ffffff 50%, #eeba2c 51%, #efc041 102%)',
+                'linear-gradient(90deg, var(--text-primary) 0%, var(--text-primary) 50%, var(--accent-dark) 51%, var(--accent-light) 102%)',
               backgroundSize: '200% 100%',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

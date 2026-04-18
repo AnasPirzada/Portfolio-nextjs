@@ -49,7 +49,7 @@ export const ThemeProvider = ({ children }) => {
       height: 100vh;
       pointer-events: none;
       z-index: 99999;
-      background: ${newTheme === 'dark' ? '#0a0a0a' : '#f8f8f8'};
+      background: ${newTheme === 'dark' ? '#0a0a0a' : '#f7f4ef'};
       clip-path: circle(0% at ${clickX}px ${clickY}px);
       transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     `;

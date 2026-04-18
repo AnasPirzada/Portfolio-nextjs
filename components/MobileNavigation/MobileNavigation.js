@@ -57,7 +57,7 @@ const MobileNavigation = () => {
           <button
             key={link.ref}
             onClick={() => handleNavigation(link.ref)}
-            className="flex flex-col items-center justify-center gap-1 text-xs text-gray-400 hover:text-[#eeba2c] transition-colors active:scale-95"
+            className="flex flex-col items-center justify-center gap-1 text-xs text-gray-400 hover:text-accent-dark transition-colors active:scale-95"
             aria-label={`Navigate to ${link.name}`}
           >
             <span className="text-lg">{getIcon(link.name)}</span>

@@ -63,9 +63,9 @@ const Cursor = ({ isDesktop }) => {
             const rootStyles = getComputedStyle(root);
 
             const accentLight =
-              rootStyles.getPropertyValue('--accent-light') || '#efc041';
+              rootStyles.getPropertyValue('--accent-light') || '#c8860a';
             const accentDark =
-              rootStyles.getPropertyValue('--accent-dark') || '#eeba2c';
+              rootStyles.getPropertyValue('--accent-dark') || '#b5750a';
             const textPrimary =
               rootStyles.getPropertyValue('--text-primary') ||
               (isDark ? '#ffffff' : '#121212');
@@ -149,10 +149,10 @@ const Cursor = ({ isDesktop }) => {
               primaryHex = textPrimary || '#000000';
             } else if (luminance < 0.3) {
               // Very dark surface → use golden accent for contrast
-              primaryHex = accentLight || '#efc041';
+              primaryHex = accentLight || '#c8860a';
             } else {
               // Mid-tone surface → use slightly deeper golden accent
-              primaryHex = accentDark || accentLight || '#eeba2c';
+              primaryHex = accentDark || accentLight || '#b5750a';
             }
 
             const primaryRgb = parseColorToRgb(primaryHex) || {
@@ -396,7 +396,8 @@ const Cursor = ({ isDesktop }) => {
         ref={cursor}
         className="fixed w-3 h-3 rounded-full select-none pointer-events-none z-[99999] hidden cursor-dot"
         style={{
-          background: 'radial-gradient(circle, #efc041 0%, #eeba2c 100%)',
+          background:
+            'radial-gradient(circle, var(--accent-light) 0%, var(--accent-dark) 100%)',
           boxShadow:
             '0 0 20px rgba(239, 192, 65, 0.8), 0 0 40px rgba(239, 192, 65, 0.4)',
           transform: 'translate(-50%, -50%)',

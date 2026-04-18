@@ -21,6 +21,12 @@ export default function ProjectCard({ project }) {
     const card = cardRef.current;
     if (!card) return;
 
+    const root = document.documentElement;
+    const readVar = (name, fallback) => {
+      const v = getComputedStyle(root).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const handleMouseMove = e => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -63,11 +69,12 @@ export default function ProjectCard({ project }) {
     };
 
     const handleMouseEnter = () => {
+      const accentLight = readVar('--accent-light', '#c8860a');
       const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
       tl.to(card, {
         y: -10,
-        boxShadow: '0 20px 60px rgba(239, 192, 65, 0.25)',
+        boxShadow: `0 20px 60px color-mix(in srgb, ${accentLight} 25%, transparent)`,
         duration: 0.5,
       })
         .to(
@@ -91,7 +98,7 @@ export default function ProjectCard({ project }) {
         .to(
           titleRef.current,
           {
-            color: '#efc041',
+            color: accentLight,
             y: -2,
             duration: 0.4,
           },
@@ -129,6 +136,7 @@ export default function ProjectCard({ project }) {
     };
 
     const handleMouseLeave = () => {
+      const textPrimary = readVar('--text-primary', '#1a1410');
       const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
       tl.to(card, {
@@ -160,7 +168,7 @@ export default function ProjectCard({ project }) {
         .to(
           titleRef.current,
           {
-            color: '#ffffff',
+            color: textPrimary,
             y: 0,
             duration: 0.4,
           },
@@ -227,9 +235,9 @@ export default function ProjectCard({ project }) {
         ref={cardRef}
         className="
           group relative z-10 flex flex-col
-          bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 border border-[#efc041]/20
+          bg-gradient-to-br from-accent-light/5 to-accent-dark/5 border border-accent-light/20
           overflow-hidden transition-all duration-300
-          hover:border-[#efc041]/40
+          hover:border-accent-light/40
         "
         style={{
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
@@ -244,7 +252,7 @@ export default function ProjectCard({ project }) {
           ref={glowRef}
           className="absolute w-64 h-64 rounded-full opacity-0 pointer-events-none blur-3xl -z-10"
           style={{
-            background: `radial-gradient(circle, rgba(239, 192, 65, 0.4), rgba(239, 192, 65, 0.2), transparent 70%)`,
+            background: `radial-gradient(circle, color-mix(in srgb, var(--accent-light) 40%, transparent), color-mix(in srgb, var(--accent-light) 20%, transparent), transparent 70%)`,
             left: '50%',
             top: '50%',
             transform: 'translate(-50%, -50%)',
@@ -257,7 +265,7 @@ export default function ProjectCard({ project }) {
           className="absolute inset-0 opacity-30 pointer-events-none"
           style={{
             background:
-              'linear-gradient(110deg, transparent 40%, rgba(239, 192, 65, 0.3) 50%, transparent 60%)',
+              'linear-gradient(110deg, transparent 40%, color-mix(in srgb, var(--accent-light) 30%, transparent) 50%, transparent 60%)',
             transform: 'translateX(-100%)',
           }}
         />
@@ -275,21 +283,27 @@ export default function ProjectCard({ project }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
           {/* Dynamic hover overlay effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#efc041]/0 to-[#efc041]/0 group-hover:from-[#efc041]/15 group-hover:to-transparent transition-all duration-700" />
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-light/0 to-accent-light/0 group-hover:from-accent-light/15 group-hover:to-transparent transition-all duration-700" />
 
           {/* Arrow indicator - bottom right */}
           <div className="absolute bottom-4 right-4 z-10">
             <motion.div
               whileHover={{ scale: 1.1, rotate: 12 }}
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-[#efc041] opacity-0 shadow-lg shadow-[#efc041]/30"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-accent-light opacity-0 shadow-lg shadow-accent-light/30"
             >
-              <Image src={allprojectarrow} alt="arrow" width={18} height={18} />
+              <Image
+                src={allprojectarrow}
+                alt="arrow"
+                width={18}
+                height={18}
+                unoptimized
+              />
             </motion.div>
           </div>
         </div>
 
         {/* Content Section */}
-        <div className="p-4 sm:p-6 bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 flex-1 flex flex-col">
+        <div className="p-4 sm:p-6 bg-gradient-to-br from-accent-light/5 to-accent-dark/5 flex-1 flex flex-col">
           <h3
             ref={titleRef}
             className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-dark-1 dark:text-white mb-3 leading-tight transition-colors duration-300"
@@ -306,25 +320,26 @@ export default function ProjectCard({ project }) {
           {/* Tech Stack */}
           <div
             ref={techRef}
-            className="flex gap-2 items-center flex-wrap pt-3 border-t border-[#efc041]/20"
+            className="flex gap-2 items-center flex-wrap pt-3 border-t border-accent-light/20"
           >
             {project?.tech?.slice(0, 6).map(el => (
               <motion.div
                 key={el}
                 whileHover={{ scale: 1.15, rotate: 5 }}
-                className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-all duration-300"
+                className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-accent-light/20 group-hover:border-accent-light/40 transition-all duration-300"
               >
                 <Image
                   src={`/projects/tech/${el}.svg`}
                   alt={el}
                   width={16}
                   height={16}
+                  unoptimized
                   className="opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                 />
               </motion.div>
             ))}
             {project?.tech?.length > 6 && (
-              <div className="flex items-center justify-center px-3 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 text-gray-light-4 dark:text-gray-500 text-xs font-medium">
+              <div className="flex items-center justify-center px-3 h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-accent-light/20 text-gray-light-4 dark:text-gray-500 text-xs font-medium">
                 +{project.tech.length - 6}
               </div>
             )}
@@ -332,10 +347,10 @@ export default function ProjectCard({ project }) {
         </div>
 
         {/* Animated border glow on hover */}
-        <div className="absolute inset-0 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-colors duration-500 pointer-events-none" />
+        <div className="absolute inset-0 border border-accent-light/20 group-hover:border-accent-light/40 transition-colors duration-500 pointer-events-none" />
 
         {/* Pulsing border animation */}
-        <div className="absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/20 transition-all duration-700 pointer-events-none animate-pulse" />
+        <div className="absolute inset-0 border border-accent-light/0 group-hover:border-accent-light/20 transition-all duration-700 pointer-events-none animate-pulse" />
       </motion.div>
     </Link>
   );

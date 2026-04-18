@@ -3,8 +3,8 @@ import styles from './Loader.module.scss';
 const Loader = () => {
   // Configuration for orbital rings
   const rings = [
-    { count: 6, radius: 80, speed: 8, size: 12, color: '#efc041' },
-    { count: 8, radius: 120, speed: 12, size: 10, color: '#eeba2c' },
+    { count: 6, radius: 80, speed: 8, size: 12, color: 'var(--accent-light)' },
+    { count: 8, radius: 120, speed: 12, size: 10, color: 'var(--accent-dark)' },
     { count: 10, radius: 160, speed: 16, size: 8, color: '#64f4ab' },
   ];
 
@@ -58,7 +58,7 @@ const Loader = () => {
                 x2="100%"
                 y2="100%"
               >
-                <stop offset="0%" stopColor="#efc041" stopOpacity="0.3" />
+                <stop offset="0%" stopColor="var(--accent-light)" stopOpacity="0.3" />
                 <stop offset="100%" stopColor="#ff6b35" stopOpacity="0.3" />
               </linearGradient>
               <linearGradient
@@ -69,7 +69,7 @@ const Loader = () => {
                 y2="100%"
               >
                 <stop offset="0%" stopColor="#64f4ab" stopOpacity="0.2" />
-                <stop offset="100%" stopColor="#eeba2c" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="var(--accent-dark)" stopOpacity="0.2" />
               </linearGradient>
             </defs>
 

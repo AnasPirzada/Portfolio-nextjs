@@ -8,12 +8,11 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
   const { name, heroSection, description, gradient, tech } = project;
 
   const cardRef = useRef(null);
+  const cardInnerRef = useRef(null);
   const imageRef = useRef(null);
-  const contentRef = useRef(null);
   const titleRef = useRef(null);
   const techRef = useRef(null);
   const arrowRef = useRef(null);
-  const descriptionRef = useRef(null);
   const glowRef = useRef(null);
   const shimmerRef = useRef(null);
 
@@ -37,15 +36,13 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
     if (isTouchDevice || prefersReducedMotion) {
       // Still run initial animation
       const techIcons = techRef.current?.children || [];
-      gsap.set([card, titleRef.current, descriptionRef.current, ...techIcons], {
+      gsap.set([card, ...techIcons], {
         opacity: 0,
         y: 20,
       });
+      gsap.set(titleRef.current, { opacity: 0, y: 10 });
       gsap.set(glowRef.current, { opacity: 0, scale: 0.8 });
       gsap.set(shimmerRef.current, { x: '-100%' });
-      if (descriptionRef.current) {
-        gsap.set(descriptionRef.current, { opacity: 0.8, y: 4 });
-      }
 
       const initTl = gsap.timeline({ defaults: { ease: 'power2.out' } });
       initTl
@@ -64,18 +61,9 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           '<0.2'
         )
         .to(
-          descriptionRef.current,
-          {
-            opacity: 0.8,
-            y: 0,
-            duration: 0.4,
-          },
-          '<0.2'
-        )
-        .to(
           techIcons,
           {
-            opacity: 0.9,
+            opacity: 0.95,
             y: 0,
             duration: 0.35,
             stagger: 0.05,
@@ -86,76 +74,85 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
       return;
     }
 
-    // 3D Tilt Effect on Mouse Move (Desktop only)
+    // Subtle 3D Tilt Effect - Clean and elegant
     const handleMouseMove = e => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * 6;
-      const rotateY = ((centerX - x) / centerX) * 6;
+      
+      // Subtle rotation for elegant 3D effect
+      const rotateX = ((y - centerY) / centerY) * 8;
+      const rotateY = ((centerX - x) / centerX) * 8;
 
-      // Parallax effect for image
-      const imageX = ((x - centerX) / centerX) * 20;
-      const imageY = ((y - centerY) / centerY) * 20;
+      // Gentle parallax effect for image
+      const imageX = ((x - centerX) / centerX) * 15;
+      const imageY = ((y - centerY) / centerY) * 15;
 
+      // Apply 3D transform with perspective
       gsap.to(card, {
         rotateX: -rotateX,
         rotateY: rotateY,
         transformPerspective: 1000,
-        duration: 0.3,
+        duration: 0.2,
         ease: 'power1.out',
       });
 
-      gsap.to(imageRef.current, {
-        x: imageX,
-        y: imageY,
-        duration: 0.6,
-        ease: 'power2.out',
-      });
+      // Subtle image parallax
+      if (imageRef.current) {
+        gsap.to(imageRef.current, {
+          x: imageX,
+          y: imageY,
+          scale: 1.05,
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+      }
 
-      // Animated glow follows cursor
+      // Glow follows cursor
       if (glowRef.current) {
         gsap.to(glowRef.current, {
           x: x - rect.width / 2,
           y: y - rect.height / 2,
-          duration: 0.4,
+          duration: 0.3,
           ease: 'power2.out',
         });
       }
     };
 
-    // GSAP Hover Animation - Enhanced with more effects (Desktop only)
+    // Clean hover animation with gradient border effect
     const handleMouseEnter = () => {
       const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
+      // Lift card elegantly
       tl.to(card, {
-        y: -12,
-        duration: 0.5,
+        y: -8,
+        duration: 0.4,
       })
         .to(
-          card,
+          cardInnerRef.current,
           {
-            boxShadow: '0 20px 60px rgba(239, 192, 65, 0.25)',
-            duration: 0.5,
+            boxShadow: `0 25px 70px rgba(0, 0, 0, 0.2), 0 0 0 1px ${gradient[0]}30`,
+            borderColor: `${gradient[0]}40`,
+            duration: 0.4,
           },
           '<'
         )
         .to(
           glowRef.current,
           {
-            opacity: 1,
-            scale: 1.5,
-            duration: 0.6,
+            opacity: 0.6,
+            scale: 1.3,
+            duration: 0.5,
           },
-          '<0.2'
+          '<0.1'
         )
         .to(
           imageRef.current,
           {
-            scale: 1.12,
-            duration: 0.7,
+            scale: 1.08,
+            duration: 0.5,
             ease: 'power2.out',
           },
           '<0.1'
@@ -163,20 +160,22 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         .to(
           titleRef.current,
           {
-            color: '#efc041',
             y: -2,
-            duration: 0.4,
-          },
-          '<0.3'
-        )
-        .to(
-          descriptionRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.4,
+            duration: 0.3,
           },
           '<0.2'
+        )
+        .to(
+          titleRef.current,
+          {
+            backgroundImage: `linear-gradient(135deg, ${gradient[0]}, ${gradient[1]})`,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            color: 'transparent',
+            duration: 0.4,
+          },
+          '<0.1'
         )
         .to(
           arrowRef.current,
@@ -185,20 +184,20 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
             y: 0,
             scale: 1,
             rotation: 0,
-            duration: 0.5,
-            ease: 'back.out(1.7)',
+            duration: 0.4,
+            ease: 'back.out(1.5)',
           },
-          '<0.2'
+          '<0.1'
         )
         .to(
           techRef.current?.children || [],
           {
-            scale: 1.1,
+            scale: 1.08,
             y: -2,
             opacity: 1,
-            duration: 0.4,
-            stagger: 0.04,
-            ease: 'back.out(1.4)',
+            duration: 0.3,
+            stagger: 0.03,
+            ease: 'back.out(1.2)',
           },
           '<0.1'
         )
@@ -206,28 +205,40 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
           shimmerRef.current,
           {
             x: '100%',
-            duration: 0.8,
+            duration: 0.6,
             ease: 'power2.inOut',
           },
-          '<0.3'
+          '<0.2'
         );
     };
 
     const handleMouseLeave = () => {
       const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
+      // Reset 3D transform smoothly
       tl.to(card, {
         y: 0,
+        z: 0,
         rotateX: 0,
         rotateY: 0,
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
         duration: 0.5,
       })
+        .to(
+          cardInnerRef.current,
+          {
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+            borderColor: '',
+            duration: 0.4,
+          },
+          '<'
+        )
         .to(
           glowRef.current,
           {
             opacity: 0,
             scale: 0.8,
+            x: 0,
+            y: 0,
             duration: 0.4,
           },
           '<'
@@ -238,24 +249,22 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
             scale: 1,
             x: 0,
             y: 0,
-            duration: 0.6,
+            duration: 0.5,
           },
           '<'
         )
         .to(
           titleRef.current,
           {
-            color: '#ffffff',
             y: 0,
             duration: 0.4,
           },
           '<'
         )
         .to(
-          descriptionRef.current,
+          titleRef.current,
           {
-            opacity: 0.8,
-            y: 4,
+            clearProps: 'backgroundImage,WebkitBackgroundClip,WebkitTextFillColor,backgroundClip,color',
             duration: 0.3,
           },
           '<'
@@ -292,15 +301,13 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
 
     // Initial animation on mount with stagger
     const techIcons = techRef.current?.children || [];
-    gsap.set([card, titleRef.current, descriptionRef.current, ...techIcons], {
+    gsap.set([card, ...techIcons], {
       opacity: 0,
       y: 20,
     });
+    gsap.set(titleRef.current, { opacity: 0, y: 10 });
     gsap.set(glowRef.current, { opacity: 0, scale: 0.8 });
     gsap.set(shimmerRef.current, { x: '-100%' });
-    if (descriptionRef.current) {
-      gsap.set(descriptionRef.current, { opacity: 0.8, y: 4 });
-    }
 
     const initTl = gsap.timeline({ defaults: { ease: 'power2.out' } });
     initTl
@@ -319,18 +326,9 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         '<0.2'
       )
       .to(
-        descriptionRef.current,
-        {
-          opacity: 0.8,
-          y: 0,
-          duration: 0.4,
-        },
-        '<0.2'
-      )
-      .to(
         techIcons,
         {
-          opacity: 0.9,
+          opacity: 0.95,
           y: 0,
           duration: 0.35,
           stagger: 0.05,
@@ -368,125 +366,147 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
         flex: isDesktop ? '1 0 auto' : '0 0 auto',
       }}
     >
-      <div
-        ref={cardRef}
-        className={`${styles.ProjectTile} group relative ${
-          !isDesktop ? 'w-full' : 'w-full sm:w-[480px] md:w-[560px]'
-        } max-w-full bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 dark:from-[#efc041]/5 dark:to-[#eeba2c]/5 border border-[#efc041]/20 cursor-pointer overflow-hidden`}
-        style={{
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-          transformStyle: 'preserve-3d',
-        }}
-      >
-        {/* Animated Glow Effect */}
+      <div data-project-card className="h-full w-full will-change-transform">
+        <div
+          ref={cardRef}
+          className={`${styles.ProjectTile} group relative ${
+            !isDesktop ? 'w-full' : 'w-full sm:w-[480px] md:w-[560px]'
+          } max-w-full cursor-pointer overflow-visible bg-transparent`}
+          style={{
+            transformStyle: 'preserve-3d',
+            perspective: '1000px',
+            transform: 'translateZ(0)',
+          }}
+        >
+        {/* Animated Glow Effect - Uses project's gradient colors */}
         <div
           ref={glowRef}
-          className="absolute w-64 h-64 rounded-full opacity-0 pointer-events-none blur-3xl -z-10"
+          className="absolute w-96 h-96 rounded-full opacity-0 pointer-events-none blur-3xl -z-10"
           style={{
-            background: `radial-gradient(circle, ${gradient[0]}40, ${gradient[1]}20, transparent 70%)`,
+            background: `radial-gradient(circle, ${gradient[0]}50, ${gradient[1]}30, transparent 70%)`,
             left: '50%',
             top: '50%',
             transform: 'translate(-50%, -50%)',
           }}
         />
 
-        {/* Shimmer Effect */}
-        <div
-          ref={shimmerRef}
-          className="absolute inset-0 opacity-30 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(110deg, transparent 40%, rgba(239, 192, 65, 0.3) 50%, transparent 60%)',
-            transform: 'translateX(-100%)',
-          }}
-        />
-
-        {/* Image Container - Full width, better aspect ratio */}
-        <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-[#000]">
-          <div
-            ref={imageRef}
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${heroSection})`,
-            }}
-          />
-          {/* Animated gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-
-          {/* Dynamic hover overlay effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#efc041]/0 to-[#efc041]/0 group-hover:from-[#efc041]/15 group-hover:to-transparent transition-all duration-700" />
-
-          {/* Arrow indicator - bottom right with animation */}
-          <div className="absolute bottom-4 right-4 z-10">
-            <div
-              ref={arrowRef}
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-[#efc041] opacity-0 shadow-lg shadow-[#efc041]/30"
-            >
-              <FaArrowRight
-                className="w-4 h-4 text-black"
-                style={{ transform: 'rotate(-45deg)' }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Content Section */}
-        <div
-          ref={contentRef}
-          className="p-4 sm:p-5 md:p-6 bg-gradient-to-br from-[#efc041]/5 to-[#eeba2c]/5 text-left"
+        {/* Main Card Container */}
+        <div 
+          ref={cardInnerRef}
+          className="relative bg-white dark:bg-gray-dark-2 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-dark-3"
         >
-          {/* Title */}
-          <h3
-            ref={titleRef}
-            className="text-xl sm:text-2xl md:text-2xl font-semibold text-gray-dark-1 dark:text-white mb-2 sm:mb-3 leading-tight transition-colors duration-300 text-left"
-          >
-            {name}
-          </h3>
+          {/* Image Container */}
+          <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden">
+            <div
+              ref={imageRef}
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-700"
+              style={{
+                backgroundImage: `url(${heroSection})`,
+              }}
+            />
+            
+            {/* Gradient overlay - stronger at bottom for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
+            
+            {/* Hover overlay with project gradient */}
+            <div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{
+                background: `linear-gradient(135deg, ${gradient[0]}30, ${gradient[1]}15, transparent)`,
+              }}
+            />
 
-          {/* Description if available */}
-          {description && (
-            <p
-              ref={descriptionRef}
-              className="text-xs sm:text-sm md:text-sm text-gray-light-4 dark:text-gray-light-2 mb-3 sm:mb-4 line-clamp-2 leading-relaxed text-left"
-            >
-              {description}
-            </p>
-          )}
 
-          {/* Tech Stack */}
-          <div
-            ref={techRef}
-            className="flex flex-wrap gap-1.5 sm:gap-2 items-center pt-2 border-t border-[#efc041]/20"
-          >
-            {tech.slice(0, 6).map((techName, index) => (
+            {/* Arrow indicator - top right */}
+            <div className="absolute top-4 right-4 z-10">
               <div
-                key={techName}
-                className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-all duration-300"
+                ref={arrowRef}
+                className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full opacity-0 shadow-xl backdrop-blur-md transition-all duration-300 group-hover:opacity-100 group-hover:scale-110"
                 style={{
-                  opacity: 0.9,
+                  background: `linear-gradient(135deg, ${gradient[0]}, ${gradient[1]})`,
+                  boxShadow: `0 4px 20px ${gradient[0]}50`,
                 }}
-                title={techName}
               >
-                <img
-                  src={`/projects/tech/${techName}.svg`}
-                  alt={techName}
-                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                <FaArrowRight
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-white"
+                  style={{ transform: 'rotate(-45deg)' }}
                 />
               </div>
-            ))}
-            {tech.length > 6 && (
-              <div className="flex items-center justify-center px-2 sm:px-3 h-8 sm:h-9 rounded-lg bg-white/50 dark:bg-black/20 border border-[#efc041]/20 text-gray-light-4 dark:text-gray-500 text-[10px] sm:text-xs font-medium">
-                +{tech.length - 6}
+            </div>
+
+            {/* Title and Tech Stack Overlay on Image */}
+            <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 md:p-7 z-10">
+              {/* Title */}
+              <h3
+                ref={titleRef}
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 leading-tight transition-all duration-500 drop-shadow-lg"
+                style={{
+                  textShadow: '0 2px 12px rgba(0, 0, 0, 0.6)',
+                }}
+              >
+                {name}
+              </h3>
+              
+              {/* Tech Stack - All icons in one glass container */}
+              <div
+                ref={techRef}
+                className="inline-flex flex-wrap gap-2 sm:gap-2.5 items-center px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl backdrop-blur-2xl relative overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08))',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(255, 255, 255, 0.1)',
+                }}
+              >
+                {/* Animated gradient overlay on hover */}
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
+                  style={{
+                    background: `linear-gradient(135deg, ${gradient[0]}25, ${gradient[1]}12, transparent)`,
+                  }}
+                />
+                {/* Inner glow effect */}
+                <div 
+                  className="absolute inset-0 rounded-xl pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%)',
+                  }}
+                />
+                {tech.slice(0, 8).map((techName, index) => (
+                  <div
+                    key={techName}
+                    className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 transition-all duration-300 group-hover:scale-110 relative z-10"
+                    title={techName}
+                  >
+                    <img
+                      src={`/projects/tech/${techName}.svg`}
+                      alt={techName}
+                      className="w-4 h-4 sm:w-5 sm:h-5 opacity-90 group-hover:opacity-100 transition-opacity duration-300 filter drop-shadow-md"
+                    />
+                  </div>
+                ))}
+                {tech.length > 8 && (
+                  <div 
+                    className="flex items-center justify-center px-2.5 sm:px-3 h-9 sm:h-10 text-white text-xs sm:text-sm font-semibold group-hover:scale-110 transition-all duration-300 relative z-10 drop-shadow-md"
+                  >
+                    +{tech.length - 8}
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
+
+          {/* Shimmer Effect */}
+          <div
+            ref={shimmerRef}
+            className="absolute inset-0 opacity-0 group-hover:opacity-20 pointer-events-none"
+            style={{
+              background:
+                'linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%)',
+              transform: 'translateX(-100%)',
+            }}
+          />
         </div>
-
-        {/* Animated border glow on hover */}
-        <div className="absolute inset-0 border border-[#efc041]/20 group-hover:border-[#efc041]/40 transition-colors duration-500 pointer-events-none" />
-
-        {/* Pulsing border animation */}
-        <div className="absolute inset-0 border border-[#efc041]/0 group-hover:border-[#efc041]/20 transition-all duration-700 pointer-events-none animate-pulse" />
+      </div>
       </div>
     </Link>
   );

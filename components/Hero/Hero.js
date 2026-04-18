@@ -1,3 +1,7 @@
+import { useMotionTier } from '@/lib/motionTier';
+import { pickFadeUpVariant, pickStaggerContainer } from '@/lib/motionVariants';
+import { prefersReducedMotion } from '@/utils/scrollRevealSupport';
+import { m, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import gsap from 'gsap';
 import Image from 'next/image';
 import { useEffect, useLayoutEffect, useRef } from 'react';
@@ -21,20 +25,57 @@ const options = {
 const Hero = () => {
   const sectionRef = useRef(null);
   const typedElementRef = useRef(null);
-  const floatingRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const tier = useMotionTier();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const imageParallax = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduceMotion === true
+      ? [0, 0]
+      : tier === 'full'
+        ? [0, 72]
+        : tier === 'lite'
+          ? [0, 36]
+          : [0, 0]
+  );
+
+  const textParallax = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduceMotion === true ? [0, 0] : tier === 'full' ? [0, -44] : [0, -20]
+  );
+
+  const blobParallax = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduceMotion === true || tier !== 'full' ? [0, 0] : [0, 96]
+  );
+
+  const particleDrift = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduceMotion === true ? [0, 0] : tier === 'full' ? [0, 28] : [0, 12]
+  );
+
+  const staggerParent = pickStaggerContainer(
+    reduceMotion === true ? 'reduced' : tier
+  );
+  const itemVariant = pickFadeUpVariant(
+    reduceMotion === true ? 'reduced' : tier
+  );
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap
-        .timeline({ defaults: { ease: 'none' } })
-        .to(sectionRef.current, { opacity: 1, duration: 2 })
-        .from(
-          sectionRef.current.querySelectorAll('.staggered-reveal'),
-          { opacity: 0, duration: 0.5, stagger: 0.5 },
-          '<'
-        );
+      if (prefersReducedMotion()) {
+        return;
+      }
 
-      // Floating particles animation
       const particles =
         sectionRef.current.querySelectorAll('.floating-particle');
       particles.forEach((particle, i) => {
@@ -60,7 +101,6 @@ const Hero = () => {
     return () => typed.destroy();
   }, [typedElementRef]);
 
-  // Magnetic button effect
   const handleMouseMove = e => {
     const btn = e.currentTarget;
     const rect = btn.getBoundingClientRect();
@@ -85,26 +125,36 @@ const Hero = () => {
   };
 
   return (
-    <section
+    <m.section
       ref={sectionRef}
       id={MENULINKS[0].ref}
-      className="w-full flex items-center md:items-center py-6 sm:py-10 md:py-8 2xl:container mx-auto xl:px-20 md:px-12 px-4 sm:px-6 min-h-[70vh] md:min-h-screen relative mb-0 md:mb-24"
-      style={{ opacity: 0 }}
+      className="relative mb-0 flex w-full max-w-[1400px] min-h-[70vh] flex-col justify-center overflow-hidden px-4 py-6 sm:px-6 sm:py-10 md:min-h-screen md:px-10 md:py-8 lg:min-h-[min(100vh,56rem)] lg:py-12 lg:pl-10 lg:pr-12 xl:px-16 2xl:px-20 md:mb-24 mx-auto"
     >
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="floating-particle absolute top-20 left-10 w-3 h-3 bg-[#efc041] rounded-full opacity-40" />
-        <div className="floating-particle absolute top-40 right-20 w-2 h-2 bg-[#eeba2c] rounded-full opacity-30" />
-        <div className="floating-particle absolute bottom-32 left-1/4 w-4 h-4 border-2 border-[#efc041] rounded-full opacity-30" />
-        <div
-          className="floating-particle absolute top-1/3 left-1/3 w-2 h-2 bg-[#efc041] opacity-20"
-          style={{ transform: 'rotate(45deg)' }}
+      {/* Large-screen ambient layers (dark mode only — avoids warm gold wash in light mode) */}
+      <div className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:dark:block">
+        <m.div
+          aria-hidden
+          style={{ y: blobParallax }}
+          className="absolute -left-24 -top-40 h-[min(28rem,50vw)] w-[min(28rem,50vw)] rounded-full bg-accent-light/[0.14] blur-[100px]"
         />
-        <div
-          className="floating-particle absolute bottom-1/4 right-1/3 w-3 h-3 border border-[#eeba2c] opacity-25"
-          style={{ transform: 'rotate(45deg)' }}
+        <m.div
+          aria-hidden
+          style={{ y: blobParallax }}
+          className="absolute -right-20 top-1/4 h-[min(24rem,45vw)] w-[min(24rem,45vw)] rounded-full bg-accent-dark/[0.11] blur-[88px]"
         />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_55%_at_72%_58%,rgba(239,192,65,0.07),transparent_65%)]" />
       </div>
+
+      <m.div
+        className="pointer-events-none absolute inset-0 hidden overflow-hidden dark:block"
+        style={{ y: particleDrift }}
+      >
+        <div className="floating-particle absolute left-10 top-20 h-3 w-3 rounded-full bg-accent-light opacity-40" />
+        <div className="floating-particle absolute right-20 top-40 h-2 w-2 rounded-full bg-accent-dark opacity-30" />
+        <div className="floating-particle absolute bottom-32 left-1/4 h-4 w-4 rounded-full border-2 border-accent-light opacity-30" />
+        <div className="floating-particle absolute left-1/3 top-1/3 h-2 w-2 rotate-45 bg-accent-light opacity-20" />
+        <div className="floating-particle absolute bottom-1/4 right-1/3 h-3 w-3 rotate-45 border border-accent-dark opacity-25" />
+      </m.div>
 
       <style jsx global>{`
         .typed-cursor {
@@ -125,58 +175,77 @@ const Hero = () => {
           }
         }
       `}</style>
-      <div
-        className="flex flex-col justify-center items-start md:items-start text-left md:text-left pt-0 md:pt-0 select-none w-full md:max-w-[50%] lg:max-w-[45%] relative z-10"
-        style={{ pointerEvents: 'auto' }}
-      >
-        <h5
-          className={`${styles.intro} font-mono font-medium text-GoldenGlow-light staggered-reveal text-sm sm:text-base md:text-base lg:text-lg mb-3 sm:mb-4 md:mb-6 lg:mb-7`}
-        >
-          Hi, I&apos;m
-        </h5>
-        <h1
-          className={`${styles.heroName} text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-semibold mb-2 sm:mb-3 md:mb-4 lg:mb-5 leading-tight`}
-        >
-          <span className={`relative ${styles.emphasize} staggered-reveal`}>
-            Anas
-          </span>
-          <span className="staggered-reveal"> Pirzada</span>
-        </h1>
-        <p className="mb-3 sm:mb-4 md:mb-5 lg:mb-6 inline-block w-full break-words">
-          <span
-            ref={typedElementRef}
-            className="staggered-reveal text-lg sm:text-xl md:text-2xl lg:text-2xl text-gray-light-3 font-mono leading-relaxed inline-block min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] max-w-full break-words"
-          />
-        </p>
-        <div className="staggered-reveal mb-3 sm:mb-4 md:mb-5 lg:mb-6">
-          <Profiles />
-        </div>
-        <div
-          className="staggered-reveal pt-2"
-          style={{ position: 'relative', zIndex: 10, pointerEvents: 'auto' }}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-        >
-          <Button
-            href="#"
-            onClick={async e => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log('Button clicked!', CALENDLY_URL);
 
-              if (
-                CALENDLY_URL &&
-                CALENDLY_URL !== 'https://calendly.com/your-username'
-              ) {
-                // Check if Calendly is available
-                if (typeof window !== 'undefined' && window.Calendly) {
-                  try {
-                    await openCalendlyPopup(CALENDLY_URL);
-                    // Note: If popup fails due to X-Frame-Options,
-                    // the function will automatically fallback to new window
-                  } catch (error) {
-                    console.error('Failed to open Calendly:', error);
-                    // Final fallback: open in new window
+      <div className="relative z-10 flex w-full flex-col items-start gap-10 md:gap-12 lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-14">
+        <m.div
+          className="flex w-full flex-col justify-center text-left select-none md:max-w-[50%] lg:col-span-5 lg:max-w-none"
+          style={{
+            pointerEvents: 'auto',
+            y: textParallax,
+          }}
+          variants={staggerParent}
+          initial={reduceMotion ? false : 'hidden'}
+          animate={reduceMotion ? false : 'visible'}
+        >
+          <m.h5
+            variants={itemVariant}
+            className={`${styles.intro} mb-3 font-mono font-medium text-GoldenGlow-light text-sm sm:mb-4 sm:text-base md:mb-6 md:text-base lg:mb-7 lg:text-lg`}
+          >
+            Hi, I&apos;m
+          </m.h5>
+          <m.h1
+            variants={itemVariant}
+            className={`${styles.heroName} mb-2 text-3xl font-semibold leading-tight text-white sm:mb-3 sm:text-4xl md:mb-4 md:text-5xl lg:mb-5 lg:text-6xl 2xl:text-7xl`}
+          >
+            <span className={`relative ${styles.emphasize}`}>Anas</span>
+            <span> Pirzada</span>
+          </m.h1>
+          <m.p
+            variants={itemVariant}
+            className="mb-3 inline-block w-full max-w-full break-words sm:mb-4 md:mb-5 lg:mb-6"
+          >
+            <span
+              ref={typedElementRef}
+              className="inline-block min-h-[2rem] max-w-full break-words font-mono text-lg leading-relaxed text-gray-light-3 sm:min-h-[2.5rem] sm:text-xl md:min-h-[3rem] md:text-2xl lg:text-2xl"
+            />
+          </m.p>
+          <m.div
+            variants={itemVariant}
+            className="mb-3 sm:mb-4 md:mb-5 lg:mb-6"
+          >
+            <Profiles />
+          </m.div>
+          <m.div
+            variants={itemVariant}
+            className="relative z-10 pt-2"
+            style={{ pointerEvents: 'auto' }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Button
+              href="#"
+              onClick={async e => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Button clicked!', CALENDLY_URL);
+
+                if (
+                  CALENDLY_URL &&
+                  CALENDLY_URL !== 'https://calendly.com/your-username'
+                ) {
+                  if (typeof window !== 'undefined' && window.Calendly) {
+                    try {
+                      await openCalendlyPopup(CALENDLY_URL);
+                    } catch (error) {
+                      console.error('Failed to open Calendly:', error);
+                      window.open(
+                        CALENDLY_URL,
+                        '_blank',
+                        'noopener,noreferrer,width=800,height=600'
+                      );
+                    }
+                  } else {
+                    console.warn('Calendly not loaded, opening in new tab');
                     window.open(
                       CALENDLY_URL,
                       '_blank',
@@ -184,70 +253,78 @@ const Hero = () => {
                     );
                   }
                 } else {
-                  // If Calendly isn't loaded, open in new tab
-                  console.warn('Calendly not loaded, opening in new tab');
-                  window.open(
-                    CALENDLY_URL,
-                    '_blank',
-                    'noopener,noreferrer,width=800,height=600'
-                  );
+                  console.warn('Please update CALENDLY_URL in constants.js');
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }
-              } else {
-                console.warn('Please update CALENDLY_URL in constants.js');
-                // Fallback to contact section
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }
-            }}
-            classes="link"
-            type="primary"
+              }}
+              classes="link"
+              type="primary"
+              style={{
+                pointerEvents: 'auto',
+                position: 'relative',
+                zIndex: 10,
+                cursor: 'pointer',
+              }}
+            >
+              Let&apos;s Talk
+            </Button>
+          </m.div>
+        </m.div>
+
+        <m.div
+          className="relative z-0 flex w-full justify-center md:mt-0 md:flex md:max-w-none md:justify-end lg:col-span-7 lg:justify-end xl:translate-x-4 2xl:translate-x-6"
+          style={{
+            width: '100%',
+            maxHeight: '95vh',
+            pointerEvents: 'none',
+            y: imageParallax,
+          }}
+        >
+          <div
+            className="flex w-full max-w-lg flex-col items-stretch justify-end gap-2 pt-2 sm:gap-3 sm:pt-0 md:max-w-none md:items-end"
             style={{
-              pointerEvents: 'auto',
-              position: 'relative',
-              zIndex: 10,
-              cursor: 'pointer',
+              width: 'clamp(320px, 88vw, 800px)',
             }}
           >
-            Let&apos;s Talk
-          </Button>
-        </div>
+            {/* In document flow above the art — avoids covering the face */}
+            <m.div
+              className="z-20 flex w-full shrink-0 justify-center sm:justify-end md:pr-1 lg:pr-2"
+              style={{ pointerEvents: 'auto' }}
+              initial={
+                reduceMotion ? false : { opacity: 0, y: 12, scale: 0.96 }
+              }
+              animate={
+                reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }
+              }
+              transition={{
+                delay: reduceMotion ? 0 : 0.5,
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <FiverrBadge />
+            </m.div>
+            <div className={`${styles.imageWrapper} w-full`}>
+              <Image
+                src="/lottie/231902f6-ec2c-4ae1-b37a-0d9a0efa873c.png"
+                alt="Anas Pirzada - Developer illustration"
+                width={1152}
+                height={768}
+                className={`h-auto w-full max-h-[min(95vh,52rem)] object-contain ${styles.heroImage}`}
+                style={{
+                  maxWidth: '100%',
+                }}
+                priority
+                quality={100}
+              />
+            </div>
+          </div>
+        </m.div>
       </div>
-      <div
-        className="absolute invisible md:visible md:right-8 lg:right-12 2xl:right-16 bottom-0 flex items-end justify-center z-0"
-        style={{
-          width: 'clamp(500px, 55vw, 800px)',
-          maxHeight: '95vh',
-          pointerEvents: 'none',
-          backgroundColor: 'transparent',
-        }}
-      >
-        {/* Fiverr & Upwork Badges - Center */}
-        <div
-          className="staggered-reveal absolute top-10 left-[45%] -translate-x-1/2 -translate-y-1/2 z-20 flex gap-3 items-center"
-          style={{ pointerEvents: 'auto' }}
-        >
-          <FiverrBadge />
-          {/* <UpworkBadge /> */}
-        </div>
-        <div className={styles.imageWrapper}>
-          <Image
-            src="/lottie/231902f6-ec2c-4ae1-b37a-0d9a0efa873c.png"
-            alt="Anas Pirzada - Developer illustration"
-            width={1152}
-            height={768}
-            className={`w-full h-auto object-contain ${styles.heroImage}`}
-            style={{
-              maxWidth: '100%',
-              maxHeight: '95vh',
-            }}
-            priority
-            quality={100}
-          />
-        </div>
-      </div>
-    </section>
+    </m.section>
   );
 };
 

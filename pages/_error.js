@@ -16,13 +16,13 @@ const Error = ({ statusCode }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
       <div className="text-center">
-        <h1 className="text-6xl font-bold text-[#efc041] mb-4">
+        <h1 className="text-6xl font-bold text-accent-light mb-4">
           {statusCode ? `Error ${statusCode}` : 'An Error Occurred'}
         </h1>
         <p className="text-xl text-gray-300 mb-8">
           Something went wrong. The page will refresh automatically...
         </p>
-        <div className="animate-spin w-8 h-8 border-4 border-[#efc041] border-t-transparent rounded-full mx-auto"></div>
+        <div className="animate-spin w-8 h-8 border-4 border-accent-light border-t-transparent rounded-full mx-auto"></div>
       </div>
     </div>
   );

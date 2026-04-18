@@ -160,12 +160,12 @@ export default function BlogsIndex() {
             <motion.div key={blog.slug} variants={cardVariants}>
               <Link
                 href={`/blog/${blog.slug}`}
-                className="block rounded-2xl border border-gray-light-2 dark:border-white/15 bg-light-surface dark:bg-gray-dark-2/40 backdrop-blur-md p-5 hover:border-[#eeba2c] transition-all duration-300 hover:shadow-lg hover:shadow-[#eeba2c]/10 group h-full"
+                className="block rounded-2xl border border-gray-light-2 dark:border-white/15 bg-light-surface dark:bg-gray-dark-2/40 backdrop-blur-md p-5 hover:border-accent-dark transition-all duration-300 hover:shadow-lg hover:shadow-accent-dark/10 group h-full"
               >
                 <p className="text-xs text-gray-light-4 dark:text-gray-400">
                   {new Date(blog.date).toDateString()}
                 </p>
-                <h3 className="text-xl font-semibold mt-1 text-light-text-primary dark:text-white group-hover:text-[#eeba2c] transition-colors">
+                <h3 className="text-xl font-semibold mt-1 text-light-text-primary dark:text-white group-hover:text-accent-dark transition-colors">
                   {blog.title}
                 </h3>
                 <p className="mt-3 text-sm text-gray-light-3 dark:text-white/90 line-clamp-3 leading-relaxed">

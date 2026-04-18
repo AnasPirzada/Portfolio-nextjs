@@ -34,13 +34,13 @@ const ThemeToggle = () => {
       >
         {isDark ? (
           <>
-            <div className="font-mono text-[1.2rem] font-semibold tracking-wide text-[#efc041]">
+            <div className="font-mono text-[1.2rem] font-semibold tracking-wide text-accent-light">
               N
             </div>
           </>
         ) : (
           <>
-            <div className="font-mono text-[1.2rem] font-semibold tracking-wide text-[#efc041]">
+            <div className="font-mono text-[1.2rem] font-semibold tracking-wide text-accent-light">
               D
             </div>
           </>

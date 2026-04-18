@@ -1,13 +1,11 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { RevealItem, RevealStagger } from '@/components/ui/Reveal';
+import { defaultViewport } from '@/lib/motionVariants';
+import { AnimatePresence, motion, m } from 'framer-motion';
 import Image from 'next/image';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import { FaCalendarAlt, FaUsers, FaStar, FaBriefcase } from 'react-icons/fa';
 import { TESTIMONIALS, METADATA } from '../../constants';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Reviews = () => {
   // Generate Review/Rating Schema for SEO
@@ -38,65 +36,9 @@ const Reviews = () => {
       datePublished: new Date().toISOString(),
     })),
   };
-  const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const autoPlayTimeoutRef = useRef(null);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const staggeredElements =
-        sectionRef.current.querySelectorAll('.staggered-reveal') || [];
-      const statsCards =
-        sectionRef.current.querySelectorAll('.stats-card') || [];
-
-      if (staggeredElements.length > 0) {
-        // Set initial state
-        gsap.set(staggeredElements, { opacity: 0, y: 30 });
-        
-        // Simple one-time reveal for header elements
-        gsap.to(staggeredElements, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            once: true,
-            toggleActions: 'play none none none',
-          },
-        });
-      }
-
-      if (statsCards.length > 0) {
-        // Set initial state
-        gsap.set(statsCards, { opacity: 0, y: 50 });
-        
-        // Simple one-time reveal for stats cards
-        gsap.to(statsCards, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            once: true,
-            toggleActions: 'play none none none',
-          },
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   // Auto-play functionality
   useEffect(() => {
@@ -195,34 +137,34 @@ const Reviews = () => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
         />
       </Head>
-      <section
-        ref={sectionRef}
-        className="w-full relative select-none overflow-hidden"
-      >
+      <section className="w-full relative select-none overflow-hidden">
         {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,192,65,0.08)_0%,transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,color-mix(in_srgb,var(--accent-light)_8%,transparent)_0%,transparent_50%)]" />
         </div>
 
         <div className="section-container pt-10 md:pt-20 pb-10 md:pb-20 relative z-10">
           {/* Header Section */}
-          <motion.div
-            className="flex flex-col items-start text-left mb-10 staggered-reveal"
-            initial={{ opacity: 1, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base">
+          <RevealStagger className="flex flex-col items-start text-left mb-10">
+            <RevealItem
+              as={m.p}
+              className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
+            >
               TESTIMONIALS
-            </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 font-medium text-gradient w-fit">
+            </RevealItem>
+            <RevealItem
+              as={m.h2}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 font-medium text-gradient w-fit"
+            >
               Client Reviews
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl font-medium md:max-w-lg w-full mt-3 text-gray-light-4 dark:text-gray-light-3">
+            </RevealItem>
+            <RevealItem
+              as={m.p}
+              className="text-base sm:text-lg md:text-xl font-medium md:max-w-lg w-full mt-3 text-gray-light-4 dark:text-gray-light-3"
+            >
               Trusted by industry leaders worldwide.
-            </p>
-          </motion.div>
+            </RevealItem>
+          </RevealStagger>
 
           {/* Mobile Layout: Stats on top, Carousel below */}
           <div className="lg:hidden flex flex-col gap-6">
@@ -242,16 +184,16 @@ const Reviews = () => {
                 return (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.96 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: false }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={defaultViewport}
+                    transition={{ duration: 0.45, delay: index * 0.08 }}
                     whileHover={{ y: -4, scale: 1.02 }}
-                    className="stats-card group relative overflow-hidden rounded-2xl bg-light-surface dark:bg-gray-dark-3/50 border border-gray-light-2 dark:border-white/10 p-5 hover:border-[#efc041]/50 transition-all duration-300"
+                    className="stats-card group relative overflow-hidden rounded-2xl bg-light-surface dark:bg-gray-dark-3/50 border border-gray-light-2 dark:border-white/10 p-5 hover:border-accent-light/50 transition-all duration-300"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#efc041]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent-light/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
-                      <IconComponent className="text-2xl mb-2 text-[#efc041]" />
+                      <IconComponent className="text-2xl mb-2 text-accent-light" />
                       <div className="text-3xl font-bold text-gradient mb-1">
                         {stat.value}
                       </div>
@@ -269,11 +211,11 @@ const Reviews = () => {
               className="relative"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              transition={{ duration: 0.6 }}
+              viewport={defaultViewport}
+              transition={{ duration: 0.5 }}
             >
-              <div className="relative h-full min-h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br from-[#efc041]/10 via-transparent to-[#eeba2c]/5 border border-gray-light-2 dark:border-white/10 p-6">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#efc041]/20 to-transparent rounded-bl-full" />
+              <div className="relative h-full min-h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br from-accent-light/10 via-transparent to-accent-dark/5 border border-gray-light-2 dark:border-white/10 p-6">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-light/20 to-transparent rounded-bl-full" />
 
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -285,7 +227,7 @@ const Reviews = () => {
                     className="relative z-10 h-full flex flex-col"
                   >
                     <svg
-                      className="w-10 h-10 text-[#efc041]/40 mb-4"
+                      className="w-10 h-10 text-accent-light/40 mb-4"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -303,21 +245,21 @@ const Reviews = () => {
                           alt={TESTIMONIALS[activeIndex].name}
                           width={56}
                           height={56}
-                          className="rounded-full border-2 border-[#efc041]/30"
+                          className="rounded-full border-2 border-accent-light/30"
                         />
                       </div>
                       <div>
                         <h4 className="text-lg font-semibold text-light-text-primary dark:text-white">
                           {TESTIMONIALS[activeIndex].name}
                         </h4>
-                        <p className="text-[#efc041] text-sm">
+                        <p className="text-accent-light text-sm">
                           {TESTIMONIALS[activeIndex].role} @{' '}
                           {TESTIMONIALS[activeIndex].company}
                         </p>
                       </div>
                       <div className="ml-auto flex gap-0.5">
                         {[...Array(5)].map((_, i) => (
-                          <span key={i} className="text-lg text-[#efc041]">
+                          <span key={i} className="text-lg text-accent-light">
                             ★
                           </span>
                         ))}
@@ -334,17 +276,18 @@ const Reviews = () => {
               <div className="flex items-center gap-3">
                 <motion.button
                   onClick={prevReview}
-                  className="relative w-14 h-14 rounded-full bg-gradient-to-br from-[#efc041]/20 to-[#eeba2c]/10 dark:from-[#efc041]/30 dark:to-[#eeba2c]/20 border-2 border-[#efc041]/40 dark:border-[#efc041]/50 text-[#efc041] flex items-center justify-center overflow-hidden group shadow-lg shadow-[#efc041]/20"
+                  className="relative w-14 h-14 rounded-full bg-gradient-to-br from-accent-light/20 to-accent-dark/10 dark:from-accent-light/30 dark:to-accent-dark/20 border-2 border-accent-light/40 dark:border-accent-light/50 text-accent-light flex items-center justify-center overflow-hidden group shadow-lg shadow-accent-light/20"
                   whileHover={{
                     scale: 1.1,
-                    boxShadow: '0 0 20px rgba(239, 192, 65, 0.4)',
+                    boxShadow:
+                      '0 0 20px color-mix(in srgb, var(--accent-light) 40%, transparent)',
                   }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Previous review"
                 >
                   {/* Animated background glow */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-[#efc041]/30 to-[#eeba2c]/20"
+                    className="absolute inset-0 bg-gradient-to-br from-accent-light/30 to-accent-dark/20"
                     animate={{
                       opacity: [0.3, 0.6, 0.3],
                     }}
@@ -371,17 +314,18 @@ const Reviews = () => {
 
                 <motion.button
                   onClick={nextReview}
-                  className="relative w-14 h-14 rounded-full bg-gradient-to-br from-[#efc041]/20 to-[#eeba2c]/10 dark:from-[#efc041]/30 dark:to-[#eeba2c]/20 border-2 border-[#efc041]/40 dark:border-[#efc041]/50 text-[#efc041] flex items-center justify-center overflow-hidden group shadow-lg shadow-[#efc041]/20"
+                  className="relative w-14 h-14 rounded-full bg-gradient-to-br from-accent-light/20 to-accent-dark/10 dark:from-accent-light/30 dark:to-accent-dark/20 border-2 border-accent-light/40 dark:border-accent-light/50 text-accent-light flex items-center justify-center overflow-hidden group shadow-lg shadow-accent-light/20"
                   whileHover={{
                     scale: 1.1,
-                    boxShadow: '0 0 20px rgba(239, 192, 65, 0.4)',
+                    boxShadow:
+                      '0 0 20px color-mix(in srgb, var(--accent-light) 40%, transparent)',
                   }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Next review"
                 >
                   {/* Animated background glow */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-[#efc041]/30 to-[#eeba2c]/20"
+                    className="absolute inset-0 bg-gradient-to-br from-accent-light/30 to-accent-dark/20"
                     animate={{
                       opacity: [0.3, 0.6, 0.3],
                     }}
@@ -410,15 +354,15 @@ const Reviews = () => {
               {/* Auto/Paused text in center with attractive styling */}
               <div className="flex-1 flex justify-center">
                 <motion.div
-                  className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#efc041]/10 to-[#eeba2c]/10 dark:from-[#efc041]/20 dark:to-[#eeba2c]/20 border border-[#efc041]/30 dark:border-[#efc041]/40 backdrop-blur-sm"
+                  className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent-light/10 to-accent-dark/10 dark:from-accent-light/20 dark:to-accent-dark/20 border border-accent-light/30 dark:border-accent-light/40 backdrop-blur-sm"
                   animate={{
                     boxShadow: isAutoPlaying
                       ? [
-                          '0 0 10px rgba(239, 192, 65, 0.3)',
-                          '0 0 20px rgba(239, 192, 65, 0.5)',
-                          '0 0 10px rgba(239, 192, 65, 0.3)',
+                          '0 0 10px color-mix(in srgb, var(--accent-light) 30%, transparent)',
+                          '0 0 20px color-mix(in srgb, var(--accent-light) 50%, transparent)',
+                          '0 0 10px color-mix(in srgb, var(--accent-light) 30%, transparent)',
                         ]
-                      : '0 0 0px rgba(239, 192, 65, 0)',
+                      : '0 0 0px color-mix(in srgb, var(--accent-light) 0%, transparent)',
                   }}
                   transition={{
                     duration: 2,
@@ -429,7 +373,7 @@ const Reviews = () => {
                   {/* Pulsing dot indicator */}
                   {isAutoPlaying && (
                     <motion.span
-                      className="w-2 h-2 rounded-full bg-[#efc041]"
+                      className="w-2 h-2 rounded-full bg-accent-light"
                       animate={{
                         scale: [1, 1.3, 1],
                         opacity: [1, 0.7, 1],
@@ -444,7 +388,7 @@ const Reviews = () => {
                   <span
                     className={`text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${
                       isAutoPlaying
-                        ? 'text-[#efc041] drop-shadow-[0_0_8px_rgba(239,192,65,0.5)]'
+                        ? 'text-accent-light drop-shadow-[0_0_8px_color-mix(in_srgb,var(--accent-light)_50%,transparent)]'
                         : 'text-gray-light-4 dark:text-gray-light-2'
                     }`}
                   >
@@ -465,11 +409,11 @@ const Reviews = () => {
               className="col-span-7 relative"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              transition={{ duration: 0.6 }}
+              viewport={defaultViewport}
+              transition={{ duration: 0.5 }}
             >
-              <div className="relative h-full min-h-[450px] rounded-3xl overflow-hidden bg-gradient-to-br from-[#efc041]/10 via-transparent to-[#eeba2c]/5 border border-gray-light-2 dark:border-white/10 p-8">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#efc041]/20 to-transparent rounded-bl-full" />
+              <div className="relative h-full min-h-[450px] rounded-3xl overflow-hidden bg-gradient-to-br from-accent-light/10 via-transparent to-accent-dark/5 border border-gray-light-2 dark:border-white/10 p-8">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-light/20 to-transparent rounded-bl-full" />
 
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -481,7 +425,7 @@ const Reviews = () => {
                     className="relative z-10 h-full flex flex-col"
                   >
                     <svg
-                      className="w-12 h-12 text-[#efc041]/40 mb-4"
+                      className="w-12 h-12 text-accent-light/40 mb-4"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -499,21 +443,21 @@ const Reviews = () => {
                           alt={TESTIMONIALS[activeIndex].name}
                           width={56}
                           height={56}
-                          className="rounded-full border-2 border-[#efc041]/30"
+                          className="rounded-full border-2 border-accent-light/30"
                         />
                       </div>
                       <div>
                         <h4 className="text-lg font-semibold text-light-text-primary dark:text-white">
                           {TESTIMONIALS[activeIndex].name}
                         </h4>
-                        <p className="text-[#efc041] text-sm">
+                        <p className="text-accent-light text-sm">
                           {TESTIMONIALS[activeIndex].role} @{' '}
                           {TESTIMONIALS[activeIndex].company}
                         </p>
                       </div>
                       <div className="ml-auto flex gap-0.5">
                         {[...Array(5)].map((_, i) => (
-                          <span key={i} className="text-lg text-[#efc041]">
+                          <span key={i} className="text-lg text-accent-light">
                             ★
                           </span>
                         ))}
@@ -540,16 +484,16 @@ const Reviews = () => {
                 return (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.96 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: false }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={defaultViewport}
+                    transition={{ duration: 0.45, delay: index * 0.08 }}
                     whileHover={{ y: -4, scale: 1.02 }}
-                    className="stats-card group relative overflow-hidden rounded-2xl bg-light-surface dark:bg-gray-dark-3/50 border border-gray-light-2 dark:border-white/10 p-6 hover:border-[#efc041]/50 transition-all duration-300"
+                    className="stats-card group relative overflow-hidden rounded-2xl bg-light-surface dark:bg-gray-dark-3/50 border border-gray-light-2 dark:border-white/10 p-6 hover:border-accent-light/50 transition-all duration-300"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#efc041]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent-light/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
-                      <IconComponent className="text-2xl mb-2 text-[#efc041]" />
+                      <IconComponent className="text-2xl mb-2 text-accent-light" />
                       <div className="text-4xl font-bold text-gradient mb-1">
                         {stat.value}
                       </div>
@@ -567,7 +511,7 @@ const Reviews = () => {
           <div className="hidden lg:flex justify-center gap-4 mt-8">
             <motion.button
               onClick={prevReview}
-              className="w-12 h-12 rounded-full bg-light-surface dark:bg-gray-dark-3 border border-gray-light-2 dark:border-white/10 text-light-text-primary dark:text-white flex items-center justify-center hover:border-[#efc041]/50 hover:text-[#efc041] transition-all duration-300"
+              className="w-12 h-12 rounded-full bg-light-surface dark:bg-gray-dark-3 border border-gray-light-2 dark:border-white/10 text-light-text-primary dark:text-white flex items-center justify-center hover:border-accent-light/50 hover:text-accent-light transition-all duration-300"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Previous review"
@@ -589,7 +533,7 @@ const Reviews = () => {
 
             <motion.button
               onClick={nextReview}
-              className="w-12 h-12 rounded-full bg-light-surface dark:bg-gray-dark-3 border border-gray-light-2 dark:border-white/10 text-light-text-primary dark:text-white flex items-center justify-center hover:border-[#efc041]/50 hover:text-[#efc041] transition-all duration-300"
+              className="w-12 h-12 rounded-full bg-light-surface dark:bg-gray-dark-3 border border-gray-light-2 dark:border-white/10 text-light-text-primary dark:text-white flex items-center justify-center hover:border-accent-light/50 hover:text-accent-light transition-all duration-300"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Next review"
@@ -616,7 +560,7 @@ const Reviews = () => {
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
               className={`text-xs uppercase tracking-wider transition-colors ${
                 isAutoPlaying
-                  ? 'text-[#efc041]'
+                  ? 'text-accent-light'
                   : 'text-gray-light-4 dark:text-gray-light-2'
               }`}
             >

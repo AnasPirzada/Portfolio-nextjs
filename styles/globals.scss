@@ -10,7 +10,12 @@
 
 html,
 body {
-  font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  font-family:
+    'Poppins',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
     sans-serif;
 }
 
@@ -19,19 +24,19 @@ body {
    ======================================== */
 
 :root {
-  /* Light mode (default when no .dark class) */
-  --bg-primary: #fafafa;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f5f5f5;
-  --text-primary: #121212;
-  --text-secondary: #2b2b2b;
-  --text-muted: #7a7a7a;
-  --border-color: #e6e6e6;
-  --card-bg: #ffffff;
-  --card-border: #e6e6e6;
-  --accent-light: #efc041;
-  --accent-dark: #eeba2c;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  /* Light mode — Warm Editorial (default when no .dark class) */
+  --bg-primary: #f7f4ef;
+  --bg-secondary: #fdfbf7;
+  --bg-tertiary: #efe9e0;
+  --text-primary: #1a1410;
+  --text-secondary: #3d3530;
+  --text-muted: #8a7f78;
+  --border-color: #ddd5c8;
+  --card-bg: #fdfbf7;
+  --card-border: #e5ddd3;
+  --accent-light: #c8860a;
+  --accent-dark: #b5750a;
+  --shadow-color: rgba(90, 60, 20, 0.1);
 }
 
 .dark {
@@ -869,7 +874,13 @@ body {
 }
 
 .section-container {
-  @apply 2xl:container xl:px-20 md:px-12 px-4 mx-auto;
+  @apply w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-20;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 input[type='checkbox'] {
@@ -1132,11 +1143,15 @@ a,
 
 /* Light mode menu styles */
 html:not(.dark) .outer-menu .menu > div {
-  background: rgba(255, 255, 255, 0.98) !important;
+  background: color-mix(in srgb, var(--bg-secondary) 98%, transparent) !important;
 }
 
 html:not(.dark) .outer-menu .menu > div > div {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%) !important;
+  background: linear-gradient(
+    135deg,
+    var(--bg-secondary) 0%,
+    var(--bg-primary) 100%
+  ) !important;
 }
 
 html:not(.dark) .outer-menu .menu ul li a {
@@ -1144,8 +1159,8 @@ html:not(.dark) .outer-menu .menu ul li a {
     90deg,
     #1a1a1a 0%,
     #1a1a1a 50%,
-    #efc041 51%,
-    #eeba2c 100%
+    var(--accent-light) 51%,
+    var(--accent-dark) 100%
   ) !important;
   background-size: 200% 100% !important;
   background-clip: text !important;
@@ -1161,7 +1176,8 @@ html:not(.dark) .outer-menu .menu ul li a {
     transform-origin: left;
     will-change: transform;
     transform: scaleX(0);
-    @apply w-full bg-[#eeba2c];
+    @apply w-full;
+    background-color: var(--accent-dark);
   }
 }
 
@@ -1785,7 +1801,7 @@ html:not(.dark) section {
 }
 
 html:not(.dark) section:nth-of-type(even) {
-  background-color: #f5f5f5;
+  background-color: var(--bg-tertiary);
 }
 
 /* Knowledge section - no split background on section, only on text */
@@ -1809,44 +1825,48 @@ html:not(.dark) .nextjs-icon {
 html:not(.dark) [class*='bg-[#0a0a0a]'],
 html:not(.dark) [class*='bg-[#000]'],
 html:not(.dark) [class*='bg-black'] {
-  background-color: #ffffff !important;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  background-color: var(--bg-secondary) !important;
+  box-shadow: 0 2px 15px rgba(90, 60, 20, 0.08);
 }
 
 /* Border colors in light mode */
 html:not(.dark) [class*='border-[#1a1a1a]'],
 html:not(.dark) [class*='border-[#1f1f1f]'] {
-  border-color: #e0e0e0 !important;
+  border-color: var(--border-color) !important;
 }
 
 /* Menu overlay in light mode - Enhanced */
 html:not(.dark) .menu {
-  background-color: rgba(255, 255, 255, 0.98) !important;
+  background-color: color-mix(in srgb, var(--bg-secondary) 98%, transparent) !important;
 }
 
 html:not(.dark) .menu > div > div {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%) !important;
+  background: linear-gradient(
+    135deg,
+    var(--bg-secondary) 0%,
+    var(--bg-tertiary) 100%
+  ) !important;
 }
 
 html:not(.dark) .menu .bg-black,
 html:not(.dark) .menu [class*='bg-black'],
 html:not(.dark) .menu .dark\:bg-black {
-  background-color: rgba(255, 255, 255, 0.98) !important;
+  background-color: color-mix(in srgb, var(--bg-secondary) 98%, transparent) !important;
 }
 
 html:not(.dark) .menu .bg-white\/90,
 html:not(.dark) .menu .dark\:bg-black\/90 {
-  background-color: rgba(255, 255, 255, 0.95) !important;
+  background-color: color-mix(in srgb, var(--bg-secondary) 95%, transparent) !important;
 }
 
 html:not(.dark) .menu a:not([class*='hover:bg-']) {
-  color: #1a1a1a !important;
-  -webkit-text-fill-color: #1a1a1a !important;
+  color: var(--text-primary) !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
 }
 
 html:not(.dark) .menu a:hover:not([class*='hover:bg-']) {
-  color: #efc041 !important;
-  -webkit-text-fill-color: #efc041 !important;
+  color: var(--accent-light) !important;
+  -webkit-text-fill-color: var(--accent-light) !important;
 }
 
 /* Hamburger menu color in light mode */
@@ -1859,55 +1879,55 @@ html:not(.dark) .hamburger > div:after {
 /* Project cards in light mode */
 html:not(.dark) .ProjectTile,
 html:not(.dark) [class*='ProjectTile'] {
-  background-color: #ffffff !important;
-  border-color: #e8e8e8 !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--card-border) !important;
+  box-shadow: 0 4px 20px rgba(90, 60, 20, 0.08);
 }
 
 html:not(.dark) .ProjectTile:hover,
 html:not(.dark) [class*='ProjectTile']:hover {
-  box-shadow: 0 8px 30px rgba(239, 192, 65, 0.15);
+  box-shadow: 0 8px 30px rgba(200, 134, 10, 0.14);
 }
 
 /* Timeline and education cards */
 html:not(.dark) .timeline-item {
-  background-color: #ffffff !important;
-  border-color: #e8e8e8 !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--card-border) !important;
+  box-shadow: 0 2px 10px rgba(90, 60, 20, 0.05);
 }
 
 html:not(.dark) .timeline-item:hover {
-  box-shadow: 0 8px 25px rgba(239, 192, 65, 0.12);
-  border-color: #eeba2c !important;
+  box-shadow: 0 8px 25px rgba(200, 134, 10, 0.12);
+  border-color: var(--accent-dark) !important;
 }
 
 /* Footer in light mode */
 html:not(.dark) footer {
-  background-color: #f0f0f0;
-  border-top: 1px solid #e0e0e0;
+  background-color: var(--bg-tertiary);
+  border-top: 1px solid var(--border-color);
 }
 
 /* Scrollbar in light mode */
 html:not(.dark) ::-webkit-scrollbar-thumb {
-  background: #eeba2c;
+  background: var(--accent-dark);
 }
 
 html:not(.dark) ::-webkit-scrollbar-track {
-  background: #f0f0f0;
+  background: var(--bg-tertiary);
 }
 
 /* Input fields in light mode */
 html:not(.dark) input,
 html:not(.dark) textarea {
-  background-color: #ffffff;
-  border-color: #e0e0e0;
-  color: #121212;
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
 }
 
 html:not(.dark) input:focus,
 html:not(.dark) textarea:focus {
-  border-color: #efc041;
-  box-shadow: 0 0 0 3px rgba(239, 192, 65, 0.1);
+  border-color: var(--accent-light);
+  box-shadow: 0 0 0 3px rgba(200, 134, 10, 0.12);
 }
 
 html:not(.dark) input::placeholder,
@@ -1918,13 +1938,13 @@ html:not(.dark) textarea::placeholder {
 /* Skills section background */
 html:not(.dark) [class*='bg-gray-dark-4'],
 html:not(.dark) [class*='bg-gray-dark-5'] {
-  background-color: #f5f5f5 !important;
+  background-color: var(--bg-tertiary) !important;
 }
 
 /* Tech stack icons background */
 html:not(.dark) [class*='bg-[#141414]'] {
-  background-color: #f8f8f8 !important;
-  border-color: #e8e8e8 !important;
+  background-color: var(--bg-primary) !important;
+  border-color: var(--card-border) !important;
 }
 
 /* Hero section particles - make them visible in light mode */
@@ -1932,8 +1952,10 @@ html:not(.dark) .floating-particle {
   opacity: 0.3;
 }
 
+/* Legacy + Tailwind accent bg utilities (theme uses CSS variables) */
+html:not(.dark) [class*='bg-accent-light'],
 html:not(.dark) [class*='bg-[#efc041]'] {
-  background-color: #efc041;
+  background-color: var(--accent-light);
 }
 
 /* About section */
@@ -1950,12 +1972,12 @@ html:not(.dark) [class*='bg-gray-dark-2/40'] {
 
 /* Reviews/Testimonials */
 html:not(.dark) [class*='rounded-3xl'][class*='bg-'] {
-  background-color: #ffffff !important;
+  background-color: var(--bg-secondary) !important;
 }
 
 /* Contact section */
 html:not(.dark) .contact-form {
-  background-color: #ffffff;
+  background-color: var(--bg-secondary);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -1975,8 +1997,8 @@ html:not(.dark) .contact-btn-desktop a {
 }
 
 html:not(.dark) .contact-btn-desktop a:hover {
-  background-color: #efc041 !important;
-  border-color: #efc041 !important;
+  background-color: var(--accent-light) !important;
+  border-color: var(--accent-light) !important;
   color: #000000 !important;
 }
 
@@ -1992,12 +2014,18 @@ html:not(.dark) .contact-btn-desktop a:hover {
   -webkit-text-fill-color: transparent;
 }
 
-/* Golden accent text should stay golden */
+/* Golden accent text — warm editorial contrast */
+html:not(.dark) .text-accent-light,
 html:not(.dark) .text-\[\#efc041\],
-html:not(.dark) .text-\[\#eeba2c\],
 html:not(.dark) .text-GoldenGlow-light {
-  color: #d4a017 !important;
-  -webkit-text-fill-color: #d4a017 !important;
+  color: var(--accent-light) !important;
+  -webkit-text-fill-color: var(--accent-light) !important;
+}
+
+html:not(.dark) .text-accent-dark,
+html:not(.dark) .text-\[\#eeba2c\] {
+  color: var(--accent-dark) !important;
+  -webkit-text-fill-color: var(--accent-dark) !important;
 }
 
 /* Smooth transitions for theme switch */
@@ -2021,40 +2049,54 @@ html:not(.dark) .text-GoldenGlow-light {
    ======================================== */
 
 html:not(.dark) section[class*='bg-gradient-to-b'][class*='from-black'] {
-  background: linear-gradient(to bottom, #fafafa, #f0f0f0, #fafafa) !important;
+  background: linear-gradient(
+    to bottom,
+    var(--bg-primary),
+    var(--bg-tertiary),
+    var(--bg-primary)
+  ) !important;
 }
 
 html:not(.dark) section[class*='from-black'][class*='via-gray-950'] {
-  background: linear-gradient(to bottom, #fafafa, #f5f5f5, #fafafa) !important;
+  background: linear-gradient(
+    to bottom,
+    var(--bg-primary),
+    var(--bg-tertiary),
+    var(--bg-primary)
+  ) !important;
 }
 
 /* Stats cards in light mode */
 html:not(.dark) [class*='from-gray-900/50'][class*='to-gray-950/50'] {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%) !important;
-  border-color: #e0e0e0 !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(
+    135deg,
+    var(--bg-secondary) 0%,
+    var(--bg-primary) 100%
+  ) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 /* Review card in light mode */
 html:not(.dark) [class*='from-gray-900/90'][class*='via-gray-800/80'] {
   background: linear-gradient(
     135deg,
-    #ffffff 0%,
-    #f8f8f8 50%,
-    #ffffff 100%
+    var(--bg-secondary) 0%,
+    var(--bg-primary) 50%,
+    var(--bg-secondary) 100%
   ) !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 40px var(--shadow-color);
 }
 
 /* Navigation buttons in reviews */
 html:not(.dark) [class*='bg-gray-900/80'][class*='backdrop-blur'] {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  border-color: #e0e0e0 !important;
+  background-color: color-mix(in srgb, var(--bg-secondary) 90%, transparent) !important;
+  border-color: var(--border-color) !important;
 }
 
 html:not(.dark) [class*='bg-gray-900/80'][class*='backdrop-blur']:hover {
-  background-color: rgba(239, 192, 65, 0.1) !important;
-  border-color: #efc041 !important;
+  background-color: rgba(200, 134, 10, 0.1) !important;
+  border-color: var(--accent-light) !important;
 }
 
 /* Review text color */
@@ -2069,11 +2111,21 @@ html:not(.dark) [style*='color:#ffffff'] {
    ======================================== */
 
 html:not(.dark) footer[class*='bg-gradient-to-b'][class*='from-black'] {
-  background: linear-gradient(to bottom, #f5f5f5, #fafafa, #f0f0f0) !important;
+  background: linear-gradient(
+    to bottom,
+    var(--bg-tertiary),
+    var(--bg-primary),
+    var(--bg-tertiary)
+  ) !important;
 }
 
 html:not(.dark) footer {
-  background: linear-gradient(to bottom, #f5f5f5, #fafafa, #f0f0f0) !important;
+  background: linear-gradient(
+    to bottom,
+    var(--bg-tertiary),
+    var(--bg-primary),
+    var(--bg-tertiary)
+  ) !important;
 }
 
 /* Footer text colors */
@@ -2091,9 +2143,9 @@ html:not(.dark) footer .text-gray-500 {
 
 /* Footer input */
 html:not(.dark) footer input {
-  background-color: #ffffff !important;
-  border-color: #e0e0e0 !important;
-  color: #121212 !important;
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
 }
 
 html:not(.dark) footer input::placeholder {
@@ -2102,23 +2154,24 @@ html:not(.dark) footer input::placeholder {
 
 /* Footer social links */
 html:not(.dark) footer [class*='bg-gray-800/50'] {
-  background-color: #ffffff !important;
-  border-color: #e0e0e0 !important;
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
 }
 
 html:not(.dark) footer [class*='bg-gray-800/50']:hover {
-  border-color: #efc041 !important;
-  background-color: rgba(239, 192, 65, 0.1) !important;
+  border-color: var(--accent-light) !important;
+  background-color: rgba(200, 134, 10, 0.08) !important;
 }
 
 /* Footer CTA box */
+html:not(.dark) footer [class*='from-accent-light/10'][class*='to-accent-dark/10'],
 html:not(.dark) footer [class*='from-[#efc041]/10'][class*='to-[#eeba2c]/10'] {
   background: linear-gradient(
     135deg,
-    rgba(239, 192, 65, 0.08) 0%,
-    rgba(238, 186, 44, 0.08) 100%
+    rgba(200, 134, 10, 0.08) 0%,
+    rgba(181, 117, 10, 0.08) 100%
   ) !important;
-  border-color: rgba(239, 192, 65, 0.3) !important;
+  border-color: rgba(200, 134, 10, 0.28) !important;
 }
 
 /* Footer decorative elements - reduce opacity in light mode */
@@ -2201,8 +2254,8 @@ html:not(.dark) .contact-btn-desktop a {
 
 html:not(.dark) .contact-btn-desktop a:hover {
   color: #000000 !important;
-  background-color: #efc041 !important;
-  border-color: #efc041 !important;
+  background-color: var(--accent-light) !important;
+  border-color: var(--accent-light) !important;
 }
 
 /* ========================================
@@ -2310,8 +2363,8 @@ html:not(.dark) #contact label {
 
 /* Tab container background */
 html:not(.dark) [class*='bg-gray-900'][class*='rounded-2xl'] {
-  background-color: #f0f0f0 !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background-color: var(--bg-tertiary) !important;
+  box-shadow: 0 2px 10px rgba(90, 60, 20, 0.08);
 }
 
 /* Inactive tab text color */
@@ -2330,8 +2383,8 @@ html:not(.dark) [class*='bg-gray-900'] button[class*='text-black'] {
 
 /* Education timeline cards */
 html:not(.dark) [class*='bg-gray-dark-2/40'] {
-  background-color: #ffffff !important;
-  border-color: #e8e8e8 !important;
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--card-border) !important;
 }
 
 /* Timeline card text */
@@ -2357,7 +2410,7 @@ html:not(.dark) .timeline-item .text-gray-300 {
 
 /* Work tabs active background */
 html:not(.dark) [class*='bg-gray-dark-2'][class*='rounded-full'] {
-  background-color: #e8e8e8 !important;
+  background-color: var(--bg-tertiary) !important;
 }
 
 /* Work tabs inactive text */
@@ -2388,21 +2441,21 @@ html:not(.dark) button[class*='rounded-full'] span[class*='text-white'] {
 /* Work experience main card container */
 html:not(.dark)
   .work-wrapper
-  [class*='bg-gradient-to-br'][class*='from-[#efc041]'] {
+  [class*='bg-gradient-to-br'][class*='from-accent-light'] {
   background: linear-gradient(
     to bottom right,
-    rgba(239, 192, 65, 0.08),
-    rgba(238, 186, 44, 0.08)
+    rgba(200, 134, 10, 0.08),
+    rgba(181, 117, 10, 0.08)
   ) !important;
-  border-color: rgba(239, 192, 65, 0.25) !important;
+  border-color: rgba(200, 134, 10, 0.25) !important;
 }
 
 /* Work experience cards */
 html:not(.dark) [class*='work'] [class*='bg-gray-dark'],
 html:not(.dark) [class*='work'] [class*='bg-[#0a0a0a]'] {
-  background-color: #ffffff !important;
-  border-color: #e8e8e8 !important;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--card-border) !important;
+  box-shadow: 0 2px 15px rgba(90, 60, 20, 0.06);
 }
 
 /* Work experience - Role title (h3) */
@@ -2429,11 +2482,11 @@ html:not(.dark) .work-wrapper .text-gray-300 {
 html:not(.dark) .work-wrapper [class*='from-black/40'][class*='to-black/20'] {
   background: linear-gradient(
     to bottom right,
-    rgba(245, 245, 245, 1),
-    rgba(250, 250, 250, 1)
+    var(--bg-tertiary),
+    var(--bg-primary)
   ) !important;
-  border-color: rgba(239, 192, 65, 0.2) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-color: rgba(200, 134, 10, 0.2) !important;
+  box-shadow: 0 2px 8px rgba(90, 60, 20, 0.06);
 }
 
 /* Impact metrics - label text */
@@ -2468,12 +2521,12 @@ html:not(.dark) .work-wrapper h2.staggered-reveal:not(.text-gradient) {
 
 /* Education tabs specific styling */
 html:not(.dark) .education-tabs {
-  background-color: #e8e8e8 !important;
+  background-color: var(--bg-tertiary) !important;
 }
 
 /* Work tabs active state background in light mode */
 html:not(.dark) .bg-gray-light-2 {
-  background-color: #e0e0e0 !important;
+  background-color: var(--border-color) !important;
 }
 
 /* Work tabs text colors in light mode */
@@ -2491,7 +2544,7 @@ html:not(.dark) .text-gray-light-4:hover {
 
 /* Work tabs specific styling - matching Education tabs */
 html:not(.dark) .work-tabs {
-  background-color: #e8e8e8 !important;
+  background-color: var(--bg-tertiary) !important;
 }
 
 .dark .work-tabs {
@@ -2504,17 +2557,21 @@ html:not(.dark) .work-tabs {
 
 /* Resume section background */
 html:not(.dark) section[class*='bg-gradient-to-b'][class*='from-gray-900'] {
-  background: linear-gradient(to bottom, #f5f5f5, #fafafa) !important;
+  background: linear-gradient(
+    to bottom,
+    var(--bg-tertiary),
+    var(--bg-primary)
+  ) !important;
 }
 
 /* Resume preview card */
 html:not(.dark) [class*='previewCard'] {
   background: linear-gradient(
     135deg,
-    rgba(239, 192, 65, 0.08),
-    rgba(238, 186, 44, 0.04)
+    rgba(200, 134, 10, 0.08),
+    rgba(181, 117, 10, 0.04)
   ) !important;
-  border-color: rgba(239, 192, 65, 0.25) !important;
+  border-color: rgba(200, 134, 10, 0.25) !important;
 }
 
 /* Resume preview box */
@@ -2536,10 +2593,10 @@ html:not(.dark) [class*='feature'] {
 html:not(.dark) [class*='downloadBtn'] {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.9),
-    rgba(245, 245, 245, 0.8)
+    color-mix(in srgb, var(--bg-secondary) 90%, transparent),
+    color-mix(in srgb, var(--bg-tertiary) 80%, transparent)
   ) !important;
-  border-color: rgba(239, 192, 65, 0.3) !important;
+  border-color: rgba(200, 134, 10, 0.3) !important;
 }
 
 html:not(.dark) [class*='btnLabel'] {

@@ -213,7 +213,7 @@ export default function BlogDetail({ blog }) {
         {/* Author Bio Section */}
         <section className="mt-12 p-6 bg-white/5 rounded-2xl border border-white/10">
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#eeba2c] to-[#efc041] rounded-full flex items-center justify-center text-black font-bold text-xl">
+            <div className="w-16 h-16 bg-gradient-to-br from-accent-dark to-accent-light rounded-full flex items-center justify-center text-black font-bold text-xl">
               AP
             </div>
             <div>
@@ -231,7 +231,7 @@ export default function BlogDetail({ blog }) {
                   href="https://www.linkedin.com/in/muhammadanaspirzada/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#eeba2c] hover:text-[#efc041] transition-colors"
+                  className="text-accent-dark hover:text-accent-light transition-colors"
                 >
                   LinkedIn
                 </Link>
@@ -239,7 +239,7 @@ export default function BlogDetail({ blog }) {
                   href="https://github.com/AnasPirzada"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#eeba2c] hover:text-[#efc041] transition-colors"
+                  className="text-accent-dark hover:text-accent-light transition-colors"
                 >
                   GitHub
                 </Link>

@@ -33,7 +33,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #efc041, #eeba2c);
+    background: linear-gradient(90deg, var(--accent-light), var(--accent-dark));
   }
 }
 
@@ -72,7 +72,7 @@
 
 .avatarImage {
   border-radius: 50%;
-  border: 2px solid #efc041;
+  border: 2px solid var(--accent-light);
   position: relative;
   z-index: 1;
 }
@@ -131,7 +131,7 @@
 }
 
 .starFilled {
-  color: #efc041;
+  color: var(--accent-light);
 }
 
 .starEmpty {
@@ -156,7 +156,7 @@
   border-radius: 50%;
   border: 2px solid rgba(239, 192, 65, 0.3);
   background: rgba(239, 192, 65, 0.1);
-  color: #efc041;
+  color: var(--accent-light);
   font-size: 1.5rem;
   display: flex;
   align-items: center;
@@ -166,7 +166,7 @@
 
   &:hover {
     background: rgba(239, 192, 65, 0.2);
-    border-color: #efc041;
+    border-color: var(--accent-light);
     transform: scale(1.1);
   }
 
@@ -195,8 +195,8 @@
   }
 
   &.dotActive {
-    background: #efc041;
-    border-color: #efc041;
+    background: var(--accent-light);
+    border-color: var(--accent-light);
     transform: scale(1.2);
   }
 }

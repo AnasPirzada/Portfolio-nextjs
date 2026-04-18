@@ -1,13 +1,12 @@
+import { RevealFade, RevealItem, RevealStagger } from '@/components/ui/Reveal';
 import Filter from 'bad-words';
+import { m } from 'framer-motion';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { MENULINKS } from '../../constants';
 import styles from './Contact.module.scss';
 import mail from './mailer';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const filter = new Filter();
 filter.removeWords('hell', 'god', 'shit');
@@ -46,7 +45,6 @@ const Contact = () => {
   const [validationErrors, setValidationErrors] = useState({});
   const [messageLength, setMessageLength] = useState(0);
   const buttonElementRef = useRef(null);
-  const sectionRef = useRef(null);
 
   const MAX_MESSAGE_LENGTH = 2000;
 
@@ -302,18 +300,18 @@ const Contact = () => {
             {
               '--text-opacity': 0,
               '--border-radius': 0,
-              '--left-wing-background': '#efc041',
-              '--right-wing-background': '#efc041',
+              '--left-wing-background': 'var(--accent-light)',
+              '--right-wing-background': 'var(--accent-light)',
               duration: 0.11,
             },
             {
-              '--left-wing-background': '#eeba2c',
-              '--right-wing-background': '#eeba2c',
+              '--left-wing-background': 'var(--accent-dark)',
+              '--right-wing-background': 'var(--accent-dark)',
               duration: 0.14,
             },
             {
-              '--left-body-background': '#efc041',
-              '--right-body-background': '#efc041',
+              '--left-body-background': 'var(--accent-light)',
+              '--right-body-background': 'var(--accent-light)',
               duration: 0.25,
               delay: 0.1,
             },
@@ -338,42 +336,8 @@ const Contact = () => {
     });
   }, [buttonElementRef]);
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const elements = sectionRef.current.querySelectorAll('.staggered-reveal');
-      if (elements.length === 0) return;
-
-      // Set initial state
-      gsap.set(elements, { opacity: 0, y: 30 });
-
-      // Simple one-time reveal animation
-      gsap.to(elements, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          once: true, // Only animate once
-          toggleActions: 'play none none none',
-        },
-      });
-    }, sectionRef);
-
-    return () => {
-      ctx.revert();
-    };
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       id={MENULINKS[6].ref}
       className="w-full relative select-none bg-light-bg dark:bg-black py-10 md:py-20"
     >
@@ -381,22 +345,31 @@ const Contact = () => {
         <Toaster toastOptions={toastOptions} />
       </div>
       <div className="section-container flex flex-col justify-center">
-        <div className="flex flex-col contact-wrapper">
+        <RevealStagger className="flex flex-col contact-wrapper">
           <div className="flex flex-col">
-            <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base">
+            <RevealItem
+              as={m.p}
+              className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
+            >
               CONTACT
-            </p>
-            <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal">
+            </RevealItem>
+            <RevealItem
+              as={m.h1}
+              className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit"
+            >
               Contact
-            </h1>
+            </RevealItem>
           </div>
-          <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2 staggered-reveal">
+          <RevealItem
+            as={m.h2}
+            className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2"
+          >
             Get In Touch.{' '}
-          </h2>
-        </div>
+          </RevealItem>
+        </RevealStagger>
 
-        <form className="pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem]">
-          <div className="staggered-reveal">
+        <form className="pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem] max-w-full px-0">
+          <RevealFade>
             <div className="relative">
               <input
                 type="text"
@@ -558,7 +531,7 @@ const Contact = () => {
                 autoComplete="off"
               />
             </div>
-          </div>
+          </RevealFade>
 
           {mailerResponse !== 'not initiated' &&
             (mailerResponse === 'success' ? (
@@ -567,7 +540,7 @@ const Contact = () => {
               <div className="hidden">{error()}</div>
             ))}
         </form>
-        <div className="mt-9 mx-auto link staggered-reveal">
+        <RevealFade className="mt-9 mx-auto link flex justify-center">
           <button
             ref={buttonElementRef}
             className={styles.button}
@@ -600,7 +573,7 @@ const Contact = () => {
               <div className={styles.right} />
             </div>
           </button>
-        </div>
+        </RevealFade>
       </div>
       <style jsx global>{`
         input,
@@ -611,7 +584,7 @@ const Contact = () => {
 
         input:hover,
         textarea:hover {
-          box-shadow: 0 0 0.3rem #efc041;
+          box-shadow: 0 0 0.3rem var(--accent-light);
         }
 
         input:active,

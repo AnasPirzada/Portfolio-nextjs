@@ -17,7 +17,7 @@
       transform: translateY(-3px) scale(1.1);
 
       svg {
-        stroke: #efc041;
+        stroke: var(--accent-light);
         filter: brightness(1.2);
       }
     }

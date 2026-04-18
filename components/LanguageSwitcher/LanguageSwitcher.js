@@ -38,7 +38,7 @@ const LanguageSwitcher = () => {
     <div ref={dropdownRef} className="relative">
       <motion.button
         onClick={toggleDropdown}
-        className="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-600/30 hover:border-[#efc041]/50 transition-all duration-300"
+        className="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-600/30 hover:border-accent-light/50 transition-all duration-300"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Change language"
@@ -82,7 +82,7 @@ const LanguageSwitcher = () => {
                   isRTL ? 'text-right flex-row-reverse' : 'text-left'
                 } ${
                   language === lang.code
-                    ? 'bg-[#efc041]/20 text-[#efc041]'
+                    ? 'bg-accent-light/20 text-accent-light'
                     : 'text-gray-300 hover:bg-gray-700/50 hover:text-white'
                 }`}
                 whileHover={{ x: isRTL ? -4 : 4 }}
@@ -99,7 +99,7 @@ const LanguageSwitcher = () => {
                   <motion.svg
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className={`w-4 h-4 text-[#efc041] ${isRTL ? 'mr-auto' : 'ml-auto'}`}
+                    className={`w-4 h-4 text-accent-light ${isRTL ? 'mr-auto' : 'ml-auto'}`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >

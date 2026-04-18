@@ -1,45 +1,13 @@
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useEffect, useRef, useState } from 'react';
+import { RevealItem, RevealStagger } from '@/components/ui/Reveal';
+import { defaultViewport } from '@/lib/motionVariants';
+import { motion, m } from 'framer-motion';
+import { useState } from 'react';
 import { RESUME_DATA } from '../../constants';
 import PDFViewer from '../PDFViewer/PDFViewer';
 import styles from './Resume.module.scss';
 
 const Resume = () => {
-  const sectionRef = useRef(null);
   const [showPDFViewer, setShowPDFViewer] = useState(false);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const elements = sectionRef.current.querySelectorAll('.staggered-reveal');
-      if (elements.length === 0) return;
-
-      // Set initial state
-      gsap.set(elements, { opacity: 0, y: 30 });
-
-      // Simple one-time reveal animation
-      gsap.to(elements, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          once: true, // Only animate once
-          toggleActions: 'play none none none',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const handleDownload = format => {
     const url = format === 'pdf' ? RESUME_DATA.pdfUrl : RESUME_DATA.docxUrl;
@@ -56,30 +24,36 @@ const Resume = () => {
   };
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full relative select-none py-10 md:py-20 bg-gradient-to-b from-gray-900 to-black"
-    >
+    <section className="w-full relative select-none py-10 md:py-20 bg-gradient-to-b from-gray-900 to-black">
       <div className="section-container">
-        <div className="flex flex-col items-start text-left">
-          <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal text-xs sm:text-sm md:text-base">
+        <RevealStagger className="flex flex-col items-start text-left">
+          <RevealItem
+            as={m.p}
+            className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
+          >
             RESUME
-          </p>
-          <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit staggered-reveal">
+          </RevealItem>
+          <RevealItem
+            as={m.h1}
+            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit"
+          >
             Download My CV
-          </h1>
-          <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-2xl w-full mt-2 staggered-reveal">
+          </RevealItem>
+          <RevealItem
+            as={m.h2}
+            className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-2xl w-full mt-2"
+          >
             Get a detailed overview of my skills, experience, and achievements.
-          </h2>
-        </div>
+          </RevealItem>
+        </RevealStagger>
 
         <div className={`${styles.container} mt-16`}>
           <motion.div
             className={styles.previewCard}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={defaultViewport}
+            transition={{ duration: 0.5 }}
           >
             <div className={styles.preview}>
               <div className={styles.previewHeader}>
@@ -146,10 +120,10 @@ const Resume = () => {
 
           <motion.div
             className={styles.actions}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={defaultViewport}
+            transition={{ duration: 0.5, delay: 0.12 }}
           >
             <motion.button
               className={`${styles.downloadBtn} ${styles.pdfBtn} link`}

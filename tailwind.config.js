@@ -2,7 +2,10 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-  content: ['./pages/**/*.{js, jsx}', './components/**/*.{js, jsx}'],
+  content: [
+    './pages/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+  ],
   darkMode: 'class',
   theme: {
     screens: {
@@ -14,7 +17,12 @@ module.exports = {
       current: 'currentColor',
       white: '#ffffff',
       black: '#000000',
-      yellow: '#efc041',
+      yellow: '#c8860a',
+      /** Theme-aware gold (Warm Editorial in light, GoldenGlow in dark) */
+      accent: {
+        light: 'var(--accent-light)',
+        dark: 'var(--accent-dark)',
+      },
       red: '#cf0000',
       green: '#00ac56',
       GoldenGlow: {
@@ -23,8 +31,8 @@ module.exports = {
       },
       gray: {
         light: {
-          1: '#f5f5f5',
-          2: '#e6e6e6',
+          1: '#efe9e0',
+          2: '#ddd5c8',
           3: '#b0b0b0',
           4: '#7a7a7a',
         },
@@ -37,13 +45,13 @@ module.exports = {
         },
       },
       light: {
-        bg: '#fafafa',
-        surface: '#ffffff',
+        bg: '#f7f4ef',
+        surface: '#fdfbf7',
         text: {
-          primary: '#121212',
-          secondary: '#2b2b2b',
+          primary: '#1a1410',
+          secondary: '#3d3530',
         },
-        border: '#e6e6e6',
+        border: '#ddd5c8',
       },
       dark: {
         bg: '#000000',
