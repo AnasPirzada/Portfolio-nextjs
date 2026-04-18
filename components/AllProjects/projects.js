@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { PROJECTS } from '../../constants.js';
+import { PROJECTS } from '@/constants';
 import Card from './ProjectCard.js';
 
 export default function ProjectsPage() {

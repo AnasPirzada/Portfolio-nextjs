@@ -2,7 +2,7 @@ import { RevealFade, RevealItem, RevealStagger } from '@/components/ui/Reveal';
 import { m, motion } from 'framer-motion';
 import { useMemo } from 'react';
 import { FaBullseye, FaChartBar, FaCheckCircle } from 'react-icons/fa';
-import { MENULINKS, WORK_ACHIEVEMENTS } from '../../constants';
+import { MENULINKS, WORK_ACHIEVEMENTS } from '@/constants';
 import Tabs from './Tabs/Tabs';
 
 const Work = () => {

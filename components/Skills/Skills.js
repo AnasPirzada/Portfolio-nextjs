@@ -16,6 +16,7 @@ const SKILL_COLORS = {
   typescript: { bg: '#3178C6', text: '#FFFFFF' },
   react: { bg: '#61DAFB', text: '#000000' },
   nextjs: { bg: '#1a1a1a', text: '#FFFFFF' },
+  nestjs: { bg: '#E0234E', text: '#FFFFFF' },
   nodejs: { bg: '#339933', text: '#FFFFFF' },
   git: { bg: '#F05032', text: '#FFFFFF' },
   sass: { bg: '#CC6699', text: '#FFFFFF' },
@@ -41,6 +42,10 @@ const SKILL_COLORS = {
   Turborepo: { bg: '#EF4444', text: '#FFFFFF' },
   ShadcnUi: { bg: '#1a1a1a', text: '#FFFFFF' },
   default: { bg: '#c8860a', text: '#000000' },
+};
+
+const SKILL_DISPLAY_LABEL = {
+  nestjs: 'Nest.js',
 };
 
 const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
@@ -146,10 +151,11 @@ const SkillIcon = memo(({ skill, width = 50, height = 50, index = 0 }) => {
           top: '100%',
         }}
       >
-        {skill
-          .split('-')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ')}
+        {SKILL_DISPLAY_LABEL[skill] ||
+          skill
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ')}
 
         {/* Arrow pointing up */}
         <div

@@ -44,8 +44,8 @@ const Tabs = ({ tabItems }) => {
 
   return (
     <div>
-      <div className="pt-8 flex justify-center">
-        <div className="relative bg-gray-light-2/80 dark:bg-gray-dark-3/50 backdrop-blur-sm rounded-full p-1 flex border border-gray-light-2 dark:border-gray-dark-2/50 overflow-hidden">
+      <div className="pt-8 flex w-full justify-center px-2 sm:px-4 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="relative inline-flex w-max max-w-none shrink-0 bg-gray-light-2/80 dark:bg-gray-dark-3/50 backdrop-blur-sm rounded-full p-1 border border-gray-light-2 dark:border-gray-dark-2/50 overflow-hidden">
           {/* Animated indicator with glow */}
           <motion.div
             className="absolute top-1 bottom-1 rounded-full bg-gradient-to-r from-accent-light to-accent-dark"

@@ -126,6 +126,7 @@ export const SKILLS = {
     'react',
     'redux',
     'nextjs',
+    'nestjs',
     'tailwindcss',
     'styledcomponents',
     'antdesign',

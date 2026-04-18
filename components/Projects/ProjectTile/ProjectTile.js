@@ -480,7 +480,7 @@ const ProjectTile = ({ project, classes, isDesktop }) => {
                     <img
                       src={`/projects/tech/${techName}.svg`}
                       alt={techName}
-                      className="w-4 h-4 sm:w-5 sm:h-5 opacity-90 group-hover:opacity-100 transition-opacity duration-300 filter drop-shadow-md"
+                      className="h-5 w-5 sm:h-6 sm:w-6 max-h-full max-w-full object-contain opacity-95 group-hover:opacity-100 transition-opacity duration-300"
                     />
                   </div>
                 ))}

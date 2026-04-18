@@ -34,7 +34,7 @@ export default function ProjectsPage() {
 
   // SEO data
   const pageTitle = 'Projects Portfolio';
-  const pageDescription = `Explore ${PROJECTS.length}+ web development projects by Anas Pirzada built with React.js, Next.js, and modern technologies. Including TeklabSpace, Investment Learning, Al-Quran Digital Institute, and more.`;
+  const pageDescription = `Explore ${PROJECTS.length}+ web development projects by Anas Pirzada built with React.js, Next.js, and modern technologies. Including Agoua Travel, Akunuba, TeklabSpace, Investment Learning, Al-Quran Digital Institute, and more.`;
   const pageUrl = `${METADATA.siteUrl}/projects`;
 
   // Projects Collection Schema

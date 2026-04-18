@@ -1,5 +1,66 @@
 export const WORK_ACHIEVEMENTS = [
   {
+    company: 'Freelancer',
+    role: 'Full Stack Developer',
+    period: '2022 - Present',
+    location: 'Remote - Fiverr, Upwork & Local Clients',
+    achievements: [
+      'Successfully delivered 20+ projects to international clients across various industries',
+      'Built custom web applications using Python, Laravel, React.js, and Next.js',
+      'Maintained a 5-star rating on Fiverr and Upwork with 100% client satisfaction',
+      'Provided end-to-end development services from planning to deployment',
+      'Specialized in building scalable SaaS applications, e-commerce platforms, and business websites',
+      'Collaborated with clients globally, ensuring timely delivery and quality outputs',
+    ],
+    skills: [
+      'Python',
+      'Laravel',
+      'React.js',
+      'Next.js',
+      'Django',
+      'Firebase',
+      'MySQL',
+      'API Development',
+    ],
+    metrics: [
+      { label: 'Total Clients', value: '20+' },
+      { label: 'Client Rating', value: '5.0⭐' },
+      { label: 'Projects Completed', value: '20+' },
+      { label: 'Satisfaction Rate', value: '100%' },
+    ],
+  },
+  {
+    company: 'Agoua Travel',
+    role: 'Full Stack Developer & Designer',
+    period: 'Mar 2026 - Present',
+    location: 'Full-time · Onsite · Riyadh, Saudi Arabia',
+    achievements: [
+      'Full-time: collaborating with Agoua Travel to build their public customer website and two internal products—a super-admin dashboard for operations and configuration, and a separate employee dashboard for day-to-day staff workflows.',
+      'Shipped the marketing site end-to-end—destination packages, visa, Transfer and Tours CTAs, flight/hotel search flows and contact—aligned with their full-service travel positioning.',
+      'Implemented Quoud-powered capabilities inside both dashboards for core travel-agency workflows, and built additional custom modules where requirements exceeded what Quoud covers out of the box.',
+      'Designed clear separation between super-admin and employee roles, authentication flows, and scalable UI patterns so the team can manage bookings, content, and internal tasks without overlap.',
+    ],
+    skills: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Nest.js',
+      'Framer Motion',
+      'GSAP',
+      'SCSS',
+      'Tailwind CSS',
+      'Quoud integration',
+      'REST APIs',
+      'RBAC & multi-dashboard UX',
+    ],
+    metrics: [
+      { label: 'Engagement', value: 'Full-Time' },
+      { label: 'Tenure', value: '~1 mo' },
+      { label: 'Product Surfaces', value: '3' },
+      { label: 'Stack', value: 'Next.js + Nest.js' },
+    ],
+  },
+  {
     company: 'Createex',
     role: 'Senior React.js Developer',
     period: 'Jun 2023 - Feb 2025',
@@ -86,39 +147,72 @@ export const WORK_ACHIEVEMENTS = [
       { label: 'Response Time', value: '<200ms' },
     ],
   },
-  {
-    company: 'Freelancer',
-    role: 'Full Stack Developer',
-    period: '2022 - Present',
-    location: 'Remote - Fiverr, Upwork & Local Clients',
-    achievements: [
-      'Successfully delivered 20+ projects to international clients across various industries',
-      'Built custom web applications using Python, Laravel, React.js, and Next.js',
-      'Maintained a 5-star rating on Fiverr and Upwork with 100% client satisfaction',
-      'Provided end-to-end development services from planning to deployment',
-      'Specialized in building scalable SaaS applications, e-commerce platforms, and business websites',
-      'Collaborated with clients globally, ensuring timely delivery and quality outputs',
-    ],
-    skills: [
-      'Python',
-      'Laravel',
-      'React.js',
-      'Next.js',
-      'Django',
-      'Firebase',
-      'MySQL',
-      'API Development',
-    ],
-    metrics: [
-      { label: 'Total Clients', value: '20+' },
-      { label: 'Client Rating', value: '5.0⭐' },
-      { label: 'Projects Completed', value: '20+' },
-      { label: 'Satisfaction Rate', value: '100%' },
-    ],
-  },
 ];
 
 export const WORK_CONTENTS = {
+  AgouaTravel: [
+    {
+      title: 'Agoua Travel',
+      description:
+        'Agoua Travel is a Saudi-based travel agency offering flights, hotels, visa processing, holiday packages, transfers, and tours—positioned as an all-in-one partner for travelers. I work with them full-time (since Mar 2026) as a full-stack developer on their public web presence and internal tooling.',
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Travel & tourism platform
+        </div>
+      ),
+    },
+    {
+      title: 'Role & schedule',
+      description:
+        'Full-time, onsite in Riyadh—focused delivery on the marketing site, super-admin dashboard, and employee dashboard, working closely with the client team.',
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Full-time · Riyadh
+        </div>
+      ),
+    },
+    {
+      title: 'Public website',
+      description:
+        'Built the customer-facing Next.js site showcasing trending packages, destination routes, visa and service CTAs, AI-assisted search prompts, testimonials, and contact—reflecting their licensed, full-service travel brand.',
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Marketing & booking journeys
+        </div>
+      ),
+    },
+    {
+      title: 'Super-admin & employee dashboards',
+      description:
+        'Delivered two distinct apps: a super-admin dashboard for centralized operations and settings, and an employee dashboard for staff workflows—with role-appropriate access and shared design language.',
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Dual internal consoles
+        </div>
+      ),
+    },
+    {
+      title: 'Quoud plus custom build',
+      description:
+        'Integrated Quoud features for standard agency operations inside both dashboards, and implemented bespoke modules where business rules and UX needed more than the default Quoud surface—closing gaps with custom React/Next.js work.',
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Platform + custom modules
+        </div>
+      ),
+    },
+    {
+      title: 'Tech & delivery',
+      description:
+        'Next.js, TypeScript, Tailwind-style component work, REST integrations, and Vercel deployments across the marketing site and dashboard applications—iterating with stakeholders as requirements evolved.',
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Ship fast, iterate safely
+        </div>
+      ),
+    },
+  ],
+
   Createex: [
     {
       title: 'Createex',

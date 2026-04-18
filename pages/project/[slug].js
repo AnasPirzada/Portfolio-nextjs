@@ -11,10 +11,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { METADATA, PROJECTS } from '../../constants.js';
+import { METADATA, PROJECTS } from '@/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.config({ nullTargetWarn: false });
+
+/** Local SVGs in /public: next/image with fill can render blank unless unoptimized is set. */
+function isSvgPath(src) {
+  return typeof src === 'string' && /\.svg(\?.*)?$/i.test(src);
+}
 
 export default function ProjectDetailPage() {
   const router = useRouter();
@@ -458,6 +463,7 @@ export default function ProjectDetailPage() {
               fill
               className="object-cover"
               priority
+              unoptimized={isSvgPath(project.heroSection)}
             />
             <div
               className="absolute inset-0"
@@ -604,6 +610,7 @@ export default function ProjectDetailPage() {
                     alt={project.name}
                     fill
                     className="object-cover"
+                    unoptimized={isSvgPath(project.image)}
                   />
                 </div>
               </div>
@@ -642,7 +649,9 @@ export default function ProjectDetailPage() {
                           unoptimized
                         />
                         <span className="text-white font-medium capitalize">
-                          {tech.replace(/([A-Z])/g, ' $1').trim()}
+                          {tech === 'nestjs'
+                            ? 'Nest.js'
+                            : tech.replace(/([A-Z])/g, ' $1').trim()}
                         </span>
                       </motion.div>
                     ))}
@@ -792,6 +801,7 @@ export default function ProjectDetailPage() {
                     alt={`${project.name} showcase`}
                     fill
                     className="object-cover"
+                    unoptimized={isSvgPath(project.heroSection)}
                   />
                 </div>
               </div>

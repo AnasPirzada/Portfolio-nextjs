@@ -12,7 +12,6 @@ import Hero from '@/components/Hero/Hero';
 import ProgressIndicator from '@/components/ProgressIndicator/ProgressIndicator';
 import Projects from '@/components/Projects/Projects';
 import Resume from '@/components/Resume/Resume';
-import Reviews from '@/components/Reviews/Reviews';
 import Skills from '@/components/Skills/Skills';
 import SkipToContent from '@/components/SkipToContent/SkipToContent';
 import Work from '@/components/Work/Work';
@@ -59,7 +58,6 @@ function Home() {
         <TagLine />
         <EducationandCertification isDesktop={device.isDesktop} />
         <Work />
-        <Reviews />
         <Blogs clientHeight={device.clientHeight} />
         <Resume />
         <Collaboration clientHeight={device.clientHeight} />

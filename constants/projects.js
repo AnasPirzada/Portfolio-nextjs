@@ -1,5 +1,81 @@
 export const PROJECTS = [
   {
+    name: 'Agoua Travel',
+    heroSection: '/projects/HeroSections/AgouaTravel.webp',
+    image: '/projects/agoua-travel.webp',
+    blurImage: '/projects/AgouaTravel.webp',
+    description:
+      'Ongoing full-time work (since Mar 2026) for a Saudi full-service travel agency: customer-facing Next.js site (packages, visas, flights, hotels, transfers, tours, AI-assisted prompts, testimonials, Arabic/English) plus two internal apps—a Quoud-integrated super-admin dashboard and a dedicated employee dashboard with custom modules beyond standard Quoud coverage.',
+    gradient: ['#0d9488', '#042f2e'],
+    url: 'https://agoua-travel.vercel.app/',
+    tech: [
+      'nextjs',
+      'nestjs',
+      'typescript',
+      'tailwindcss',
+      'nodejs',
+      'framer-motion',
+    ],
+    category: 'Travel & Operations Platform',
+    year: '2026',
+    client: 'Agoua Travel',
+    services: [
+      'Web Development',
+      'Super-admin & employee dashboards',
+      'Third-party integration (Quoud)',
+      'UI/UX & responsive design',
+      'Vercel deployment',
+    ],
+    caseStudy: {
+      problem:
+        'Agoua Travel needed one credible public brand experience for travelers (flights, hotels, visas, holiday packages, transfers, and tours) and separate, secure internal tools so leadership could run operations while staff used day-to-day workflows—without duplicating effort across disconnected systems.',
+      solution:
+        'Working full-time with focused delivery: built the marketing site on Next.js with destination packages (e.g. Malaysia, Thailand, Singapore, Sri Lanka), visa and service CTAs, flight/hotel search journeys, AI-assisted “Ask AI” prompts, reviews, travel stories, and contact flows. Shipped a super-admin dashboard (demo: super-admin-six-lilac.vercel.app/dashboard) for centralized configuration and an employee dashboard (employee-dashboard-sable.vercel.app) with role-appropriate access. Integrated Quoud for core agency operations in both consoles and implemented bespoke React/Next.js modules wherever requirements exceeded default Quoud surfaces. Deployed across Vercel environments for fast iteration.',
+      impact:
+        'Delivered three cohesive product surfaces—public web plus two dashboards—so customers self-serve and explore services online while the team manages work through dedicated, permission-aware tools instead of ad-hoc spreadsheets or mixed tooling.',
+      metrics: [
+        { label: 'Live product surfaces', value: '3' },
+        { label: 'Internal dashboards', value: '2' },
+        { label: 'Core stack', value: 'Next.js' },
+        { label: 'Ops integration', value: 'Quoud + custom' },
+      ],
+    },
+  },
+  {
+    name: 'Akunuba',
+    heroSection: '/projects/HeroSections/Akunuba.png',
+    image: '/projects/Akunuba.webp',
+    blurImage: '/projects/blur/Akunuba.webp',
+    description:
+      'Akunuba is a digital wealth platform for high-net-worth individuals and family offices—unifying traditional investments, luxury assets, and strategy in one intelligent experience. The public site presents marketplace, plans, concierge, and support, with hero messaging, solution carousels, onboarding steps, FAQs, and newsletter capture aligned to a premium fintech brand.',
+    gradient: ['#1e3a5f', '#0f172a'],
+    url: 'https://akunuba.io/',
+    tech: ['nextjs', 'typescript', 'tailwindcss', 'framer-motion', 'django'],
+    category: 'FinTech & Wealth Platform',
+    year: '2026',
+    client: 'Akunuba',
+    services: [
+      'Web Development',
+      'UI/UX & responsive layout',
+      'Marketing & product storytelling',
+      'Performance & SEO-oriented structure',
+    ],
+    caseStudy: {
+      problem:
+        'Affluent users and family offices often juggle investments, real estate, collectibles, and private assets across disconnected tools—making it hard to see net worth in real time or act on a single strategy.',
+      solution:
+        'Built a polished marketing experience around Akunuba’s positioning: “Your Wealth. Unified, Elevated.”—highlighting a unified wealth snapshot (aggregated holdings, net worth, asset breakdowns) and smart portfolio intelligence (AI-driven insights, rebalancing signals, goal-based suggestions, risk alerts). Surfaced how users get started—onboard & verify, link accounts and sync assets, then plan, trade, and connect with advisors—with trust-focused FAQ content on security, encryption, and MFA.',
+      impact:
+        'Delivers a credible, elite-tier first impression for acquisition and education—clear paths to sign up and explore solutions before users ever reach the product dashboard.',
+      metrics: [
+        { label: 'Core solution pillars', value: '2+' },
+        { label: 'Onboarding steps', value: '3' },
+        { label: 'Site focus', value: 'HNW / family offices' },
+        { label: 'Live URL', value: 'akunuba.io' },
+      ],
+    },
+  },
+  {
     name: 'TeklabSpace',
     heroSection: '/projects/HeroSections/teklabspace.webp',
     image: '/projects/teklabspace.webp',
