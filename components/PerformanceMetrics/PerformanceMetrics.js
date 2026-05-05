@@ -143,7 +143,7 @@ const GitHubStats = () => {
           </RevealItem>
           <RevealItem
             as={m.h1}
-            className="text-6xl sm:text-7xl md:text-6xl mt-2 font-semibold text-gradient w-fit mx-auto"
+            className="text-5xl sm:text-6xl md:text-6xl lg:text-6xl mt-2 font-semibold text-gradient w-fit mx-auto"
           >
             GitHub Stats
           </RevealItem>

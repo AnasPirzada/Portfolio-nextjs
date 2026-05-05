@@ -1,3 +1,5 @@
+import { scrollToElementSmooth } from '@/utils/scrollRevealSupport';
+
 const SkipToContent = () => {
   return (
     <a
@@ -9,7 +11,7 @@ const SkipToContent = () => {
         const target = document.getElementById('home');
         if (target) {
           target.focus();
-          target.scrollIntoView({ behavior: 'smooth' });
+          scrollToElementSmooth(target);
         }
       }}
     >

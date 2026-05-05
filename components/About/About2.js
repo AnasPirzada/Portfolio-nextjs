@@ -2,7 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useLayoutEffect, useRef } from 'react';
 
-const About2 = ({ clientHeight }) => {
+const About2 = () => {
   const sectionRef = useRef(null);
   const quoteRef = useRef(null);
 
@@ -32,14 +32,10 @@ const About2 = ({ clientHeight }) => {
 
   return (
     <section ref={sectionRef} className="w-full relative select-none">
-      <div
-        className={`${
-          clientHeight > 650 ? 'py-10 md:py-20' : 'py-10 md:py-20'
-        } section-container`}
-      >
+      <div className="py-6 md:py-12 section-container">
         <h1
           ref={quoteRef}
-          className="font-medium text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-center px-4 sm:px-6"
+          className="font-medium text-5xl sm:text-6xl md:text-6xl lg:text-6xl xl:text-6xl 2xl:text-6xl text-center px-4 sm:px-6"
         >
           As a Full Stack Developer and AI Expert, I have a{' '}
           <span

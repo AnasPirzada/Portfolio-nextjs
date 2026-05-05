@@ -199,7 +199,7 @@ const Footer = () => {
 
       <div className="relative z-10 section-container pt-14 pb-10 md:pt-20 md:pb-14">
         <div className="mb-12 flex flex-col items-center text-center md:mb-16">
-          <h2 className="footer-text-glow mb-3 text-4xl font-black tracking-tight md:text-6xl lg:text-7xl">
+          <h2 className="footer-text-glow mb-3 text-4xl font-black tracking-tight md:text-5xl lg:text-6xl xl:text-6xl">
             Ready to build?
           </h2>
           <p className="mb-8 max-w-lg text-sm text-gray-600 dark:text-gray-400 md:text-base">

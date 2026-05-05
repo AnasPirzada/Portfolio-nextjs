@@ -17,7 +17,9 @@ const Custom404 = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
       <div className="text-center">
-        <h1 className="text-8xl font-bold text-accent-light mb-4">404</h1>
+        <h1 className="text-[clamp(3.5rem,12vw,6rem)] font-bold text-accent-light mb-4">
+          404
+        </h1>
         <h2 className="text-3xl font-semibold mb-4">Page Not Found</h2>
         <p className="text-xl text-gray-300 mb-8 max-w-md">
           The page you&apos;re looking for doesn&apos;t exist. Redirecting to

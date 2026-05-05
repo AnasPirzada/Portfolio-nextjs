@@ -3,22 +3,14 @@ import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import Menu from '@/components/Header/Menu/Menu';
 import Meta from '@/components/Meta/Meta';
+import { useDevice } from '@/contexts/DeviceContext';
 import { motion } from 'framer-motion';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { BLOGS, METADATA } from '../constants';
 
 export default function BlogsIndex() {
-  const [isDesktop, setIsDesktop] = useState(true);
-
-  useEffect(() => {
-    const { orientation } = window;
-    const result =
-      typeof orientation === 'undefined' &&
-      navigator.userAgent.indexOf('IEMobile') === -1;
-    setIsDesktop(result);
-  }, []);
+  const device = useDevice();
 
   const sorted = [...BLOGS].sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -129,7 +121,7 @@ export default function BlogsIndex() {
       <Header>
         <Menu />
       </Header>
-      <Cursor isDesktop={isDesktop} />
+      <Cursor isDesktop={device.isDesktop && device.isDesktopUa} />
       <main className="section-container pt-24 pb-16">
         {/* Page Header with animation */}
         <motion.div

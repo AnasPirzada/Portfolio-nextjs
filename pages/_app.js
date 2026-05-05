@@ -61,9 +61,11 @@ const App = ({ Component, pageProps }) => {
     };
   }, [router]);
 
-  // Native scroll / wheel path (no Lenis): keep ScrollTrigger in sync on all laptops and tablets.
+  // When Lenis is active it already drives ScrollTrigger via lenis.on('scroll').
+  // Calling ScrollTrigger.update on both Lenis and native scroll duplicates work and can stutter.
   useEffect(() => {
     const onScroll = () => {
+      if (typeof window !== 'undefined' && window.lenis) return;
       ScrollTrigger.update();
     };
     window.addEventListener('scroll', onScroll, { passive: true });

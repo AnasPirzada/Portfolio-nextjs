@@ -5,32 +5,22 @@ import Header from '@/components/Header/Header';
 import Menu from '@/components/Header/Menu/Menu';
 import Meta from '@/components/Meta/Meta';
 import ProgressIndicator from '@/components/ProgressIndicator/ProgressIndicator';
+import { useDevice } from '@/contexts/DeviceContext';
 import { METADATA, PROJECTS } from '@/constants';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.config({ nullTargetWarn: false });
 
 export default function ProjectsPage() {
-  const [isDesktop, setIsDesktop] = useState(true);
-  const [clientHeight, setClientHeight] = useState(0);
-  const [clientWidth, setClientWidth] = useState(0);
+  const device = useDevice();
 
   useEffect(() => {
-    const { innerWidth, innerHeight, orientation, history } = window;
-
-    const result =
-      typeof orientation === 'undefined' &&
-      navigator.userAgent.indexOf('IEMobile') === -1;
-    history.scrollRestoration = 'manual';
-
-    setIsDesktop(result);
-    setClientHeight(innerHeight);
-    setClientWidth(innerWidth);
-  }, [isDesktop]);
+    window.history.scrollRestoration = 'manual';
+  }, []);
 
   // SEO data
   const pageTitle = 'Projects Portfolio';
@@ -118,7 +108,7 @@ export default function ProjectsPage() {
         <Menu />
       </Header>
       <ProgressIndicator />
-      <Cursor isDesktop={isDesktop} />
+      <Cursor isDesktop={device.isDesktop && device.isDesktopUa} />
       <main className="flex flex-col">
         <MainPage />
       </main>

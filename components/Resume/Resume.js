@@ -35,7 +35,7 @@ const Resume = () => {
           </RevealItem>
           <RevealItem
             as={m.h1}
-            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit"
+            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-6xl mt-2 font-medium text-gradient w-fit"
           >
             Download My CV
           </RevealItem>

@@ -100,11 +100,12 @@ const Projects = memo(
           trigger: sectionRef.current,
           start: 'top top',
           end: `+=${endPoint}`,
-          scrub: 0.5, // Smoother, more responsive animation
+          // Lenis already smooths wheel input; extra scrub lag feels sticky / doubled.
+          scrub: true,
           pin: true,
           animation: timeline,
           pinSpacing: true,
-          anticipatePin: 1,
+          anticipatePin: 0,
           invalidateOnRefresh: true,
           onUpdate: updateCardDepth,
           // Don't reset on leave - keep cards at their final position
@@ -197,7 +198,7 @@ const Projects = memo(
             </RevealItem>
             <RevealItem
               as={m.h1}
-              className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit"
+              className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-6xl mt-2 font-medium text-gradient w-fit"
             >
               My Projects
             </RevealItem>

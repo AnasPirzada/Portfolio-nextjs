@@ -783,23 +783,16 @@ html {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 
-  @media (min-width: 320px) {
-    font-size: 14px;
-  }
+  /* Base — mobile first */
+  font-size: 14px;
+
   @media (min-width: 768px) {
     font-size: 15px;
   }
+
+  /* Laptop+ : fluid root so rem-based Tailwind type scales gently and caps on 4K / ultrawide */
   @media (min-width: 1024px) {
-    font-size: 16px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 18px;
-  }
-  @media (min-width: 1800px) {
-    font-size: 20px;
-  }
-  @media (min-width: 2000px) {
-    font-size: 22px;
+    font-size: clamp(15px, 0.11vw + 14.75px, 17px);
   }
 }
 

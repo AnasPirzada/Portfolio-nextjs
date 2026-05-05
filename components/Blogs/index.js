@@ -131,7 +131,7 @@ const Blogs = ({ clientHeight }) => {
             </RevealItem>
             <RevealItem
               as={m.h2}
-              className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl mt-2 font-medium text-gradient w-fit"
+              className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-6xl mt-2 font-medium text-gradient w-fit"
             >
               Latest Writing
             </RevealItem>

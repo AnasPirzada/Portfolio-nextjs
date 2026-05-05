@@ -41,12 +41,12 @@ const useSmoothScroll = () => {
       gsap.ticker.lagSmoothing(0);
 
       const instance = new Lenis({
-        duration: 1.1,
+        duration: 1.05,
         easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,
-        wheelMultiplier: 0.8,
+        wheelMultiplier: 1,
         touchMultiplier: 1,
         infinite: false,
       });

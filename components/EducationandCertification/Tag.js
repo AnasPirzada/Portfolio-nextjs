@@ -63,7 +63,7 @@ const Tag = () => {
       <div className="pt-0 pb-10 md:py-20 section-container">
         <h1
           ref={quoteRef}
-          className="font-medium text-4xl sm:text-5xl md:text-4xl lg:text-6xl xl:text-[4rem] text-center px-4 sm:px-6 leading-relaxed text-gray-dark-1 dark:text-white"
+          className="font-medium text-4xl sm:text-5xl md:text-4xl lg:text-6xl xl:text-6xl text-center px-4 sm:px-6 leading-relaxed text-gray-dark-1 dark:text-white"
           style={{ minHeight: '120px', display: 'block' }}
         >
           I turn{' '}
@@ -72,7 +72,7 @@ const Tag = () => {
             morphTime={1}
             cooldownTime={0.25}
             className="mx-1 align-baseline sm:mx-2"
-            textClassName="font-bold text-4xl sm:text-5xl md:text-4xl lg:text-6xl xl:text-[4rem] leading-relaxed text-accent-light dark:text-GoldenGlow-light"
+            textClassName="font-bold text-4xl sm:text-5xl md:text-4xl lg:text-6xl xl:text-6xl leading-relaxed text-accent-light dark:text-GoldenGlow-light"
           />{' '}
           into meaningful creations, one project at a time
         </h1>

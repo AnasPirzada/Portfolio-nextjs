@@ -93,7 +93,7 @@ const About1 = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full relative select-none -mt-10 md:mt-0"
+      className="w-full relative select-none -mt-6 md:mt-0"
     >
       <style jsx>{`
         .about-1-section .about-3 {
@@ -104,18 +104,18 @@ const About1 = () => {
           color: inherit !important;
         }
       `}</style>
-      <div className="pt-12 pb-6 md:py-20 section-container about-1-section">
+      <div className="pt-8 pb-5 md:max-lg:py-8 md:pt-10 md:pb-8 lg:py-12 section-container about-1-section">
         <RevealStagger className="flex flex-col items-center">
           <RevealItem
             as={m.p}
-            className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base text-center mb-4"
+            className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base text-center mb-3"
           >
             ABOUT ME
           </RevealItem>
           <RevealItem
             as={m.h1}
             ref={quoteRef}
-            className="font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center leading-relaxed px-4 sm:px-6 md:px-0 text-white dark:text-white"
+            className="font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl text-center leading-relaxed px-4 sm:px-6 md:px-0 text-white dark:text-white"
           >
             <span className="about-1 leading-tight block mb-4">
               I&apos;m a passionate{' '}
@@ -124,7 +124,7 @@ const About1 = () => {
               who&apos;s focused on building scalable and performant
               applications.
             </span>
-            <span className="about-2 leading-tight block mb-4">
+            <span className="about-2 leading-tight block mb-3">
               I strive to deliver seamless user experiences by embracing modern
               frontend practices,{' '}
               <span className="text-accent-light">AI integration</span>, and

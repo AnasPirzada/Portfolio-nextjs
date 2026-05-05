@@ -1,6 +1,10 @@
 import { useMotionTier } from '@/lib/motionTier';
 import { pickFadeUpVariant, pickStaggerContainer } from '@/lib/motionVariants';
-import { prefersReducedMotion } from '@/utils/scrollRevealSupport';
+import
+  {
+    prefersReducedMotion,
+    scrollToElementSmooth,
+  } from '@/utils/scrollRevealSupport';
 import { m, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import gsap from 'gsap';
 import Image from 'next/image';
@@ -36,19 +40,21 @@ const Hero = () => {
   const imageParallax = useTransform(
     scrollYProgress,
     [0, 1],
-    reduceMotion === true
+    reduceMotion === true || tier === 'tablet'
       ? [0, 0]
       : tier === 'full'
         ? [0, 72]
-        : tier === 'lite'
-          ? [0, 36]
-          : [0, 0]
+        : [0, 36]
   );
 
   const textParallax = useTransform(
     scrollYProgress,
     [0, 1],
-    reduceMotion === true ? [0, 0] : tier === 'full' ? [0, -44] : [0, -20]
+    reduceMotion === true || tier === 'tablet'
+      ? [0, 0]
+      : tier === 'full'
+        ? [0, -44]
+        : [0, -20]
   );
 
   const blobParallax = useTransform(
@@ -60,7 +66,11 @@ const Hero = () => {
   const particleDrift = useTransform(
     scrollYProgress,
     [0, 1],
-    reduceMotion === true ? [0, 0] : tier === 'full' ? [0, 28] : [0, 12]
+    reduceMotion === true || tier === 'tablet'
+      ? [0, 0]
+      : tier === 'full'
+        ? [0, 28]
+        : [0, 12]
   );
 
   const staggerParent = pickStaggerContainer(
@@ -73,6 +83,12 @@ const Hero = () => {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       if (prefersReducedMotion()) {
+        return;
+      }
+      if (
+        typeof window !== 'undefined' &&
+        window.matchMedia('(max-width: 1023px)').matches
+      ) {
         return;
       }
 
@@ -128,7 +144,7 @@ const Hero = () => {
     <m.section
       ref={sectionRef}
       id={MENULINKS[0].ref}
-      className="relative mb-0 flex w-full max-w-[1400px] min-h-[70vh] flex-col justify-center overflow-hidden px-4 py-6 max-sm:justify-start max-sm:pt-24 max-sm:pb-10 sm:justify-center sm:px-6 sm:py-10 md:min-h-screen md:px-10 md:py-8 lg:min-h-[min(100vh,56rem)] lg:py-12 lg:pl-10 lg:pr-12 xl:px-16 2xl:px-20 md:mb-24 mx-auto"
+      className="relative mb-0 flex w-full max-w-[1400px] min-h-[58vh] flex-col justify-center overflow-hidden px-4 max-sm:justify-start max-sm:pt-28 max-sm:pb-6 sm:justify-center sm:px-6 sm:pt-28 sm:pb-7 md:max-lg:min-h-[52vh] md:max-lg:py-10 md:min-h-[88vh] md:px-10 md:pt-24 md:pb-6 md:max-lg:mb-8 lg:min-h-[min(88vh,44rem)] lg:pt-24 lg:pb-8 lg:pl-10 lg:pr-12 xl:px-16 xl:pt-28 2xl:px-20 md:mb-12 mx-auto scroll-mt-24 md:scroll-mt-28"
     >
       {/* Large-screen ambient layers (dark mode only — avoids warm gold wash in light mode) */}
       <div className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:dark:block">
@@ -146,7 +162,7 @@ const Hero = () => {
       </div>
 
       <m.div
-        className="pointer-events-none absolute inset-0 hidden overflow-hidden dark:block"
+        className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:dark:block"
         style={{ y: particleDrift }}
       >
         <div className="floating-particle absolute left-10 top-20 h-3 w-3 rounded-full bg-accent-light opacity-40" />
@@ -169,16 +185,21 @@ const Hero = () => {
             font-size: 2.75rem;
           }
         }
-        @media (min-width: 768px) {
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .typed-cursor {
+            font-size: 1.125rem;
+          }
+        }
+        @media (min-width: 1024px) {
           .typed-cursor {
             font-size: 2rem;
           }
         }
       `}</style>
 
-      <div className="relative z-10 flex w-full flex-col items-start gap-10 md:gap-12 lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-14">
+      <div className="relative z-10 flex w-full flex-col items-start gap-8 md:max-lg:gap-6 md:gap-10 lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-8 xl:gap-x-10">
         <m.div
-          className="flex w-full flex-col justify-center text-left select-none md:max-w-[50%] lg:col-span-5 lg:max-w-none"
+          className="flex w-full max-w-full flex-col justify-center text-left select-none lg:col-span-5 lg:max-w-none"
           style={{
             pointerEvents: 'auto',
             y: textParallax,
@@ -189,13 +210,13 @@ const Hero = () => {
         >
           <m.h5
             variants={itemVariant}
-            className={`${styles.intro} mb-3 font-mono font-medium text-GoldenGlow-light text-sm sm:mb-4 sm:text-base md:mb-6 md:text-base lg:mb-7 lg:text-lg`}
+            className={`${styles.intro} mb-3 font-mono font-medium text-GoldenGlow-light text-sm sm:mb-4 sm:text-base md:max-lg:mb-3 md:max-lg:text-xs md:mb-6 md:text-base lg:mb-7 lg:text-lg`}
           >
             Hi, I&apos;m
           </m.h5>
           <m.h1
             variants={itemVariant}
-            className={`${styles.heroName} mb-2 text-3xl font-semibold leading-tight text-white sm:mb-3 sm:text-4xl md:mb-4 md:text-5xl lg:mb-5 lg:text-6xl 2xl:text-7xl`}
+            className={`${styles.heroName} mb-2 text-3xl font-semibold leading-tight text-white sm:mb-3 sm:text-4xl md:max-lg:mb-3 md:max-lg:text-4xl md:mb-4 md:text-5xl lg:mb-5 lg:text-6xl 2xl:text-6xl`}
           >
             <span className={`relative ${styles.emphasize}`}>Anas</span>
             <span> Pirzada</span>
@@ -206,7 +227,7 @@ const Hero = () => {
           >
             <span
               ref={typedElementRef}
-              className="inline-block min-h-[2rem] max-w-full break-words font-mono text-lg leading-relaxed text-gray-light-3 sm:min-h-[2.5rem] sm:text-xl md:min-h-[3rem] md:text-2xl lg:text-2xl"
+              className="inline-block min-h-[2rem] max-w-full break-words font-mono text-lg leading-relaxed text-gray-light-3 sm:min-h-[2.5rem] sm:text-xl md:max-lg:min-h-[1.75rem] md:max-lg:text-lg md:min-h-[3rem] md:text-2xl lg:text-2xl"
             />
           </m.p>
           <m.div
@@ -219,8 +240,8 @@ const Hero = () => {
             variants={itemVariant}
             className="relative z-10 pt-2"
             style={{ pointerEvents: 'auto' }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
+            onMouseMove={tier === 'tablet' ? undefined : handleMouseMove}
+            onMouseLeave={tier === 'tablet' ? undefined : handleMouseLeave}
           >
             <Button
               href="#"
@@ -256,7 +277,7 @@ const Hero = () => {
                   console.warn('Please update CALENDLY_URL in constants.js');
                   const contactSection = document.getElementById('contact');
                   if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                    scrollToElementSmooth(contactSection);
                   }
                 }
               }}
@@ -275,23 +296,19 @@ const Hero = () => {
         </m.div>
 
         <m.div
-          className="relative z-0 flex w-full justify-center md:mt-0 md:flex md:max-w-none md:justify-end lg:col-span-7 lg:justify-end xl:translate-x-4 2xl:translate-x-6"
+          className="relative z-0 flex w-full justify-center md:mt-0 md:flex md:max-w-none md:justify-end md:max-lg:mx-auto lg:col-span-7 lg:justify-end xl:translate-x-4 2xl:translate-x-6 md:max-lg:max-h-[40vh] max-h-[82vh] lg:max-h-[82vh]"
           style={{
             width: '100%',
-            maxHeight: '95vh',
             pointerEvents: 'none',
             y: imageParallax,
           }}
         >
           <div
-            className="flex w-full max-w-lg flex-col items-stretch justify-end gap-2 pt-2 sm:gap-3 sm:pt-0 md:max-w-none md:items-end"
-            style={{
-              width: 'clamp(320px, 88vw, 800px)',
-            }}
+            className="flex w-full max-w-lg flex-col items-stretch justify-end gap-2 pt-2 sm:gap-3 sm:pt-0 md:max-lg:max-w-[400px] md:max-lg:w-full md:max-w-none md:items-end lg:w-[clamp(320px,88vw,800px)] lg:max-w-none"
           >
             {/* In document flow above the art — avoids covering the face */}
             <m.div
-              className="z-20 flex w-full shrink-0 justify-center sm:justify-end md:pr-1 lg:pr-2"
+              className="z-20 flex w-full shrink-0 justify-center sm:justify-end md:max-lg:scale-[0.92] md:pr-1 lg:pr-2"
               style={{ pointerEvents: 'auto' }}
               initial={
                 reduceMotion ? false : { opacity: 0, y: 12, scale: 0.96 }
@@ -300,8 +317,8 @@ const Hero = () => {
                 reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }
               }
               transition={{
-                delay: reduceMotion ? 0 : 0.5,
-                duration: 0.5,
+                delay: reduceMotion ? 0 : tier === 'tablet' ? 0.15 : 0.5,
+                duration: tier === 'tablet' ? 0.35 : 0.5,
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
@@ -313,7 +330,7 @@ const Hero = () => {
                 alt="Anas Pirzada - Developer illustration"
                 width={1152}
                 height={768}
-                className={`h-auto w-full max-h-[min(95vh,52rem)] object-contain ${styles.heroImage}`}
+                className={`h-auto w-full max-h-[min(95vh,52rem)] object-contain md:max-lg:max-h-[36vh] ${styles.heroImage}`}
                 style={{
                   maxWidth: '100%',
                 }}

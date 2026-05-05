@@ -10,7 +10,8 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { useDevice } from '@/contexts/DeviceContext';
 import { METADATA, PROJECTS } from '@/constants';
 import styles from './ProjectDetail.module.scss';
 
@@ -25,9 +26,7 @@ function formatTechLabel(tech) {
 export default function ProjectDetailPage() {
   const router = useRouter();
   const { slug } = router.query;
-  const [isDesktop, setIsDesktop] = useState(true);
-  const [clientHeight, setClientHeight] = useState(0);
-  const [clientWidth, setClientWidth] = useState(0);
+  const device = useDevice();
 
   // Refs for GSAP animations
   const heroTitleRef = useRef(null);
@@ -49,17 +48,8 @@ export default function ProjectDetailPage() {
   );
 
   useEffect(() => {
-    const { innerWidth, innerHeight, orientation, history } = window;
-
-    const result =
-      typeof orientation === 'undefined' &&
-      navigator.userAgent.indexOf('IEMobile') === -1;
-    history.scrollRestoration = 'manual';
-
-    setIsDesktop(result);
-    setClientHeight(innerHeight);
-    setClientWidth(innerWidth);
-  }, [isDesktop]);
+    window.history.scrollRestoration = 'manual';
+  }, []);
 
   // GSAP Reveal Animations
   useEffect(() => {
@@ -321,7 +311,7 @@ export default function ProjectDetailPage() {
           <Menu />
         </Header>
         <ProgressIndicator />
-        <Cursor isDesktop={isDesktop} />
+        <Cursor isDesktop={device.isDesktop && device.isDesktopUa} />
         <main className="flex flex-col min-h-screen items-center justify-center">
           <div className="text-center">
             <h1 className="text-6xl font-bold text-gradient mb-4">404</h1>
@@ -433,7 +423,7 @@ export default function ProjectDetailPage() {
         <Menu />
       </Header>
       <ProgressIndicator />
-      <Cursor isDesktop={isDesktop} />
+      <Cursor isDesktop={device.isDesktop && device.isDesktopUa} />
       <main className={styles.page} style={pageAccentStyle}>
         {/* Hero */}
         <section className={styles.hero}>

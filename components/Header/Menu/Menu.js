@@ -2,6 +2,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { MENULINKS } from '../../../constants';
+import { scrollToElementSmooth } from '@/utils/scrollRevealSupport';
 
 const Menu = () => {
   useEffect(() => {
@@ -15,7 +16,7 @@ const Menu = () => {
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
+          scrollToElementSmooth(targetElement);
         }
 
         const checkbox = document.querySelector('.checkbox-toggle');
