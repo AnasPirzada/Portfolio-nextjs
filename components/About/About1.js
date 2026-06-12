@@ -115,7 +115,7 @@ const About1 = () => {
           <RevealItem
             as={m.h1}
             ref={quoteRef}
-            className="font-medium text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl text-center leading-relaxed px-4 sm:px-6 md:px-0 text-white dark:text-white"
+            className="font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl text-center leading-relaxed px-2 sm:px-6 md:px-0 text-white dark:text-white"
           >
             <span className="about-1 leading-tight block mb-4">
               I&apos;m a passionate{' '}

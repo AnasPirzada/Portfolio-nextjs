@@ -1,36 +1,36 @@
 export const METADATA = {
   author: 'Anas Pirzada',
   title:
-    'Anas Pirzada - Full Stack Developer & AI Expert | React.js & Next.js Specialist',
+    'Hire Full Stack Developer | Fix Broken Web Apps & Build Startup Ideas | Anas Pirzada',
   description:
-    'Anas Pirzada is a Full Stack Developer and AI Expert specializing in React.js, Next.js, and Machine Learning. With 5+ years of experience, he creates scalable web applications and AI-powered solutions. View his portfolio of modern web projects.',
+    'Trusted by 50+ clients worldwide. Anas Pirzada is a full stack developer who fixes broken React/Next.js apps and builds startup products from scratch. 5★ rated. Free 30-min consultation.',
   siteUrl: 'https://anaspirzada.vercel.app/',
   twitterHandle: '@Anas_Pirzada1',
   keywords: [
+    'hire full stack developer',
+    'fix broken web app',
+    'build startup idea',
+    'hire React developer',
+    'Next.js developer for hire',
+    'freelance React developer',
+    'startup MVP development',
+    'vibe coding fix',
+    'web app debugging',
+    'full stack development services',
+    'hire web developer',
+    'web app development company',
     'Anas Pirzada',
-    'Full Stack Developer',
-    'Frontend Engineer',
-    'AI Expert',
-    'Machine Learning Developer',
-    'React.js Developer',
-    'Next.js Specialist',
-    'Software Engineer',
-    'Web Developer',
-    'JavaScript Developer',
-    'TypeScript Developer',
-    'Node.js Developer',
-    'Python Developer',
-    'AI Integration',
-    'Portfolio',
-    'Web Development Services',
-    'Modern Web Solutions',
-    'Responsive Web Design',
-    'UI/UX Developer',
-    'Laravel Developer',
-    'Django Developer',
-    'Firebase Developer',
-    'MongoDB Developer',
-    'MySQL Developer',
+    'React.js developer',
+    'Next.js specialist',
+    'Node.js developer',
+    'Python developer',
+    'Laravel developer',
+    'Django developer',
+    'Firebase developer',
+    'MongoDB developer',
+    'AI integration developer',
+    'fix my app developer',
+    'build my app developer',
   ].join(', '),
   image:
     'https://res.cloudinary.com/di6tubsu9/image/upload/v1737926697/jb3dfhw9wxmozff6j56w.png',
@@ -44,24 +44,20 @@ export const MENULINKS = [
     ref: 'home',
   },
   {
-    name: 'Skills',
-    ref: 'skills',
-  },
-  {
-    name: 'Projects',
-    ref: 'projects',
-  },
-  {
-    name: 'Education',
-    ref: 'education',
+    name: 'Services',
+    ref: 'services',
   },
   {
     name: 'Work',
-    ref: 'work',
+    ref: 'projects',
   },
   {
-    name: 'Blogs',
-    ref: 'blogs',
+    name: 'Reviews',
+    ref: 'reviews',
+  },
+  {
+    name: 'FAQ',
+    ref: 'faq',
   },
   {
     name: 'Contact',
@@ -70,12 +66,12 @@ export const MENULINKS = [
 ];
 
 export const TYPED_STRINGS = [
-  'Full Stack Developer & AI Expert',
-  'Crafting modern web solutions',
-  'Building AI-powered apps',
-  'Creating digital experiences',
-  'Designing seamless UI/UX',
-  'ML integration specialist',
+  'I fix broken web apps',
+  'I build your startup idea',
+  'Your vibe-coded app, cleaned up',
+  'React & Next.js developer for hire',
+  'From idea to live product',
+  'No app too broken to fix',
 ];
 
 export const SOCIAL_LINKS = [
@@ -106,6 +102,96 @@ export const SOCIAL_LINKS = [
 ];
 
 export const CALENDLY_URL = 'https://calendly.com/anaspirzada/30min';
+
+export const SERVICES = [
+  {
+    id: 'fix',
+    title: 'Fix My App',
+    tagline: 'Your broken app, fixed fast',
+    description:
+      "Got a vibe-coded mess or a web app that's falling apart? I'll audit, debug, and deliver a clean, stable codebase — fast.",
+    features: [
+      'Bug diagnosis & root cause analysis',
+      'Performance bottleneck removal',
+      'Code cleanup & refactoring',
+      'Security vulnerability fixes',
+      'Deployment & hosting troubleshooting',
+    ],
+    price: 'From $149',
+    badge: 'Most Popular',
+    cta: 'Get a Free Quote',
+    icon: 'wrench',
+  },
+  {
+    id: 'build',
+    title: 'Build My Idea',
+    tagline: 'From napkin sketch to live product',
+    description:
+      "You have the idea — I'll handle everything from UI/UX design to backend, database, and deployment. Ship in weeks, not months.",
+    features: [
+      'Full stack web application development',
+      'UI/UX design & prototyping',
+      'REST API & database architecture',
+      'Third-party integrations (Stripe, Auth, AI)',
+      'Deployment, CI/CD & monitoring setup',
+    ],
+    price: 'From $499',
+    badge: null,
+    cta: 'Start Building',
+    icon: 'rocket',
+  },
+  {
+    id: 'scale',
+    title: 'Scale My Platform',
+    tagline: 'Add features without breaking things',
+    description:
+      "Your MVP is live and growing — now it needs new features, better architecture, and performance tuning to handle real traffic.",
+    features: [
+      'Feature development & product roadmap',
+      'Architecture review & improvements',
+      'AI & automation integrations',
+      'Performance & load optimization',
+      'Ongoing maintenance & support',
+    ],
+    price: 'Custom quote',
+    badge: 'Enterprise',
+    cta: 'Book a Call',
+    icon: 'chart',
+  },
+];
+
+export const FAQ = [
+  {
+    question: 'How much does it cost to fix a broken web app?',
+    answer:
+      'Fixing a broken web app starts from $149 depending on complexity. Simple bugs or UI issues take 1–3 days. Complex problems — broken auth, database errors, performance issues — usually take 3–7 days. I provide a free 30-minute consultation and a clear quote before starting any work.',
+  },
+  {
+    question: 'How long does it take to build a web app from scratch?',
+    answer:
+      "A basic MVP can be delivered in 2–4 weeks. A full-featured web application with authentication, dashboards, and integrations takes 4–10 weeks. I'll give you a clear roadmap and weekly progress updates from day one.",
+  },
+  {
+    question: 'What tech stack do you use?',
+    answer:
+      'I specialize in the modern JavaScript stack: React.js and Next.js for the frontend, Node.js with Express for the backend, and databases like MongoDB, PostgreSQL, and MySQL. I also work with Python (Django, FastAPI), Laravel (PHP), Firebase, and AI integrations (OpenAI, LangChain).',
+  },
+  {
+    question: 'Do you work with existing codebases?',
+    answer:
+      "Yes — most clients come with existing projects that need fixing or extending. I'm experienced with inheriting messy, undocumented codebases. I'll audit your code, document what's there, then fix or rebuild the problem areas cleanly.",
+  },
+  {
+    question: 'How do we start working together?',
+    answer:
+      "Book a free 30-minute consultation via the link below. I'll review your app or idea, ask the right questions, and give you an honest assessment with a clear scope and quote. No sales pitch — just practical advice on what your project needs.",
+  },
+  {
+    question: 'Are you available for ongoing maintenance and support?',
+    answer:
+      'Yes. After delivering your project, I offer retainer packages for maintenance, feature additions, and technical support. Many clients keep me as their dedicated developer for months or years after the initial build.',
+  },
+];
 
 export const SKILLS = {
   languagesAndTools: [

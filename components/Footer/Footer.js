@@ -27,7 +27,7 @@ const scrollToTop = () => {
 };
 
 const MarqueeStrip = () => (
-  <div className="flex w-max animate-footer-scroll-marquee text-[10px] md:text-xs font-bold tracking-[0.28em] uppercase text-gray-500 dark:text-gray-500">
+  <div className="flex w-max animate-footer-scroll-marquee text-xs font-bold tracking-[0.22em] uppercase text-gray-500 dark:text-gray-500">
     <div className="flex items-center gap-10 px-8 shrink-0">
       <span>Full Stack</span>
       <span className="text-accent-light/70">✦</span>
@@ -71,7 +71,7 @@ const SocialCard = ({ title, subtitle, href, iconName, index }) => {
       transition={{ delay: index * 0.08 }}
       whileHover={{ y: -4 }}
       whileTap={{ scale: 0.98 }}
-      className="w-full p-5 rounded-xl border border-gray-800/80 relative overflow-hidden group bg-gray-900/35 dark:bg-gray-900/40 backdrop-blur-sm hover:border-accent-light/45 hover:shadow-lg hover:shadow-accent-light/10 transition-all duration-300 link min-h-[130px]"
+      className="w-full p-4 sm:p-5 rounded-xl border border-gray-800/80 relative overflow-hidden group bg-gray-900/35 dark:bg-gray-900/40 backdrop-blur-sm hover:border-accent-light/45 hover:shadow-lg hover:shadow-accent-light/10 transition-all duration-300 link min-h-[110px] sm:min-h-[130px]"
       aria-label={title}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-accent-light to-accent-dark translate-y-[100%] group-hover:translate-y-[0%] transition-transform duration-300 opacity-10" />
@@ -121,11 +121,11 @@ const Footer = () => {
 
   const quickLinks = [
     { name: 'Home', ref: MENULINKS[0].ref },
-    { name: 'Skills', ref: MENULINKS[1].ref },
-    { name: 'Projects', ref: MENULINKS[2].ref },
-    { name: 'Education', ref: MENULINKS[3].ref },
-    { name: 'Work', ref: MENULINKS[4].ref },
-    { name: 'Contact', ref: MENULINKS[6].ref },
+    { name: 'Services', ref: MENULINKS[1].ref },
+    { name: 'Work', ref: MENULINKS[2].ref },
+    { name: 'Reviews', ref: MENULINKS[3].ref },
+    { name: 'FAQ', ref: MENULINKS[4].ref },
+    { name: 'Contact', ref: MENULINKS[5].ref },
   ];
 
   const services = [
@@ -232,7 +232,7 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.55 }}
-          className="mb-14 grid grid-cols-2 gap-x-6 gap-y-12 md:gap-12 lg:grid-cols-4 lg:gap-14"
+          className="mb-10 sm:mb-14 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-12 md:gap-12 lg:grid-cols-4 lg:gap-14"
         >
           <div className="col-span-2 space-y-5 md:col-span-1">
             <h3 className="bg-gradient-to-r from-accent-light via-accent-dark to-accent-light bg-clip-text text-2xl font-bold text-transparent">
@@ -349,7 +349,7 @@ const Footer = () => {
             <h5 className="text-lg font-semibold tracking-wide text-gray-900 dark:text-white">
               Connect With Me
             </h5>
-            <div className="grid w-full max-w-5xl grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6">
+            <div className="grid w-full max-w-5xl grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6">
               {SOCIAL_LINKS.map((social, index) => {
                 const cardData = socialCardsData[social.name] || {
                   title: social.name,

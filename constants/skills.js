@@ -1,10 +1,10 @@
 export const TYPED_STRINGS = [
-  'Full Stack Developer & AI Expert',
-  'Crafting modern web solutions',
-  'Building AI-powered apps',
-  'Creating digital experiences',
-  'Designing seamless UI/UX',
-  'ML integration specialist',
+  'I fix broken web apps',
+  'I build your startup idea',
+  'Your vibe-coded app, cleaned up',
+  'React & Next.js developer for hire',
+  'From idea to live product',
+  'No app too broken to fix',
 ];
 
 export const SKILLS = {

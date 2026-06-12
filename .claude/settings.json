@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 5)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/tailwindcss/package.json'\\).version\\)\")",
+      "PowerShell(Start-Process \"http://localhost:3000/#projects\")",
+      "PowerShell(Start-Process \"http://localhost:3000\")"
+    ]
+  }
+}

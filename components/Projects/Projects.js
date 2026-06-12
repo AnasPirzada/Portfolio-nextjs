@@ -149,8 +149,9 @@ const Projects = memo(
         const projectWrapper =
           sectionRef.current.querySelector('.project-wrapper');
         if (projectWrapper) {
-          projectWrapper.style.width = 'calc(100vw - 1rem)';
-          projectWrapper.style.overflowX = 'scroll';
+          projectWrapper.style.width = '100%';
+          projectWrapper.style.overflowX = 'auto';
+          projectWrapper.style.WebkitOverflowScrolling = 'touch';
         }
       }
 
@@ -175,8 +176,8 @@ const Projects = memo(
         ref={sectionRef}
         id={MENULINKS[2].ref}
         className={`${
-          isDesktop ? 'min-h-screen' : ''
-        } relative w-full select-none overflow-hidden section-container`}
+          isDesktop ? 'min-h-screen overflow-hidden' : ''
+        } relative w-full select-none section-container`}
       >
         <div
           className="pointer-events-none absolute inset-0 hidden lg:block"
@@ -225,8 +226,8 @@ const Projects = memo(
             className={`${clientHeight > 650 ? 'mt-12' : 'mt-8'} ${
               isDesktop
                 ? 'flex project-wrapper no-scrollbar w-fit'
-                : 'flex flex-row gap-4 sm:gap-6 w-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-4 px-4 sm:px-0 mobile-projects-scroll touch-pan-x'
-            } mb-4 md:mb-16`}
+                : 'flex flex-row gap-3 sm:gap-5 w-full overflow-x-auto overflow-y-visible snap-x snap-mandatory pb-6 px-1 mobile-projects-scroll touch-pan-x'
+            } mb-2 md:mb-16`}
             style={
               !isDesktop
                 ? {

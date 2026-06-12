@@ -338,7 +338,7 @@ const Contact = () => {
 
   return (
     <section
-      id={MENULINKS[6].ref}
+      id={MENULINKS[5].ref}
       className="w-full relative select-none bg-light-bg dark:bg-black py-10 md:py-20"
     >
       <div>
@@ -368,13 +368,13 @@ const Contact = () => {
           </RevealItem>
         </RevealStagger>
 
-        <form className="pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem] max-w-full px-0">
+        <form className="pt-8 sm:pt-10 w-full sm:mx-auto sm:w-[30rem] md:w-[35rem] max-w-full px-0">
           <RevealFade>
             <div className="relative">
               <input
                 type="text"
                 id="name"
-                className={`block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 rounded-[0.6rem] transition-all duration-200 bg-transparent dark:bg-transparent ${
+                className={`block w-full h-12 sm:h-14 px-4 text-base sm:text-xl font-mono outline-none border-2 rounded-[0.6rem] transition-all duration-200 bg-transparent dark:bg-transparent ${
                   validationErrors.name ? 'border-red-500' : 'border-yellow'
                 }`}
                 value={formData.name}
@@ -410,11 +410,11 @@ const Contact = () => {
               )}
             </div>
 
-            <div className="relative mt-14">
+            <div className="relative mt-8 sm:mt-14">
               <input
                 type="email"
                 id="email"
-                className={`block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 rounded-[0.6rem] transition-all duration-200 bg-transparent dark:bg-transparent ${
+                className={`block w-full h-12 sm:h-14 px-4 text-base sm:text-xl font-mono outline-none border-2 rounded-[0.6rem] transition-all duration-200 bg-transparent dark:bg-transparent ${
                   validationErrors.email ? 'border-red-500' : 'border-yellow'
                 }`}
                 value={formData.email}
@@ -449,11 +449,11 @@ const Contact = () => {
               )}
             </div>
 
-            <div className="relative mt-14">
+            <div className="relative mt-8 sm:mt-14">
               <div className="relative">
                 <textarea
                   id="message"
-                  className={`block w-full h-auto min-h-[10rem] max-h-[20rem] sm:h-14 py-2 pl-4 pr-20 pb-8 text-xl sm:text-2xl font-mono outline-none border-2 rounded-[0.6rem] transition-all duration-200 resize-none bg-transparent dark:bg-transparent ${
+                  className={`block w-full h-auto min-h-[8rem] sm:min-h-[10rem] max-h-[20rem] sm:h-14 py-2 pl-4 pr-14 sm:pr-20 pb-8 text-base sm:text-xl font-mono outline-none border-2 rounded-[0.6rem] transition-all duration-200 resize-none bg-transparent dark:bg-transparent ${
                     validationErrors.message
                       ? 'border-red-500'
                       : 'border-yellow'

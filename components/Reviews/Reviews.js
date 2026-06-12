@@ -169,7 +169,7 @@ const Reviews = () => {
           {/* Mobile Layout: Stats on top, Carousel below */}
           <div className="lg:hidden flex flex-col gap-6">
             {/* Stats Grid - Mobile Top */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {[
                 { label: 'Years Experience', value: '5+', icon: FaCalendarAlt },
                 {
@@ -189,15 +189,15 @@ const Reviews = () => {
                     viewport={defaultViewport}
                     transition={{ duration: 0.45, delay: index * 0.08 }}
                     whileHover={{ y: -4, scale: 1.02 }}
-                    className="stats-card group relative overflow-hidden rounded-2xl bg-light-surface dark:bg-gray-dark-3/50 border border-gray-light-2 dark:border-white/10 p-5 hover:border-accent-light/50 transition-all duration-300"
+                    className="stats-card group relative overflow-hidden rounded-2xl bg-light-surface dark:bg-gray-dark-3/50 border border-gray-light-2 dark:border-white/10 p-4 sm:p-5 hover:border-accent-light/50 transition-all duration-300"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-accent-light/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
-                      <IconComponent className="text-2xl mb-2 text-accent-light" />
-                      <div className="text-3xl font-bold text-gradient mb-1">
+                      <IconComponent className="text-xl sm:text-2xl mb-2 text-accent-light" />
+                      <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">
                         {stat.value}
                       </div>
-                      <div className="text-xs text-gray-light-4 dark:text-gray-light-2 uppercase tracking-wider">
+                      <div className="text-[10px] sm:text-xs text-gray-light-4 dark:text-gray-light-2 uppercase tracking-wider">
                         {stat.label}
                       </div>
                     </div>
@@ -214,7 +214,7 @@ const Reviews = () => {
               viewport={defaultViewport}
               transition={{ duration: 0.5 }}
             >
-              <div className="relative h-full min-h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br from-accent-light/10 via-transparent to-accent-dark/5 border border-gray-light-2 dark:border-white/10 p-6">
+              <div className="relative h-full min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden bg-gradient-to-br from-accent-light/10 via-transparent to-accent-dark/5 border border-gray-light-2 dark:border-white/10 p-5 sm:p-6">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-light/20 to-transparent rounded-bl-full" />
 
                 <AnimatePresence mode="wait">
@@ -276,7 +276,7 @@ const Reviews = () => {
               <div className="flex items-center gap-3">
                 <motion.button
                   onClick={prevReview}
-                  className="relative w-14 h-14 rounded-full bg-gradient-to-br from-accent-light/20 to-accent-dark/10 dark:from-accent-light/30 dark:to-accent-dark/20 border-2 border-accent-light/40 dark:border-accent-light/50 text-accent-light flex items-center justify-center overflow-hidden group shadow-lg shadow-accent-light/20"
+                  className="relative w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-accent-light/20 to-accent-dark/10 dark:from-accent-light/30 dark:to-accent-dark/20 border-2 border-accent-light/40 dark:border-accent-light/50 text-accent-light flex items-center justify-center overflow-hidden group shadow-lg shadow-accent-light/20"
                   whileHover={{
                     scale: 1.1,
                     boxShadow:
@@ -314,7 +314,7 @@ const Reviews = () => {
 
                 <motion.button
                   onClick={nextReview}
-                  className="relative w-14 h-14 rounded-full bg-gradient-to-br from-accent-light/20 to-accent-dark/10 dark:from-accent-light/30 dark:to-accent-dark/20 border-2 border-accent-light/40 dark:border-accent-light/50 text-accent-light flex items-center justify-center overflow-hidden group shadow-lg shadow-accent-light/20"
+                  className="relative w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-accent-light/20 to-accent-dark/10 dark:from-accent-light/30 dark:to-accent-dark/20 border-2 border-accent-light/40 dark:border-accent-light/50 text-accent-light flex items-center justify-center overflow-hidden group shadow-lg shadow-accent-light/20"
                   whileHover={{
                     scale: 1.1,
                     boxShadow:

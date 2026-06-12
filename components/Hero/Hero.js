@@ -174,7 +174,7 @@ const Hero = () => {
 
       <style jsx global>{`
         .typed-cursor {
-          font-size: 2.25rem;
+          font-size: 1.125rem;
           display: inline-block;
           vertical-align: baseline;
           line-height: inherit;
@@ -182,7 +182,7 @@ const Hero = () => {
         }
         @media (min-width: 640px) {
           .typed-cursor {
-            font-size: 2.75rem;
+            font-size: 1.25rem;
           }
         }
         @media (min-width: 768px) and (max-width: 1023px) {
@@ -192,7 +192,7 @@ const Hero = () => {
         }
         @media (min-width: 1024px) {
           .typed-cursor {
-            font-size: 2rem;
+            font-size: 1.5rem;
           }
         }
       `}</style>
