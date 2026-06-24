@@ -33,3 +33,17 @@ yarn-error.log*
 # vercel
 .vercel
 /.env.local
+
+# playwright mcp / browser tooling output
+.playwright-mcp/
+
+# local scratch screenshots & redesign reference images (repo root only)
+/*.png
+/*.jpg
+/*.jpeg
+
+# editor / OS
+.idea/
+.vscode/
+Thumbs.db
+*.swp

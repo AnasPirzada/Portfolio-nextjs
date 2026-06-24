@@ -146,17 +146,17 @@ const Reviews = () => {
         <div className="section-container pt-10 md:pt-20 pb-10 md:pb-20 relative z-10">
           {/* Header Section */}
           <RevealStagger className="flex flex-col items-start text-left mb-10">
-            <RevealItem
-              as={m.p}
-              className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
-            >
-              TESTIMONIALS
+            <RevealItem as={m.div} className="mb-5 flex items-center gap-3 md:mb-6">
+              <span className="h-px w-8 bg-accent-light/70" aria-hidden />
+              <span className="font-mono text-xs sm:text-sm tracking-wide text-accent-light">
+                Testimonials
+              </span>
             </RevealItem>
             <RevealItem
               as={m.h2}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 font-medium text-gradient w-fit"
+              className="text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl w-fit"
             >
-              Client Reviews
+              What clients say
             </RevealItem>
             <RevealItem
               as={m.p}
@@ -194,7 +194,7 @@ const Reviews = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-accent-light/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
                       <IconComponent className="text-xl sm:text-2xl mb-2 text-accent-light" />
-                      <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">
+                      <div className="text-2xl sm:text-3xl font-bold text-accent-light mb-1">
                         {stat.value}
                       </div>
                       <div className="text-[10px] sm:text-xs text-gray-light-4 dark:text-gray-light-2 uppercase tracking-wider">
@@ -494,7 +494,7 @@ const Reviews = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-accent-light/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
                       <IconComponent className="text-2xl mb-2 text-accent-light" />
-                      <div className="text-4xl font-bold text-gradient mb-1">
+                      <div className="text-4xl font-bold text-accent-light mb-1">
                         {stat.value}
                       </div>
                       <div className="text-sm text-gray-light-4 dark:text-gray-light-2 uppercase tracking-wider">

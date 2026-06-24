@@ -1,146 +1,98 @@
-import { RevealItem, RevealStagger } from '@/components/ui/Reveal';
-import { isScrollRevealDesktop } from '@/utils/scrollRevealSupport';
-import { m } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useLayoutEffect, useRef } from 'react';
+import { m, useReducedMotion } from 'framer-motion';
 
-const DIM = { opacity: 0.2, y: 20 };
+/**
+ * About — an attractive, motion-led intro.
+ *
+ * The display heading rises out of a clipping mask line-by-line (premium reveal),
+ * the kicker and bio stagger in beneath it. No legacy `.about-*` classes (those
+ * carried a transparent text-fill that made copy invisible). Respects reduced motion.
+ */
+const EASE = [0.22, 1, 0.36, 1];
+
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
+
+// Heading lines rise from behind an overflow-hidden mask.
+const rise = {
+  hidden: { y: '115%' },
+  visible: { y: 0, transition: { duration: 0.85, ease: EASE } },
+};
+
+const fade = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+};
 
 const About1 = () => {
-  const sectionRef = useRef(null);
-  const quoteRef = useRef(null);
-
-  useLayoutEffect(() => {
-    let ctx;
-
-    const run = () => {
-      if (!sectionRef.current || !quoteRef.current) return;
-
-      gsap.registerPlugin(ScrollTrigger);
-
-      if (!isScrollRevealDesktop()) {
-        const about1 = quoteRef.current.querySelector('.about-1');
-        const about2 = quoteRef.current.querySelector('.about-2');
-        const about3 = quoteRef.current.querySelector('.about-3');
-        if (about1 && about2 && about3) {
-          gsap.set([about1, about2, about3], { opacity: 1, y: 0 });
-        }
-        return;
-      }
-
-      ctx = gsap.context(() => {
-        const about1 = quoteRef.current.querySelector('.about-1');
-        const about2 = quoteRef.current.querySelector('.about-2');
-        const about3 = quoteRef.current.querySelector('.about-3');
-
-        if (about1 && about2 && about3) {
-          // Scrubbed timelines only apply tweens that have started at progress 0.
-          // Without this, about-2 / about-3 stay at full opacity until scroll updates.
-          gsap.set([about1, about2, about3], DIM);
-
-          const tl = gsap
-            .timeline({
-              defaults: { ease: 'power2.out', duration: 0.8 },
-            })
-            .fromTo(about1, { opacity: 0.2, y: 20 }, { opacity: 1, y: 0 })
-            .to(about1, {
-              opacity: 0.2,
-              y: -10,
-              duration: 0.6,
-            })
-            .fromTo(
-              about2,
-              { opacity: 0.2, y: 20 },
-              { opacity: 1, y: 0 },
-              '<0.2'
-            )
-            .to(about2, {
-              opacity: 0.2,
-              y: -10,
-              duration: 0.6,
-            })
-            .fromTo(
-              about3,
-              { opacity: 0.2, y: 20 },
-              { opacity: 1, y: 0 },
-              '<0.2'
-            );
-
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top 70%',
-            end: 'bottom 30%',
-            scrub: 1,
-            animation: tl,
-            pin: false,
-            invalidateOnRefresh: true,
-          });
-        }
-      }, sectionRef);
-
-      ScrollTrigger.refresh();
-    };
-
-    const rafId = requestAnimationFrame(run);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      ctx?.revert();
-    };
-  }, []);
+  const reduce = useReducedMotion();
+  const viewport = { once: true, margin: '-80px', amount: 0.3 };
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full relative select-none -mt-6 md:mt-0"
-    >
-      <style jsx>{`
-        .about-1-section .about-3 {
-          -webkit-text-fill-color: unset !important;
-          -webkit-background-clip: unset !important;
-          background-clip: unset !important;
-          background: none !important;
-          color: inherit !important;
-        }
-      `}</style>
-      <div className="pt-8 pb-5 md:max-lg:py-8 md:pt-10 md:pb-8 lg:py-12 section-container about-1-section">
-        <RevealStagger className="flex flex-col items-center">
-          <RevealItem
-            as={m.p}
-            className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base text-center mb-3"
+    <section className="w-full relative select-none -mt-6 md:mt-0">
+      <div className="pt-12 pb-10 md:pt-20 md:pb-16 lg:pt-24 lg:pb-20 section-container">
+        <m.div
+          initial={reduce ? false : 'hidden'}
+          whileInView={reduce ? undefined : 'visible'}
+          viewport={viewport}
+          variants={container}
+          className="max-w-[68rem] mx-auto"
+        >
+          {/* Kicker */}
+          <m.div
+            variants={fade}
+            className="mb-7 flex items-center gap-3 md:mb-9"
           >
-            ABOUT ME
-          </RevealItem>
-          <RevealItem
-            as={m.h1}
-            ref={quoteRef}
-            className="font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl text-center leading-relaxed px-2 sm:px-6 md:px-0 text-white dark:text-white"
-          >
-            <span className="about-1 leading-tight block mb-4">
-              I&apos;m a passionate{' '}
-              <span className="text-accent-light">Full Stack Developer</span>{' '}
-              and <span className="text-accent-light">AI Expert</span>{' '}
-              who&apos;s focused on building scalable and performant
-              applications.
+            <span className="h-px w-10 bg-accent-light/70" aria-hidden />
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-accent-light">
+              About
             </span>
-            <span className="about-2 leading-tight block mb-3">
-              I strive to deliver seamless user experiences by embracing modern
-              frontend practices,{' '}
-              <span className="text-accent-light">AI integration</span>, and
-              thoughtful design principles.
+          </m.div>
+
+          {/* Display heading — masked line reveal */}
+          <h2 className="font-display font-semibold tracking-tight text-white text-balance leading-[1.05] text-[2rem] sm:text-5xl lg:text-[4rem] lg:leading-[1.04]">
+            <span className="block overflow-hidden pb-[0.12em]">
+              <m.span variants={rise} className="block">
+                I build polished products
+              </m.span>
             </span>
-            <span className="about-3 leading-tight block">
-              With <span className="text-accent-light">5+ years</span> of
-              experience, I specialize in building{' '}
-              <span className="text-accent-light">React.js</span> applications,
-              integrating APIs, implementing{' '}
-              <span className="text-accent-light">Machine Learning</span>{' '}
-              solutions, and leveraging frameworks like Django, Laravel, and
-              Next.js.
+            <span className="block overflow-hidden pb-[0.12em]">
+              <m.span variants={rise} className="block">
+                that feel{' '}
+                <span className="text-accent-light">effortless</span>.
+              </m.span>
             </span>
-          </RevealItem>
-        </RevealStagger>
+          </h2>
+
+          {/* Bio */}
+          <div className="mt-8 grid gap-5 md:mt-11 md:max-w-3xl">
+            <m.p
+              variants={fade}
+              className="text-lg leading-relaxed text-gray-light-3 sm:text-xl md:text-2xl md:leading-relaxed"
+            >
+              I&apos;m a{' '}
+              <span className="font-medium text-accent-light">
+                Full&nbsp;Stack Developer
+              </span>{' '}
+              and{' '}
+              <span className="font-medium text-accent-light">AI&nbsp;Expert</span>{' '}
+              focused on scalable, performant applications — with{' '}
+              <span className="font-medium text-accent-light">5+ years</span>{' '}
+              turning ideas into shipped products.
+            </m.p>
+            <m.p
+              variants={fade}
+              className="text-base leading-relaxed text-gray-light-4 dark:text-gray-light-3 sm:text-lg md:text-xl md:leading-relaxed"
+            >
+              I work across <span className="text-accent-light">React.js</span>{' '}
+              and Next.js on the frontend, <span className="text-accent-light">API</span>{' '}
+              and <span className="text-accent-light">Machine&nbsp;Learning</span>{' '}
+              integration on the backend, with Django and Laravel — and I sweat
+              the design details that make software feel right.
+            </m.p>
+          </div>
+        </m.div>
       </div>
     </section>
   );

@@ -40,9 +40,7 @@ const Menu = () => {
           <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-5 py-8 sm:px-8 md:items-start md:p-8 overflow-y-auto">
             {/* Menu Links */}
             <section className="w-full max-w-md mx-auto md:max-w-5xl md:mx-0">
-              {MENULINKS.filter(el =>
-                ['Home', 'Projects', 'Work', 'Blogs'].includes(el.name)
-              ).map(el => (
+              {MENULINKS.map(el => (
                 <MenuLink
                   key={el.name}
                   heading={el.name}
@@ -95,7 +93,11 @@ const MenuLink = ({ heading, imgSrc, subheading, href }) => {
       onMouseMove={handleMouseMove}
       initial="initial"
       whileHover="whileHover"
-      className="group relative flex items-center justify-center border-b border-neutral-600/80 py-5 transition-colors duration-500 hover:border-neutral-50 dark:border-neutral-700 dark:hover:border-neutral-50 md:justify-between md:gap-0 md:border-b-2 md:py-8"
+      className="group relative flex items-center justify-center border-b border-neutral-600/80 transition-colors duration-500 hover:border-neutral-50 dark:border-neutral-700 dark:hover:border-neutral-50 md:justify-between md:gap-0 md:border-b-2"
+      style={{
+        paddingTop: 'clamp(0.5rem, 2vh, 1.25rem)',
+        paddingBottom: 'clamp(0.5rem, 2vh, 1.25rem)',
+      }}
     >
       <div className="min-w-0 w-full text-center md:w-auto md:max-w-none md:text-start">
         <motion.span
@@ -108,8 +110,9 @@ const MenuLink = ({ heading, imgSrc, subheading, href }) => {
             staggerChildren: 0.075,
             delayChildren: 0.25,
           }}
-          className="relative z-10 block text-3xl font-bold leading-tight text-neutral-50 dark:text-neutral-50 transition-colors duration-500 group-hover:text-neutral-50 sm:text-4xl md:text-6xl md:text-neutral-500 dark:md:text-neutral-500"
+          className="relative z-10 block font-bold leading-none text-neutral-50 dark:text-neutral-50 transition-colors duration-500 group-hover:text-neutral-50 md:text-neutral-500 dark:md:text-neutral-500"
           style={{
+            fontSize: 'clamp(1.875rem, 6.5vh, 3.75rem)',
             fontFamily:
               'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
           }}

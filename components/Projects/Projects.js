@@ -191,17 +191,17 @@ const Projects = memo(
             className="flex flex-col inner-container transform-gpu items-start text-left"
             ref={sectionTitleRef}
           >
-            <RevealItem
-              as={m.p}
-              className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base lg:text-base"
-            >
-              PROJECTS
+            <RevealItem as={m.div} className="mb-5 flex items-center gap-3 md:mb-6">
+              <span className="h-px w-8 bg-accent-light/70" aria-hidden />
+              <span className="font-mono text-xs sm:text-sm tracking-wide text-accent-light">
+                Projects
+              </span>
             </RevealItem>
             <RevealItem
-              as={m.h1}
-              className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-6xl mt-2 font-medium text-gradient w-fit"
+              as={m.h2}
+              className="text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl 2xl:text-6xl w-fit"
             >
-              My Projects
+              Selected work
             </RevealItem>
             <RevealItem
               as={m.h2}

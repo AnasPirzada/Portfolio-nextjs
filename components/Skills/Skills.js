@@ -183,40 +183,32 @@ const Skills = memo(() => {
         <div className="absolute bottom-20 left-[-4rem] h-64 w-64 rounded-full bg-accent-dark/[0.06] blur-[80px]" />
       </div>
       <div className="section-container relative z-10 py-10 md:py-20">
-        <img
-          src="/right-pattern.svg"
-          alt=""
-          className="absolute right-0 bottom-2/4 hidden w-2/12 max-w-xs opacity-80 md:block md:opacity-100"
-          loading="lazy"
-          height={700}
-          width={320}
-        />
         <RevealStagger className="flex flex-col items-start text-left">
-          <RevealItem
-            as={m.p}
-            className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
-          >
-            SKILLS
-          </RevealItem>
-          <RevealItem
-            as={m.h1}
-            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-6xl mt-2 font-medium text-gradient w-fit"
-          >
-            My Skills
+          <RevealItem as={m.div} className="mb-5 flex items-center gap-3 md:mb-6">
+            <span className="h-px w-8 bg-accent-light/70" aria-hidden />
+            <span className="font-mono text-xs sm:text-sm tracking-wide text-accent-light">
+              Skills
+            </span>
           </RevealItem>
           <RevealItem
             as={m.h2}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2"
+            className="text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl 2xl:text-6xl"
           >
-            I like to take responsibility to craft aesthetic user experience
-            using modern frontend architecture.{' '}
+            The stack I build with
+          </RevealItem>
+          <RevealItem
+            as={m.p}
+            className="mt-4 max-w-xl text-base leading-relaxed text-gray-light-3 sm:text-lg lg:text-xl"
+          >
+            I take ownership of the craft — shipping aesthetic, performant user
+            experiences on a modern frontend architecture.
           </RevealItem>
         </RevealStagger>
         <RevealStagger className="flex flex-col skills-wrapper">
           <div className="mt-8 sm:mt-10">
             <RevealItem
               as={m.h3}
-              className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4"
+              className="font-mono uppercase tracking-[0.18em] text-gray-light-2 text-xs sm:text-sm mb-4 sm:mb-5"
             >
               LANGUAGES AND TOOLS
             </RevealItem>
@@ -235,7 +227,7 @@ const Skills = memo(() => {
           <div className="mt-8 sm:mt-10">
             <RevealItem
               as={m.h3}
-              className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4"
+              className="font-mono uppercase tracking-[0.18em] text-gray-light-2 text-xs sm:text-sm mb-4 sm:mb-5"
             >
               LIBRARIES AND FRAMEWORKS
             </RevealItem>
@@ -253,7 +245,7 @@ const Skills = memo(() => {
           </div>
           <div className="flex flex-col sm:flex-row flex-wrap mt-8 sm:mt-10">
             <RevealItem className="mb-6 sm:mb-0 sm:mr-16 xs:sm:mr-20">
-              <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4">
+              <h3 className="font-mono uppercase tracking-[0.18em] text-gray-light-2 text-xs sm:text-sm mb-4 sm:mb-5">
                 DATABASES
               </h3>
               <div className="flex flex-wrap gap-4 sm:gap-6 transform-gpu">
@@ -269,7 +261,7 @@ const Skills = memo(() => {
               </div>
             </RevealItem>
             <RevealItem>
-              <h3 className="uppercase tracking-widest text-gray-light-2 font-medium text-base sm:text-lg mb-3 sm:mb-4">
+              <h3 className="font-mono uppercase tracking-[0.18em] text-gray-light-2 text-xs sm:text-sm mb-4 sm:mb-5">
                 Other
               </h3>
               <div className="flex flex-wrap gap-4 sm:gap-6 transform-gpu">

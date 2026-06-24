@@ -64,7 +64,8 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ['var(--font-calibre)'],
+      sans: ['Hanken Grotesk', 'var(--font-calibre)', 'system-ui', 'sans-serif'],
+      display: ['Bricolage Grotesque', 'Hanken Grotesk', 'system-ui', 'sans-serif'],
       mono: ['var(--font-jetbrains-mono)'],
       arabic: ["'Noto Sans Arabic'", 'Segoe UI', 'Tahoma', 'sans-serif'],
     },

@@ -153,26 +153,18 @@ const Work = () => {
 
   return (
     <section id={MENULINKS[3].ref} className="w-full relative select-none z-10">
-      <img
-        src="/left-pattern.svg"
-        className="absolute hidden left-0 -top-1/4 w-1/12 max-w-xs md:block -z-10"
-        loading="lazy"
-        height={700}
-        width={320}
-        alt=""
-      />
       <div className="section-container pt-6 md:pt-10 pb-10 md:pb-20 flex flex-col justify-center">
         <div className="flex flex-col work-wrapper">
           <RevealStagger className="flex flex-col">
-            <RevealItem
-              as={m.p}
-              className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
-            >
-              WORK
+            <RevealItem as={m.div} className="mb-5 flex items-center gap-3 md:mb-6">
+              <span className="h-px w-8 bg-accent-light/70" aria-hidden />
+              <span className="font-mono text-xs sm:text-sm tracking-wide text-accent-light">
+                Work
+              </span>
             </RevealItem>
             <RevealItem
               as={m.h2}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 font-medium text-gradient w-fit"
+              className="text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl w-fit"
             >
               Experience
             </RevealItem>

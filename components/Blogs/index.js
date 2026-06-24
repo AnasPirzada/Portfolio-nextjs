@@ -123,17 +123,17 @@ const Blogs = ({ clientHeight }) => {
       <div className="section-container py-10 md:py-20 flex flex-col justify-center">
         <div className="flex flex-col">
           <RevealStagger className="text-left mb-6">
-            <RevealItem
-              as={m.p}
-              className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
-            >
-              BLOGS
+            <RevealItem as={m.div} className="mb-5 flex items-center gap-3 md:mb-6">
+              <span className="h-px w-8 bg-accent-light/70" aria-hidden />
+              <span className="font-mono text-xs sm:text-sm tracking-wide text-accent-light">
+                Writing
+              </span>
             </RevealItem>
             <RevealItem
               as={m.h2}
-              className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-6xl mt-2 font-medium text-gradient w-fit"
+              className="text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl 2xl:text-6xl w-fit"
             >
-              Latest Writing
+              Latest writing
             </RevealItem>
           </RevealStagger>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

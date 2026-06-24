@@ -6,16 +6,30 @@
    GLOBAL FONT STYLES
    ======================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* Type system: Bricolage Grotesque (characterful display face) for headings,
+   Hanken Grotesk (clean, premium) for body. A distinctive, attractive pairing
+   that fits the warm-editorial brand without the overused defaults. */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@300..700&display=swap');
 
 html,
 body {
   font-family:
-    'Poppins',
-    system-ui,
+    'Hanken Grotesk',
+    var(--font-calibre, system-ui),
     -apple-system,
     BlinkMacSystemFont,
     'Segoe UI',
+    sans-serif;
+}
+
+/* Headings render in the display face. Tailwind size/weight/color utilities
+   still apply — this only sets the family. */
+h1,
+h2 {
+  font-family:
+    'Bricolage Grotesque',
+    'Hanken Grotesk',
+    var(--font-calibre, system-ui),
     sans-serif;
 }
 

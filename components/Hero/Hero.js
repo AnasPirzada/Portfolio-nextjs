@@ -148,14 +148,15 @@ const Hero = () => {
     >
       {/* Large-screen ambient layers (dark mode only — avoids warm gold wash in light mode) */}
       <div className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:dark:block">
-        <m.div
+        {/* Static blurred glows. Parallaxing a 100px-blur element forces the GPU
+            to re-rasterize a huge area every frame and is a major scroll-stutter
+            source — the glow reads identically without the per-frame movement. */}
+        <div
           aria-hidden
-          style={{ y: blobParallax }}
           className="absolute -left-24 -top-40 h-[min(28rem,50vw)] w-[min(28rem,50vw)] rounded-full bg-accent-light/[0.14] blur-[100px]"
         />
-        <m.div
+        <div
           aria-hidden
-          style={{ y: blobParallax }}
           className="absolute -right-20 top-1/4 h-[min(24rem,45vw)] w-[min(24rem,45vw)] rounded-full bg-accent-dark/[0.11] blur-[88px]"
         />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_55%_at_72%_58%,rgba(239,192,65,0.07),transparent_65%)]" />

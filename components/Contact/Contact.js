@@ -347,24 +347,25 @@ const Contact = () => {
       <div className="section-container flex flex-col justify-center">
         <RevealStagger className="flex flex-col contact-wrapper">
           <div className="flex flex-col">
-            <RevealItem
-              as={m.p}
-              className="uppercase tracking-widest text-gray-light-1 text-xs sm:text-sm md:text-base"
-            >
-              CONTACT
+            <RevealItem as={m.div} className="mb-5 flex items-center gap-3 md:mb-6">
+              <span className="h-px w-8 bg-accent-light/70" aria-hidden />
+              <span className="font-mono text-xs sm:text-sm tracking-wide text-accent-light">
+                Contact
+              </span>
             </RevealItem>
             <RevealItem
-              as={m.h1}
-              className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl 2xl:text-6xl mt-2 font-medium text-gradient w-fit"
+              as={m.h2}
+              className="text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl 2xl:text-6xl w-fit"
             >
-              Contact
+              Let&apos;s work together
             </RevealItem>
           </div>
           <RevealItem
-            as={m.h2}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium md:max-w-lg w-full mt-2"
+            as={m.p}
+            className="mt-4 max-w-xl text-base leading-relaxed text-gray-light-3 sm:text-lg lg:text-xl"
           >
-            Get In Touch.{' '}
+            Have a project in mind? Tell me about it — I usually reply within a
+            day.
           </RevealItem>
         </RevealStagger>
 
